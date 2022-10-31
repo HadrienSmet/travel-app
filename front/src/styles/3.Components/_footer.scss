@@ -1,0 +1,54 @@
+.footer {
+    background-color: $clr-3;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    color: $secondary-color;
+    font-size: 12px;
+    padding: 15px 30px 10px 20px;
+    &__logo {
+        display: flex;
+        svg {
+            font-size: 25px;
+        }
+        h2 {
+            font-family: "title-fonts";
+            font-size: 12px;
+        }
+    }
+    &__link-container {
+        width: 45%;
+        display: flex;
+        justify-content: space-around;
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            li {
+                cursor: pointer;
+                position: relative;
+                transition: 0.3s ease-in-out;
+                &:hover {
+                    transform: translateX(5px);
+                    letter-spacing: 1px;
+                    &::before {
+                        transform: scaleY(1);
+                    }
+                }
+                &::before {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: -10px;
+                    height: 100%;
+                    width: 2px;
+                    background-color: $secondary-color;
+                    transform: scaleY(0);
+                    transition: 0.2s 0.1s ease-in-out;
+                }
+            }
+        }
+    }
+    
+}

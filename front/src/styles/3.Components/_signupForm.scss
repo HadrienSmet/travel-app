@@ -1,0 +1,168 @@
+.start-form {
+    min-width: 40%;
+    overflow: hidden;
+    form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        
+        > div {
+            position: relative;
+            transform: translateX(110%);
+            animation: startFormAnim 0.8s ease-in-out forwards;
+            .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+                width: 100%;
+            }
+            fieldset {
+                width: calc(100% - 18px);
+            }
+        }
+        @for $i from 2 to 5 {
+            $delay: $i * 0.2s;
+            > div:nth-child(#{$i}) {
+                animation-delay: $delay;
+            }
+        }
+        h3 {
+            position: relative;
+            left: 26px;
+            transform: translateX(100%);
+            animation: startFormAnim 0.8s 0.2s ease-in-out forwards;
+            text-transform: uppercase;
+            color: darken($primary-color, 15);
+        }
+        button {
+            margin-top: 5px;
+            transform: translateX(100%);
+            animation: startFormAnim 0.8s 1s ease-in-out forwards;
+        }
+        .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root,
+        label,
+        fieldset,
+        button {
+            border-color: rgba(39, 158, 150, 0.827);
+            color: rgba(39, 158, 150, 0.827);
+            &:hover {
+                border-color: darken($primary-color, 15);
+                color: darken($primary-color, 15);
+            }
+        }
+    }
+}
+.signup-form {
+    &__email-division {
+        width: calc(100% - 28px);
+        left: 26px;
+        &__icons-container {
+            position: absolute;
+            left: -18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        &__check-icon {
+            color: $primary-color;
+        }
+        &__times-icon {
+            color: $tertiary-color;
+        }
+        span {
+            color: $tertiary-color;
+            font-size: 12px;
+        }
+    }
+    &__pseudo-division {
+        width: calc(100% - 28px);
+        left: 26px;
+        &__icons-container {
+            position: absolute;
+            left: -18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        &__check-icon {
+            color: $primary-color;
+        }
+        &__times-icon {
+            color: $tertiary-color;
+        }
+        span {
+            color: $tertiary-color;
+            font-size: 12px;
+        }
+    }
+    &__password-division {
+        width: calc(100% - 28px);
+        left: 26px;
+        &__icons-container {
+            position: absolute;
+            left: -18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        &__check-icon {
+            color: $primary-color;
+        }
+        &__times-icon {
+            color: $tertiary-color;
+        }
+        span {
+            color: $tertiary-color;
+            font-size: 12px;
+        }
+    }
+    button {
+        width: calc(100% - 26px);
+        left: 26px;
+    }
+}
+.signup-icon {
+    position: absolute;
+    top: 20px;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+}
+#password__progress-bar {
+    position: relative;
+    height: 11px;
+    width: 90%;
+    border: 1px solid $primary-color;  
+    border-radius: 11px;
+    left: 5%;
+    overflow: hidden;
+    transform: translateY(10px);
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+        background-color: $tertiary-color;
+        transform: translateX(-100%);
+        transition: 0.4s ease-in-out;
+    }
+}
+#password__progress-bar.progressRed::after {
+    transform: translateX(-66%);
+}
+#password__progress-bar.progressBlue::after {
+    transform: translateX(-33%);
+    background-color: lighten($tertiary-color, 10);
+}
+#password__progress-bar.progressGreen::after {
+    transform: translateX(0%);
+    background-color: $primary-color;
+}
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: darken($primary-color, 15) !important;
+}
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover + label {
+    color: darken($primary-color, 15);
+}

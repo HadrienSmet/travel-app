@@ -1,0 +1,12 @@
+.header {
+    z-index: 5;
+    position: absolute;
+    padding: 20px;
+    width: calc(100% - 40px);
+    background-color: $primary-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(-100%);
+    animation: headerAnim 0.4s ease-in-out forwards;
+}
