@@ -1,0 +1,119 @@
+.extra-data-form {
+    position: relative;
+    height: 100%;
+    width: 90%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    &__fields-displayer {
+        height: 75%;
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        &__left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 45%;
+        }
+    }
+    &__trips-area {
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        // width: 100%;
+        button {
+            width: 100%;
+            border: 1px solid rgba(0, 0, 0, 1);
+            color: $secondary-color;
+            background-color: rgba(0, 0, 0, 0.43);
+            &:hover {
+                border: 1px solid rgba(0, 0, 0, 1);
+                color: $secondary-color;
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+            svg {
+                margin-left: 10px;
+            }
+        }
+    }
+    &__trips-displayer {
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        height: calc(100% - 46.5px);
+        p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    &__text-area {
+        max-height: calc(100% - 187px);
+        // overflow-y: auto;
+    }
+    h4 {
+
+    }
+    &__input-destination {
+        height: 36.5px;
+        position: relative;
+        
+        > div {
+            width: 100%;
+            margin: 0;
+            height: 100%;
+            label {
+                transform: translate(14px, 6px) scale(1);
+            }
+            > div {
+                height: 100%;
+            }
+        }
+    } 
+    ul#countries-list {
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.23);
+        border-radius: 4px;
+        height: calc(100% - 175.5px);
+        li {
+            position: relative;
+            margin-left: 15px;
+            opacity: 0;
+            animation: liAnim 0.3s 0.3s ease-in-out forwards;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 9px;
+                left: -12px;
+                height: 1px;
+                width: 7px;
+                background-color: $clr-2;
+                transform: scaleX(0);
+                animation: liBeforeAnim 0.4s ease-in-out forwards;
+            }
+        }
+        p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+}
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+    max-height: 100%;
+    // overflow: auto;
+    textarea {
+        height: 100% !important;
+    }
+}
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+    transform: translate(14px, -9px) scale(0.75) !important;
+}

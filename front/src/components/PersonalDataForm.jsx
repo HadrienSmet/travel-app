@@ -1,20 +1,21 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from '@mui/material'
 import { FaUser } from "react-icons/fa";
 import axios from 'axios';
 import InputAge from "./InputAge";
 import InputGender from "./InputGender";
 import InputCountry from "./InputCountry";
-// import { setSignupPersonalData } from "../features/signupPersonalData.slice";
+import { setJwtToken } from "../utils/functions/tools";
+import { setUserData } from "../features/userData.slice";
 
-const PersonalDataForm = () => {
+const PersonalDataForm = ({ changeStepState }) => {
     const [profilePicture, setProfilePicture] = useState("");
     const [profilePictureUrl, setProfilePictureUrl] = useState("");
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
     const [country, setCountry] = useState("");
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const userData = useSelector((state) => state.newSignupData.signupData);
 
     const handleProfilePicture = (e) => {
@@ -57,6 +58,7 @@ const PersonalDataForm = () => {
                 }
             })
             .then((res) => {
+                setJwtToken(res.data);
                 console.log(res.data);
                 axios.patch("http://localhost:3000/api/auth/profilePicture/" + res.data.userId, fileData, {
                     headers: {
@@ -64,6 +66,11 @@ const PersonalDataForm = () => {
                         "authorization": `bearer ${res.data.token}`
                     }
                 })
+                .then((res) => {
+                    dispatch(setUserData(res.data))
+                    changeStepState("almost-done");
+                })
+                .catch();
                 console.log(res.data);
             })
         } 
@@ -95,7 +102,7 @@ const PersonalDataForm = () => {
                 <div className="personal-data-form__inputs-container">
                     <InputAge className="personal-data-form__input" changeAge={changeAge} />
                     <InputGender className="personal-data-form__input" changeGender={changeGender} />
-                    <InputCountry className="personal-data-form__input" changeCountry={changeCountry} />
+                    <InputCountry dynamicClass={"personal-data-form__input"} dynamicPlaceholder={"Pays"} changeCountry={changeCountry} />
                 </div>
             </div>
             <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Confirmer</Button>

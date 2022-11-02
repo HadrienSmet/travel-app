@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import countryList from 'react-select-country-list';
 
-const CountrySelector = ({ changeCountry }) => {
+const CountrySelector = ({ dynamicClass, dynamicPlaceholder, changeCountry }) => {
   const [value, setValue] = useState('')
   const options = useMemo(() => countryList().getData(), [])
 
@@ -15,15 +15,15 @@ const CountrySelector = ({ changeCountry }) => {
   }
 
   return (
-    <div className='personal-data-form__input'>
+    <div className={dynamicClass}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">Pays</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label">{dynamicPlaceholder}</InputLabel>
         <Select
           options={options}
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           value={value}
-          label="Pays"
+          label={dynamicPlaceholder}
           onChange={changeHandler}
         >
           {options.map((option) => (<MenuItem key={option.label} value={option.label}>{option.label}</MenuItem>))}

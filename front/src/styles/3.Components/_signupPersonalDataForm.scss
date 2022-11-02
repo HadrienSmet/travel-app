@@ -23,18 +23,20 @@
     &__picture-area {
         background-color: rgba(51, 50, 50, 0.522);
         border-radius: 10px;
-        width: 40%;
+        width: 35%;
         height: 100%;
         display: flex; 
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        gap: 25px;
         button {
             border: 1px solid rgba(246, 248, 234, 0.7);
             color: rgba(246, 248, 234, 0.7);
         }
     }
     &__picture-container {
-        height: 60%;
+        // height: 60%;
         width: 200px;
         display: flex;
         align-items: center;
@@ -45,26 +47,26 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        height: 110px;
-        width: 110px;
+        height: 180px;
+        width: 180px;
     }
     &__profile-picture-container {
-        height: 90px;
-        width: 90px;
+        height: 150px;
+        width: 150px;
         position: relative;
         overflow: hidden;
         border-radius: 50%;
     }
     &__icon-background {
-        height: 90px;
-        width: 90px;
+        height: 150px;
+        width: 150px;
         background-color: $secondary-color;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         svg {
-            font-size: 55px;
+            font-size: 90px;
             color: $primary-color;
         }
     }

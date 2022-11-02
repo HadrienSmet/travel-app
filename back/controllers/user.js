@@ -87,7 +87,9 @@ exports.login = (req, res, next) => {
             UserModel.updateOne({ _id: req.params.id }, { ...updateData })
             .then(() => {
                 res.status(200).json({
-                    updateData,
+                    pseudo: user.pseudo,
+                    profilePicture: user.profilePicture,
+                    country: user.country,
                     userId: user._id,
                     token: jwt.sign(
                         { userId: user._id },
