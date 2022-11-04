@@ -43,7 +43,7 @@
     }
     &__trips-displayer {
         position: relative;
-        border: 1px solid rgba(0, 0, 0, 0.23);
+        border: 1px solid rgba(0, 0, 0, 0.43);
         border-radius: 4px;
         height: calc(100% - 46.5px);
         p {
@@ -53,13 +53,19 @@
             transform: translate(-50%, -50%);
         }
     }
+    &__previous-trip-album {
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    }
     &__text-area {
         max-height: calc(100% - 187px);
-        // overflow-y: auto;
+        fieldset {
+            border-color: rgba(0, 0, 0, 0.43) !important;
+        }  
     }
-    h4 {
 
-    }
     &__input-destination {
         height: 36.5px;
         position: relative;
@@ -75,27 +81,48 @@
                 height: 100%;
             }
         }
+        fieldset {
+            border: 1px solid rgba(0, 0, 0, 0.43);
+        }
     } 
     ul#countries-list {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
         position: relative;
-        border: 1px solid rgba(0, 0, 0, 0.23);
+        border: 1px solid rgba(0, 0, 0, 0.43);
         border-radius: 4px;
         height: calc(100% - 175.5px);
         li {
+            padding: 2px;
             position: relative;
-            margin-left: 15px;
+            margin-left: 35px;
             opacity: 0;
             animation: liAnim 0.3s 0.3s ease-in-out forwards;
             &::before {
+                content: "\2715";
+                position: absolute;
+                display: block;
+                top: 1px;
+                right: 27px;
+                // height: 1px;
+                // width: 7px;
+                color: $tertiary-color;
+                // transform: translateY(-50%);
+                animation: liBeforeAnim 0.4s ease-in-out forwards;
+            }
+            &::after {
                 content: "";
                 position: absolute;
-                top: 9px;
-                left: -12px;
-                height: 1px;
-                width: 7px;
-                background-color: $clr-2;
-                transform: scaleX(0);
-                animation: liBeforeAnim 0.4s ease-in-out forwards;
+                left: -20px;
+                top: 0;
+                // width: calc(100% - 15px);
+                width: 100%;
+                height: 100%;
+                border: 1px solid rgba(0, 0, 0, 0.43);
+                border-radius: 20px;
             }
         }
         p {

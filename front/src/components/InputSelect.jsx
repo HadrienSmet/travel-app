@@ -4,35 +4,31 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const InputAge = ({ changeAge }) => {
-  const [age, setAge] = useState('');
-  const numbers = [];
-  for (let i = 16; i < 100; i++) {
-    numbers.push(i);
-  }
+const InputSelect = ({ dynamicClass, dynamicPlaceholder, choices, changeChoice }) => {
+  const [choice, setChoice] = useState('');
 
   const handleChange = (e) => {
-    setAge(e.target.value);
-    changeAge(e.target.value);
+    setChoice(e.target.value);
+    changeChoice(e.target.value);
     ;
   };
 
   return (
-    <div className='personal-data-form__input'>
+    <div className={dynamicClass}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label">{dynamicPlaceholder}</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={age}
-          label="Age"
+          value={choice}
+          label={dynamicPlaceholder}
           onChange={(e) => handleChange(e)}
         >
-          {numbers.map((number) => (<MenuItem key={number} value={number}>{number}</MenuItem>))}
+          {choices.map((choice) => (<MenuItem key={choice} value={choice}>{choice}</MenuItem>))}
         </Select>
       </FormControl>
     </div>
   );
 }
 
-export default InputAge;
+export default InputSelect;

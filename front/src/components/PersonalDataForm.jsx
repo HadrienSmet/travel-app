@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from '@mui/material'
 import { FaUser } from "react-icons/fa";
 import axios from 'axios';
-import InputAge from "./InputAge";
-import InputGender from "./InputGender";
 import InputCountry from "./InputCountry";
 import { setJwtToken } from "../utils/functions/tools";
 import { setUserData } from "../features/userData.slice";
+import InputNumbers from "./InputNumbers";
+import InputSelect from "./InputSelect";
 
 const PersonalDataForm = ({ changeStepState }) => {
     const [profilePicture, setProfilePicture] = useState("");
@@ -18,16 +18,18 @@ const PersonalDataForm = ({ changeStepState }) => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.newSignupData.signupData);
 
+    const genders = ["Homme", "Femme", "Transexuel", "Non-binaire"];
+
     const handleProfilePicture = (e) => {
         setProfilePictureUrl(URL.createObjectURL(e.target.files[0]));
         setProfilePicture(e.target.files[0]);
     }
 
-    const changeAge = (age) => {
+    const changeNumber = (age) => {
         setAge(age);
     }
 
-    const changeGender = (gender) => {
+    const changeChoice = (gender) => {
         setGender(gender);
     }
 
@@ -100,12 +102,24 @@ const PersonalDataForm = ({ changeStepState }) => {
                     <input type="file" name="profilePicture" id="signup-file" onChange={(e) => handleProfilePicture(e)} />
                 </div>
                 <div className="personal-data-form__inputs-container">
-                    <InputAge className="personal-data-form__input" changeAge={changeAge} />
-                    <InputGender className="personal-data-form__input" changeGender={changeGender} />
+                    <InputNumbers 
+                        minNumber={16}
+                        maxNumber={100}
+                        dynamicClass="personal-data-form__input"
+                        dynamicPlaceholder="Age"
+                        changeNumber={changeNumber}
+                    />
+                    <InputSelect 
+                        dynamicClass="personal-data-form__input"
+                        dynamicPlaceholder="Genre"
+                        choices={genders}
+                        changeChoice={changeChoice}
+                    />
+                    {/* <InputGender className="personal-data-form__input" changeGender={changeGender} /> */}
                     <InputCountry dynamicClass={"personal-data-form__input"} dynamicPlaceholder={"Pays"} changeCountry={changeCountry} />
                 </div>
             </div>
-            <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Confirmer</Button>
+            <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Continuer</Button>
         </form>
     );
 };

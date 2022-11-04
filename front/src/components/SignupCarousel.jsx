@@ -11,7 +11,7 @@ import carouselImg6 from '../assets/images/signup-carousel-bg6.jpeg';
 
 const SignupCarousel = () => {
         return (
-            <Carousel autoPlay={false} swipeable={true} interval={15000}>
+            <Carousel autoPlay={true} swipeable={true} interval={15000}>
                 <div>
                     <img src={carouselImg1} alt="Paysage Asiatique"/>
                     <p className="legend">Legend 1</p>
