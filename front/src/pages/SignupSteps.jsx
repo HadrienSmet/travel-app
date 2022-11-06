@@ -9,7 +9,7 @@ import { useParallax } from 'react-scroll-parallax';
 const SignupSteps = () => {
     const [stepState, setStepState] = useState("just-started");
     const [profilePicture, setProfilePicture] = useState(undefined);
-    const [userData, setUserData] = useState(undefined);
+    const [userPersonals, setUserPersonals] = useState(undefined);
     const parallax = useParallax({
         speed: -10,
     })
@@ -40,8 +40,8 @@ const SignupSteps = () => {
         setProfilePicture(file);
     }
 
-    const changeUserData = (data) => {
-        setUserData(data);
+    const changeUserPersonals = (data) => {
+        setUserPersonals(data);
     }
 
     return (
@@ -79,13 +79,13 @@ const SignupSteps = () => {
                         <PersonalDataForm 
                             changeStepState={changeStepState} 
                             changeProfilePicture={changeProfilePicture} 
-                            changeUserData={changeUserData} 
+                            changeUserPersonals={changeUserPersonals} 
                         />
                     }
                     {stepState === "almost-done" && 
                         <ExtraDataForm 
                             profilePicture={profilePicture}
-                            userData={userData}
+                            userPersonals={userPersonals}
                         /> 
                     }
                 </div>

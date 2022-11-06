@@ -16,10 +16,7 @@ console.log("next log is mddlware.mdp l:16 invalid mdp:");
 console.log(passwordSchema.validate('invalidPASS', { details: true }));
 
 module.exports = (req, res, next) => {
-    // const userObject = JSON.stringify(req.body);
-    // let { password } = JSON.parse(userObject)
-    const password = req.body.password
-    // console.log("mddlwr.mdp l:19 req.body: " + userObject);
+    const password = req.body.userAuth.password;
     console.log("mddlwr.mdp l:19 password: " + password);
     if (passwordSchema.validate(password)) {
         next();

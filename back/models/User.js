@@ -16,10 +16,10 @@ const albumSchema = mongoose.Schema({
 })
 
 const previousTripSchema = mongoose.Schema({
-    country: { type: String, required: false },
+    destination: { type: String, required: false },
     year: { type: Number, required: false },
     duration: { type: String, required: false },
-    choice: { type: String, required: false },
+    withWho: { type: String, required: false },
     details: { type: String, required: false },
     albums: [albumSchema],
 })
@@ -35,10 +35,10 @@ const userDataSchema = mongoose.Schema({
     age: { type: String, required: true },
     gender: { type: String, required: true },
     country: { type: String, required: true },
-    profilePicture: { type: String, required: false },
 })
 
 const userProfileSchema = mongoose.Schema({
+    profilePicture: { type: String, required: false },
     pseudo: { type: String, required: true, unique: true },
     description: { type: String, required: true },
     dreamTrips: { type: [String], default: undefined, required: true },

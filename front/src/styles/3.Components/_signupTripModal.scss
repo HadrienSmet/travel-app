@@ -189,12 +189,13 @@
             width: calc(100% + 3px);
             column-gap: calc((85% * 0.08) + 10px);
             row-gap: 0px !important;
-            // height: calc(100% - 200px);
             max-height: 100%;
+            z-index: -1;
             img {
                 margin-bottom: calc((25% - 120px) / 3 + 1.5px);
                 width: calc(28% - 1px);
                 height: 120px;
+                z-index: 2;
             }
         }
     }
@@ -207,6 +208,7 @@
         justify-content: center;
         transition: 0.3s ease-in;
         cursor: pointer;
+        // z-index: 3;
         &:hover {
             background-color: transparent;
             > .child-modal__camera-icon {
@@ -225,7 +227,7 @@
             position: absolute;
             font-size: 60px;
             color: rgba(246, 248, 234, 0.5);
-            
+            z-index: -2;
         }
     }
     &__plus-icon {

@@ -23,7 +23,7 @@ const style = {
     pb: 3,
 };
 
-function ChildModal({ country, year, changeAlbumsArray }) {
+function ChildModal({ destination, year, changeAlbumsArray }) {
     const [open, setOpen] = useState(false);
     const [albumPicture, setAlbumPicture] = useState(undefined);
     const [albumPictureUrl, setAlbumPictureUrl] = useState(undefined);
@@ -45,7 +45,7 @@ function ChildModal({ country, year, changeAlbumsArray }) {
     //And it also changes the state of the component in purpose to close the child modal.
     const handleClose = () => {
         let album = {
-            name: `album ${country} ${year}`,
+            name: `album ${destination} ${year}`,
             urls: albumPictureUrl
         }
         setOpen(false);
@@ -91,7 +91,7 @@ function ChildModal({ country, year, changeAlbumsArray }) {
             >
                 <Box sx={{ ...style, width: 200 }} className="child-modal">
                     <div className="child-modal__header">
-                        <h3 id="child-modal-title">Album {country} {year}</h3>
+                        <h3 id="child-modal-title">Album {destination} {year}</h3>
                         <BsXLg onClick={() => setOpen(false)} />
                     </div>
                     <div className="child-modal__same-row">    
@@ -125,7 +125,7 @@ function ChildModal({ country, year, changeAlbumsArray }) {
 
 export default function NestedModal({ changeAlbumsArray, changeTrips }) {
     const [open, setOpen] = useState(false);
-    const [country, setCountry] = useState("");
+    const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState("");
     const [year, setYear] = useState("");
     const [choice, setChoice] = useState("");
@@ -171,7 +171,7 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
     //This function is only here to allow the child component InputCountry to change the state of this component
     //@Params { Type: String } --> The value of the input
     const changeCountry = (country) => {
-        setCountry(country);
+        setDestination(country);
     }
 
     //This function is only here to allow the child component InputSelect thats represents the duration of the trip to change the state of this component
@@ -201,9 +201,9 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
     //This functions handle the submission of the data provided by the two modals
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
-        console.log(country, duration, year, details);
+        console.log(destination, duration, year, details);
         let trip = {
-            country,
+            destination,
             year,
             duration,
             choice,
@@ -281,7 +281,7 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
                         </div>
                     </div>
                     <div className="trip-modal__buttons-row">
-                        <ChildModal country={country} year={year} changeAlbumsArray={changeAlbumsArray} />
+                        <ChildModal destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
                         <Button variant="outlined" onClick={handleClose}>Confirmer</Button>
                     </div>
                     

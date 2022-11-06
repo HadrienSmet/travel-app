@@ -66,10 +66,26 @@
             }
         }
     }
-    &__pseudo-division div {
+    &__pseudo-division {
+        position: relative;
+        div {
+            width: 100%;
+            fieldset {
+                border-color: rgba(0, 0, 0, 0.43) !important;
+            }
+        }
+        svg {
+            left: -30px;
+        }
+    }
+    &__description-division {
         width: 100%;
-        fieldset {
-            border-color: rgba(0, 0, 0, 0.43) !important;
+        position: relative;
+        div {
+            width: 100%;
+        }
+        svg {
+            left: -30px;
         }
     }
     &__text-area {
@@ -78,11 +94,19 @@
             border-color: rgba(0, 0, 0, 0.43) !important;
         }  
     }
-
+    &__dream-trips-division {
+        height: calc(100% - 175.5px);
+        position: relative;
+        &__icons-container {
+            svg {
+                left: -30px;
+            }
+        }
+        
+    }
     &__input-destination {
         height: 36.5px;
         position: relative;
-        
         > div {
             width: 100%;
             margin: 0;
@@ -99,6 +123,7 @@
         }
     } 
     ul#countries-list {
+        margin-top: 10px;
         padding-top: 20px;
         display: flex;
         flex-direction: column;
@@ -107,7 +132,7 @@
         position: relative;
         border: 1px solid rgba(0, 0, 0, 0.43);
         border-radius: 4px;
-        height: calc(100% - 175.5px);
+        height: calc(100% - 66.5px);
         li {
             padding: 2px;
             position: relative;
@@ -142,6 +167,12 @@
         }
     }
     
+}
+.last-step-icon {
+    position: absolute;
+    top: 20px;
+    // opacity: 0;
+    transition: 0.3s ease-in-out;
 }
 .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
     max-height: 100%;

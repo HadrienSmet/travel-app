@@ -6,7 +6,7 @@ import ExtraDataFormAccordion from './ExtraDataFormAccordion';
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 
-const ExtraDataForm = ({ profilePicture, userData }) => {
+const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [pseudo, setPseudo] = useState("");
     const [isPseudoOk, setIsPseudoOk] = useState(false);
     const [description, setDescription] = useState("");
@@ -38,9 +38,9 @@ const ExtraDataForm = ({ profilePicture, userData }) => {
     //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
     //And it also show or hide icons that indicates the user if he did well
     const handlePseudo = () => {
-        const pseudoMsg = document.getElementById('outlined-pseudo-msg');
-        const checkIcon = document.querySelector(".signup-form__pseudo-division__check-icon");
-        const timesIcon = document.querySelector(".signup-form__pseudo-division__times-icon");
+        const pseudoMsg = document.getElementById('extra-pseudo-msg');
+        const checkIcon = document.querySelector(".extra-data-form__pseudo-division__check-icon");
+        const timesIcon = document.querySelector(".extra-data-form__pseudo-division__times-icon");
         if (!pseudo.match(/^([a-zA-Z0-9]){3,20}$/)) {
             pseudoMsg.textContent = "Doit faire entre 3 et 20 caractères et ne peut contenir des caractères spéciaux";
             timesIcon.style.opacity = "1";
@@ -74,7 +74,39 @@ const ExtraDataForm = ({ profilePicture, userData }) => {
     }
 
     const handleSubmission = () => {
-        console.log(albumsArray + "************" + previousTrips + "************" + dreamTrip + "************" + description + "*****************" + isPseudoOk);
+        console.log(userPersonals);
+        const { userAuth, userData } = userPersonals;
+        const { email, password } = userAuth;
+        const { firstName, lastName, age, gender, country } = userData;
+        if (
+            isPseudoOk === true 
+            && description !== "" 
+            && dreamTrip !== undefined 
+            && previousTrips !== undefined 
+            && albumsArray !== undefined
+        ) {
+            let data = {
+                userAuth: {
+                    email,
+                    password,
+                },
+                userData: {
+                    firstName,
+                    lastName,
+                    age,
+                    gender,
+                    country,
+                },
+                userProfile: {
+                    profilePicture,
+                    pseudo,
+                    description,
+                    dreamTrips: [...dreamTrip],
+                    previousTrips: [...previousTrips]
+                }
+            }
+            console.log(data);
+        }
     }
  
     return (
@@ -91,8 +123,8 @@ const ExtraDataForm = ({ profilePicture, userData }) => {
                 <div className="extra-data-form__fields-displayer__left-column">
                     <div className="extra-data-form__pseudo-division">
                         <div className="extra-data-form__pseudo-division__icons-container">
-                            <FaCheck className='extra-data-form__pseudo-division__check-icon signup-icon' />
-                            <FaTimes className='extra-data-form__pseudo-division__times-icon signup-icon' />
+                            <FaCheck className='extra-data-form__pseudo-division__check-icon signup-icon check' />
+                            <FaTimes className='extra-data-form__pseudo-division__times-icon signup-icon times' />
                         </div>
                         <TextField 
                             id='outlined-pseudo'
@@ -101,22 +133,32 @@ const ExtraDataForm = ({ profilePicture, userData }) => {
                             required={true}
                             onChange={(e) => setPseudo(e.target.value)}
                             onBlur={() => handlePseudo()} />
-                        <span id="outlined-pseudo-msg"></span>
+                        <span id="extra-pseudo-msg"></span>
                     </div>
-                    <TextField
-                        id="outlined-textarea"
-                        className='extra-data-form__text-area'
-                        label="Présentes-toi!"
-                        placeholder=""
-                        multiline
-                        onChange={(e) => handleDescription(e)}
-                    />
+                    <div className="extra-data-form__description-division">
+                        <div className="extra-data-form__description-division__icons-container">
+                            {description !== "" && <FaCheck className='extra-data-form__description-division__check-icon last-step-icon check' />}
+                        </div>
+                        <TextField
+                            id="outlined-textarea"
+                            className='extra-data-form__text-area'
+                            label="Présentes-toi!"
+                            placeholder=""
+                            multiline
+                            onChange={(e) => handleDescription(e)}
+                        />
+                    </div>
                     <h4>Mes destinations de rêve</h4>
-                    <InputCountry dynamicClass={"extra-data-form__input-destination"} dynamicPlaceholder={"Destination"} changeCountry={changeCountry} />
-                    <ul id='countries-list'>
-                        {dreamTrip !== undefined && dreamTrip.map((country) => (<li id={"li-" + country} key={country}>{country}</li>))}
-                        {dreamTrip === undefined && <p>Partagez à vos amis vos rêves les plus fous!</p>}
-                    </ul>
+                    <div className="extra-data-form__dream-trips-division">
+                        <div className="extra-data-form__dream-trips-division__icons-container">
+                            {dreamTrip !== undefined && <FaCheck className='extra-data-form__dream-trips-division__check-icon last-step-icon check' />}
+                        </div>
+                        <InputCountry dynamicClass={"extra-data-form__input-destination"} dynamicPlaceholder={"Destination"} changeCountry={changeCountry} />
+                        <ul id='countries-list'>
+                            {dreamTrip !== undefined && dreamTrip.map((country) => (<li id={"li-" + country} key={country}>{country}</li>))}
+                            {dreamTrip === undefined && <p>Partagez à vos amis vos rêves les plus fous!</p>}
+                        </ul>
+                    </div>  
                 </div>  
             </div>
             <Button variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>

@@ -6,7 +6,7 @@ import InputCountry from "./InputCountry";
 import InputNumbers from "./InputNumbers";
 import InputSelect from "./InputSelect";
 
-const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserData }) => {
+const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPersonals }) => {
     const [profilePictureUrl, setProfilePictureUrl] = useState("");
     const [firstName, setFirstName] = useState("");
     const [isFirstNameOk, setIsFirstNameOk] = useState(false);
@@ -104,7 +104,7 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserDat
                 password,     
             }
             
-            let personalData = {
+            let userData = {
                 firstName,
                 lastName,
                 age,
@@ -113,9 +113,9 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserDat
             }
             let data = {
                 userAuth: { ...authData },
-                userData: { ...personalData },
+                userData: { ...userData },
             }
-            changeUserData(data);
+            changeUserPersonals(data);
             changeStepState('almost-done');
 
             // axios.post("http://localhost:3000/api/auth/signup", data, {
