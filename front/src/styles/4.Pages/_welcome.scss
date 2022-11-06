@@ -1,11 +1,14 @@
 .welcome {
     position: relative;
+    &__background-img {
+        width: 100%;
+        height: calc(100vh + 50px);
+    }
     &-carousel-content {
         width: 80vw;
-        height: calc(80vh - 100px);
+        height: calc(80vh - 50px);
         position: absolute;
         left: 50%;
-        top: calc(50% + 50px);
         transform: translate(-50%, -50%);
         background-color: rgba(246, 248, 234, 0.7);
         padding: 20px 40px;
@@ -16,18 +19,22 @@
         align-items: center;
         &-intro {
             max-width: 60%;
-            // width: 35%;
             height: 80%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            // align-items: center;
             text-align: center;
             gap: 30px;
             transition: 0.3s ease-in-out;
             h2 {
                 text-transform: uppercase;
             }
+        }
+        &__paralaxed-element {
+            position: absolute;
+            // top: 50vh;
+            top: calc(50vh + 50px);
+            left: 50%;
         }
     }
 }

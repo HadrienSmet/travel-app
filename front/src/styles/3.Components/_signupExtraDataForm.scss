@@ -25,7 +25,6 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        // width: 100%;
         button {
             width: 100%;
             border: 1px solid rgba(0, 0, 0, 1);
@@ -54,9 +53,23 @@
         }
     }
     &__previous-trip-album {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
         img {
             width: 50px;
             height: 50px;
+            border-radius: 5px;
+            transition: 0.5s ease-in-out;
+            &:hover {
+                transform: scale(2.5);
+            }
+        }
+    }
+    &__pseudo-division div {
+        width: 100%;
+        fieldset {
+            border-color: rgba(0, 0, 0, 0.43) !important;
         }
     }
     &__text-area {
@@ -107,10 +120,7 @@
                 display: block;
                 top: 1px;
                 right: 27px;
-                // height: 1px;
-                // width: 7px;
                 color: $tertiary-color;
-                // transform: translateY(-50%);
                 animation: liBeforeAnim 0.4s ease-in-out forwards;
             }
             &::after {
@@ -118,7 +128,6 @@
                 position: absolute;
                 left: -20px;
                 top: 0;
-                // width: calc(100% - 15px);
                 width: 100%;
                 height: 100%;
                 border: 1px solid rgba(0, 0, 0, 0.43);
@@ -136,7 +145,6 @@
 }
 .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
     max-height: 100%;
-    // overflow: auto;
     textarea {
         height: 100% !important;
     }

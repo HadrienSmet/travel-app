@@ -2,6 +2,7 @@ import { useState, Fragment } from 'react';
 import { Button, Modal, Box, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { FaPlus, FaCamera } from "react-icons/fa";
+import { BsXLg } from "react-icons/bs";
 import InputCountry from './InputCountry';
 import InputNumbers from './InputNumbers';
 // import { setAlbumArrayStore } from '../features/albumArray.slice';
@@ -27,13 +28,21 @@ function ChildModal({ country, year, changeAlbumsArray }) {
     const [albumPicture, setAlbumPicture] = useState(undefined);
     const [albumPictureUrl, setAlbumPictureUrl] = useState(undefined);
     const dispatch = useDispatch();
+
     const pictureAreas = [];
     for (let i = 0; i < 12; i++) {
         pictureAreas.push(i);
     }
+
+    //This function change the state of the component in purpose to open the child modal.
     const handleOpen = () => {
         setOpen(true);
     };
+
+    //This function handles the submission of the child modal (the creation of an album).
+    //It gives the files to his parent components using the function herited by his grand-parent to change his state.
+    //And it gives the name of the album and the urls of the blop links by the redux store.
+    //And it also changes the state of the component in purpose to close the child modal.
     const handleClose = () => {
         let album = {
             name: `album ${country} ${year}`,
@@ -45,6 +54,11 @@ function ChildModal({ country, year, changeAlbumsArray }) {
         dispatch(setAlbumObjectArrayStore(album));
     };
 
+    //This function fills two differents array when the input files suffer a change
+    //@Params {Type: Object} --> the param of the onChange event
+    //The first array will contain the urls, when the second contains the files
+    //If those arrays are undefined their value is only defined by the new data
+    //Else those arrays will contain the new data and conserve the old one
     const handleAlbumPicture = (e) => {
         let albumArrayUrl;
         let albumArray;
@@ -67,7 +81,7 @@ function ChildModal({ country, year, changeAlbumsArray }) {
 
     return (
         <Fragment>
-            <Button variant='outlined' onClick={handleOpen}><span>Créer un album</span><FaPlus /></Button>
+            <Button id='signup-album-creation-btn' variant='outlined' onClick={handleOpen}><span>Créer un album</span><FaPlus /></Button>
             <Modal
                 hideBackdrop
                 open={open}
@@ -76,7 +90,10 @@ function ChildModal({ country, year, changeAlbumsArray }) {
                 aria-describedby="child-modal-description"
             >
                 <Box sx={{ ...style, width: 200 }} className="child-modal">
-                    <h3 id="child-modal-title">Album {country} {year}</h3>
+                    <div className="child-modal__header">
+                        <h3 id="child-modal-title">Album {country} {year}</h3>
+                        <BsXLg onClick={() => setOpen(false)} />
+                    </div>
                     <div className="child-modal__same-row">    
                         <p id="child-modal-description">
                             Partagez-nous des souvenirs de votre voyage!
@@ -87,7 +104,14 @@ function ChildModal({ country, year, changeAlbumsArray }) {
                     </div>
                     <input type="file" name="profilePicture" id="signup-file" onChange={(e) => handleAlbumPicture(e)} />
                     <div className='child-modal__pictures-displayer' id="album-container">
-                        {pictureAreas.map((area) => (<div className='child-modal__picture-area' key={area}><FaCamera /></div>))}
+                        {pictureAreas.map((area) => (
+                        <label htmlFor="signup-file" className='child-modal__picture-area-label'>
+                            <div className='child-modal__picture-area' key={area}>
+                                <FaCamera className='child-modal__camera-icon' />
+                                <FaPlus className='child-modal__plus-icon' />
+                            </div>
+                        </label>
+                        ))}
                         <div className="child-modal__pictures-displayer--absolute">
                             {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
                         </div>
@@ -133,34 +157,49 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
         'En famille',
       ];
 
+    //This function changes the state of the component in order to open the parent modal
     const handleOpen = () => {
         setOpen(true);
     };
+    //This function changes the state of the component in order to close the parent modal
+    //Then it calls a function that will handles the submission of the datas
     const handleClose = () => {
         setOpen(false);
         handlePreviousTripSubmission();
     };
 
+    //This function is only here to allow the child component InputCountry to change the state of this component
+    //@Params { Type: String } --> The value of the input
     const changeCountry = (country) => {
         setCountry(country);
     }
 
+    //This function is only here to allow the child component InputSelect thats represents the duration of the trip to change the state of this component
+    //@Params { Type: String } --> The value of the input
     const changeDuration = (duration) => {
         setDuration(duration)
     }
 
+    //This function is only here to allow the child component InputNumbers thats represents the year of the trip to change the state of this component
+    //@Params { Type: Number } --> The value of the input
     const changeNumber = (year) => {
         setYear(year)
     }
 
+    //This function is only here to allow the child component InputSelect thats tells if the user were accompanied during the trip to change the state of this component
+    //@Params { Type: String } --> The value of the input
     const changeChoice = (choice) => {
         setChoice(choice)
     }
 
+    //This function change the state of the components in order to let the user provides details about his trip
+    //@Params { Type: String } --> The param of the onChange event
     const handleDetails = (e) => {
         setDetails(e.target.value);
     }
 
+    //This functions handle the submission of the data provided by the two modals
+    //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
         console.log(country, duration, year, details);
         let trip = {
@@ -187,7 +226,10 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
                 aria-describedby="parent-modal-description"
             >
                 <Box sx={{ ...style, width: 400 }}>
-                    <h2>Ajouter un voyage</h2>
+                    <div className="trip-modal__header">
+                        <h2>Ajouter un voyage</h2>
+                        <BsXLg onClick={() => setOpen(false)}  />
+                    </div>
                     <div className="trip-modal__content">
                         <div className="trip-modal__inputs-area">
                             <span>Quelle était la destination?</span>

@@ -3,19 +3,27 @@ import { useState } from 'react';
 import TripModal from './TripModal';
 import InputCountry from './InputCountry';
 import ExtraDataFormAccordion from './ExtraDataFormAccordion';
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 
-const ExtraDataForm = () => {
-    const [albumsArray, setAlbumsArray] = useState(undefined);
-    const [dreamTrip, setDreamTrip] = useState(undefined);
+const ExtraDataForm = ({ profilePicture, userData }) => {
+    const [pseudo, setPseudo] = useState("");
+    const [isPseudoOk, setIsPseudoOk] = useState(false);
     const [description, setDescription] = useState("");
+    const [dreamTrip, setDreamTrip] = useState(undefined);
     const [previousTrips, setPreviousTrips] = useState(undefined);
+    const [albumsArray, setAlbumsArray] = useState(undefined);
+    
 
+    //This function is here to allow the child modal to change the state of this component
+    //@Params { Type: Array } --> Array of objects. Each objects represents an album and has a key for the name and a key for all the pictures url
     const changeAlbumsArray = (array) => {
         setAlbumsArray(array);
         console.log(albumsArray);
     }
 
+    //This function his here to allow the trip-modal wich is the child of this component to change the state of this component
+    //@Params { Type: Object } --> The data called trip in the modal component
     const changeTrips = (trip) => {
         let tripsArr;
         if (previousTrips === undefined) {
@@ -26,10 +34,35 @@ const ExtraDataForm = () => {
         setPreviousTrips(tripsArr);
     }
 
+    //This function handles the behavior of the input text representing the user pseudo and his data
+    //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
+    //And it also show or hide icons that indicates the user if he did well
+    const handlePseudo = () => {
+        const pseudoMsg = document.getElementById('outlined-pseudo-msg');
+        const checkIcon = document.querySelector(".signup-form__pseudo-division__check-icon");
+        const timesIcon = document.querySelector(".signup-form__pseudo-division__times-icon");
+        if (!pseudo.match(/^([a-zA-Z0-9]){3,20}$/)) {
+            pseudoMsg.textContent = "Doit faire entre 3 et 20 caractères et ne peut contenir des caractères spéciaux";
+            timesIcon.style.opacity = "1";
+            checkIcon.style.opacity = "0";
+        } else {
+            setIsPseudoOk(true);
+            pseudoMsg.textContent = "";
+            timesIcon.style.opacity = "0";
+            checkIcon.style.opacity = "1";
+        }
+    }
+
+    //This function change the state of this component in order to allow the user to share a description about himself
+    //@Params { Type: Object } --> The param of the onChange event listening the textarea
     const handleDescription = (e) => {
         setDescription(e.target.value);
     }
 
+    //This function aloow the child component InputCountry to change the state of this component
+    //@Params { Type: String } --> The value of the input
+    //If the state isn't defined yet it will only contains the data provided by the input
+    //Otherwise it will conserve the old data and add the new one 
     const changeCountry = (country) => {
         let countries;
         if (dreamTrip === undefined) {
@@ -39,19 +72,9 @@ const ExtraDataForm = () => {
         }
         setDreamTrip(countries);
     }
-    // const removeDestination = (e) => {
-    //     console.log(e);
-    //     // const countriesList = document.getElementById("countries-list");
-    //     // let element = document.getElementById("li-" + e.target.id);
-    //     // let newDestinations = dreamTrip.splice(e.target.id, 1);
-        
-    //     e.target.remove();
-    //     // setDreamTrip(newDestinations);
-    //     // countriesList.removeChild(element);
-    // }
 
     const handleSubmission = () => {
-        console.log(albumsArray + "************" + previousTrips + "************" + dreamTrip + "************" + description);
+        console.log(albumsArray + "************" + previousTrips + "************" + dreamTrip + "************" + description + "*****************" + isPseudoOk);
     }
  
     return (
@@ -62,39 +85,36 @@ const ExtraDataForm = () => {
                     <TripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />
                     <div className="extra-data-form__trips-displayer">
                         {previousTrips === undefined && <p>Listez vos précédents voyages!</p>}
-                        {/* {previousTrips !== undefined && previousTrips.map((trip, index) => (
-                            <div key={"trip-div__" + trip.country +index} className="extra-data-form__previous-trip">
-                                {console.log(trip.album[index].urls)}
-                                <h4 key={"trip-title__" + trip.country + index}>{trip.country + " " + trip.year}</h4>
-                                <span key={"trip-duration__" + trip.country + index}>{trip.duration}</span>
-                                <span key={"trip-span__" + trip.country + index}>{trip.choice}</span>
-                                <span key={"trip-country__" + trip.country + index}>{trip.details}</span>
-                                <div key={"trip-child-div__" + trip.country + index} className="extra-data-form__previous-trip-album">
-                                    {trip.album[index].urls.map((url) => (<img key={"trip-child-div-" + trip.country + index} src={url} alt="img" />))}
-                                </div>
-                            </div>
-                        ))} */}
                         {previousTrips !== undefined && <ExtraDataFormAccordion previousTrips={previousTrips} />}
                     </div>
                 </div>
                 <div className="extra-data-form__fields-displayer__left-column">
+                    <div className="extra-data-form__pseudo-division">
+                        <div className="extra-data-form__pseudo-division__icons-container">
+                            <FaCheck className='extra-data-form__pseudo-division__check-icon signup-icon' />
+                            <FaTimes className='extra-data-form__pseudo-division__times-icon signup-icon' />
+                        </div>
+                        <TextField 
+                            id='outlined-pseudo'
+                            label="Pseudo"
+                            variant='outlined'
+                            required={true}
+                            onChange={(e) => setPseudo(e.target.value)}
+                            onBlur={() => handlePseudo()} />
+                        <span id="outlined-pseudo-msg"></span>
+                    </div>
                     <TextField
                         id="outlined-textarea"
                         className='extra-data-form__text-area'
-                        label="Décris-toi!"
+                        label="Présentes-toi!"
                         placeholder=""
                         multiline
-                        onBlur={(e) => handleDescription(e)}
+                        onChange={(e) => handleDescription(e)}
                     />
                     <h4>Mes destinations de rêve</h4>
                     <InputCountry dynamicClass={"extra-data-form__input-destination"} dynamicPlaceholder={"Destination"} changeCountry={changeCountry} />
                     <ul id='countries-list'>
-                        {dreamTrip !== undefined && dreamTrip.map((country) => (
-                            <li 
-                                id={"li-" + country} 
-                                key={country} 
-                                // onClick={((e) => removeDestination(e))}
-                            >{country}</li>))}
+                        {dreamTrip !== undefined && dreamTrip.map((country) => (<li id={"li-" + country} key={country}>{country}</li>))}
                         {dreamTrip === undefined && <p>Partagez à vos amis vos rêves les plus fous!</p>}
                     </ul>
                 </div>  

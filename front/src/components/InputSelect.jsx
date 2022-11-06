@@ -7,6 +7,8 @@ import Select from '@mui/material/Select';
 const InputSelect = ({ dynamicClass, dynamicPlaceholder, choices, changeChoice }) => {
   const [choice, setChoice] = useState('');
 
+  //This function change the state of this component and the state of his parent
+  //@Params { Type: Object } --> The param of the onChange event
   const handleChange = (e) => {
     setChoice(e.target.value);
     changeChoice(e.target.value);

@@ -8,6 +8,8 @@ const InputNumbers = ({ minNumber, maxNumber, dynamicClass, dynamicPlaceholder, 
     numbers.push(i);
   }
 
+  //This function change the state of this component and the state of his parent
+  //@Params { Type: Object } --> The param of the onChange event
   const handleChange = (e) => {
     setNumber(e.target.value);
     changeNumber(e.target.value);

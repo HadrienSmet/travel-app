@@ -1,12 +1,14 @@
 .start-form {
     min-width: 40%;
+    height: 60%;
     overflow: hidden;
     form {
+        height: 100%;
         position: relative;
         display: flex;
         flex-direction: column;
         gap: 15px;
-        
+        justify-content: space-around;
         > div {
             position: relative;
             transform: translateX(110%);
@@ -18,13 +20,14 @@
                 width: calc(100% - 18px);
             }
         }
-        @for $i from 2 to 5 {
+        @for $i from 2 to 4 {
             $delay: $i * 0.2s;
             > div:nth-child(#{$i}) {
                 animation-delay: $delay;
             }
         }
         h3 {
+            font-size: 1.4em;
             position: relative;
             left: 26px;
             transform: translateX(100%);
@@ -35,12 +38,13 @@
         button {
             margin-top: 5px;
             transform: translateX(100%);
-            animation: startFormAnim 0.8s 1s ease-in-out forwards;
+            animation: startFormAnim 0.6s 1s ease-in-out forwards;
         }
         .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root,
         label,
         fieldset,
         button {
+            font-size: 1.2em;
             border-color: rgba(39, 158, 150, 0.827);
             color: rgba(39, 158, 150, 0.827);
             &:hover {
@@ -70,7 +74,7 @@
         }
         span {
             color: $tertiary-color;
-            font-size: 12px;
+            font-size: 14px;
         }
     }
     &__pseudo-division {
@@ -92,7 +96,7 @@
         }
         span {
             color: $tertiary-color;
-            font-size: 12px;
+            font-size: 14px;
         }
     }
     &__password-division {
@@ -114,7 +118,7 @@
         }
         span {
             color: $tertiary-color;
-            font-size: 12px;
+            font-size: 14px;
         }
     }
     button {

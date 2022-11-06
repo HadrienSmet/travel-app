@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import PersonalDataForm from '../components/PersonalDataForm';
-import SignupCarousel from '../components/SignupCarousel';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useEffect } from 'react';
 import ExtraDataForm from '../components/ExtraDataForm';
+import signupBanner from '../assets/images/carousel-bg1.jpeg'
+import { useParallax } from 'react-scroll-parallax';
 
 const SignupSteps = () => {
     const [stepState, setStepState] = useState("just-started");
+    const [profilePicture, setProfilePicture] = useState(undefined);
+    const [userData, setUserData] = useState(undefined);
+    const parallax = useParallax({
+        speed: -10,
+    })
+    const elemParallax = useParallax({
+        speed: 30,
+    })
     
-
+    //This useEffect is here to show to the user on wich step of the signup form he stands
     useEffect(() => {
-        // handleStateEffect(stepState)
         const firstStepCheck = document.getElementById('step-auth-check');
         const scdStepCheck = document.getElementById('step-perso-check');
         if (stepState === "just-started") {
@@ -21,23 +29,25 @@ const SignupSteps = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stepState])
 
+    //This function allow a child component to change the state of this one
+    //@Params {Type: String}
+    //When the form about the personal data is complete a new state is set wich leads us to the last step
     const changeStepState = (newState) => {
         setStepState(newState)
     }
 
-    // const handleStateEffect = () => {
-    //     const firstStepCheck = document.querySelector("#step-auth:first-child");
-    //     const scdStepCheck = document.querySelector("#step-perso:first-child");
-    //     if (stepState === "just-started") {
-    //         firstStepCheck.style.opacity = "1";
-    //     } else if (stepState === "almost-done") {
-    //         scdStepCheck.style.opacity = "1"
-    //     }
-    // }
+    const changeProfilePicture = (file) => {
+        setProfilePicture(file);
+    }
+
+    const changeUserData = (data) => {
+        setUserData(data);
+    }
+
     return (
         <section className="signup-steps">
-            <SignupCarousel />
-            <div className="signup-steps__content">
+            <img src={signupBanner} alt="img" ref={parallax.ref} className='signup-steps__background-img' />
+            <div className="signup-steps__content" ref={elemParallax.ref}>
                 <div className="signup-steps__content__steps-indicator">
                     <div className="signup-steps__content__step">
                         <div  className="signup-steps__content__step__icons-container">
@@ -65,8 +75,19 @@ const SignupSteps = () => {
                     </div>
                 </div>
                 <div className="signup-steps__content__form-container">
-                    {stepState === "just-started" && <PersonalDataForm changeStepState={changeStepState} />}
-                    {stepState === "almost-done" && <ExtraDataForm /> }
+                    {stepState === "just-started" && 
+                        <PersonalDataForm 
+                            changeStepState={changeStepState} 
+                            changeProfilePicture={changeProfilePicture} 
+                            changeUserData={changeUserData} 
+                        />
+                    }
+                    {stepState === "almost-done" && 
+                        <ExtraDataForm 
+                            profilePicture={profilePicture}
+                            userData={userData}
+                        /> 
+                    }
                 </div>
             </div>
         </section>

@@ -9,6 +9,8 @@ const CountrySelector = ({ dynamicClass, dynamicPlaceholder, changeCountry }) =>
   const [value, setValue] = useState('')
   const options = useMemo(() => countryList().getData(), [])
 
+  //This function change the state of this component and the state of his parent
+  //@Params { Type: Object } --> The param of the onChange event
   const changeHandler = (e) => {
     setValue(e.target.value)
     changeCountry(e.target.value)

@@ -8,13 +8,14 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 const SignupForm = () => {
     const [email, setEmail] = useState("");
     const [isEmailOk, setIsEmailOk] = useState(false);
-    const [pseudo, setPseudo] = useState("");
-    const [isPseudoOk, setIsPseudoOk] = useState(false);
     const [password, setPassword] = useState("");
     const [isPasswordOk, setIsPasswordOk] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    //This function handles the behavior of the input mail and his data
+    //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
+    //And it also show or hide icons that indicates the user if he did well
     const handleMail = () => {
         const mailMsg = document.getElementById('outlined-mail-msg');
         const checkIcon = document.querySelector(".signup-form__email-division__check-icon");
@@ -30,21 +31,11 @@ const SignupForm = () => {
             checkIcon.style.opacity = "1";
         }
     }
-    const handlePseudo = () => {
-        const pseudoMsg = document.getElementById('outlined-pseudo-msg');
-        const checkIcon = document.querySelector(".signup-form__pseudo-division__check-icon");
-        const timesIcon = document.querySelector(".signup-form__pseudo-division__times-icon");
-        if (!pseudo.match(/^([a-zA-Z0-9]){3,20}$/)) {
-            pseudoMsg.textContent = "Doit faire entre 3 et 20 caractères et ne peut contenir des caractères spéciaux";
-            timesIcon.style.opacity = "1";
-            checkIcon.style.opacity = "0";
-        } else {
-            setIsPseudoOk(true);
-            pseudoMsg.textContent = "";
-            timesIcon.style.opacity = "0";
-            checkIcon.style.opacity = "1";
-        }
-    }
+
+    //This function handles the behavior of the input password and his data
+    //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
+    //It handles the behavior of a bar indicating the level of security of his password
+    //And it also show or hide icons that indicates the user if he did well
     const handlePassword = () => {
         const passwordMsg = document.getElementById('outlined-password-msg');
         const progressBar = document.getElementById('password__progress-bar');
@@ -72,21 +63,22 @@ const SignupForm = () => {
         }
     }
 
+    //This function handles the submission of the first signup form
+    //@Params { Type: Object } --> the param of the onSubmit event
+    //After checking that all the fields have been well filled it creates an object called user and gives it to the redux store
+    //And then this function redirects the user to the next step
     const handleSubmission = (e) => {
         e.preventDefault();
         if (isEmailOk === true 
-        && isPasswordOk === true 
-        && isPseudoOk === true) {
+        && isPasswordOk === true ) {
             let userData = {
                 email,
-                pseudo,
                 password
             }
-            
             navigate("/signup-steps");
             dispatch(setSignupData(userData));
         }
-        console.log(email + "--" + password + "--" + pseudo)
+        console.log(email + "--" + password)
     }
     return (
         <div className='signup-container start-form'>
@@ -109,20 +101,6 @@ const SignupForm = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             onBlur={() => handleMail()} />
                         <span id="outlined-mail-msg"></span>
-                    </div>
-                    <div className="signup-form__pseudo-division">
-                        <div className="signup-form__pseudo-division__icons-container">
-                            <FaCheck className='signup-form__pseudo-division__check-icon signup-icon' />
-                            <FaTimes className='signup-form__pseudo-division__times-icon signup-icon' />
-                        </div>
-                        <TextField 
-                            id='outlined-pseudo'
-                            label="Pseudo"
-                            variant='outlined'
-                            required={true}
-                            onChange={(e) => setPseudo(e.target.value)}
-                            onBlur={() => handlePseudo()} />
-                        <span id="outlined-pseudo-msg"></span>
                     </div>
                     <div className="signup-form__password-division">
                         

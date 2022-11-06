@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ParallaxProvider } from 'react-scroll-parallax';
 import { Provider } from "react-redux";
 
 import "./styles/index.scss"
@@ -17,15 +18,17 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/signup-steps" element={<SignupSteps />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <ParallaxProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/signup-steps" element={<SignupSteps />} />
+            <Route path="/home" element={<Home />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </ParallaxProvider>
     </Provider>
   </React.StrictMode> 
 );
