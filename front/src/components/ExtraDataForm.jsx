@@ -1,9 +1,12 @@
 import { TextField, Button } from '@mui/material';
 import { useState } from 'react';
+import axios from 'axios'
 import TripModal from './TripModal';
 import InputCountry from './InputCountry';
 import ExtraDataFormAccordion from './ExtraDataFormAccordion';
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { setJwtToken } from "../utils/functions/tools";
+import { useNavigate } from 'react-router-dom';
 
 
 const ExtraDataForm = ({ profilePicture, userPersonals }) => {
@@ -13,12 +16,19 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [dreamTrip, setDreamTrip] = useState(undefined);
     const [previousTrips, setPreviousTrips] = useState(undefined);
     const [albumsArray, setAlbumsArray] = useState(undefined);
+    const navigate = useNavigate();
     
 
     //This function is here to allow the child modal to change the state of this component
     //@Params { Type: Array } --> Array of objects. Each objects represents an album and has a key for the name and a key for all the pictures url
     const changeAlbumsArray = (array) => {
-        setAlbumsArray(array);
+        let albumsContainer;
+        if (albumsArray === undefined) {
+            albumsContainer = [array];
+        } else {
+            albumsContainer = [...albumsArray, array]
+        }
+        setAlbumsArray(albumsContainer);
         console.log(albumsArray);
     }
 
@@ -85,32 +95,71 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             && previousTrips !== undefined 
             && albumsArray !== undefined
         ) {
-            let data = {
-                userAuth: {
-                    email,
-                    password,
-                },
-                userData: {
-                    firstName,
-                    lastName,
-                    age,
-                    gender,
-                    country,
-                },
-                userProfile: {
-                    profilePicture,
-                    pseudo,
-                    description,
-                    dreamTrips: [...dreamTrip],
-                    previousTrips: [...previousTrips]
-                }
+            let userAuthData = {
+                email,
+                password,
             }
-            console.log(data);
+            let userPersonalsData = {
+                firstName,
+                lastName,
+                age,
+                gender,
+                country,
+            };
+            let userProfileData = {
+                profilePicture,
+                pseudo,
+                description,
+                dreamTrips: [...dreamTrip],
+                previousTrips: [...previousTrips]
+            }
+            let data = {
+                userAuth: { ...userAuthData },
+                userData: { ...userPersonalsData },
+                userProfile: { ...userProfileData },
+            }
+              
+            const fileData = new FormData();
+            // fileData.append("pseudo", pseudo);
+            // fileData.append("description", description);
+            // fileData.append("dreamTrips", [...dreamTrip]);
+            // fileData.append("previousTrips", JSON.stringify(previousTrips));
+            fileData.append("albumName", previousTrips[0].album[0].name);
+            fileData.append("file", profilePicture);
+            albumsArray.forEach((album) => {
+                for (let i = 0; i < album.length; i++) {
+                    fileData.append("file", album[i]); 
+                }
+            })  
+            
+            // const filesData = new FormData();
+            axios.post("http://localhost:3000/api/auth/signup", data, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then((res) => {
+                setJwtToken(res.data);
+                console.log(res.data);
+                axios.patch("http://localhost:3000/api/auth/userProfile/" + res.data.userId, fileData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "authorization": `bearer ${res.data.token}`
+                    }
+                })
+                .then((res) => {
+
+                    console.log(res);
+                    navigate("/home");
+                })
+                .catch((err) => console.log(err));
+                console.log(res.data);
+            })
         }
     }
  
     return (
-        <form action="" className='extra-data-form'>
+        <form action="" className='extra-data-form' encType='multipart/form-data'>
             <h3>Remplissez votre profil!</h3>
             <div className="extra-data-form__fields-displayer">
                 <div className="extra-data-form__trips-area">

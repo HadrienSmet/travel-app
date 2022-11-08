@@ -19,6 +19,9 @@ ul {
 img {
     object-fit: cover;
 }
+input[type = "file"] {
+    display: none;
+}
 .check {
     color: $primary-color;
 }

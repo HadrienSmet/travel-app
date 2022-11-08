@@ -21,7 +21,6 @@ const previousTripSchema = mongoose.Schema({
     duration: { type: String, required: false },
     withWho: { type: String, required: false },
     details: { type: String, required: false },
-    albums: [albumSchema],
 })
 
 const userAuthentificationSchema = mongoose.Schema({
@@ -38,7 +37,6 @@ const userDataSchema = mongoose.Schema({
 })
 
 const userProfileSchema = mongoose.Schema({
-    profilePicture: { type: String, required: false },
     pseudo: { type: String, required: true, unique: true },
     description: { type: String, required: true },
     dreamTrips: { type: [String], default: undefined, required: true },
@@ -46,11 +44,15 @@ const userProfileSchema = mongoose.Schema({
 })
 
 const userSchema = mongoose.Schema({
-    userAuth: [userAuthentificationSchema],
-    userData: [userDataSchema],
-    userProfile: [userProfileSchema],
+    userAuth: userAuthentificationSchema,
+    userData: userDataSchema,
+    userProfile: userProfileSchema,
+    profilePicture: { type: String, required: false },
+    albums: [albumSchema],
 })
 
-userAuthentificationSchema.plugin(uniqueValidator);
+// userAuthentificationSchema.plugin(uniqueValidator);
+// userProfileSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);

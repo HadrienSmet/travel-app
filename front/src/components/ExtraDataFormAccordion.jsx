@@ -21,7 +21,7 @@ const ExtraDataFormAccordion = ({ previousTrips }) => {
             <AccordionDetails key={"trip-hidden-details__" + trip.destination + trip.index}>
               <div className="extra-form__accordion-details-displayer">
                 <span key={"trip-duration__" + trip.destination + index}>{trip.duration}</span>
-                <span key={"trip-span__" + trip.destination + index}>{trip.choice}</span>
+                <span key={"trip-span__" + trip.destination + index}>{trip.withWho}</span>
                 <span key={"trip-country__" + trip.destination + index}>{trip.details}</span>
               </div> 
               <div key={"accordion-trip-child-div__" + trip.destination + index} className="extra-data-form__previous-trip-album">

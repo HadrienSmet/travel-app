@@ -99,18 +99,18 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
                             Partagez-nous des souvenirs de votre voyage!
                         </p>
                         <Button variant="outlined">
-                            <label htmlFor="signup-file">Choisir une photo</label>
+                            <label htmlFor="trip-file">Choisir une photo</label>
                         </Button>
                     </div>
-                    <input type="file" name="profilePicture" id="signup-file" onChange={(e) => handleAlbumPicture(e)} />
+                    <input type="file" name="file" id="trip-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleAlbumPicture(e)} />
                     <div className='child-modal__pictures-displayer' id="album-container">
-                        {pictureAreas.map((area) => (
-                        <label htmlFor="signup-file" className='child-modal__picture-area-label'>
-                            <div className='child-modal__picture-area' key={area}>
-                                <FaCamera className='child-modal__camera-icon' />
-                                <FaPlus className='child-modal__plus-icon' />
-                            </div>
-                        </label>
+                        {pictureAreas.map((area, index) => (
+                            <label key={"picture-area-label-" + index} htmlFor="trip-file" className='child-modal__picture-area-label'>
+                                <div className='child-modal__picture-area' key={"picture-area" + index}>
+                                    <FaCamera className='child-modal__camera-icon' key={"picture-area-camera-" + index} />
+                                    <FaPlus className='child-modal__plus-icon' key={"picture-area-plus-" + index} />
+                                </div>
+                            </label>
                         ))}
                         <div className="child-modal__pictures-displayer--absolute">
                             {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
@@ -206,7 +206,7 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
             destination,
             year,
             duration,
-            choice,
+            withWho: choice,
             details,
             album: { ...albumData }
         }
@@ -281,7 +281,7 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
                         </div>
                     </div>
                     <div className="trip-modal__buttons-row">
-                        <ChildModal destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
+                        <ChildModal key="extra-child-modal" destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
                         <Button variant="outlined" onClick={handleClose}>Confirmer</Button>
                     </div>
                     

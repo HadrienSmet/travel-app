@@ -163,7 +163,7 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                         <Button variant="outlined">
                             <label htmlFor="signup-file">Choisir une photo</label>
                         </Button>
-                        <input type="file" name="profilePicture" id="signup-file" onChange={(e) => handleProfilePicture(e)} /> 
+                        <input type="file" name="file" id="signup-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleProfilePicture(e)} /> 
                     </div>
                     <div className="personal-data-form__age-division">
                         <div className="personal-data-form__icons-container">
