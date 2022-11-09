@@ -1,15 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-// const userSchema = mongoose.Schema({
-//     email: { type: String, required: true, unique: true },
-//     password: { type: String, required: true},
-//     pseudo: { type: String, required: true, unique: true },
-//     age: { type: String, required: true },
-//     gender: { type: String, required: true},
-//     country: { type: String, required: true },
-//     profilePicture: { type: String, required: false },
-// });
 const albumSchema = mongoose.Schema({
     name: { type: String, required: false },
     pictures: { type: [String], required: false }
@@ -23,10 +14,10 @@ const previousTripSchema = mongoose.Schema({
     details: { type: String, required: false },
 })
 
-const userAuthentificationSchema = mongoose.Schema({
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true},
-})
+// const userAuthentificationSchema = mongoose.Schema({
+//     email: { type: String, required: true, unique: true },
+//     password: { type: String, required: true},
+// })
 
 const userDataSchema = mongoose.Schema({
     firstName: { type: String, required: true },
@@ -37,17 +28,18 @@ const userDataSchema = mongoose.Schema({
 })
 
 const userProfileSchema = mongoose.Schema({
-    pseudo: { type: String, required: true, unique: true },
     description: { type: String, required: true },
     dreamTrips: { type: [String], default: undefined, required: true },
     previousTrips: [previousTripSchema],
 })
 
 const userSchema = mongoose.Schema({
-    userAuth: userAuthentificationSchema,
+    pseudo: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true},
+    profilePicture: { type: String, required: false },
     userData: userDataSchema,
     userProfile: userProfileSchema,
-    profilePicture: { type: String, required: false },
     albums: [albumSchema],
 })
 

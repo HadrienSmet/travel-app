@@ -17,10 +17,9 @@ console.log(passwordSchema.validate('invalidPASS', { details: true }));
 
 module.exports = (req, res, next) => {
     // const userObject = JSON.parse(req.body)
-    const userObject = req.body
+    const userObject = req.body;
     console.log(userObject);
-    console.log(req.body);
-    const password = userObject.userAuth.password;
+    const password = userObject.password;
     console.log("mddlwr.mdp l:19 password: " + password);
     if (passwordSchema.validate(password)) {
         next();

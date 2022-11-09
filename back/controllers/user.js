@@ -8,13 +8,12 @@ const UserModel = require('../models/User');
 // --> Warning: bcrypt.hash is async function
 //If hash succes: -create a new Object to post to the database with the password hashed
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.userAuth.password, 10)
+    bcrypt.hash(req.body.password, 10)
     .then(hash => {
         const user = new UserModel({
-            userAuth: {
-                email: req.body.userAuth.email,
-                password: hash,
-            },
+            email: req.body.email,
+            password: hash,
+            pseudo: req.body.pseudo,
             userData: {
                 firstName: req.body.userData.firstName,
                 lastName: req.body.userData.lastName,
@@ -23,7 +22,7 @@ exports.signup = (req, res, next) => {
                 country: req.body.userData.country,
             },
             userProfile: {
-                pseudo: req.body.userProfile.pseudo,
+                
                 description: req.body.userProfile.description,
                 dreamTrips: req.body.userProfile.dreamTrips,
                 previousTrips: req.body.userProfile.previousTrips,
@@ -75,14 +74,17 @@ exports.signup = (req, res, next) => {
                 } }
             ) 
             .then(() => res.status(200).json({
-                    userId: user._id,
-                    token: jwt.sign(
-                        { userId: user._id },
-                        process.env.ACCESS_TOKEN_SECRET,
-                        { expiresIn: '24h' }
-                    )
-                })
-            )
+                email: user.email,
+                profilePicture: user.profilePicture,
+                pseudo: user.pseudo,
+                country: user.userData.country,
+                // userId: user._id,
+                // token: jwt.sign(
+                //     { userId: user._id },
+                //     process.env.ACCESS_TOKEN_SECRET,
+                //     { expiresIn: '24h' }
+                // ),
+            }))
             .catch(error => res.status(401).json({ error }));
         }
     })
@@ -96,6 +98,7 @@ exports.signup = (req, res, next) => {
   //Warning --> bcrypt.compare is async function
   //If passwords match: provides an authorisation token to the user
 exports.login = (req, res, next) => {
+    console.log(req.body);
     UserModel.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
@@ -115,12 +118,13 @@ exports.login = (req, res, next) => {
                         email: user.email,
                         profilePicture: user.profilePicture,
                         pseudo: user.pseudo,
-                        userId: user._id,
-                        token: jwt.sign(
-                            { userId: user._id },
-                            process.env.ACCESS_TOKEN_SECRET,
-                            { expiresIn: '24h' }
-                        ),
+                        country: user.userData.country,
+                        // userId: user._id,
+                        // token: jwt.sign(
+                        //     { userId: user._id },
+                        //     process.env.ACCESS_TOKEN_SECRET,
+                        //     { expiresIn: '24h' }
+                        // ),
                     });
                 })
                 .catch(error => res.status(500).json({ error }));

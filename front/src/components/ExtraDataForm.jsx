@@ -1,13 +1,14 @@
-import { TextField, Button } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios'
+import { TextField, Button } from '@mui/material';
+import { FaCheck, FaTimes } from "react-icons/fa";
 import TripModal from './TripModal';
 import InputCountry from './InputCountry';
 import ExtraDataFormAccordion from './ExtraDataFormAccordion';
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { setUserLoggedData } from '../features/userLoggedData.slice';
 import { setJwtToken } from "../utils/functions/tools";
-import { useNavigate } from 'react-router-dom';
-
 
 const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [pseudo, setPseudo] = useState("");
@@ -16,6 +17,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [dreamTrip, setDreamTrip] = useState(undefined);
     const [previousTrips, setPreviousTrips] = useState(undefined);
     const [albumsArray, setAlbumsArray] = useState(undefined);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     
 
@@ -95,10 +97,6 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             && previousTrips !== undefined 
             && albumsArray !== undefined
         ) {
-            let userAuthData = {
-                email,
-                password,
-            }
             let userPersonalsData = {
                 firstName,
                 lastName,
@@ -107,23 +105,18 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 country,
             };
             let userProfileData = {
-                profilePicture,
-                pseudo,
                 description,
                 dreamTrips: [...dreamTrip],
                 previousTrips: [...previousTrips]
-            }
+            };
             let data = {
-                userAuth: { ...userAuthData },
+                email,
+                password,
+                pseudo,
                 userData: { ...userPersonalsData },
                 userProfile: { ...userProfileData },
-            }
-              
+            };
             const fileData = new FormData();
-            // fileData.append("pseudo", pseudo);
-            // fileData.append("description", description);
-            // fileData.append("dreamTrips", [...dreamTrip]);
-            // fileData.append("previousTrips", JSON.stringify(previousTrips));
             fileData.append("albumName", previousTrips[0].album[0].name);
             fileData.append("file", profilePicture);
             albumsArray.forEach((album) => {
@@ -131,8 +124,6 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     fileData.append("file", album[i]); 
                 }
             })  
-            
-            // const filesData = new FormData();
             axios.post("http://localhost:3000/api/auth/signup", data, {
                 headers: {
                     "Content-Type": "application/json"
@@ -148,8 +139,8 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     }
                 })
                 .then((res) => {
-
                     console.log(res);
+                    dispatch(setUserLoggedData(res.data));
                     navigate("/home");
                 })
                 .catch((err) => console.log(err));
