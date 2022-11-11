@@ -78,6 +78,14 @@ exports.signup = (req, res, next) => {
                 profilePicture: user.profilePicture,
                 pseudo: user.pseudo,
                 country: user.userData.country,
+                firstName: user.userData.firstName,
+                lastName: user.userData.lastName,
+                age: user.userData.age,
+                gender: user.userData.gender,
+                description: user.userProfile.description,
+                dreamTrips: user.userProfile.dreamTrips,
+                previousTrips: userProfile.previousTrips,
+                albums: user.albums,
                 // userId: user._id,
                 // token: jwt.sign(
                 //     { userId: user._id },
@@ -119,12 +127,20 @@ exports.login = (req, res, next) => {
                         profilePicture: user.profilePicture,
                         pseudo: user.pseudo,
                         country: user.userData.country,
-                        // userId: user._id,
-                        // token: jwt.sign(
-                        //     { userId: user._id },
-                        //     process.env.ACCESS_TOKEN_SECRET,
-                        //     { expiresIn: '24h' }
-                        // ),
+                        firstName: user.userData.firstName,
+                        lastName: user.userData.lastName,
+                        age: user.userData.age,
+                        gender: user.userData.gender,
+                        description: user.userProfile.description,
+                        dreamTrips: user.userProfile.dreamTrips,
+                        previousTrips: user.userProfile.previousTrips,
+                        albums: user.albums,
+                        userId: user._id,
+                        token: jwt.sign(
+                            { userId: user._id },
+                            process.env.ACCESS_TOKEN_SECRET,
+                            { expiresIn: '24h' }
+                        ),
                     });
                 })
                 .catch(error => res.status(500).json({ error }));

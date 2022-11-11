@@ -1,0 +1,61 @@
+.profile-section {
+    min-height: 100vh;
+    &__header {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        &-background {
+            position: relative;
+            width: 90%;
+            height: 50vh;
+            overflow: hidden;
+            display: flex; 
+            justify-content: center;
+            img {
+                position: absolute;
+                transform: translateY(-30%);
+                width: 100%;
+            }
+        }
+        &__user-intro {
+            position: absolute;
+            padding: 0px 25px;
+            width: calc(90% - 50px);
+            height: 140px;
+            background: linear-gradient(0deg, rgba(255,255,255,0.95) 1%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,0.3) 99%);
+            backdrop-filter: blur(2px);
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        &__profilePicture-container {
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+                height: 110px;
+                width: 110px;
+                transform: translate(-10px, -10px);
+            }
+        }
+    }
+    &__navigation {
+        div button {
+            font-size: 16px;
+            &:nth-child(2)::after {
+                left: 2px;
+                transform-origin: center;
+            }
+            &:last-child::after {
+                transform-origin: left;
+            }
+        }
+        &__buttons-container {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+#nav-scd-child {
+    width: 80px;
+    &::after {
+    transform-origin: center;
+    left: 2px;
+    }
+    a {
+        color: $secondary-color !important;
+    } 
+}
+#nav-thrd-child {
+    &::after {
+        transform-origin: left;
+        
+    }
+    a {
+        color: $secondary-color;
+    }
+}

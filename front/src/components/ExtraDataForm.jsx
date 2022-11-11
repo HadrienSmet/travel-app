@@ -9,6 +9,7 @@ import InputCountry from './InputCountry';
 import ExtraDataFormAccordion from './ExtraDataFormAccordion';
 import { setUserLoggedData } from '../features/userLoggedData.slice';
 import { setJwtToken } from "../utils/functions/tools";
+import { setLoggedState } from '../features/loggedState.slice';
 
 const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [pseudo, setPseudo] = useState("");
@@ -140,6 +141,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 })
                 .then((res) => {
                     console.log(res);
+                    dispatch(setLoggedState(true));
                     dispatch(setUserLoggedData(res.data));
                     navigate("/home");
                 })

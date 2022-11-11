@@ -1,0 +1,43 @@
+.home {
+    &__content {
+        padding: 50px;
+        justify-content: center;
+        &__header {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            // align-items: center;
+            gap: 20px;
+            width: 40%;
+            background-color: $clr-4;
+            padding: 30px;
+            border-radius: 15px;
+            &__profile-division {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                // background-color: $clr-4;
+                // padding: 20px;
+                // position: relative;
+                // left: -50px;
+                // width: 420px;
+                // border-radius: 0px 400px 400px 0px;
+                &__img-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 80px;
+                    width: 80px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    img {
+                        height: 100px;
+                        width: 100px;
+                    }
+                }
+            }
+            
+        }
+    }
+    
+}

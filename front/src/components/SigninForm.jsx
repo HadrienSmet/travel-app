@@ -3,13 +3,23 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { FaCheck } from 'react-icons/fa';
 import { setUserLoggedData } from '../features/userLoggedData.slice';
+import { setLoggedState } from '../features/loggedState.slice';
+import { setJwtToken } from '../utils/functions/tools';
 
 const SigninForm = () => {
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const handleMailBehavior = () => {
+
+    }
+    const handlePasswordBehavior = () => {
+
+    }
 
     const handleSubmission = (e) => {
         e.preventDefault();
@@ -26,32 +36,52 @@ const SigninForm = () => {
         })
         .then((res) => {
             console.log(res);
-            navigate("/home");
+            dispatch(setLoggedState(true));
             dispatch(setUserLoggedData(res.data));
+            setJwtToken(res.data);
+            navigate("/home");
         })
         .catch((err) => console.log(err));
     }
     return (
-        <div className='signup-container start-form'>
+        <div className='signin-container start-form'>
             <form 
                 action=""
                 className='signin-form'
                 onSubmit={(e) => handleSubmission(e)}>
                     <h3>Connectez-vous!</h3>
-                    <TextField 
-                        id="outlined-mail" 
-                        label="Email" 
-                        variant="outlined"
-                        type="email"
-                        required={true}
-                        onChange={(e) => setMail(e.target.value)} />
-                    <TextField 
-                        id="outlined-password" 
-                        label="Mot de passe" 
-                        variant="outlined"
-                        type="password"
-                        required={true}
-                        onChange={(e) => setPassword(e.target.value)} />
+                    <div className="signin-container__email-division">
+                        <div className="signin-container__icons-container">
+                            { mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}
+                        </div>
+                            <TextField 
+                            id="outlined-mail" 
+                            label="Email" 
+                            variant="outlined"
+                            type="email"
+                            required={true}
+                            onChange={(e) => setMail(e.target.value)}
+                            onBlur={() => handleMailBehavior()} 
+                        />
+                    </div>
+                    <div className="signin-container__password-division">
+                        <div className="signin-container__icons-container">
+                            {password !== "" && <FaCheck className='signin-icon check' />}
+                        </div>
+                        <TextField 
+                            id="outlined-password" 
+                            label="Mot de passe" 
+                            variant="outlined"
+                            type="password"
+                            required={true}
+                            onChange={(e) => setPassword(e.target.value)} 
+                            onBlur={() => handlePasswordBehavior()} 
+                        />
+                    </div>
+                    
+                    
+                    
+                    
                     <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>
             </form>
         </div>
