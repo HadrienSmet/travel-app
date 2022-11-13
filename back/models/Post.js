@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 // const uniqueValidator = require('mongoose-unique-validator');
 
 const postSchema = mongoose.Schema({
+    country: { type: String, required: true },
     userId: { type: String, required: true },
     pseudo: { type: String, required: true },
     profilePicture: { type: String, required: true },

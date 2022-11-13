@@ -145,8 +145,8 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     dispatch(setUserLoggedData(res.data));
                     navigate("/home");
                 })
-                .catch((err) => console.log(err));
-                console.log(res.data);
+                // .catch((err) => console.log(err));
+                // console.log(res.data);
             })
         }
     }
@@ -196,10 +196,24 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                             {dreamTrip !== undefined && <FaCheck className='extra-data-form__dream-trips-division__check-icon last-step-icon check' />}
                         </div>
                         <InputCountry dynamicClass={"extra-data-form__input-destination"} dynamicPlaceholder={"Destination"} changeCountry={changeCountry} />
-                        <ul id='countries-list'>
-                            {dreamTrip !== undefined && dreamTrip.map((country) => (<li id={"li-" + country} key={country}>{country}</li>))}
-                            {dreamTrip === undefined && <p>Partagez à vos amis vos rêves les plus fous!</p>}
-                        </ul>
+                        <div className="countries-list__division">
+                            <ul id='countries-list'>
+                                {dreamTrip !== undefined && dreamTrip.map((country) => (<li id={"li-" + country} key={country}>{country}</li>))}
+                                
+                            </ul>
+                            {dreamTrip === undefined && 
+                                <div className="text-centralizer">
+                                    <p>Partagez à vos amis vos rêves les plus fous!</p>
+                                </div>
+                            }
+                            {/* {dreamTrip.length > 5 && 
+                                <div id="countries-list__scroll-bar-track">
+                                    <span id="countries-list__scroll-bar"></span>
+                                </div>
+                            } */}
+                        </div>
+                        
+                        
                     </div>  
                 </div>  
             </div>

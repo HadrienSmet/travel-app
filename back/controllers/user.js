@@ -73,30 +73,32 @@ exports.signup = (req, res, next) => {
                     }],
                 } }
             ) 
-            .then(() => res.status(200).json({
-                email: user.email,
-                profilePicture: user.profilePicture,
-                pseudo: user.pseudo,
-                country: user.userData.country,
-                firstName: user.userData.firstName,
-                lastName: user.userData.lastName,
-                age: user.userData.age,
-                gender: user.userData.gender,
-                description: user.userProfile.description,
-                dreamTrips: user.userProfile.dreamTrips,
-                previousTrips: userProfile.previousTrips,
-                albums: user.albums,
-                // userId: user._id,
-                // token: jwt.sign(
-                //     { userId: user._id },
-                //     process.env.ACCESS_TOKEN_SECRET,
-                //     { expiresIn: '24h' }
-                // ),
-            }))
+            .then(() => {
+                res.status(200).json({
+                    email: user.email,
+                    profilePicture: urlProfilePicture,
+                    // profilePicture: user.profilePicture,
+                    pseudo: user.pseudo,
+                    country: user.userData.country,
+                    firstName: user.userData.firstName,
+                    lastName: user.userData.lastName,
+                    age: user.userData.age,
+                    gender: user.userData.gender,
+                    description: user.userProfile.description,
+                    dreamTrips: user.userProfile.dreamTrips,
+                    previousTrips: user.userProfile.previousTrips,
+                    albums: user.albums,
+                    // token: jwt.sign(
+                    //     { userId: user._id },
+                    //     process.env.ACCESS_TOKEN_SECRET,
+                    //     { expiresIn: '24h' }
+                    // ),
+                })
+            })
             .catch(error => res.status(401).json({ error }));
         }
     })
-    .catch(error => res.status(401).json({ error }));
+    .catch(error => res.status(402).json({ error }));
  }
 
   //Handles what happens when the user submits the sign in form

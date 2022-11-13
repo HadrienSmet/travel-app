@@ -1,3 +1,6 @@
+.user-navigation > div > button > a {
+    color: $secondary-color;
+}
 #nav-scd-child {
     width: 80px;
     &::after {

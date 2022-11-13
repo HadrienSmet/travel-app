@@ -9,10 +9,11 @@ exports.createPost = (req, res, next) => {
     const postObject = JSON.stringify(req.body);
     delete postObject._userId;
     let url = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "";
-    let { pseudo, profilePicture, text, date } = JSON.parse(postObject);
+    let { country, pseudo, profilePicture, text, date } = JSON.parse(postObject);
 
     const post = new Post({
         userId: req.auth.userId,
+        country,
         pseudo,
         profilePicture,
         text,

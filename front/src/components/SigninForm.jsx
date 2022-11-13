@@ -22,6 +22,7 @@ const SigninForm = () => {
     }
 
     const handleSubmission = (e) => {
+        const span = document.getElementById('signin-msg');
         e.preventDefault();
         // if (mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) 
         //     && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/)) {
@@ -36,53 +37,59 @@ const SigninForm = () => {
         })
         .then((res) => {
             console.log(res);
-            dispatch(setLoggedState(true));
-            dispatch(setUserLoggedData(res.data));
-            setJwtToken(res.data);
-            navigate("/home");
+            if (res.status === 401) {
+                span.textContent = "Paire d'email et de mot de passe incorrect";
+            } else {
+                dispatch(setLoggedState(true));
+                dispatch(setUserLoggedData(res.data));
+                setJwtToken(res.data);
+                navigate("/home");
+            }
+            
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err)
+            span.textContent = "Paire d'email et de mot de passe incorrect";
+        });
     }
     return (
         <div className='signin-container start-form'>
             <form 
                 action=""
                 className='signin-form'
-                onSubmit={(e) => handleSubmission(e)}>
-                    <h3>Connectez-vous!</h3>
-                    <div className="signin-container__email-division">
-                        <div className="signin-container__icons-container">
-                            { mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}
-                        </div>
-                            <TextField 
-                            id="outlined-mail" 
-                            label="Email" 
-                            variant="outlined"
-                            type="email"
-                            required={true}
-                            onChange={(e) => setMail(e.target.value)}
-                            onBlur={() => handleMailBehavior()} 
-                        />
+                onSubmit={(e) => handleSubmission(e)}
+            >
+                <h3>Connectez-vous!</h3>
+                <div className="signin-container__email-division">
+                    <div className="signin-container__icons-container">
+                        { mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}
                     </div>
-                    <div className="signin-container__password-division">
-                        <div className="signin-container__icons-container">
-                            {password !== "" && <FaCheck className='signin-icon check' />}
-                        </div>
-                        <TextField 
-                            id="outlined-password" 
-                            label="Mot de passe" 
-                            variant="outlined"
-                            type="password"
-                            required={true}
-                            onChange={(e) => setPassword(e.target.value)} 
-                            onBlur={() => handlePasswordBehavior()} 
-                        />
+                    <TextField 
+                        id="outlined-mail" 
+                        label="Email" 
+                        variant="outlined"
+                        type="email"
+                        required={true}
+                        onChange={(e) => setMail(e.target.value)}
+                        onBlur={() => handleMailBehavior()} 
+                    />
+                </div>
+                <div className="signin-container__password-division">
+                    <div className="signin-container__icons-container">
+                        {password !== "" && <FaCheck className='signin-icon check' />}
                     </div>
-                    
-                    
-                    
-                    
-                    <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>
+                    <TextField 
+                        id="outlined-password" 
+                        label="Mot de passe" 
+                        variant="outlined"
+                        type="password"
+                        required={true}
+                        onChange={(e) => setPassword(e.target.value)} 
+                        onBlur={() => handlePasswordBehavior()} 
+                    />
+                </div>
+                <span id="signin-msg"></span>
+                <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>
             </form>
         </div>
     );

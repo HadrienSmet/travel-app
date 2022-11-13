@@ -161,7 +161,8 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                             } 
                         </div>
                         <Button variant="outlined">
-                            <label htmlFor="signup-file">Choisir une photo</label>
+                            {profilePictureUrl === "" && <label htmlFor="signup-file">Choisir une photo</label>}
+                            {profilePictureUrl !== "" && <label htmlFor="signup-file">Changer de photo</label>}
                         </Button>
                         <input type="file" name="file" id="signup-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleProfilePicture(e)} /> 
                     </div>

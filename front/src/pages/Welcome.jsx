@@ -1,14 +1,25 @@
 import React from 'react';
 import { Parallax, useParallax } from 'react-scroll-parallax';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SignupForm from '../components/SignupForm';
 import SigninForm from '../components/SigninForm';
 import imageBanner from '../assets/images/carousel-bg4.jpeg';
 
+import  { useEffect } from 'react';
+
+import { setLoggedState } from '../features/loggedState.slice';
+import { setUserLoggedData } from '../features/userLoggedData.slice';
+
 const Welcome = () => {
+    const dispatch = useDispatch();
     const welcomeState = useSelector((state) => state.currentWelcomeState.welcomeState);
     const bannerParallax = useParallax({
         speed: -10,
+    })
+    useEffect(() => {
+        dispatch(setLoggedState(false));
+        dispatch(setUserLoggedData(null));
+        localStorage.clear();
     })
     return (
         <section className='welcome'>

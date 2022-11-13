@@ -7,7 +7,9 @@ const UserNavigation = () => {
     return (
         <nav className="user-navigation">
             <ButtonGroup variant="text" aria-label="text button group">
-                <Button>Accueil</Button>
+                <Button>
+                    <Link to="/home">Accueil</Link>
+                </Button>
                 <Button id="nav-scd-child">
                     <Link to="/profile">Profil</Link>
                 </Button>
