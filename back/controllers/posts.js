@@ -6,11 +6,20 @@ const { log } = require('console');
 //Deletes id and user id for security reasons
 //Creates a new object before sending it to the data base
 exports.createPost = (req, res, next) => {
+    let url;
     const postObject = JSON.stringify(req.body);
     delete postObject._userId;
-    let url = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "";
+    console.log("controllers.posts l:13 postObject: " + postObject)
+    // console.log("controllers.posts l:14 url: " + url)
+    console.log("controllers.posts l:15 req.file: " + req.file)
+    console.log("controllers.posts l:16 req.files: " + req.files)
+    if (req.file === undefined || req.files === undefined) {
+        url = "";
+    } {
+        url = req.files ? `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}` : "";
+    }
     let { country, pseudo, profilePicture, text, date } = JSON.parse(postObject);
-
+    
     const post = new Post({
         userId: req.auth.userId,
         country,
@@ -63,8 +72,8 @@ exports.modifyPost = (req, res, next) => {
                     });
                 } else {
                     Post.updateOne({ _id: req.params.id }, { ...postObject, id: req.params.id })
-                        .then(() => res.status(200).json({ message: 'Post modifié!' }))
-                        .catch(error => res.status(401).json({ error }));
+                    .then(() => res.status(200).json({ message: 'Post modifié!' }))
+                    .catch(error => res.status(401).json({ error }));
                 }
             } else {
                 res.status(403).json({ error });
@@ -75,35 +84,35 @@ exports.modifyPost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id})
-        .then(post => {
-            if (post.userId == req.auth.userId || process.env.ADMIN_ACCOUNT_ID == req.auth.userId) {
-                console.log("ctrllrs.post l:71 post: " + post);
-                const filename = post.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Post.deleteOne({_id: req.params.id})
-                        .then(() => res.status(200).json({ message: 'Post supprimé !' }))
-                        .catch(error => res.status(401).json({ error }));
-                });
-            } else {
-                res.status(403).json({message: 'Not authorized'});
-            }
-        })
-        .catch( error => res.status(500).json({ message: "Je trouve pas le post.." }));
+    .then(post => {
+        if (post.userId == req.auth.userId || process.env.ADMIN_ACCOUNT_ID == req.auth.userId) {
+            console.log("ctrllrs.post l:71 post: " + post);
+            const filename = post.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+                Post.deleteOne({_id: req.params.id})
+                .then(() => res.status(200).json({ message: 'Post supprimé !' }))
+                .catch(error => res.status(401).json({ error }));
+            });
+        } else {
+            res.status(403).json({message: 'Not authorized'});
+        }
+    })
+    .catch( error => res.status(500).json({ message: "Je trouve pas le post.." }));
  };
 
 exports.getOnePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
-        .then(post => {
-            console.log("cntrllrs.posts l:70 post: " + post);
-            res.status(200).json(post)
-        })
-        .catch(error => res.status(404).json({ error }));
+    .then(post => {
+        console.log("cntrllrs.posts l:70 post: " + post);
+        res.status(200).json(post)
+    })
+    .catch(error => res.status(404).json({ error }));
 };
 
 exports.getAllPosts = (req, res, next) => {
     Post.find()
-        .then(posts => res.status(200).json(posts))
-        .catch(error => res.status(400).json({ error }))
+    .then(posts => res.status(200).json(posts))
+    .catch(error => res.status(400).json({ error }))
 };
 
 exports.ratingPost = (req, res, next) => {
@@ -113,28 +122,28 @@ exports.ratingPost = (req, res, next) => {
     const ratingHandler = () => {
         if (object.like === 0) {
             Post.findOne({ _id: req.params.id })
-                .then(post => {
-                    if (post.usersLiked.includes(req.auth.userId)) {
-                        Post.updateOne({ _id: req.params.id }, { $pull: { usersLiked: req.auth.userId }, $inc: { likes: -1 } })
-                            .then(newPost => res.status(200).json(newPost))
-                            .catch(error => res.status(400).json({ error }));
-                    }
-                    if (post.usersDisliked.includes(req.auth.userId)) {
-                        Post.updateOne({ _id: req.params.id }, { $pull: { usersDisliked: req.auth.userId }, $inc: { dislikes: -1 } })
-                            .then(newPost => res.status(200).json(newPost))
-                            .catch(error => res.status(400).json({ error }));
-                    }
-                })
-                .catch(error => res.status(400).json({ error }));
+            .then(post => {
+                if (post.usersLiked.includes(req.auth.userId)) {
+                    Post.updateOne({ _id: req.params.id }, { $pull: { usersLiked: req.auth.userId }, $inc: { likes: -1 } })
+                    .then(newPost => res.status(200).json(newPost))
+                    .catch(error => res.status(400).json({ error }));
+                }
+                if (post.usersDisliked.includes(req.auth.userId)) {
+                    Post.updateOne({ _id: req.params.id }, { $pull: { usersDisliked: req.auth.userId }, $inc: { dislikes: -1 } })
+                    .then(newPost => res.status(200).json(newPost))
+                    .catch(error => res.status(400).json({ error }));
+                }
+            })
+            .catch(error => res.status(400).json({ error }));
         } else if (object.like === 1) {
             console.log("ctrllrs.post l:120 req.auth: " + JSON.stringify(req.auth));
             Post.updateOne({ _id: req.params.id }, { $push: { usersLiked: req.auth.userId }, $inc: { likes: 1 } })
-                .then(post => res.status(200).json(post))
-                .catch(error => res.status(400).json({ error }));
+            .then(post => res.status(200).json(post))
+            .catch(error => res.status(400).json({ error }));
         } else if (object.like === -1) {
             Post.updateOne({ _id: req.params.id }, { $push: { usersDisliked: req.auth.userId }, $inc: { dislikes: 1 } })
-                .then(post => res.status(200).json(post))
-                .catch(error => res.status(400).json({ error }));
+            .then(post => res.status(200).json(post))
+            .catch(error => res.status(400).json({ error }));
         }
     }
     ratingHandler();

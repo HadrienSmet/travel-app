@@ -77,7 +77,6 @@ exports.signup = (req, res, next) => {
                 res.status(200).json({
                     email: user.email,
                     profilePicture: urlProfilePicture,
-                    // profilePicture: user.profilePicture,
                     pseudo: user.pseudo,
                     country: user.userData.country,
                     firstName: user.userData.firstName,
@@ -87,7 +86,10 @@ exports.signup = (req, res, next) => {
                     description: user.userProfile.description,
                     dreamTrips: user.userProfile.dreamTrips,
                     previousTrips: user.userProfile.previousTrips,
-                    albums: user.albums,
+                    albums: [{
+                        name: req.body.albumName,
+                        pictures: urlsAlbumPictures,
+                    }]
                     // token: jwt.sign(
                     //     { userId: user._id },
                     //     process.env.ACCESS_TOKEN_SECRET,

@@ -1,0 +1,85 @@
+.post {
+    &-container {
+        width: calc(100% - 50px);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding: 15px 25px;
+    }
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        &__user-side {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            &__img-container {
+                // position: relative;
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            img {
+                // position: absolute;
+                width: 70px;
+                height: 70px;
+                // border-radius: 50px;
+            }
+        }
+        &__data-side {
+            color: rgba(0, 0, 0, 0.45)
+        }
+    }
+    &-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img {
+            width: 90%;
+            max-height: 300px;
+            border-radius: 15px;
+        }
+    }
+    &__buttons-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        svg {
+            transition: 0.2s ease-in-out;
+        }
+        &__opinion-side {
+            display: flex;
+            // flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+        &__likes {
+            cursor: pointer;
+            color: $primary-color;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            svg:hover {
+                transform: scale(1.1) translateY(-3px);
+            }
+        }
+        &__dislikes {
+            cursor: pointer;
+            color: $tertiary-color;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            svg:hover {
+                transform: scale(0.9) translateY(3px);
+            }
+        }
+    }
+}

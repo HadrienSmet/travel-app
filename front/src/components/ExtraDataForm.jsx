@@ -10,6 +10,7 @@ import ExtraDataFormAccordion from './ExtraDataFormAccordion';
 import { setUserLoggedData } from '../features/userLoggedData.slice';
 import { setJwtToken } from "../utils/functions/tools";
 import { setLoggedState } from '../features/loggedState.slice';
+import ClassicLoader from './ClassicLoader';
 
 const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [pseudo, setPseudo] = useState("");
@@ -18,6 +19,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [dreamTrip, setDreamTrip] = useState(undefined);
     const [previousTrips, setPreviousTrips] = useState(undefined);
     const [albumsArray, setAlbumsArray] = useState(undefined);
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
@@ -98,6 +100,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             && previousTrips !== undefined 
             && albumsArray !== undefined
         ) {
+            setIsLoading(true);
             let userPersonalsData = {
                 firstName,
                 lastName,
@@ -141,6 +144,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 })
                 .then((res) => {
                     console.log(res);
+                    // setIsLoading(false);
                     dispatch(setLoggedState(true));
                     dispatch(setUserLoggedData(res.data));
                     navigate("/home");
@@ -217,7 +221,8 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     </div>  
                 </div>  
             </div>
-            <Button variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>
+            {isLoading === false && <Button variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>}
+            {isLoading === true && <ClassicLoader />}
         </form>
     );
 };
