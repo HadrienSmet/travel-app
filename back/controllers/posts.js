@@ -13,10 +13,10 @@ exports.createPost = (req, res, next) => {
     // console.log("controllers.posts l:14 url: " + url)
     console.log("controllers.posts l:15 req.file: " + req.file)
     console.log("controllers.posts l:16 req.files: " + req.files)
-    if (req.file === undefined || req.files === undefined) {
+    if (req.files[0] === undefined) {
         url = "";
-    } {
-        url = req.files ? `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}` : "";
+    } else {
+        url = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
     }
     let { country, pseudo, profilePicture, text, date } = JSON.parse(postObject);
     

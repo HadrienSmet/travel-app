@@ -1,18 +1,16 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { FaThumbsDown, FaThumbsUp, FaPaperPlane, FaEdit, FaTimes } from 'react-icons/fa';
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { getJwtToken } from "../utils/functions/tools";
+import { getJwtToken, dateParser } from "../utils/functions/tools";
 
-const PostsDisplayer = () => {
+const Post = ({ post }) => {
     const [isEditing, setIsEditing] = useState(false);
     // const [isAuthor, setIsAuthor] = useState(false);
-    const postsData = useSelector((state) => state.postsDataStore.postsData);
+    // const postsData = useSelector((state) => state.postsDataStore.postsData);
     const { userId } = getJwtToken();
     return (
-        <div>
-            {postsData !== null && postsData.map((post) => (
-                <div key={"post-div-" + post._id} className="post-container">
+        <div key={"post-div-" + post._id} className="post-container">
                     <div key={"post-header-" + post._id} className="post-header">
                         <div key={"post-header-user-div-" + post._id} className="post-header__user-side">
                             <h4 key={"post-pseudo-" + post._id}>{post.pseudo}</h4>
@@ -22,7 +20,7 @@ const PostsDisplayer = () => {
                             
                         </div>
                         <div key={"post-header-data-div-" + post._id} className="post-header__data-side">
-                            <p key={"post-date-" + post._id}>{post.date}</p>
+                            <p key={"post-date-" + post._id}>{dateParser(post.date)}</p>
                             <p key={"post-country-" + post._id}>{post.country}</p>
                         </div>
                     </div>
@@ -65,9 +63,7 @@ const PostsDisplayer = () => {
                         </div>
                     </div>
                 </div>
-            ))}
-        </div> 
     );
 };
 
-export default PostsDisplayer;
+export default Post;

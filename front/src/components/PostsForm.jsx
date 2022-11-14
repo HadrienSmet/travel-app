@@ -55,12 +55,12 @@ const PostsForm = () => {
                     "authorization": `bearer ${token}`
                 }
             })
-                .then(res => {
+            .then(res => {
                     dispatch(setPostsData(res.data));
-                })
-                .catch(err => console.log(err));
             })
-        }
+            .catch(err => console.log(err));
+        })
+    }
     
     return (
         <form action="" className="posts-form" encType="multipart/form-data">

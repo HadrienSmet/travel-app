@@ -1,14 +1,36 @@
 
-import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import HomeGlobe3D from '../components/HomeGlobe3D';
-import PostsDisplayer from '../components/PostsDisplayer';
+import Post from '../components/Post';
+// import PostsDisplayer from '../components/PostsDisplayer';
 import PostsForm from '../components/PostsForm';
+import { setPostsData } from '../features/postsData.slice';
+import { getJwtToken } from '../utils/functions/tools';
 
 
 
 const Home = () => {
+    const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
-    // const postsData = useSelector((state) => state.postsDataStore.postsData);
+    let { token } = getJwtToken();
+    const postsData = useSelector((state) => state.postsDataStore.postsData);
+    useEffect(() => {
+        axios({
+            url: "http://localhost:3000/api/posts",
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `bearer ${token}`
+            }
+        })
+        .then(res => {
+                dispatch(setPostsData(res.data));
+        })
+        .catch(err => console.log(err));
+        /* eslint-disable react-hooks/exhaustive-deps */
+    }, [])
 
     return (
         <main>
@@ -26,7 +48,10 @@ const Home = () => {
                 <div className="home__content__main">
                     <div className="home__content__posts-division">
                         <PostsForm />
-                        <PostsDisplayer />
+                        {postsData !== null && postsData.map((post) => (
+                            <Post post={post} />
+                        ))}
+                         {/* <PostsDisplayer /> */}
                     </div>
                     
                 </div>
