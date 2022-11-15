@@ -25,6 +25,14 @@
         width: calc(100% - 45px);
     }
 }
+#signin-loader {
+    animation: none;
+    transform: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .signin-container
 .signin-icon {
     position: absolute;

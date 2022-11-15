@@ -3,16 +3,34 @@ import { FaThumbsDown, FaThumbsUp, FaPaperPlane, FaEdit, FaTimes } from 'react-i
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { getJwtToken, dateParser } from "../utils/functions/tools";
+import axios from 'axios';
 
 const Post = ({ post }) => {
     const [isEditing, setIsEditing] = useState(false);
-    // const [isAuthor, setIsAuthor] = useState(false);
-    // const postsData = useSelector((state) => state.postsDataStore.postsData);
-    const { userId } = getJwtToken();
+    const { userId, token } = getJwtToken();
+
+    const deletePost = (e) => {
+        console.log(e);
+        const postId = e.target.id.split("-")[1];
+        console.log(postId);
+        axios({
+            url: `${process.env.REACT_APP_API_URL}api/posts/${postId}`,
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `bearer ${token}`
+            }
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+
     return (
         <div key={"post-div-" + post._id} className="post-container">
                     <div key={"post-header-" + post._id} className="post-header">
-                        <div key={"post-header-user-div-" + post._id} className="post-header__user-side">
+                        <div 
+                            key={"post-header-user-div-" + post._id} className="post-header__user-side"
+                        >
                             <h4 key={"post-pseudo-" + post._id}>{post.pseudo}</h4>
                             <div key={"post-header-profile-picture-container" + post._id} className="post-header__user-side__img-container">
                                 <img key={"post-header-profile-picture" + post._id} src={post.profilePicture} alt={"photo de profil de " + post.pseudo} />
@@ -51,8 +69,8 @@ const Post = ({ post }) => {
                                 </Button>
                             }
                             {post.userId === userId && 
-                                <Button key={"post-buttons-row-delete-btn" + post._id}>
-                                    <FaTimes  key={"post-buttons-row-delete-icon" + post._id} />
+                                <Button  key={"post-buttons-row-delete-btn" + post._id} onClick={(e) => deletePost(e)}>
+                                    <FaTimes id={"delete-" + post._id} key={"post-buttons-row-delete-icon" + post._id} />
                                 </Button>
                             }
                             {isEditing === true && 

@@ -1,4 +1,5 @@
 import { TextField, Button } from '@mui/material'
+import ClassicLoader from './ClassicLoader';
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -11,19 +12,21 @@ import { setJwtToken } from '../utils/functions/tools';
 const SigninForm = () => {
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleMailBehavior = () => {
+    // const handleMailBehavior = () => {
 
-    }
-    const handlePasswordBehavior = () => {
+    // }
+    // const handlePasswordBehavior = () => {
 
-    }
+    // }
 
     const handleSubmission = (e) => {
         const span = document.getElementById('signin-msg');
         e.preventDefault();
+        setIsLoading(true);
         // if (mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) 
         //     && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/)) {
         //     console.log("ce mail et ce mot de passe et ce pseudo me semblent tout a fait correct jeune homme");
@@ -44,6 +47,7 @@ const SigninForm = () => {
                 dispatch(setUserLoggedData(res.data));
                 setJwtToken(res.data);
                 navigate("/home");
+                setIsLoading(false)
             }
             
         })
@@ -71,7 +75,7 @@ const SigninForm = () => {
                         type="email"
                         required={true}
                         onChange={(e) => setMail(e.target.value)}
-                        onBlur={() => handleMailBehavior()} 
+                        // onBlur={() => handleMailBehavior()} 
                     />
                 </div>
                 <div className="signin-container__password-division">
@@ -85,11 +89,12 @@ const SigninForm = () => {
                         type="password"
                         required={true}
                         onChange={(e) => setPassword(e.target.value)} 
-                        onBlur={() => handlePasswordBehavior()} 
+                        // onBlur={() => handlePasswordBehavior()} 
                     />
                 </div>
                 <span id="signin-msg"></span>
-                <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>
+                {isLoading === false && <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>}
+                {isLoading !== false && <ClassicLoader dynamicId="signin-loader" />}
             </form>
         </div>
     );

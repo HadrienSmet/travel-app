@@ -1,9 +1,9 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-const ClassicLoader = () => {
+const ClassicLoader = ({ dynamicId }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box id={dynamicId} sx={{ display: 'flex' }}>
       <CircularProgress />
     </Box>
   );

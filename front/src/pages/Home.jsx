@@ -16,6 +16,8 @@ const Home = () => {
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     let { token } = getJwtToken();
     const postsData = useSelector((state) => state.postsDataStore.postsData);
+    let dataArrayForSort;
+    postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
     useEffect(() => {
         axios({
             url: "http://localhost:3000/api/posts",
@@ -48,8 +50,10 @@ const Home = () => {
                 <div className="home__content__main">
                     <div className="home__content__posts-division">
                         <PostsForm />
-                        {postsData !== null && postsData.map((post) => (
-                            <Post post={post} />
+                        {dataArrayForSort !== null && dataArrayForSort
+                        .sort((a, b) => b.date - a.date)
+                        .map((post, index) => (
+                            <Post key={index} post={post} />
                         ))}
                          {/* <PostsDisplayer /> */}
                     </div>

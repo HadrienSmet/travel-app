@@ -222,7 +222,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 </div>  
             </div>
             {isLoading === false && <Button variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>}
-            {isLoading === true && <ClassicLoader />}
+            {isLoading === true && <ClassicLoader dynamicId="extra-data-loader" />}
         </form>
     );
 };
