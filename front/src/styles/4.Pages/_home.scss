@@ -7,7 +7,7 @@
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            width: 100%;
+            width: calc(100% - 60px);
             padding: 30px;
             border-radius: 15px;
             &__profile-division {

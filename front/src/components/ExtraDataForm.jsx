@@ -128,7 +128,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     fileData.append("file", album[i]); 
                 }
             })  
-            axios.post("http://localhost:3000/api/auth/signup", data, {
+            axios.post(`${process.env.REACT_APP_API_URL}api/auth/signup`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -136,7 +136,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             .then((res) => {
                 setJwtToken(res.data);
                 console.log(res.data);
-                axios.patch("http://localhost:3000/api/auth/userProfile/" + res.data.userId, fileData, {
+                axios.patch(`${process.env.REACT_APP_API_URL}api/auth/userProfile/${res.data.userId}`, fileData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "authorization": `bearer ${res.data.token}`
@@ -144,7 +144,6 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 })
                 .then((res) => {
                     console.log(res);
-                    // setIsLoading(false);
                     dispatch(setLoggedState(true));
                     dispatch(setUserLoggedData(res.data));
                     navigate("/home");
@@ -210,14 +209,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                                     <p>Partagez à vos amis vos rêves les plus fous!</p>
                                 </div>
                             }
-                            {/* {dreamTrip.length > 5 && 
-                                <div id="countries-list__scroll-bar-track">
-                                    <span id="countries-list__scroll-bar"></span>
-                                </div>
-                            } */}
                         </div>
-                        
-                        
                     </div>  
                 </div>  
             </div>

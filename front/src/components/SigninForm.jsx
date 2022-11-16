@@ -16,26 +16,15 @@ const SigninForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const handleMailBehavior = () => {
-
-    // }
-    // const handlePasswordBehavior = () => {
-
-    // }
-
     const handleSubmission = (e) => {
         const span = document.getElementById('signin-msg');
         e.preventDefault();
         setIsLoading(true);
-        // if (mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) 
-        //     && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/)) {
-        //     console.log("ce mail et ce mot de passe et ce pseudo me semblent tout a fait correct jeune homme");
-        // }
         let data = {
             email: mail,
             password
         }
-        axios.post("http://localhost:3000/api/auth/login", data, {
+        axios.post(`${process.env.REACT_APP_API_URL}api/auth/login`, data, {
             "Content-Type": "application/json"
         })
         .then((res) => {
@@ -66,7 +55,7 @@ const SigninForm = () => {
                 <h3>Connectez-vous!</h3>
                 <div className="signin-container__email-division">
                     <div className="signin-container__icons-container">
-                        { mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}
+                        {mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}
                     </div>
                     <TextField 
                         id="outlined-mail" 
@@ -75,7 +64,6 @@ const SigninForm = () => {
                         type="email"
                         required={true}
                         onChange={(e) => setMail(e.target.value)}
-                        // onBlur={() => handleMailBehavior()} 
                     />
                 </div>
                 <div className="signin-container__password-division">
@@ -88,8 +76,7 @@ const SigninForm = () => {
                         variant="outlined"
                         type="password"
                         required={true}
-                        onChange={(e) => setPassword(e.target.value)} 
-                        // onBlur={() => handlePasswordBehavior()} 
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <span id="signin-msg"></span>

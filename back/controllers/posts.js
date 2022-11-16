@@ -40,17 +40,19 @@ exports.createPost = (req, res, next) => {
  //If there is a file we get request's body but we change the value on the imageUrl's property
  //If there is no file we keep the request's body intact
 exports.modifyPost = (req, res, next) => {
-    console.log("ctrllr.post l:35 req.body: " + JSON.stringify({ ...req.body }));
+    console.log("ctrllr.post l:43 req.body: " + JSON.stringify({ ...req.body }));
+    console.log("ctrllr.post l:44 req.file: " + req.file);
+    console.log("ctrllr.post l:45 req.files: " + req.files);
     let postObject;
     if (req.body.file == "") {
         postObject = {
             ...req.body,
             imageUrl: ""
         };
-    } else if (req.file) {
+    } else if (req.files) {
         postObject = {
             ...req.body,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`
         };
     } else {
         postObject = { ...req.body };
@@ -63,7 +65,8 @@ exports.modifyPost = (req, res, next) => {
         .then((post) => {
             if ( post.userId == req.auth.userId || process.env.ADMIN_ACCOUNT_ID == req.auth.userId) {
                 const filename = post.imageUrl.split('/images/')[1];
-                if (req.file) {
+                console.log(filename);
+                if (req.files) {
                     console.log("ctrllr.post l:55: " + JSON.stringify(postObject));
                     fs.unlink(`images/${filename}`, () => {
                         Post.updateOne({ _id: req.params.id }, { ...postObject, id: req.params.id })

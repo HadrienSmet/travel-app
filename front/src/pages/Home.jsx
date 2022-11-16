@@ -1,10 +1,8 @@
-
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import HomeGlobe3D from '../components/HomeGlobe3D';
 import Post from '../components/Post';
-// import PostsDisplayer from '../components/PostsDisplayer';
 import PostsForm from '../components/PostsForm';
 import { setPostsData } from '../features/postsData.slice';
 import { getJwtToken } from '../utils/functions/tools';
@@ -20,7 +18,7 @@ const Home = () => {
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
     useEffect(() => {
         axios({
-            url: "http://localhost:3000/api/posts",
+            url: `${process.env.REACT_APP_API_URL}api/posts`,
             method: "get",
             headers: {
                 "Content-Type": "application/json",
@@ -55,11 +53,8 @@ const Home = () => {
                         .map((post, index) => (
                             <Post key={index} post={post} />
                         ))}
-                         {/* <PostsDisplayer /> */}
                     </div>
-                    
-                </div>
-                
+                </div> 
             </section>
         </main>
     );

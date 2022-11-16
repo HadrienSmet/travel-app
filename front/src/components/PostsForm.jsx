@@ -31,10 +31,9 @@ const PostsForm = () => {
         post.append("profilePicture", userData.profilePicture);
         post.append("text", postText);
         postFile !== "" && post.append("file", postFile);
-        // post.append("file", postFile);
     
         axios({
-            url: "http://localhost:3000/api/posts",
+            url: `${process.env.REACT_APP_API_URL}api/posts`,
             method: "post",
             data: post,
             headers: {
@@ -48,7 +47,7 @@ const PostsForm = () => {
             setPostText("");
             console.log(res);
             axios({
-                url: "http://localhost:3000/api/posts",
+                url: `${process.env.REACT_APP_API_URL}api/posts`,
                 method: "get",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,6 +55,7 @@ const PostsForm = () => {
                 }
             })
             .then(res => {
+                    console.log(res.data);
                     dispatch(setPostsData(res.data));
             })
             .catch(err => console.log(err));

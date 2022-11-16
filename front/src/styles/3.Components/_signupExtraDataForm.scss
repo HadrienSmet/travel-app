@@ -102,7 +102,6 @@
                 left: -30px;
             }
         }
-        
     }
     &__input-destination {
         height: 36.5px;
@@ -123,8 +122,7 @@
         }
     } 
     ul#countries-list {
-        position: relative;
-        
+        position: relative;  
         padding-top: 10px;
         display: flex;
         flex-direction: column;
@@ -165,12 +163,11 @@
             transform: translate(-50%, -50%);
         }
     }
-    
 }
 .countries-list__division {
     margin-top: 10px;
     position: relative;
-    height: calc(100% - 66.5px);
+    height: calc(100% - 48px);
     overflow: auto;
     border: 1px solid rgba(0, 0, 0, 0.43);
     border-radius: 4px;
@@ -189,23 +186,6 @@
     align-items: center;
     justify-content: center;
 }
-// #countries-list__scroll-bar {
-//     position: absolute;
-//     height: 25px;
-//     width: 4px;
-//     background-color: rgba(0, 0, 0, 0.3);
-//     border-radius: 4px;  
-// }
-// #countries-list__scroll-bar-track {
-//     padding: 2px 0;
-//     // height: calc(100% - 66.5px);
-//     height: calc((60vh * 0.75) - 265px);
-//     width: 4px;
-//     position: absolute;
-//     top: 2px;
-//     left: calc(100% - 11px);
-//     background-color: transparent;
-// }
 .last-step-icon {
     position: absolute;
     top: 20px;
