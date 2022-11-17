@@ -118,6 +118,13 @@ exports.getAllPosts = (req, res, next) => {
     .catch(error => res.status(400).json({ error }))
 };
 
+exports.getPostsCountry = (req, res, next) => {
+    console.log(req);
+    Post.find({ country: req.params.country })
+    .then(posts => res.status(200).json(posts))
+    .catch(error => res.status(400).json({ error }));
+};
+
 exports.ratingPost = (req, res, next) => {
     const object = req.body;
     console.log("cntrllrs.post l:84 object: " + JSON.stringify(object));

@@ -5,6 +5,7 @@ require('dotenv').config();
 //Returns the id authentified by JWT Token
 //If succes the API goes to the next middleware
 module.exports = (req, res, next) => {
+    console.log(req.headers.authorization);
    try {
        const token = req.headers.authorization.split(' ')[1];
        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);

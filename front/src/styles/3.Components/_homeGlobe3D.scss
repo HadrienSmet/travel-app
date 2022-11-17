@@ -16,22 +16,44 @@
         color: $clr-2;
         height: 100%;
         width: 350px;
-        overflow: scroll;
+        overflow-y: scroll;
         &::-webkit-scrollbar {
             color: rgba(0, 0, 0, 0.8);
             width: 100%;
             height: 100%;
         }
         li {
+            cursor: pointer;
+            position: relative;
             text-transform: uppercase;
             font-style: italic;
             font-size: 13px;
-            margin-left: 10px;
+            padding-left: 10px;
             width: calc(100% - 25px);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             margin-bottom: 3px;
+            transition: 0.2s ease-in-out;
+            &:hover {
+                transform: translateX(10px);
+                color: $primary-color;
+                &::before {
+                    opacity: 1;
+                }
+            }
+            &::before {
+                position: absolute;
+                content: "";
+                width: 5px;
+                height: 5px;
+                border-radius: 5px;
+                background-color: $primary-color;
+                left: 0;
+                top: 5px;
+                opacity: 0;
+                transition: 0.2s ease-in-out;
+            }
         }
         &__scroll-bar {
             position: absolute;

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import countryList from 'react-select-country-list';
 
 
-const HomeGlobe3D = () => {
+const HomeGlobe3D = ({ changeSelectedCountry }) => {
     const options = useMemo(() => countryList().getData(), [])
 
     const handleScroll = (e) => {
@@ -14,7 +14,14 @@ const HomeGlobe3D = () => {
         <div className="globe-division">
             <span className="globe-division__globe"></span>
             <ul className="globe-division__countries-list" onScroll={(e) => handleScroll(e)}>
-                {options.map((option) => (<li key={option.label}>{option.label}</li>))}
+                {options.map((option) => (
+                    <li 
+                        key={option.label} 
+                        onClick={() => changeSelectedCountry(option.label)}
+                    >
+                        {option.label}
+                    </li>
+                ))}
             </ul>
             <div className="globe-division__countries-list__scroll-bar-track">
                 <span id="globe-scroll-bar" className="globe-division__countries-list__scroll-bar"></span>

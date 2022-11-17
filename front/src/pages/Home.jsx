@@ -12,10 +12,11 @@ import { getJwtToken } from '../utils/functions/tools';
 const Home = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
-    let { token } = getJwtToken();
     const postsData = useSelector((state) => state.postsDataStore.postsData);
+    let { token } = getJwtToken();
     let dataArrayForSort;
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
+
     useEffect(() => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts`,
@@ -32,6 +33,21 @@ const Home = () => {
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
 
+    const changeSelectedCountry = (country) => {
+        axios({
+            url: `${process.env.REACT_APP_API_URL}api/posts/from/${country}`,
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `bearer ${token}`
+            }
+        })
+        .then(res => {
+            dispatch(setPostsData(res.data));
+        })
+        .catch(err => console.log(err));
+    }
+
     return (
         <main>
             <div className="fake-margin-replacing-header"></div>
@@ -43,7 +59,7 @@ const Home = () => {
                         </div>
                         <h1>Bonjour {userData.pseudo}</h1>
                     </div> 
-                    <HomeGlobe3D />
+                    <HomeGlobe3D changeSelectedCountry={changeSelectedCountry} />
                 </div>
                 <div className="home__content__main">
                     <div className="home__content__posts-division">
