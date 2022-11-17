@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import countryList from 'react-select-country-list';
+// import { Canvas } from '@react-three/fiber';
 
 
 const HomeGlobe3D = ({ changeSelectedCountry }) => {
@@ -12,6 +13,12 @@ const HomeGlobe3D = ({ changeSelectedCountry }) => {
     }
     return (
         <div className="globe-division">
+            {/* <Canvas>
+                <mesh>
+                    <sphereBufferGeometry />
+                    <meshBasicMaterial />
+                </mesh>
+            </Canvas> */}
             <span className="globe-division__globe"></span>
             <ul className="globe-division__countries-list" onScroll={(e) => handleScroll(e)}>
                 {options.map((option) => (

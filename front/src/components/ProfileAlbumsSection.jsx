@@ -1,9 +1,24 @@
 import { useSelector } from "react-redux";
 import ProfileAlbumSectionModal from "./ProfileAlbumsSectionModal";
-import { Button } from "@mui/material";
+import ProfileAlbumModal from "./ProfileAlbumModal";
+import { useState } from "react";
 
 const ProfileAlbumsSection = () => {
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
+    const [albumsArray, setAlbumsArray] = useState(undefined);
+
+    //This function is here to allow the child modal to change the state of this component
+    //@Params { Type: Array } --> Array of objects. Each objects represents an album and has a key for the name and a key for all the pictures url
+    const changeAlbumsArray = (array) => {
+        let albumsContainer;
+        if (albumsArray === undefined) {
+            albumsContainer = [array];
+        } else {
+            albumsContainer = [...albumsArray, array]
+        }
+        setAlbumsArray(albumsContainer);
+        console.log(albumsArray);
+    }
 
     return (
         <div className='profile-albums-section'>
@@ -31,7 +46,7 @@ const ProfileAlbumsSection = () => {
             :
                 null
             }
-            <Button variant="outlined">Créer un nouvel album</Button>
+            <ProfileAlbumModal changeAlbumsArray={changeAlbumsArray} />
         </div>
     );
 };
