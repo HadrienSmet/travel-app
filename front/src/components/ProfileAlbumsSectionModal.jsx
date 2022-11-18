@@ -19,17 +19,18 @@ const style = {
   p: 4,
 };
 
-const ProfileAlbumSectionModal = ({ album }) => {
+const ProfileAlbumSectionModal = ({ album, index }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-        <div className="more-picture__div">
-            <Button onClick={handleOpen}><FaPlus /></Button>
+        <div key={"more-picture__div-" + index} className="more-picture__div">
+            <Button className="btn-toggle-full-album-modal" key={"btn-toggle-modal-" + index} onClick={handleOpen}><FaPlus /></Button>
         </div> 
       <Modal
+      key={"more-picture__modal-" + index} 
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -40,10 +41,11 @@ const ProfileAlbumSectionModal = ({ album }) => {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
-          <Box sx={style} className="album-modal">
-            <div className="album-modal__header">
-                <Typography 
+        <Fade key={"more-picture__fade-" + index} in={open}>
+          <Box key={"more-picture__box" + index} sx={style} className="album-modal">
+            <div key={"more-picture__modal-header-" + index} className="album-modal__header">
+                <Typography
+                    key={"more-picture__modal-header-typo" + index} 
                     id="transition-modal-title" 
                     variant="h6" 
                     component="h2"
@@ -51,12 +53,12 @@ const ProfileAlbumSectionModal = ({ album }) => {
                 >
                 {album.name}
                 </Typography>
-                <FaTimes onClick={() => setOpen(false)} />
+                <FaTimes key={"more-picture__modal-header-icon-" + index} onClick={() => setOpen(false)} />
             </div>
             
-            <div className="album-modal__pictures-displayer">
-                {album.pictures.map((picture) => (
-                    <img src={picture} alt={"image venant de l'" + album.name} />
+            <div key={"more-picture__modal-pictures-displayer-" + index} className="album-modal__pictures-displayer">
+                {album.pictures.map((picture, i) => (
+                    <img src={picture} alt={"image venant de l'" + album.name} key={"more-picture__modal-" + index + "-picture-" + i} />
                 ))}
             </div>
           </Box>

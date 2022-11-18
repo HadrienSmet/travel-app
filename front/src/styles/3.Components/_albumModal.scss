@@ -1,7 +1,7 @@
 .album-modal {
     width: 70vw !important;
     border: none !important;
-    background-color: rgba(255, 255, 255, 0.85) !important;
+    background-color: rgba(191, 192, 186, 1) !important;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,4 +30,8 @@
             height: 250px;
         }
     }
+}
+.btn-toggle-full-album-modal {
+    background-color: transparent !important;
+    border: none !important;
 }

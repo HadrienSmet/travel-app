@@ -1,4 +1,4 @@
-.album-modal {
+.add-album-modal {
     z-index: 2600;
     position: absolute !important;
     display: flex;
@@ -9,9 +9,18 @@
     height: 85vh;
     border: none !important;
     border-radius: 10px;
-    background-color: rgb(151, 160, 160) !important;
+    background-color: $clr-1 !important;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+    &__header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    form {
+        width: 85%;
+    }
     &__same-row {
         width: 100%;
         display: flex;
@@ -28,7 +37,7 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        width: 85%;
+        width: 100%;
         height: calc(100% - 200px);
         &--absolute {
             position: absolute;
@@ -44,7 +53,7 @@
             max-height: 100%;
             z-index: -1;
             img {
-                margin-bottom: calc((25% - 120px) / 3 + 1.5px);
+                // margin-bottom: calc((25% - 120px) / 3 + 1.5px);
                 width: calc(28% - 1px);
                 height: 120px;
                 z-index: 2;
@@ -59,14 +68,15 @@
         align-items: center;
         justify-content: center;
         transition: 0.3s ease-in;
+        // margin-bottom: calc((25% - 120px) / 3 + 1.5px);
         cursor: pointer;
         // z-index: 3;
         &:hover {
             background-color: transparent;
-            > .album-modal__camera-icon {
+            > .add-album-modal__camera-icon {
                 opacity: 0;
             }
-            > .album-modal__plus-icon {
+            > .add-album-modal__plus-icon {
                 opacity: 1;
             }
         }
@@ -78,12 +88,12 @@
         svg {
             position: absolute;
             font-size: 60px;
-            color: rgba(246, 248, 234, 0.5);
+            color: rgba(0, 0, 0, 0.35);
             z-index: -2;
         }
     }
     &__plus-icon {
-        color: $secondary-color !important;
+        color: rgba(0, 0, 0, 0.35) !important;
         opacity: 0;
         transition: 0.3s ease-in-out;
     }

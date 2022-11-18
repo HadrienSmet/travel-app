@@ -28,7 +28,7 @@ const Profile = () => {
                     <nav className="profile-section__navigation">
                         <ButtonGroup className="profile-section__navigation__buttons-container" variant="text" aria-label="text button group">
                             <Button id="actuality" onClick={(e) => setProfileState(e.target.id)}>Actualité</Button>
-                            <Button id="albums" albumsData={userProfile.albums} onClick={(e) => setProfileState(e.target.id)}>Albums</Button>
+                            <Button id="albums" onClick={(e) => setProfileState(e.target.id)}>Albums</Button>
                             <Button id="trips" onClick={(e) => setProfileState(e.target.id)}>Voyages</Button>
                             <Button id="friends" onClick={(e) => setProfileState(e.target.id)}>Amis</Button>
                             <Button id="infos" onClick={(e) => setProfileState(e.target.id)}>Infos</Button>

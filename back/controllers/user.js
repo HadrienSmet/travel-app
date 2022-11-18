@@ -112,45 +112,73 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     console.log(req.body);
     UserModel.findOne({ email: req.body.email })
-        .then(user => {
-            if (!user) {
-                return res.status(401).json({ message: "Cet email n'est pas présent dans notre base de donnée"});
+    .then(user => {
+        if (!user) {
+            return res.status(401).json({ message: "Cet email n'est pas présent dans notre base de donnée" });
+        }
+        bcrypt.compare(req.body.password, user.password)
+        .then(valid => {
+            if (!valid) {
+                return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
             }
-            bcrypt.compare(req.body.password, user.password)
-                .then(valid => {
-                    if (!valid) {
-                        return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
-                    }
-                    console.log("cntrllrs.user l: 43 signature jwt:" + jwt.sign(
-                        { userId: user._id },
-                        process.env.ACCESS_TOKEN_SECRET,
-                        { expiresIn: '24h' }
-                    ));
-                    res.status(200).json({
-                        email: user.email,
-                        profilePicture: user.profilePicture,
-                        pseudo: user.pseudo,
-                        country: user.userData.country,
-                        firstName: user.userData.firstName,
-                        lastName: user.userData.lastName,
-                        age: user.userData.age,
-                        gender: user.userData.gender,
-                        description: user.userProfile.description,
-                        dreamTrips: user.userProfile.dreamTrips,
-                        previousTrips: user.userProfile.previousTrips,
-                        albums: user.albums,
-                        userId: user._id,
-                        token: jwt.sign(
-                            { userId: user._id },
-                            process.env.ACCESS_TOKEN_SECRET,
-                            { expiresIn: '24h' }
-                        ),
-                    });
-                })
-                .catch(error => res.status(500).json({ error }));
+            console.log("cntrllrs.user l: 43 signature jwt:" + jwt.sign(
+                { userId: user._id },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: '24h' }
+            ));
+            res.status(200).json({
+                email: user.email,
+                profilePicture: user.profilePicture,
+                pseudo: user.pseudo,
+                country: user.userData.country,
+                firstName: user.userData.firstName,
+                lastName: user.userData.lastName,
+                age: user.userData.age,
+                gender: user.userData.gender,
+                description: user.userProfile.description,
+                dreamTrips: user.userProfile.dreamTrips,
+                previousTrips: user.userProfile.previousTrips,
+                albums: user.albums,
+                userId: user._id,
+                token: jwt.sign(
+                    { userId: user._id },
+                    process.env.ACCESS_TOKEN_SECRET,
+                    { expiresIn: '24h' }
+                ),
+            });
         })
         .catch(error => res.status(500).json({ error }));
- };
+    })
+    .catch(error => res.status(500).json({ error }));
+};
+
+exports.uploadAlbum = (req, res, next) => {
+    UserModel.findOne({ _id: req.params.userId})
+    .then((user) => {
+        if(user._id != req.auth.userId) {
+            return res.status(401).json({ message: "Requête non-autorisée" });
+        } else {
+            let urlsAlbumPictures = [];
+            for (let i = 0; i < req.files.length; i++) {
+                urlsAlbumPictures.push(`${req.protocol}://${req.get('host')}/images/${req.files[i].filename}`)
+            }
+            let album = {
+                name: req.body.name,
+                pictures: urlsAlbumPictures,
+            }
+            UserModel.updateOne(
+                { _id: req.auth.userId },
+                { $push: { albums: album } }
+            )
+            .then(updatedUser => res.status(201).json({ 
+                message: "Album sauvegardé dans la base de donnée!",
+                newAlbum: album,
+            }))
+            .catch(error => res.status(400).json({ message: "Quelque chose a planté durant la modification.." }));
+        }
+    })
+    .catch(error => res.status(400).json({ message: "On ne trouve pas d'utilisateur possédant cet id" }));
+}
 
 
 

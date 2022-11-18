@@ -8,9 +8,12 @@ export const userLoggedDataSlice = createSlice({
     reducers: {
         setUserLoggedData: (state, { payload }) => {
             state.userLoggedData = payload;
+        },
+        pushAlbumInUserLoggedData : (state, { payload }) => {
+            state.userLoggedData.albums.push(payload);
         }
     },
 });
 
-export const { setUserLoggedData } = userLoggedDataSlice.actions;
+export const { setUserLoggedData, pushAlbumInUserLoggedData } = userLoggedDataSlice.actions;
 export default userLoggedDataSlice.reducer;
