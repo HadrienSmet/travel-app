@@ -14,11 +14,6 @@ const previousTripSchema = mongoose.Schema({
     details: { type: String, required: false },
 })
 
-// const userAuthentificationSchema = mongoose.Schema({
-//     email: { type: String, required: true, unique: true },
-//     password: { type: String, required: true},
-// })
-
 const userDataSchema = mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -27,20 +22,22 @@ const userDataSchema = mongoose.Schema({
     country: { type: String, required: true },
 })
 
-const userProfileSchema = mongoose.Schema({
-    description: { type: String, required: true },
-    dreamTrips: { type: [String], default: undefined, required: true },
-    previousTrips: [previousTripSchema],
-})
+// const userFriendSchema = mongoose.Schema({
+//     userId: { type: String, required: true },
+//     pseudo: { type: String, required: true },
+// })
 
 const userSchema = mongoose.Schema({
     pseudo: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true},
     profilePicture: { type: String, required: false },
-    userData: userDataSchema,
-    userProfile: userProfileSchema,
+    description: { type: String, required: true },
+    dreamTrips: { type: [String], default: undefined, required: true },
+    previousTrips: [previousTripSchema],
     albums: [albumSchema],
+    userData: userDataSchema,
+    friends: { type: [String], default: undefined, required: false }
 })
 
 // userAuthentificationSchema.plugin(uniqueValidator);

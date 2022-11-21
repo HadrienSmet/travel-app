@@ -3,37 +3,30 @@
     height: 100%;
     width: 90%;
     left: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    @include flexAroundColumnCenter;
     &__fields-displayer {
         height: 75%;
         width: 100%;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-between;
+        @include flexRowReverseBetween;
         &__left-column {
-            display: flex;
-            flex-direction: column;
             gap: 10px;
             width: 45%;
+            @include flexColumn;
         }
     }
     &__trips-area {
         width: 45%;
-        display: flex;
-        flex-direction: column;
         gap: 10px;
+        @include flexColumn;
         button {
             width: 100%;
-            border: 1px solid rgba(0, 0, 0, 1);
+            border: 1px solid $black-very-low-op;
             color: $secondary-color;
-            background-color: rgba(0, 0, 0, 0.43);
+            background-color: $black-mid-op;
             &:hover {
-                border: 1px solid rgba(0, 0, 0, 1);
+                border: 1px solid $black-very-low-op;
                 color: $secondary-color;
-                background-color: rgba(0, 0, 0, 0.8);
+                background-color: $black-almost-strong-op;
             }
             svg {
                 margin-left: 10px;
@@ -42,20 +35,16 @@
     }
     &__trips-displayer {
         position: relative;
-        border: 1px solid rgba(0, 0, 0, 0.43);
+        border: 1px solid $black-mid-op;
         border-radius: 4px;
         height: calc(100% - 46.5px);
         p {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            @include translateToCenter
         }
     }
     &__previous-trip-album {
-        display: flex;
-        justify-content: flex-start;
         gap: 5px;
+        @include flexStart;
         img {
             width: 50px;
             height: 50px;
@@ -71,7 +60,7 @@
         div {
             width: 100%;
             fieldset {
-                border-color: rgba(0, 0, 0, 0.43) !important;
+                border-color: $black-mid-op !important;
             }
         }
         svg {
@@ -91,7 +80,7 @@
     &__text-area {
         max-height: calc(100% - 187px);
         fieldset {
-            border-color: rgba(0, 0, 0, 0.43) !important;
+            border-color: $black-mid-op !important;
         }  
     }
     &__dream-trips-division {
@@ -118,17 +107,15 @@
             }
         }
         fieldset {
-            border: 1px solid rgba(0, 0, 0, 0.43);
+            border: 1px solid $black-mid-op;
         }
     } 
     ul#countries-list {
         position: relative;  
         padding-top: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
         gap: 10px;
         position: relative;
+        @include flexColumnStart;
         li {
             padding: 2px;
             position: relative;
@@ -152,15 +139,12 @@
                 top: 0;
                 width: 100%;
                 height: 100%;
-                border: 1px solid rgba(0, 0, 0, 0.43);
+                border: 1px solid $black-mid-op;
                 border-radius: 20px;
             }
         }
         p {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            @include translateToCenter;
         }
     }
 }
@@ -169,10 +153,10 @@
     position: relative;
     height: calc(100% - 48px);
     overflow: auto;
-    border: 1px solid rgba(0, 0, 0, 0.43);
+    border: 1px solid $black-mid-op;
     border-radius: 4px;
     &::-webkit-scrollbar {
-        color: rgba(0, 0, 0, 0.8);
+        color: $black-almost-strong-op;
         width: 100%;
         height: 100%;
     }
@@ -182,9 +166,7 @@
     top: -10px;
     width: 100%;
     height: calc(100% - 10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flexFullCenter;
 }
 .last-step-icon {
     position: absolute;

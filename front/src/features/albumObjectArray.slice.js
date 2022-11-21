@@ -7,7 +7,14 @@ export const albumObjectArraySlice = createSlice({
     },
     reducers: {
         setAlbumObjectArrayStore: (state, { payload }) => {
-            state.albumObjectArray.push({ ...payload });
+            state.albumObjectArray.push({ ...payload })
+            // if (state.albumObjectArray === []) {
+                // state.albumObjectArray = [{...payload}];
+            // } else {
+            //     let iterableArray = state.albumObjectArray
+            //     state.albumObjectArray = [{...iterableArray}, {...payload}];
+            // }
+            
         }
     },
 });

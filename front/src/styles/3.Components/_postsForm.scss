@@ -1,16 +1,14 @@
 .posts-form {
     width: 100%;
     position: relative;
-    display: flex;
-    flex-direction: column;
     gap: 10px;
+    @include flexColumn;
     > div {
         width: 100%;
     }
     img {
         width: 80px;
         height: 80px;
-        // position: absolute;
     }
     button {
         color: $secondary-color;
@@ -23,8 +21,7 @@
         }
     }
     &__buttons-row {
-        display: flex;
-        justify-content: space-between;
+        @include flexBetween;
     }
 }
 .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {

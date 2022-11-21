@@ -7,8 +7,6 @@ import PostsForm from '../components/PostsForm';
 import { setPostsData } from '../features/postsData.slice';
 import { getJwtToken } from '../utils/functions/tools';
 
-
-
 const Home = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
@@ -17,6 +15,7 @@ const Home = () => {
     let dataArrayForSort;
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
 
+    //This useEffect gets all the posts from the data base and it put all of them in the redux store
     useEffect(() => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts`,
@@ -33,6 +32,9 @@ const Home = () => {
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
 
+    //This function is called when the user click on a country
+    //@Params { Type: String } => The country selected by the user
+    //It gets from the data base all the posts made by the users from the country selected
     const changeSelectedCountry = (country) => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts/from/${country}`,

@@ -4,7 +4,7 @@
         width: 100%;
         height: calc(100vh + 50px);
     }
-    &-carousel-content {
+    &-main-content {
         width: 80vw;
         height: calc(80vh - 50px);
         position: absolute;
@@ -13,20 +13,15 @@
         background-color: rgba(246, 248, 234, 0.7);
         padding: 20px 40px;
         border-radius: 3px;
-        display: flex;
-        justify-content: center;
         gap: 150px;
-        align-items: center;
+        @include flexFullCenter;
         &-intro {
             max-width: 60%;
             height: 80%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
             gap: 30px;
             transition: 0.3s ease-in-out;
-            h2 {
+            @include flexColumnCenter;
+            h1 {
                 text-transform: uppercase;
                 font-size: 30px;
             }
@@ -36,7 +31,6 @@
         }
         &__paralaxed-element {
             position: absolute;
-            // top: 50vh;
             top: calc(50vh + 50px);
             left: 50%;
         }

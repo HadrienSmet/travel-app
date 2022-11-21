@@ -1,19 +1,13 @@
 .profile-trips-section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 80%;
+    @include flexBetween;
     &__trip-division {
         padding: 10px 15px;
         position: relative;
-        // width: 300px;
         margin: 15px;
-        display: flex;
-        flex-direction: column;
-        // align-items: center;
-        justify-content: center;
         gap: 8px;
-        background-color: rgba(0, 0, 0, 0.15);
+        background-color: $black-low-op;
+        @include flexColumnCenterY;
         h3 {
             margin-bottom: 5px;
         }

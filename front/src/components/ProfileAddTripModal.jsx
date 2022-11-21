@@ -1,14 +1,14 @@
-import { useState, Fragment } from 'react';
+import { useState } from 'react';
 import { Button, Modal, Box, TextField } from '@mui/material';
-import { useDispatch, useSelector } from "react-redux";
-import { FaPlus, FaCamera } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { FaPlus } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
 import InputCountry from './InputCountry';
 import InputNumbers from './InputNumbers';
-// import { setAlbumArrayStore } from '../features/albumArray.slice';
-import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
 import InputSelect from './InputSelect';
-import { useEffect } from 'react';
+import axios from 'axios';
+import { getJwtToken } from '../utils/functions/tools';
+import { pushTripInUserLoggedData } from '../features/userLoggedData.slice';
 
 const style = {
     position: 'absolute',
@@ -24,114 +24,17 @@ const style = {
     pb: 3,
 };
 
-function ChildModal({ destination, year, changeAlbumsArray }) {
-    const [open, setOpen] = useState(false);
-    const [albumPicture, setAlbumPicture] = useState(undefined);
-    const [albumPictureUrl, setAlbumPictureUrl] = useState(undefined);
-    const dispatch = useDispatch();
 
-    const pictureAreas = [];
-    for (let i = 0; i < 12; i++) {
-        pictureAreas.push(i);
-    }
 
-    //This function change the state of the component in purpose to open the child modal.
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    //This function handles the submission of the child modal (the creation of an album).
-    //It gives the files to his parent components using the function herited by his grand-parent to change his state.
-    //And it gives the name of the album and the urls of the blop links by the redux store.
-    //And it also changes the state of the component in purpose to close the child modal.
-    const handleClose = () => {
-        let album = {
-            name: `album ${destination} ${year}`,
-            urls: albumPictureUrl
-        }
-        setOpen(false);
-        console.log(albumPicture, albumPictureUrl);
-        changeAlbumsArray(albumPicture);
-        dispatch(setAlbumObjectArrayStore(album));
-    };
-
-    //This function fills two differents array when the input files suffer a change
-    //@Params {Type: Object} --> the param of the onChange event
-    //The first array will contain the urls, when the second contains the files
-    //If those arrays are undefined their value is only defined by the new data
-    //Else those arrays will contain the new data and conserve the old one
-    const handleAlbumPicture = (e) => {
-        let albumArrayUrl;
-        let albumArray;
-        if (albumPictureUrl === undefined) {
-            albumArrayUrl = [URL.createObjectURL(e.target.files[0])];
-        } else {
-            albumArrayUrl = [...albumPictureUrl, URL.createObjectURL(e.target.files[0])]
-        }
-        if (albumPicture === undefined) {
-            albumArray = [e.target.files[0]];
-        } else {
-            albumArray = [...albumPicture, e.target.files[0]]
-        }
-        setAlbumPictureUrl(albumArrayUrl);
-        setAlbumPicture(albumArray);
-        
-        console.log(albumArray);
-        console.log(albumArrayUrl);
-    }
-
-    return (
-        <Fragment>
-            <Button id='signup-album-creation-btn' variant='outlined' onClick={handleOpen}><span>Créer un album</span><FaPlus /></Button>
-            <Modal
-                hideBackdrop
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="child-modal-title"
-                aria-describedby="child-modal-description"
-            >
-                <Box sx={{ ...style, width: 200 }} className="child-modal">
-                    <div className="child-modal__header">
-                        <h3 id="child-modal-title">Album {destination} {year}</h3>
-                        <BsXLg onClick={() => setOpen(false)} />
-                    </div>
-                    <div className="child-modal__same-row">    
-                        <p id="child-modal-description">
-                            Partagez-nous des souvenirs de votre voyage!
-                        </p>
-                        <Button variant="outlined">
-                            <label htmlFor="trip-file">Choisir une photo</label>
-                        </Button>
-                    </div>
-                    <input type="file" name="file" id="trip-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleAlbumPicture(e)} />
-                    <div className='child-modal__pictures-displayer' id="album-container">
-                        {pictureAreas.map((area, index) => (
-                            <label key={"picture-area-label-" + index} htmlFor="trip-file" className='child-modal__picture-area-label'>
-                                <div className='child-modal__picture-area' key={"picture-area" + index}>
-                                    <FaCamera className='child-modal__camera-icon' key={"picture-area-camera-" + index} />
-                                    <FaPlus className='child-modal__plus-icon' key={"picture-area-plus-" + index} />
-                                </div>
-                            </label>
-                        ))}
-                        <div className="child-modal__pictures-displayer--absolute">
-                            {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
-                        </div>
-                    </div>
-                    <Button variant="outlined" onClick={handleClose}>Madaaaame! J'ai fini mon album!</Button>
-                </Box>
-            </Modal>
-        </Fragment>
-    );
-}
-
-export default function NestedModal({ changeAlbumsArray, changeTrips }) {
+const ProfileAddTripModal = () => {
     const [open, setOpen] = useState(false);
     const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState("");
     const [year, setYear] = useState("");
     const [choice, setChoice] = useState("");
     const [details, setDetails] = useState("");
-    const albumData = useSelector((state) => state.albumObjectArrayStore.albumObjectArray)  
+    const dispatch = useDispatch();
+    let { userId, token } = getJwtToken();
     
     const durations = [
         '1 Mois',
@@ -157,11 +60,6 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
         'Aves des ami(e)s',
         'En famille',
       ];
-
-    useEffect(() => {
-        console.log(albumData);
-        /* eslint-disable react-hooks/exhaustive-deps */
-    }, [])
 
     //This function changes the state of the component in order to open the parent modal
     const handleOpen = () => {
@@ -213,10 +111,24 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
             year,
             duration,
             withWho: choice,
-            details,
-            album: { ...albumData }
+            details
         }
-        changeTrips(trip);
+        console.log(trip);
+        axios({
+            url: `${process.env.REACT_APP_API_URL}api/auth/setTrip/${userId}`,
+            method: "put",
+            data: trip,
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `bearer ${token}`,
+            }
+        })
+        .then((res) => {
+            setOpen(false);
+            console.log(res);
+            dispatch(pushTripInUserLoggedData(res.data.newTrip));
+        })
+        .catch((err) => console.log(err));
     }
 
     return (
@@ -274,25 +186,15 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
                                 multiline
                                 onChange={(e) => handleDetails(e)}
                             />
-                            <div className="trip-modal__album-container">
-                            {albumData !== [] && albumData.map((album, index) => (
-                                <div key={"divsion-" + index} className="trip-modal-album">
-                                    <h4 key={"title-" + index}>{album.name}</h4>
-                                    <div key={"child-divsion-" + index} className="trip-modal-album__pictures-container">
-                                        {album.urls.map((url, index) => (<img key={"url" + index} src={url} alt="img" />))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
                         </div>
                     </div>
                     <div className="trip-modal__buttons-row">
-                        <ChildModal key="extra-child-modal" destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
                         <Button variant="outlined" onClick={handleClose}>Confirmer</Button>
                     </div>
-                    
                 </Box>
             </Modal>
         </div>
     );
 }
+
+export default ProfileAddTripModal;

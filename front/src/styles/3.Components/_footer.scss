@@ -4,12 +4,11 @@
     bottom: 0;
     background-color: $clr-3;
     height: 100px;
-    display: flex;
-    justify-content: space-between;
     text-transform: uppercase;
     color: $secondary-color;
     font-size: 12px;
     padding: 15px 30px 10px 20px;
+    @include flexBetween;
     &__logo {
         display: flex;
         svg {
@@ -22,12 +21,10 @@
     }
     &__link-container {
         width: 45%;
-        display: flex;
-        justify-content: space-around;
+        @include flexAround;
         ul {
-            display: flex;
-            flex-direction: column;
             gap: 5px;
+            @include flexColumn;
             li {
                 cursor: pointer;
                 position: relative;

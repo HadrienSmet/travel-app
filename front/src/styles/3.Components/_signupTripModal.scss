@@ -1,28 +1,19 @@
-// #album-container {
-//     img{
-//         height: 60px;
-//         width: 60px;
-//     }
-// }
+
 .css-105qr5e {
     width: 80vw !important;
     height: 80vh !important;
     background-color: $secondary-color !important;
-    // border: 4px solid $primary-color !important;
     border: none !important;
     border-radius: 8px;
     z-index: 10;
     backdrop-filter: blur(4px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flexColumnCenterX;
     justify-content: space-between;   
 }
 .trip-modal {
     &__header {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
+        @include flexBetween;
         h2 {
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -32,42 +23,35 @@
         svg {
             cursor: pointer;
             font-size: 25px;
-            color: rgba(0, 0, 0, 0.38);
-            transition: 0.2s ease-in-out;
+            color: $black-mid-op;
+            @include standardTransi;
             &:hover {
                 color: $tertiary-color;
             }
         }
     }
     &__content {
-        display: flex;
-        justify-content: space-around;
         height: calc(80% - 105.5px);
         width: 100%;
         color: $clr-2;
+        @include flexAround;
         label {
             color: $clr-2 !important;
         }
         fieldset {
-            border-color: rgba(0, 0, 0, 0.9) !important; 
+            border-color: $black-strong-op !important; 
         }
     }
     &__inputs-area {
         width: 43%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        
+        @include flexColumnBetween;
         div {
             width: 100%;
         }
     }
     &__description-area {
-        
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         width: 43%;
+        @include flexColumnBetween;
         > div {
             margin-top: 15px;
             height: calc(100% - 50px);
@@ -78,9 +62,8 @@
     }
     &__buttons-row {
         width: 80%;
-        display: flex;
-        justify-content: space-between;
         height: 70px;
+        @include flexBetween;
         button {
             width: 20%;
             border: 2px solid $primary-color !important;
@@ -88,27 +71,24 @@
             font-weight: 600;
             letter-spacing: 2px;
             &:first-child {
-                display: flex;
-                justify-content: space-between;
+                @include flexBetween;
             }
         }
     }
     &__album-container {
-        // width: 100%;
         height: unset !important;
     }    
     &-album {
         margin: 5px 0;
         height: unset !important;
         padding: 5px 25px;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: $black-perf-mid-op;
         border-radius: 10px;
         &__pictures-container {
             margin-left: 15px;
             height: unset !important;
-            display: flex;
-            justify-content: flex-start;
             gap: 8px;
+            @include flexStart;
         }
         img {
             height: 60px;
@@ -133,27 +113,23 @@
 .child-modal {
     z-index: 2600;
     position: absolute !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
     width: 50vw !important;
     height: 85vh;
-    // border: 5px solid $clr-2 !important;
     border: none !important;
     border-radius: 10px;
-    background-color: rgb(151 160 160) !important;
+    background-color: $clr-4 !important;
     backdrop-filter: blur(10px);
+    @include flexColumnCenterX;
+    justify-content: space-around;
     &__header {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
         color: $secondary-color;
+        @include flexBetween;
         svg {
             cursor: pointer;
-            transition: 0.2s ease-in-out;
+            @include standardTransi;
             &:hover {
-                color:rgba(0, 0, 0, 0.5);
+                color:$black-perf-mid-op;
             }
         }
     }
@@ -167,30 +143,26 @@
         border-color: $secondary-color;
     }
     &__same-row {
-        display: flex;
-        justify-content: space-between;
         width: 85%;
+        @include flexBetween;
     }
     &__pictures-displayer {
         position: relative;
-        display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
         width: 85%;
         height: calc(100% - 200px);
+        @include flexBetween;
         &--absolute {
             position: absolute;
             top: 0;
             left: 0;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
             flex-wrap: wrap;
             width: calc(100% + 3px);
             column-gap: calc((85% * 0.08) + 10px);
             row-gap: 0px !important;
             max-height: 100%;
             z-index: -1;
+            @include flexFullStart;
             img {
                 margin-bottom: calc((25% - 120px) / 3 + 1.5px);
                 width: calc(28% - 1px);
@@ -202,13 +174,10 @@
     &__picture-area {
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background-color: $black-low-op;
         transition: 0.3s ease-in;
         cursor: pointer;
-        // z-index: 3;
+        @include flexFullCenter;
         &:hover {
             background-color: transparent;
             > .child-modal__camera-icon {
@@ -236,12 +205,12 @@
         transition: 0.3s ease-in-out;
     }
     &__camera-icon {
-        transition: 0.2s ease-in;
+        @include standardTransi;
     }
 
 }
 .css-79ws1d-MuiModal-root {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: $black-very-low-op;
     backdrop-filter: blur(2px);
 }
 #signup-album-creation-btn {

@@ -9,16 +9,12 @@
     background-color: rgba(246, 248, 234, 0.7);
     border-radius: 15px;
     padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
     gap: 10px;
+    @include flexAroundColumnCenter;
     &__fields-displayer {
         width: 90%;
         height: 60%;
-        display: flex;
-        justify-content: space-between;
+        @include flexBetween;
     }
     &__left-column {
         position: relative;
@@ -31,30 +27,21 @@
         width: 100%;
         height: calc(100% - 71px);
         margin-bottom: 15px;
-        display: flex; 
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
         gap: 25px;
+        @include flexColumnCenter;
         button {
             border: 1px solid rgba(246, 248, 234, 0.7);
             color: rgba(246, 248, 234, 0.7);
         }
     }
     &__picture-container {
-        // height: 60%;
         width: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flexFullCenter;
     }
     &__profile-picture {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
         height: 150px;
         width: 150px;
+        @include translateToCenter;
     }
     &__profile-picture-container {
         height: 120px;
@@ -68,9 +55,7 @@
         width: 120px;
         background-color: $secondary-color;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flexFullCenter;
         svg {
             font-size: 70px;
             color: $primary-color;
@@ -79,9 +64,7 @@
     &__inputs-container {
         width: 50%;
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        @include flexColumnBetween;
     }
     &__input {
         width: 100%;
@@ -115,7 +98,7 @@
         text-transform: uppercase;
         font-size: 14px;
         margin-left: 15px;
-        color: rgba(0, 0, 0, 0.8);
+        color: $black-almost-strong-op;
         font-family: "main-fonts";
     }
     .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
@@ -123,10 +106,10 @@
     }
     .css-1s2u09g-control {
         background-color: transparent;
-        border: 1px solid rgba(0, 0, 0, 0.23);
+        border: 1px solid $black-low-op;
     }
     .css-tlfecz-indicatorContainer svg {
-        color: rgba(0, 0, 0, 0.54);
+        color: $black-perf-mid-op;
     }
     .css-1okebmr-indicatorSeparator {
         display: none;
@@ -135,8 +118,8 @@
         width: 100%;
     }
     > button {
-        color: rgba(0, 0, 0, 0.54);
-        border: 1px solid rgba(0, 0, 0, 0.23);
+        color: $black-perf-mid-op;
+        border: 1px solid $black-low-op;
         width: 50%;
         position: relative;
         top: -10px;
@@ -156,5 +139,3 @@
 .js-handled {
     opacity: 0;
 }
-//color: rgba(0, 0, 0, 0.87);
-//  this is for the arrowdown

@@ -14,7 +14,7 @@ const Profile = () => {
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
 
     return (
-        <section className='profile-section'>
+        <main className='profile-section'>
             <div className="fake-margin-replacing-header"></div>
             <div className="profile-section__header">
                 <div className="profile-section__header-background">
@@ -43,7 +43,7 @@ const Profile = () => {
                 {profileState === "friends" && <ProfileFriendsSection />}
                 {profileState === "infos" && <ProfileInfosSection />}
             </div>
-        </section>
+        </main>
     );
 };
 

@@ -2,14 +2,11 @@
     width: 70vw !important;
     border: none !important;
     background-color: rgba(191, 192, 186, 1) !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 20px;
+    @include flexColumnCenterX;
     &__header {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
+        @include flexBetween;
         h2 {
             text-transform: uppercase;
         }

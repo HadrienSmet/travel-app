@@ -108,17 +108,17 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 gender,
                 country,
             };
-            let userProfileData = {
-                description,
-                dreamTrips: [...dreamTrip],
-                previousTrips: [...previousTrips]
-            };
+            // let userProfileData = {
+            // };
             let data = {
                 email,
                 password,
                 pseudo,
+                description,
+                dreamTrips: [...dreamTrip],
+                previousTrips: [...previousTrips],
                 userData: { ...userPersonalsData },
-                userProfile: { ...userProfileData },
+                // userProfile: { ...userProfileData },
             };
             const fileData = new FormData();
             fileData.append("albumName", previousTrips[0].album[0].name);

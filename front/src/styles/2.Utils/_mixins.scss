@@ -1,0 +1,118 @@
+@mixin flexAround {
+    display: flex;
+    justify-content: space-around;
+}
+
+@mixin flexAroundColumnCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@mixin flexBetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin flexBetweenCentered {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flexCenterX {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin flexCenterY {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flexColumnAround {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+@mixin flexColumnBetween {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@mixin flexColumnCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexColumnCenterX {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin flexColumnCenterY {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@mixin flexColumnStart {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+@mixin flexFullCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexFullStart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+@mixin flexRowReverseBetween {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+@mixin flexRowReverseCentered {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+@mixin flexSpacedAndAlign {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin flexStart {
+    display: flex;
+    justify-content: flex-start;
+}
+
+@mixin standardTransi {
+    transition: 0.2s ease-in-out;
+}
+
+@mixin translateToCenter {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

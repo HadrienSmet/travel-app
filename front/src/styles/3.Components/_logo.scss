@@ -3,11 +3,10 @@
     left: -20px;
     background-color: $secondary-color;
     padding: 0px 40px 0px 15px;
-    display: flex;
-    align-items: center;
     border-radius: 0 5px 5px 0;
     transform: translateX(-100%);
     animation: logoAnim 1s 0.4s ease-in-out forwards;
+    @include flexCenterY;
     svg {
         font-size: 40px;
         color: $tertiary-color;
@@ -15,7 +14,6 @@
     h2 {
         font-family: "title-fonts";
         font-size:25px;
-        // letter-spacing: 2px;
         color: darken($primary-color, 19);
     }
 }

@@ -1,26 +1,22 @@
 .profile-infos-section {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    @include flexColumn;
     &__content {
         width: 65%;
-        display: flex;
-        justify-content: space-around;
         position: relative;
         left: 17.5%;
         padding: 40px;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: $black-very-low-op;
         font-size: 20px;
+        @include flexAround;
     }
     &__left-column {
-        display: flex;
-        flex-direction: column;
         gap: 5px;
+        @include flexColumn;
     }
     &__right-column {
-        display: flex;
-        flex-direction: column;
         gap: 5px;
+        @include flexColumn;
     }
     &__dream-trips-div {
         display: flex;
@@ -28,10 +24,5 @@
         ul {
             position: relative;
         }
-        // li::before {
-        //     content: "";
-        //     position: absolute;
-
-        // }
     }
 }

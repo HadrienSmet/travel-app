@@ -9,5 +9,6 @@ router.post('/signup', password, userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.patch('/userProfile/:id', auth, multer, userCtrl.uploadUserPictures);
 router.put('/setAlbum/:userId', auth, multer, userCtrl.uploadAlbum);
+router.put('/setTrip/:userId', auth, userCtrl.addNewTrip);
 
 module.exports = router;

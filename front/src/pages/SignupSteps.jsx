@@ -36,19 +36,25 @@ const SignupSteps = () => {
         setStepState(newState)
     }
 
+    //This function allow a child component to change the state of this one
+    //@Params {Type: String}
+    //When the form about the personal data is complete a new state is set wich leads us to the last step
     const changeProfilePicture = (file) => {
         setProfilePicture(file);
     }
 
+    //This function allow a child component to change the state of this one
+    //@Params {Type: String}
+    //When the form about the personal data is complete a new state is set wich leads us to the last step
     const changeUserPersonals = (data) => {
         setUserPersonals(data);
     }
 
     return (
-        <section className="signup-steps">
+        <main className="signup-steps">
             <img src={signupBanner} alt="img" ref={parallax.ref} className='signup-steps__background-img' />
             <div className="signup-steps__content" ref={elemParallax.ref}>
-                <div className="signup-steps__content__steps-indicator">
+                <section className="signup-steps__content__steps-indicator">
                     <div className="signup-steps__content__step">
                         <div  className="signup-steps__content__step__icons-container">
                             <FaCheck id="step-auth-check" className='signup-steps__content__step__check-icon' />
@@ -73,8 +79,8 @@ const SignupSteps = () => {
                         <span className='signup-steps__content__step-dot' id='dot-step3'></span>
                         <p>3. Informations facultatives</p>
                     </div>
-                </div>
-                <div className="signup-steps__content__form-container">
+                </section>
+                <section className="signup-steps__content__form-container">
                     {stepState === "just-started" && 
                         <PersonalDataForm 
                             changeStepState={changeStepState} 
@@ -88,9 +94,9 @@ const SignupSteps = () => {
                             userPersonals={userPersonals}
                         /> 
                     }
-                </div>
+                </section>
             </div>
-        </section>
+        </main>
     );
 };
 

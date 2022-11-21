@@ -1,15 +1,13 @@
 .home {
     &__content {
         padding: 50px;
-        justify-content: center;
         &__header {
             position: relative;
-            display: flex;
-            justify-content: space-between;
             gap: 20px;
             width: calc(100% - 60px);
             padding: 30px;
             border-radius: 15px;
+            @include flexBetween;
             &__profile-division {
                 position: relative;
                 left: -20px;
@@ -17,14 +15,13 @@
                 display: flex;
                 align-items: center;
                 gap: 15px;
+                @include flexCenterY;
                 &__img-container {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                     height: 80px;
                     width: 80px;
                     border-radius: 50%;
                     overflow: hidden;
+                    @include flexFullCenter;
                     img {
                         height: 100px;
                         width: 100px;
@@ -35,23 +32,12 @@
         }
         &__main {
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            @include flexColumnCenterX;
         }
         &__posts-division {
             width: 45%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: 15px;
-            // > div {
-            //     width: 100%;
-            //     display: flex;
-            //     flex-direction: column;
-            //     align-items: center;
-            //     gap: 15px;
-            // }
+            @include flexColumnCenterX;
         }
     }
     

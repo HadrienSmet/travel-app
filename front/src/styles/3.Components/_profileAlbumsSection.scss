@@ -1,8 +1,6 @@
 .profile-albums-section {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flexColumnCenter;
     button {
         width: 1031px;
         color: $clr-1;
@@ -17,13 +15,12 @@
     }
     &__album-container {
         margin: 15px;
-        display: flex;
-        flex-direction: column;
         gap: 10px;
         padding: 20px 30px;
         width: 1031px;
-        background-color: rgba(0, 0, 0, 0.15);
+        background-color: $black-very-low-op;
         border-radius: 3px;
+        @include flexColumn;
         h3 {
             text-transform: capitalize;
         }
@@ -54,14 +51,12 @@
     right: 0;
     height: 100%;
     width: 150px;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: $black-perf-mid-op;
     transform: translateX(100%);
-    transition: 0.3s;
+    transition: 0.3s ease-in-out;
+    @include flexFullCenter;
     svg {
-        color: rgba(255, 255, 255, 0.6);
+        color: $white-op6;
         font-size: 40px;
     }
 }

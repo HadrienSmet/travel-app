@@ -1,8 +1,22 @@
+// Neutral Colors
 $clr-1: white;
 $clr-2: black;
 $clr-3: #003947;
 $clr-4: #a1abab;
 
+//Grpaphic colors
 $primary-color: #279E97;
 $secondary-color: #F6F8EA;
 $tertiary-color: #14504D;
+
+//Opacity shades
+$black-very-low-op: rgba(0, 0, 0, 0.1);
+$black-low-op: rgba(0, 0, 0, 0.2);
+$black-mid-op: rgba(0, 0, 0, 0.38);
+$black-perf-mid-op: rgba(0, 0, 0, 0.5);
+$black-almost-strong-op: rgba(0, 0, 0, 0.8);
+$black-strong-op: rgba(0, 0, 0, 0.9);
+
+$white-op2: rgba(255, 255, 255, 0.2);
+$white-op6: rgba(255, 255, 255, 0.6);
+

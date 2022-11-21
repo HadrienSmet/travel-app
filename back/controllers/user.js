@@ -14,6 +14,9 @@ exports.signup = (req, res, next) => {
             email: req.body.email,
             password: hash,
             pseudo: req.body.pseudo,
+            description: req.body.description,
+            dreamTrips: req.body.dreamTrips,
+            previousTrips: req.body.previousTrips,
             userData: {
                 firstName: req.body.userData.firstName,
                 lastName: req.body.userData.lastName,
@@ -21,12 +24,6 @@ exports.signup = (req, res, next) => {
                 gender: req.body.userData.gender,
                 country: req.body.userData.country,
             },
-            userProfile: {
-                
-                description: req.body.userProfile.description,
-                dreamTrips: req.body.userProfile.dreamTrips,
-                previousTrips: req.body.userProfile.previousTrips,
-            }
         });
         user.save()
         .then(() => {
@@ -37,7 +34,7 @@ exports.signup = (req, res, next) => {
                     process.env.ACCESS_TOKEN_SECRET,
                     { expiresIn: '24h' }
                 ),
-                userProfileData: user.userProfile,
+                // userProfileData: user.userProfile,
             });
         })
         .catch(error => res.status(400).json({ error }));
@@ -83,9 +80,9 @@ exports.signup = (req, res, next) => {
                     lastName: user.userData.lastName,
                     age: user.userData.age,
                     gender: user.userData.gender,
-                    description: user.userProfile.description,
-                    dreamTrips: user.userProfile.dreamTrips,
-                    previousTrips: user.userProfile.previousTrips,
+                    description: user.description,
+                    dreamTrips: user.dreamTrips,
+                    previousTrips: user.previousTrips,
                     albums: [{
                         name: req.body.albumName,
                         pictures: urlsAlbumPictures,
@@ -135,9 +132,9 @@ exports.login = (req, res, next) => {
                 lastName: user.userData.lastName,
                 age: user.userData.age,
                 gender: user.userData.gender,
-                description: user.userProfile.description,
-                dreamTrips: user.userProfile.dreamTrips,
-                previousTrips: user.userProfile.previousTrips,
+                description: user.description,
+                dreamTrips: user.dreamTrips,
+                previousTrips: user.previousTrips,
                 albums: user.albums,
                 userId: user._id,
                 token: jwt.sign(
@@ -173,6 +170,30 @@ exports.uploadAlbum = (req, res, next) => {
             .then(updatedUser => res.status(201).json({ 
                 message: "Album sauvegardé dans la base de donnée!",
                 newAlbum: album,
+            }))
+            .catch(error => res.status(400).json({ message: "Quelque chose a planté durant la modification.." }));
+        }
+    })
+    .catch(error => res.status(400).json({ message: "On ne trouve pas d'utilisateur possédant cet id" }));
+}
+
+exports.addNewTrip = (req, res, next) => {
+    UserModel.findOne({ _id: req.params.userId})
+    .then((user) => {
+        if(user._id != req.auth.userId) {
+            return res.status(401).json({ message: "Requête non-autorisée" });
+        } else {
+            let trip =  {...req.body} 
+            console.log(trip);
+            // user.userProfile.previousTrips.push(trip)
+            UserModel.updateOne(
+                { _id: req.auth.userId },
+                // { $push: { previousTrips: trip } }
+                { $push: { previousTrips: trip } } 
+            )
+            .then(updatedUser => res.status(201).json({ 
+                message: "Voyage sauvegardé dans la base de donnée!",
+                newTrip: trip,
             }))
             .catch(error => res.status(400).json({ message: "Quelque chose a planté durant la modification.." }));
         }
