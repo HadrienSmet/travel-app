@@ -1,8 +1,9 @@
 .profile__posts-section {
     margin-bottom: 30px;
+    width: 45%;
     @include flexFullCenter;
     &__posts-div {
-        width: 45%;
+        width: 100%;
         gap: 10px;
         @include flexColumnCenterX;
     }

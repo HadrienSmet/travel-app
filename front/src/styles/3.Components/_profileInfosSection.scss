@@ -1,21 +1,24 @@
 .profile-infos-section {
-    width: 100%;
+    width: 90%;
+    gap: 20px;
     @include flexColumn;
     &__content {
-        width: 65%;
+        width: 80%;
         position: relative;
-        left: 17.5%;
+        left: 10%;
         padding: 40px;
         background-color: $black-very-low-op;
         font-size: 20px;
         @include flexAround;
     }
     &__left-column {
-        gap: 5px;
+        width: 45%;
+        gap: 15px;
         @include flexColumn;
     }
     &__right-column {
-        gap: 5px;
+        width: 45%;
+        gap: 15px;
         @include flexColumn;
     }
     &__dream-trips-div {

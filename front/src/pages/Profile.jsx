@@ -38,10 +38,10 @@ const Profile = () => {
             </div>
             <div className="profile-section__main-content">
                 {profileState === "actuality" && <ProfilePostsSection />}
-                {profileState === "albums" && <ProfileAlbumsSection />}
-                {profileState === "trips" && <ProfileTripsSection />}
-                {profileState === "friends" && <ProfileFriendsSection />}
-                {profileState === "infos" && <ProfileInfosSection />}
+                {profileState === "albums" && <ProfileAlbumsSection isAuthor={true} dataFrom={userProfile} />}
+                {profileState === "trips" && <ProfileTripsSection isAuthor={true} dataFrom={userProfile} />}
+                {profileState === "friends" && <ProfileFriendsSection isAuthor={true} dataFrom={userProfile} />}
+                {profileState === "infos" && <ProfileInfosSection isAuthor={true} dataFrom={userProfile} />}
             </div>
         </main>
     );

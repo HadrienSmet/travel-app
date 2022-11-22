@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
 import ProfileAlbumSectionModal from "./ProfileAlbumsSectionModal";
 import ProfileAddAlbumModal from "./ProfileAddAlbumModal";
 import { useState } from "react";
 
-const ProfileAlbumsSection = () => {
-    const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
+const ProfileAlbumsSection = ({ isAuthor, dataFrom }) => {
     const [albumsArray, setAlbumsArray] = useState(undefined);
 
     //This function is here to allow the child modal to change the state of this component
@@ -22,21 +20,25 @@ const ProfileAlbumsSection = () => {
 
     return (
         <div className='profile-albums-section'>
-            <h2>Mes albums:</h2>
-            {userProfile.albums.length === 1 
+            {isAuthor === true ?
+                <h2>Mes albums :</h2>
+            :
+                <h2>Ses albums :</h2>
+            }
+            {dataFrom.albums.length === 1 
             ?
                 <div className="profile-albums-section__album-container">
-                    <h3>{userProfile.albums[0].name}</h3>
+                    <h3>{dataFrom.albums[0].name}</h3>
                     <div className="profile-albums-section__pictures-container">
-                        {userProfile.albums[0].pictures.map((picture, index) => {
-                            if (index === 3 && userProfile.albums[0].pictures.length > 4) {
+                        {dataFrom.albums[0].pictures.map((picture, index) => {
+                            if (index === 3 && dataFrom.albums[0].pictures.length > 4) {
                                 return <div className="last-picture">
-                                    <ProfileAlbumSectionModal album={userProfile.albums[0]} />
+                                    <ProfileAlbumSectionModal album={dataFrom.albums[0]} />
                                 </div>
-                            } else if (index === 3 && userProfile.albums[0].pictures.length === 4) {
-                                return <img key={userProfile.albums[0].name + "-picture-" + index} src={picture} alt="img" />
+                            } else if (index === 3 && dataFrom.albums[0].pictures.length === 4) {
+                                return <img key={dataFrom.albums[0].name + "-picture-" + index} src={picture} alt="img" />
                             } else if(index < 3)  {
-                                return <img key={userProfile.albums[0].name + "-picture-" + index} src={picture} alt="img" />
+                                return <img key={dataFrom.albums[0].name + "-picture-" + index} src={picture} alt="img" />
                             }   else {
                                 return null;
                             }
@@ -45,7 +47,7 @@ const ProfileAlbumsSection = () => {
                 </div> 
             :
                 <div className="profile-albums-section__albums-container">
-                    {userProfile.albums.map((album, index) => (
+                    {dataFrom.albums.map((album, index) => (
                         <div key={"album-container-" + index} className="profile-albums-section__album-container">
                             <h3 key={"album-name-" + index} >{album.name}</h3>
                             <div key={"album-container__pictures-container-" + index} className="profile-albums-section__pictures-container">
@@ -68,7 +70,7 @@ const ProfileAlbumsSection = () => {
                     ))}   
                 </div>
             }
-            <ProfileAddAlbumModal changeAlbumsArray={changeAlbumsArray} />
+            {isAuthor === true && <ProfileAddAlbumModal changeAlbumsArray={changeAlbumsArray} />}
         </div>
     );
 };

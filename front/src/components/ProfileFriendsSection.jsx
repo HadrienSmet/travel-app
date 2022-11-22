@@ -1,9 +1,11 @@
-import React from 'react';
-
-const ProfileFriendsSection = () => {
+const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
     return (
         <div>
-            Y aura bientot tous tes amis ici!
+            {isAuthor === true ?
+                <p>Y aura bientot tous tes amis ici!</p>
+            :
+                <p>Y aura bientot tous ses amis ici!</p>
+            } 
         </div>
     );
 };

@@ -5,8 +5,10 @@ import { useState } from "react";
 import { getJwtToken, dateParser } from "../utils/functions/tools";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { deletePost, setPostsData } from '../features/postsData.slice';
 import { useEffect } from 'react';
+import { setFriendData } from '../features/friendData.slice';
 // import { spacing } from '@mui/system';
 
 const Post = ({ post }) => {
@@ -20,8 +22,9 @@ const Post = ({ post }) => {
     const [newText, setNewText] = useState("");
     const [imageUrl, setImageUrl] = useState(post.imageUrl);
     const [newImage, setNewImage] = useState(undefined);
-    const { userId, token } = getJwtToken();
+    const { token, userId } = getJwtToken();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const postsData = useSelector((state) => state.postsDataStore.postsData)
     useEffect(() => {
         setImageUrl(post.imageUrl)
@@ -199,11 +202,30 @@ const Post = ({ post }) => {
         }
     }
 
+    const goToProfilePage = () => {
+        axios({
+            url: `${process.env.REACT_APP_API_URL}api/auth/userProfile/${post.userId}`,
+            method: "get",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `bearer ${token}`
+            }
+        })
+        .then((res) => {
+            console.log(res.data);
+            dispatch(setFriendData(res.data));
+            navigate('/friend-profile');
+        })
+        .catch((err) => console.log(err))
+    }
+
     return (
         <div key={"post-div-" + post._id} className="post-container">
                     <div key={"post-header-" + post._id} className="post-header">
                         <div 
-                            key={"post-header-user-div-" + post._id} className="post-header__user-side"
+                            key={"post-header-user-div-" + post._id} 
+                            className="post-header__user-side"
+                            onClick={() => goToProfilePage()}
                         >
                             <h4 key={"post-pseudo-" + post._id}>{post.pseudo}</h4>
                             <div key={"post-header-profile-picture-container" + post._id} className="post-header__user-side__img-container">
@@ -255,7 +277,8 @@ const Post = ({ post }) => {
                             </div>
                         </div>
                         <div 
-                            key={"post-buttons-row-crud" + post._id}                className="post__buttons-row__crud-side"
+                            key={"post-buttons-row-crud" + post._id} 
+                            className="post__buttons-row__crud-side"
                         >
                             {post.userId === userId && 
                                 <Button 

@@ -9,7 +9,7 @@ import  { useEffect } from 'react';
 
 import { setLoggedState } from '../features/loggedState.slice';
 import { setUserLoggedData } from '../features/userLoggedData.slice';
-// import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
+import { resetAlbumObjectArray } from '../features/albumObjectArray.slice';
 import { setWelcomeState } from '../features/welcomeState.slice';
 
 const Welcome = () => {
@@ -23,7 +23,7 @@ const Welcome = () => {
     useEffect(() => {
         dispatch(setLoggedState(false));
         dispatch(setUserLoggedData(null));
-        // dispatch(setAlbumObjectArrayStore([]));
+        dispatch(resetAlbumObjectArray([]));
         dispatch(setWelcomeState(null))
         localStorage.clear();
         /* eslint-disable react-hooks/exhaustive-deps */

@@ -8,16 +8,13 @@ export const albumObjectArraySlice = createSlice({
     reducers: {
         setAlbumObjectArrayStore: (state, { payload }) => {
             state.albumObjectArray.push({ ...payload })
-            // if (state.albumObjectArray === []) {
-                // state.albumObjectArray = [{...payload}];
-            // } else {
-            //     let iterableArray = state.albumObjectArray
-            //     state.albumObjectArray = [{...iterableArray}, {...payload}];
-            // }
-            
+        },
+        resetAlbumObjectArray: (state, { payload }) => {
+            state.albumObjectArray = payload;
         }
+
     },
 });
 
-export const { setAlbumObjectArrayStore } = albumObjectArraySlice.actions;
+export const { setAlbumObjectArrayStore, resetAlbumObjectArray } = albumObjectArraySlice.actions;
 export default albumObjectArraySlice.reducer;

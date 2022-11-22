@@ -201,6 +201,49 @@ exports.addNewTrip = (req, res, next) => {
     .catch(error => res.status(400).json({ message: "On ne trouve pas d'utilisateur possédant cet id" }));
 }
 
+// exports.getProfile = (req, res, next) => {
+//     UserModel.findOne({ _id: req.params.userId })
+//     .then(user => {
+//         console.log("on l'a trouvé mais la res a foiré");
+//         res.status(200).json({
+//             email: user.email,
+//             profilePicture: user.profilePicture,
+//             pseudo: user.pseudo,
+//             country: user.userData.country,
+//             firstName: user.userData.firstName,
+//             lastName: user.userData.lastName,
+//             age: user.userData.age,
+//             gender: user.userData.gender,
+//             description: user.description,
+//             dreamTrips: user.dreamTrips,
+//             previousTrips: user.previousTrips,
+//             albums: user.albums,
+//             userId: user._id,
+//         });
+//         // delete user.password;
+//         // res.status(200).json({user});
+//     })
+//     .catch(() => res.status(404).json({ message: "On ne trouve pas d'utilisateur possédant cet id" }))
+// }
+
+exports.getProfile = (req, res, next) => {
+    UserModel.find({ _id: req.params.userId }, (error, data) => {
+        if (error) {
+            res.status(404).json({ error })
+        } else {
+            return res.status(200).json(data)
+        }
+    })
+    // .then(user => {
+    //     let response = {
+    //         email: user.email,
+    //         profilePicture: user.profilePicture
+    //     }
+    //     return res.status(200).json(response)
+    // })
+    // .catch(error => res.status(404).json({ error }));
+};
+
 
 
  

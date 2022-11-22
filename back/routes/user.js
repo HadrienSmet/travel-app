@@ -10,5 +10,6 @@ router.post('/login', userCtrl.login);
 router.patch('/userProfile/:id', auth, multer, userCtrl.uploadUserPictures);
 router.put('/setAlbum/:userId', auth, multer, userCtrl.uploadAlbum);
 router.put('/setTrip/:userId', auth, userCtrl.addNewTrip);
+router.get('/userProfile/:userId', auth, userCtrl.getProfile);
 
 module.exports = router;

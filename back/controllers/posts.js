@@ -119,14 +119,12 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.getPostsCountry = (req, res, next) => {
-    console.log(req);
     Post.find({ country: req.params.country })
     .then(posts => res.status(200).json(posts))
     .catch(error => res.status(400).json({ error }));
 };
 
 exports.getPostsUser = (req, res, next) => {
-    console.log(req);
     Post.find({ userId: req.params.userId })
     .then(posts => res.status(200).json(posts))
     .catch(error => res.status(400).json({ error }));
