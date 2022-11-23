@@ -83,6 +83,7 @@ exports.signup = (req, res, next) => {
                     description: user.description,
                     dreamTrips: user.dreamTrips,
                     previousTrips: user.previousTrips,
+                    friends: user.friends,
                     albums: [{
                         name: req.body.albumName,
                         pictures: urlsAlbumPictures,
@@ -136,6 +137,7 @@ exports.login = (req, res, next) => {
                 dreamTrips: user.dreamTrips,
                 previousTrips: user.previousTrips,
                 albums: user.albums,
+                friends: user.friends,
                 userId: user._id,
                 token: jwt.sign(
                     { userId: user._id },
@@ -201,31 +203,6 @@ exports.addNewTrip = (req, res, next) => {
     .catch(error => res.status(400).json({ message: "On ne trouve pas d'utilisateur possédant cet id" }));
 }
 
-// exports.getProfile = (req, res, next) => {
-//     UserModel.findOne({ _id: req.params.userId })
-//     .then(user => {
-//         console.log("on l'a trouvé mais la res a foiré");
-//         res.status(200).json({
-//             email: user.email,
-//             profilePicture: user.profilePicture,
-//             pseudo: user.pseudo,
-//             country: user.userData.country,
-//             firstName: user.userData.firstName,
-//             lastName: user.userData.lastName,
-//             age: user.userData.age,
-//             gender: user.userData.gender,
-//             description: user.description,
-//             dreamTrips: user.dreamTrips,
-//             previousTrips: user.previousTrips,
-//             albums: user.albums,
-//             userId: user._id,
-//         });
-//         // delete user.password;
-//         // res.status(200).json({user});
-//     })
-//     .catch(() => res.status(404).json({ message: "On ne trouve pas d'utilisateur possédant cet id" }))
-// }
-
 exports.getProfile = (req, res, next) => {
     UserModel.find({ _id: req.params.userId }, (error, data) => {
         if (error) {
@@ -234,15 +211,45 @@ exports.getProfile = (req, res, next) => {
             return res.status(200).json(data)
         }
     })
-    // .then(user => {
-    //     let response = {
-    //         email: user.email,
-    //         profilePicture: user.profilePicture
-    //     }
-    //     return res.status(200).json(response)
-    // })
-    // .catch(error => res.status(404).json({ error }));
 };
+
+exports.addNewFriend = (req, res, next) => {
+    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
+    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
+    UserModel.findOne({ _id: req.params.id })
+    .then((user) => {
+        if (user._id != req.auth.userId) {
+            return res.status(401).json({ message: "Requête non-autorisée"});
+        } else {
+            UserModel.updateOne(
+                { _id: req.auth.userId },
+                { $push: { friends: req.body.pseudo } }
+            )
+            .then((userModified) => res.status(201).json({ message: "Vous avez un nouvel ami" }))
+            .catch((err) => res.status(500).json({ message: "Notre serveur ne souhaite pas que vous vous socialisez" }));
+        }
+    })
+    .catch((err) => res.status(404).json({ message: "Nous ne retrouvons pas cet utilisateur dans notre base de données" }));
+}
+
+exports.removeFriend = (req, res, next) => {
+    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
+    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
+    UserModel.findOne({ _id: req.params.id })
+    .then((user) => {
+        if (user._id != req.auth.userId) {
+            return res.status(401).json({ message: "Requête non-autorisée"});
+        } else {
+            UserModel.updateOne(
+                { _id: req.auth.userId },
+                { $pull: { friends: req.body.pseudo } }
+            )
+            .then((userModified) => res.status(201).json({ message: "Vous avez supprimez votre ami de votre existence" }))
+            .catch((err) => res.status(500).json({ message: "Notre serveur souhaite que vous vous socialisez un peu plus..." }));
+        }
+    })
+    .catch((err) => res.status(404).json({ message: "Nous ne retrouvons pas cet utilisateur dans notre base de données" }));
+}
 
 
 

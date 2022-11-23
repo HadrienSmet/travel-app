@@ -14,6 +14,13 @@ export const userLoggedDataSlice = createSlice({
         },
         pushTripInUserLoggedData : (state, { payload }) => {
             state.userLoggedData.previousTrips.push(payload);
+        },
+        pushFriendInUserLoggedData : (state, { payload }) => {
+            state.userLoggedData.friends.push(payload);
+        },
+        splitThatFriendInUserLoggedData: (state, { payload }) => {
+            const rightIndex = state.userLoggedData.friends.findIndex((friend) => friend === payload);
+            state.userLoggedData.friends.splice(rightIndex, 1);
         }
     },
 });
@@ -21,6 +28,8 @@ export const userLoggedDataSlice = createSlice({
 export const { 
     setUserLoggedData, 
     pushAlbumInUserLoggedData,
-    pushTripInUserLoggedData
+    pushTripInUserLoggedData,
+    pushFriendInUserLoggedData,
+    splitThatFriendInUserLoggedData
 } = userLoggedDataSlice.actions;
 export default userLoggedDataSlice.reducer;

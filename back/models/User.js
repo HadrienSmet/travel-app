@@ -22,11 +22,6 @@ const userDataSchema = mongoose.Schema({
     country: { type: String, required: true },
 })
 
-// const userFriendSchema = mongoose.Schema({
-//     userId: { type: String, required: true },
-//     pseudo: { type: String, required: true },
-// })
-
 const userSchema = mongoose.Schema({
     pseudo: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
@@ -37,11 +32,9 @@ const userSchema = mongoose.Schema({
     previousTrips: [previousTripSchema],
     albums: [albumSchema],
     userData: userDataSchema,
-    friends: { type: [String], default: undefined, required: false }
+    friends: { type: [String], default: []}
 })
 
-// userAuthentificationSchema.plugin(uniqueValidator);
-// userProfileSchema.plugin(uniqueValidator);
 userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);

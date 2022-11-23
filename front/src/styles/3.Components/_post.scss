@@ -5,6 +5,7 @@
         border: 1px solid $black-low-op;
         border-radius: 5px;
         padding: 15px 25px;
+        gap: 15px;
         @include flexColumn;
     }
     &-header {

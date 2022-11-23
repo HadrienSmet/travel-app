@@ -2,6 +2,7 @@
     min-height: 100vh;
     &__header {
         position: relative;
+        margin-bottom: 35px;
         @include flexCenterX;
         &-background {
             position: relative;
@@ -24,6 +25,9 @@
             backdrop-filter: blur(2px);
             bottom: 0;
             gap: 25px;
+            @include flexBetweenCentered;
+        }
+        &__user-data {
             @include flexCenterY;
         }
         &__profilePicture-container {
@@ -36,11 +40,65 @@
                 width: 110px;
                 transform: translate(-10px, -10px);
             }
+        }        
+        &__buttons-container {
+            gap: 10px;
+            @include flexCenterY;
+            .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+                background-color: $primary-color;
+                color: $secondary-color !important;
+                border-color: $primary-color !important;
+                gap: 5px;
+                @include flexCenterY;
+                @include standardTransi;
+                &:hover {
+                    background-color: transparent;
+                    color: $tertiary-color !important;
+                    border-color: $tertiary-color !important;
+                }
+            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            width: 75%;
+            height: 1px;
+            background-color: $black-low-op;
+            left: 12.5%;
+            bottom: -20px;
+        }
+        &__fake-btn {
+            color: $tertiary-color;
+            gap: 5px;
+            margin-right: 15px;
+            border: 1px solid $tertiary-color;
+            border-radius: 4px;
+            padding: 8px 20px 7.5px;
+            @include flexCenterY;
+            @include standardTransi;
+            &:hover {
+                color: $secondary-color;
+                background-color: $primary-color;
+                border-color: $primary-color;
+            }
         }
     }
     &__navigation {
+        display: flex;
+        padding: 0 100px;
+        justify-content: flex-end;
+        margin-bottom: 30px;
+        position: relative;
+        .css-1or64il-MuiButtonGroup-root .MuiButtonGroup-grouped:not(:last-of-type) {
+            border-color: $primary-color!important;
+        }
         div button {
             font-size: 16px;
+            color: $primary-color;
+            width: 110px;
+            &:first-child::after {
+                transform-origin: right;
+            }
             &:nth-child(2)::after {
                 left: 2px;
                 transform-origin: center;
@@ -48,11 +106,28 @@
             &:last-child::after {
                 transform-origin: left;
             }
+            &:hover::after {
+                transform: scaleX(1);
+            }
+            &::after {
+                content: "";
+                width: calc(100% - 5px);
+                height: 2px;
+                background-color: $primary-color;
+                position: absolute;
+                bottom: 5px;
+                transition: 0.3s ease-in-out;
+                transform:  scaleX(0);
+            }
         }
-        &__buttons-container {
+        &-bar {
+            width: 110px;
+            height: 5px;
+            background-color: $primary-color;
             position: absolute;
-            top: 30px;
-            right: 20px;
+            top: 32px;
+            left: calc(100% - 650px);
+            transition: 0.2s ease-in-out;
         }
     }
     &__main-content {
