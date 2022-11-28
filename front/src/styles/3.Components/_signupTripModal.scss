@@ -63,15 +63,21 @@
     &__buttons-row {
         width: 80%;
         height: 70px;
-        @include flexBetween;
+        // @include flexBetween;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         button {
-            width: 20%;
+            width: 45%;
             border: 2px solid $primary-color !important;
             color: $primary-color;
             font-weight: 600;
             letter-spacing: 2px;
-            &:first-child {
-                @include flexBetween;
+            height: calc(100% - 4px);
+            &:hover {
+                background-color: $primary-color;
+                // border-color: ;
+                color: $secondary-color;
             }
         }
     }

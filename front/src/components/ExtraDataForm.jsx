@@ -159,7 +159,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             <h3>Remplissez votre profil!</h3>
             <div className="extra-data-form__fields-displayer">
                 <div className="extra-data-form__trips-area">
-                    <TripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />
+                    {previousTrips === undefined && <TripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
                     <div className="extra-data-form__trips-displayer">
                         {previousTrips === undefined && <p>Listez vos précédents voyages!</p>}
                         {previousTrips !== undefined && <ExtraDataFormAccordion previousTrips={previousTrips} />}
@@ -213,7 +213,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     </div>  
                 </div>  
             </div>
-            {isLoading === false && <Button variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>}
+            {isLoading === false && <Button className='extra-data-form__btn-submit' variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>}
             {isLoading === true && <ClassicLoader dynamicId="extra-data-loader" />}
         </form>
     );

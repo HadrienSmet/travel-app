@@ -10,8 +10,8 @@ router.post('/login', userCtrl.login);
 router.patch('/userProfile/:id', auth, multer, userCtrl.uploadUserPictures);
 router.put('/setAlbum/:userId', auth, multer, userCtrl.uploadAlbum);
 router.put('/setTrip/:userId', auth, userCtrl.addNewTrip);
-router.put('/addFriend/:id', auth, userCtrl.addNewFriend);
-router.put('/removeFriend/:id', auth, userCtrl.removeFriend);
+router.put('/followUser/:id', auth, userCtrl.followUser);
+router.put('/unfollowUser/:id', auth, userCtrl.unfollowUser);
 router.get('/userProfile/:userId', auth, userCtrl.getProfile);
 
 module.exports = router;

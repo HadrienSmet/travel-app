@@ -12,6 +12,7 @@
         width: 100%;
         @include flexBetweenCentered;
         &__user-side {
+            cursor: pointer;
             @include flexRowReverseCentered;
             &__img-container {
                 width: 50px;
@@ -34,6 +35,9 @@
         width: 100%;
         gap: 10px;
         @include flexColumnCenterX;
+        p {
+            text-align: center;
+        }
         img {
             width: 90%;
             max-height: 300px;

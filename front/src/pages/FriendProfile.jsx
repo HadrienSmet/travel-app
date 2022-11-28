@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { FaRegEnvelope, FaUserCheck, FaUserPlus } from 'react-icons/fa';
 import axios from 'axios';
 import { getJwtToken } from '../utils/functions/tools';
-import { pushFriendInUserLoggedData, splitThatFriendInUserLoggedData } from '../features/userLoggedData.slice';
+import { pullFollowingInUserLoggedData, pushFollowingInUserLoggedData } from '../features/userLoggedData.slice';
 
 const FriendProfile = () => {
     const [friendProfileState, setFriendProfileState] = useState("actuality");
@@ -45,7 +45,7 @@ const FriendProfile = () => {
                     console.log("Bravo t'as réussi à faire bugger mon app fdp")
             }
         }      
-        if (userProfile.friends.includes(friendProfile.pseudo)) {
+        if (userProfile.following.includes(friendProfile.pseudo)) {
             setIsFriend(true);
         }
         /* eslint-disable react-hooks/exhaustive-deps */
@@ -56,7 +56,7 @@ const FriendProfile = () => {
             pseudo: friendProfile.pseudo
         }
         axios({
-            url: `${process.env.REACT_APP_API_URL}api/auth/addFriend/${userId}`,
+            url: `${process.env.REACT_APP_API_URL}api/auth/followUser/${userId}`,
             method: "put", 
             data: data, 
             headers: {
@@ -65,7 +65,7 @@ const FriendProfile = () => {
             },
         
         })
-        .then((res) => dispatch(pushFriendInUserLoggedData(friendProfile.pseudo)))
+        .then((res) => dispatch(pushFollowingInUserLoggedData(friendProfile.pseudo)))
         .catch((err) => console.log(err));
     }
 
@@ -74,7 +74,7 @@ const FriendProfile = () => {
             pseudo: friendProfile.pseudo
         }
         axios({
-            url: `${process.env.REACT_APP_API_URL}api/auth/removeFriend/${userId}`,
+            url: `${process.env.REACT_APP_API_URL}api/auth/unfollowUser/${userId}`,
             method: "put", 
             data: data, 
             headers: {
@@ -83,7 +83,7 @@ const FriendProfile = () => {
             },
         })
         .then((res) => {
-            dispatch(splitThatFriendInUserLoggedData(friendProfile.pseudo))
+            dispatch(pullFollowingInUserLoggedData(friendProfile.pseudo))
             setIsFriend(false);
         })
         .catch((err) => console.log(err));

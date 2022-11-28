@@ -160,6 +160,7 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
 
     useEffect(() => {
         console.log(albumData);
+        console.log(albumData[0]);
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
 
@@ -208,7 +209,8 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
         console.log(destination, duration, year, details);
-        let trip = {
+        if (albumData !== []) {
+            let trip = {
             destination,
             year,
             duration,
@@ -217,6 +219,8 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
             album: { ...albumData }
         }
         changeTrips(trip);
+        }
+        
     }
 
     return (
@@ -287,8 +291,12 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
                         </div>
                     </div>
                     <div className="trip-modal__buttons-row">
-                        <ChildModal key="extra-child-modal" destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
-                        <Button variant="outlined" onClick={handleClose}>Confirmer</Button>
+                        {/* {albumData === [] && } */}
+                        {albumData[0] !== undefined ? 
+                            <Button variant="outlined" onClick={handleClose}>Confirmer</Button>
+                        :
+                            <ChildModal key="extra-child-modal" destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
+                        }
                     </div>
                     
                 </Box>

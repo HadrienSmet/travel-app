@@ -32,7 +32,8 @@ const userSchema = mongoose.Schema({
     previousTrips: [previousTripSchema],
     albums: [albumSchema],
     userData: userDataSchema,
-    friends: { type: [String], default: []}
+    followers: { type: [String], default: []},
+    following: { type: [String], default: []}
 })
 
 userSchema.plugin(uniqueValidator);

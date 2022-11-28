@@ -147,6 +147,17 @@
             @include translateToCenter;
         }
     }
+    &__btn-submit {
+        width: 35%;
+        background-color: transparent;
+        color: $primary-color !important;
+        border: 2px solid $primary-color !important;
+        @include standardTransi;
+        &:hover {
+            color: $secondary-color !important;
+            background-color: $primary-color !important;
+        }
+    }
 }
 .countries-list__division {
     margin-top: 10px;

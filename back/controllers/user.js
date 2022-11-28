@@ -83,16 +83,12 @@ exports.signup = (req, res, next) => {
                     description: user.description,
                     dreamTrips: user.dreamTrips,
                     previousTrips: user.previousTrips,
-                    friends: user.friends,
+                    following: user.following,
+                    followers: user.followers,
                     albums: [{
                         name: req.body.albumName,
                         pictures: urlsAlbumPictures,
                     }]
-                    // token: jwt.sign(
-                    //     { userId: user._id },
-                    //     process.env.ACCESS_TOKEN_SECRET,
-                    //     { expiresIn: '24h' }
-                    // ),
                 })
             })
             .catch(error => res.status(401).json({ error }));
@@ -137,7 +133,8 @@ exports.login = (req, res, next) => {
                 dreamTrips: user.dreamTrips,
                 previousTrips: user.previousTrips,
                 albums: user.albums,
-                friends: user.friends,
+                following: user.following,
+                followers: user.followers,
                 userId: user._id,
                 token: jwt.sign(
                     { userId: user._id },
@@ -187,10 +184,8 @@ exports.addNewTrip = (req, res, next) => {
         } else {
             let trip =  {...req.body} 
             console.log(trip);
-            // user.userProfile.previousTrips.push(trip)
             UserModel.updateOne(
                 { _id: req.auth.userId },
-                // { $push: { previousTrips: trip } }
                 { $push: { previousTrips: trip } } 
             )
             .then(updatedUser => res.status(201).json({ 
@@ -213,7 +208,7 @@ exports.getProfile = (req, res, next) => {
     })
 };
 
-exports.addNewFriend = (req, res, next) => {
+exports.followUser = (req, res, next) => {
     console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
     console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
     UserModel.findOne({ _id: req.params.id })
@@ -223,16 +218,16 @@ exports.addNewFriend = (req, res, next) => {
         } else {
             UserModel.updateOne(
                 { _id: req.auth.userId },
-                { $push: { friends: req.body.pseudo } }
+                { $push: { following: req.body.pseudo } }
             )
-            .then((userModified) => res.status(201).json({ message: "Vous avez un nouvel ami" }))
+            .then((userModified) => res.status(201).json({ message: "Vous suivez maintenant cet utilisateur" }))
             .catch((err) => res.status(500).json({ message: "Notre serveur ne souhaite pas que vous vous socialisez" }));
         }
     })
     .catch((err) => res.status(404).json({ message: "Nous ne retrouvons pas cet utilisateur dans notre base de données" }));
 }
 
-exports.removeFriend = (req, res, next) => {
+exports.unfollowUser = (req, res, next) => {
     console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
     console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
     UserModel.findOne({ _id: req.params.id })
@@ -242,9 +237,9 @@ exports.removeFriend = (req, res, next) => {
         } else {
             UserModel.updateOne(
                 { _id: req.auth.userId },
-                { $pull: { friends: req.body.pseudo } }
+                { $pull: { following: req.body.pseudo } }
             )
-            .then((userModified) => res.status(201).json({ message: "Vous avez supprimez votre ami de votre existence" }))
+            .then((userModified) => res.status(201).json({ message: "Vous ne suivez plus cet utilisateur" }))
             .catch((err) => res.status(500).json({ message: "Notre serveur souhaite que vous vous socialisez un peu plus..." }));
         }
     })

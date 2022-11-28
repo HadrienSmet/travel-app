@@ -9,28 +9,29 @@ import ProfileTripsSection from '../components/ProfileTripsSection';
 import ProfileFriendsSection from '../components/ProfileFriendsSection';
 import ProfileInfosSection from '../components/ProfileInfosSection';
 import { FaUserCog, FaUserEdit } from 'react-icons/fa';
+import { useRef } from 'react';
 
 const Profile = () => {
     const [profileState, setProfileState] = useState("actuality");
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
-    const navBar = document.querySelector('.profile-section__navigation-bar');
+    const ref = useRef();
 
     useEffect(() => {
         switch (profileState) {
             case "actuality":
-                navBar.style.transform = 'translateX(0)';
+                ref.current.style.transform = 'translateX(0)';
                 break;
             case "albums":
-                navBar.style.transform = 'translateX(110px)';
+                ref.current.style.transform = 'translateX(110px)';
                 break;
             case "trips":
-                navBar.style.transform = 'translateX(220px)';
+                ref.current.style.transform = 'translateX(220px)';
                 break;
             case "friends":
-                navBar.style.transform = 'translateX(330px)';
+                ref.current.style.transform = 'translateX(330px)';
                 break;
             case "infos":
-                navBar.style.transform = 'translateX(440px)';
+                ref.current.style.transform = 'translateX(440px)';
                 break;
             default:
                 console.log("Bravo t'as réussi à faire bugger mon app fdp")
@@ -66,7 +67,7 @@ const Profile = () => {
                     <Button id="friends" onClick={(e) => setProfileState(e.target.id)}>Amis</Button>
                     <Button id="infos" onClick={(e) => setProfileState(e.target.id)}>Infos</Button>
                 </ButtonGroup>
-                <span className="profile-section__navigation-bar"></span>
+                <span ref={ref} className="profile-section__navigation-bar"></span>
             </nav>
             <div className="profile-section__main-content">
                 {profileState === "actuality" && <ProfilePostsSection />}
