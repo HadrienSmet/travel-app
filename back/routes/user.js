@@ -12,6 +12,8 @@ router.put('/setAlbum/:userId', auth, multer, userCtrl.uploadAlbum);
 router.put('/setTrip/:userId', auth, userCtrl.addNewTrip);
 router.put('/followUser/:id', auth, userCtrl.followUser);
 router.put('/unfollowUser/:id', auth, userCtrl.unfollowUser);
+router.put('/newFollower/:id', auth, userCtrl.newFollower);
+router.put('/lostFollower/:id', auth, userCtrl.lostFollower);
 router.get('/userProfile/:userId', auth, userCtrl.getProfile);
 
 module.exports = router;

@@ -55,6 +55,9 @@ const FriendProfile = () => {
         let data = {
             pseudo: friendProfile.pseudo
         }
+        let dataForFriend = {
+            pseudo: userProfile.pseudo
+        }
         axios({
             url: `${process.env.REACT_APP_API_URL}api/auth/followUser/${userId}`,
             method: "put", 
@@ -63,15 +66,31 @@ const FriendProfile = () => {
                 "Content-Type": "application/json",
                 "authorization": `bearer ${token}`,
             },
-        
         })
-        .then((res) => dispatch(pushFollowingInUserLoggedData(friendProfile.pseudo)))
+        .then((res) => {
+            
+            dispatch(pushFollowingInUserLoggedData(friendProfile.pseudo))
+            axios({
+                url: `${process.env.REACT_APP_API_URL}api/auth/newFollower/${friendProfile._id}`,
+                method: "put", 
+                data: dataForFriend, 
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `bearer ${token}`,
+                },
+            })
+            .then("it worked perfectly well")
+            .catch("go back to school");
+        })
         .catch((err) => console.log(err));
     }
 
     const handleRemoveFriend = () => {
         let data = {
             pseudo: friendProfile.pseudo
+        }
+        let dataForFriend = {
+            pseudo: userProfile.pseudo
         }
         axios({
             url: `${process.env.REACT_APP_API_URL}api/auth/unfollowUser/${userId}`,
@@ -85,6 +104,17 @@ const FriendProfile = () => {
         .then((res) => {
             dispatch(pullFollowingInUserLoggedData(friendProfile.pseudo))
             setIsFriend(false);
+            axios({
+                url: `${process.env.REACT_APP_API_URL}api/auth/lostFollower/${friendProfile._id}`,
+                method: "put", 
+                data: dataForFriend, 
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `bearer ${token}`,
+                },
+            })
+            .then("it worked perfectly well")
+            .catch("go back to school");
         })
         .catch((err) => console.log(err));
     }

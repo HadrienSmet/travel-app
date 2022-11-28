@@ -247,5 +247,37 @@ exports.unfollowUser = (req, res, next) => {
 }
 
 
+exports.newFollower = (req, res, next) => {
+    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
+    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
+    UserModel.findOne({ _id: req.params.id })
+    .then((user) => {
+            UserModel.updateOne(
+                { _id: req.params.id },
+                { $push: { followers: req.body.pseudo } }
+            )
+            .then((userModified) => res.status(201).json({ message: "Un utilisateur a commencé à vous suivre!" }))
+            .catch((err) => res.status(500).json({ message: "Notre serveur ne souhaite pas que la popularité vous monte à la tête" }));
+    })
+    .catch((err) => res.status(404).json({ message: "Nous ne retrouvons pas cet utilisateur dans notre base de données" }));
+}
+
+
+exports.lostFollower = (req, res, next) => {
+    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
+    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
+    UserModel.findOne({ _id: req.params.id })
+    .then((user) => {
+            UserModel.updateOne(
+                { _id: req.params.id },
+                { $pull: { followers: req.body.pseudo } }
+            )
+            .then((userModified) => res.status(201).json({ message: "Un utilisateur a arrêté à vous suivre!" }))
+            .catch((err) => res.status(500).json({ message: "Notre serveur ne souhaite pas voir votre popularité défaillir" }));
+    })
+    .catch((err) => res.status(404).json({ message: "Nous ne retrouvons pas cet utilisateur dans notre base de données" }));
+}
+
+
 
  
