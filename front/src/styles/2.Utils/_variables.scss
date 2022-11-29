@@ -4,10 +4,26 @@ $clr-2: black;
 $clr-3: #003947;
 $clr-4: #a1abab;
 
-//Grpaphic colors
-$primary-color: #279E97;
+//Graphic colors
+$primary-color: rgb(39, 158, 151);
 $secondary-color: #F6F8EA;
-$tertiary-color: #14504D;
+$tertiary-color: rgb(20, 80, 77);
+
+//Graphic colors shades
+$primary-color-2: rgba(39, 158, 151, 0.2);
+$primary-color-3: rgba(39, 158, 151, 0.3);
+$primary-color-4: rgba(39, 158, 151, 0.4);
+$primary-color-5: rgba(39, 158, 151, 0.5);
+$primary-color-6: rgba(39, 158, 151, 0.6);
+$primary-color-7: rgba(39, 158, 151, 0.7);
+$primary-color-8: rgba(39, 158, 151, 0.8);
+$tertiary-color-2: rgba(20, 80, 77, 0.2);
+$tertiary-color-3: rgba(20, 80, 77, 0.3);
+$tertiary-color-4: rgba(20, 80, 77, 0.4);
+$tertiary-color-5: rgba(20, 80, 77, 0.5);
+$tertiary-color-6: rgba(20, 80, 77, 0.6);
+$tertiary-color-7: rgba(20, 80, 77, 0.7);
+$tertiary-color-8: rgba(20, 80, 77, 0.8);
 
 //Opacity shades
 $black-very-low-op: rgba(0, 0, 0, 0.1);

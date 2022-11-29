@@ -209,18 +209,21 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
         console.log(destination, duration, year, details);
-        if (albumData !== []) {
-            let trip = {
-            destination,
-            year,
-            duration,
-            withWho: choice,
-            details,
-            album: { ...albumData }
+        if (destination.match(/\$<>=\+\*/i)) {
+            alert("Les caractères suivants ne sont pas tolérés. $ > < = + *")
+        } else {
+            if (albumData !== []) {
+                let trip = {
+                    destination,
+                    year,
+                    duration,
+                    withWho: choice,
+                    details,
+                    album: { ...albumData }
+                }
+                changeTrips(trip);
+            }
         }
-        changeTrips(trip);
-        }
-        
     }
 
     return (

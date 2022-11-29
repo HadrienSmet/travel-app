@@ -13,43 +13,45 @@ import { FaRegEnvelope, FaUserCheck, FaUserPlus } from 'react-icons/fa';
 import axios from 'axios';
 import { getJwtToken } from '../utils/functions/tools';
 import { pullFollowingInUserLoggedData, pushFollowingInUserLoggedData } from '../features/userLoggedData.slice';
+import { pullFollowerInFriendData, pushFollowerInFriendData } from '../features/friendData.slice';
+import { useRef } from 'react';
 
 const FriendProfile = () => {
     const [friendProfileState, setFriendProfileState] = useState("actuality");
     const [isFriend, setIsFriend] = useState(false);
-    const friendProfile = useSelector((state) => state.friendDataStore.friendData[0]);
+    const friendProfile = useSelector((state) => state.friendDataStore.friendData);
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
-    const friendNavBar = document.getElementById('friend-nav-bar');
     const dispatch = useDispatch();
+    const ref = useRef();
     let { userId, token } = getJwtToken();
 
     useEffect(() => {  
-        if (friendNavBar !== null) {
-            switch (friendProfileState) {
-                case "actuality":
-                    friendNavBar.style.transform = 'translateX(0)';
-                    break;
-                case "albums":
-                    friendNavBar.style.transform = 'translateX(110px)';
-                    break;
-                case "trips":
-                    friendNavBar.style.transform = 'translateX(220px)';
-                    break;
-                case "friends":
-                    friendNavBar.style.transform = 'translateX(330px)';
-                    break;
-                case "infos":
-                    friendNavBar.style.transform = 'translateX(440px)';
-                    break;
-                default:
-                    console.log("Bravo t'as réussi à faire bugger mon app fdp")
-            }
-        }      
+        switch (friendProfileState) {
+            case "actuality":
+                ref.current.style.transform = 'translateX(0)';
+                break;
+            case "albums":
+                ref.current.style.transform = 'translateX(110px)';
+                break;
+            case "trips":
+                ref.current.style.transform = 'translateX(220px)';
+                break;
+            case "friends":
+                ref.current.style.transform = 'translateX(330px)';
+                break;
+            case "infos":
+                ref.current.style.transform = 'translateX(440px)';
+                break;
+            default:
+                console.log("Bravo t'as réussi à faire bugger mon app fdp");
+                break;
+        }    
         if (userProfile.following.includes(friendProfile.pseudo)) {
             setIsFriend(true);
         }
+        
         /* eslint-disable react-hooks/exhaustive-deps */
-    }, [friendProfileState, userProfile])
+    }, [friendProfileState, userProfile ])
 
     const handleNewFriend = () => {
         let data = {
@@ -69,7 +71,7 @@ const FriendProfile = () => {
         })
         .then((res) => {
             
-            dispatch(pushFollowingInUserLoggedData(friendProfile.pseudo))
+            dispatch(pushFollowingInUserLoggedData(friendProfile.pseudo));
             axios({
                 url: `${process.env.REACT_APP_API_URL}api/auth/newFollower/${friendProfile._id}`,
                 method: "put", 
@@ -79,8 +81,11 @@ const FriendProfile = () => {
                     "authorization": `bearer ${token}`,
                 },
             })
-            .then("it worked perfectly well")
-            .catch("go back to school");
+            .then((res) => {
+                console.log("it worked perfectly well");
+                dispatch(pushFollowerInFriendData(userProfile.pseudo));
+            })
+            // .catch(() => console.log("go back to school"));
         })
         .catch((err) => console.log(err));
     }
@@ -113,8 +118,11 @@ const FriendProfile = () => {
                     "authorization": `bearer ${token}`,
                 },
             })
-            .then("it worked perfectly well")
-            .catch("go back to school");
+            .then((res) => {
+                console.log("it worked perfectly well");
+                dispatch(pullFollowerInFriendData(userProfile.pseudo));
+            })
+            // .catch(() => console.log("go back to school"));
         })
         .catch((err) => console.log(err));
     }
@@ -151,7 +159,7 @@ const FriendProfile = () => {
                     <Button id="friends" onClick={(e) => setFriendProfileState(e.target.id)}>Amis</Button>
                     <Button id="infos" onClick={(e) => setFriendProfileState(e.target.id)}>Infos</Button>
                 </ButtonGroup>
-                <span id='friend-nav-bar' className="profile-section__navigation-bar"></span>
+                <span ref={ref} id='friend-nav-bar' className="profile-section__navigation-bar"></span>
             </nav>
             <div className="profile-section__main-content">
                 {friendProfileState === "actuality" && <FriendProfilePostsSection friendProfile={friendProfile} />}

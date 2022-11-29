@@ -182,7 +182,7 @@
 .last-step-icon {
     position: absolute;
     top: 20px;
-    // opacity: 0;
+    opacity: 0;
     transition: 0.3s ease-in-out;
 }
 .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
@@ -193,4 +193,8 @@
 }
 .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
     transform: translate(14px, -9px) scale(0.75) !important;
+}
+#extra-description-msg {
+    position: relative;
+    top: 62px;
 }

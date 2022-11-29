@@ -71,7 +71,18 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
     //This function change the state of this component in order to allow the user to share a description about himself
     //@Params { Type: Object } --> The param of the onChange event listening the textarea
     const handleDescription = (e) => {
-        setDescription(e.target.value);
+        const descriptionMsg = document.getElementById('extra-description-msg');
+        const checkIcon = document.querySelector(".extra-data-form__description-division__check-icon");
+        const timesIcon = document.querySelector(".extra-data-form__description-division__times-icon");
+        if (description.match(/\$<>=\+\*/i)) {
+            descriptionMsg.textContent = "Les caractères suivants ne sont pas tolérés. $ > < = + *"
+            timesIcon.style.opacity = "1";
+            checkIcon.style.opacity = "0";
+        } else {
+            descriptionMsg.textContent = "";
+            timesIcon.style.opacity = "0";
+            checkIcon.style.opacity = "1";
+        }
     }
 
     //This function aloow the child component InputCountry to change the state of this component
@@ -108,8 +119,6 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 gender,
                 country,
             };
-            // let userProfileData = {
-            // };
             let data = {
                 email,
                 password,
@@ -118,7 +127,6 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 dreamTrips: [...dreamTrip],
                 previousTrips: [...previousTrips],
                 userData: { ...userPersonalsData },
-                // userProfile: { ...userProfileData },
             };
             const fileData = new FormData();
             fileData.append("albumName", previousTrips[0].album[0].name);
@@ -168,8 +176,8 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 <div className="extra-data-form__fields-displayer__left-column">
                     <div className="extra-data-form__pseudo-division">
                         <div className="extra-data-form__pseudo-division__icons-container">
-                            <FaCheck className='extra-data-form__pseudo-division__check-icon signup-icon check' />
-                            <FaTimes className='extra-data-form__pseudo-division__times-icon signup-icon times' />
+                            <FaCheck className='extra-data-form__pseudo-division__check-icon last-step-icon check' />
+                            <FaTimes className='extra-data-form__pseudo-division__times-icon last-step-icon times' />
                         </div>
                         <TextField 
                             id='outlined-pseudo'
@@ -182,7 +190,8 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     </div>
                     <div className="extra-data-form__description-division">
                         <div className="extra-data-form__description-division__icons-container">
-                            {description !== "" && <FaCheck className='extra-data-form__description-division__check-icon last-step-icon check' />}
+                            <FaCheck className='extra-data-form__description-division__check-icon last-step-icon check' />
+                            <FaTimes className='extra-data-form__description-division__times-icon last-step-icon times' />
                         </div>
                         <TextField
                             id="outlined-textarea"
@@ -190,8 +199,10 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                             label="Présentes-toi!"
                             placeholder=""
                             multiline
-                            onChange={(e) => handleDescription(e)}
+                            onChange={(e) => setDescription(e.target.value)}
+                            onBlur={() => handleDescription()}
                         />
+                        <span id="extra-description-msg"></span>
                     </div>
                     <h4>Mes destinations de rêve</h4>
                     <div className="extra-data-form__dream-trips-division">

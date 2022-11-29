@@ -95,10 +95,6 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
         e.preventDefault();
         const { email, password } = userData;
         if (profilePictureUrl !== "" && age !== "" && isFirstNameOk === true && isLastNameOk === true && gender !== "" && country !== "") { 
-            // console.log(profilePicture);
-            // const fileData = new FormData();
-            // fileData.append("file", profilePicture);
-
             let authData = {
                 email,
                 password,     
@@ -117,28 +113,6 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
             }
             changeUserPersonals(data);
             changeStepState('almost-done');
-
-            // axios.post("http://localhost:3000/api/auth/signup", data, {
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     }
-            // })
-            // .then((res) => {
-            //     setJwtToken(res.data);
-            //     console.log(res.data);
-            //     axios.patch("http://localhost:3000/api/auth/profilePicture/" + res.data.userId, fileData, {
-            //         headers: {
-            //             "Content-Type": "multipart/form-data",
-            //             "authorization": `bearer ${res.data.token}`
-            //         }
-            //     })
-            //     .then((res) => {
-            //         dispatch(setUserData(res.data))
-            //         changeStepState("almost-done");
-            //     })
-            //     .catch();
-            //     console.log(res.data);
-            // })
         } 
     }
 
@@ -169,7 +143,6 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                     <div className="personal-data-form__age-division">
                         <div className="personal-data-form__icons-container">
                             {age !== "" && <FaCheck className="personal-data-form__age-division__check-icon signup-perso-icon check"  />}
-                            {/* {age === "" &&<FaTimes className="personal-data-form__age-division__times-icon signup-icon" />} */}
                         </div>
                         <InputNumbers 
                             minNumber={16}
@@ -214,7 +187,6 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                     <div className="personal-data-form__gender-division">
                         <div className="personal-data-form__icons-container">
                             {gender !== "" && <FaCheck className="personal-data-form__gender-division__check-icon signup-perso-icon check"  />}
-                            {/* {age === "" &&<FaTimes className="personal-data-form__age-division__times-icon signup-icon" />} */}
                         </div>
                         <InputSelect 
                             dynamicClass="personal-data-form__input"
@@ -226,7 +198,6 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                     <div className="personal-data-form__country-division">
                         <div className="personal-data-form__icons-container">
                             {country !== "" && <FaCheck className="personal-data-form__country-division__check-icon signup-perso-icon check"  />}
-                            {/* {age === "" &&<FaTimes className="personal-data-form__age-division__times-icon signup-icon" />} */}
                         </div>
                         <InputCountry dynamicClass={"personal-data-form__input"} dynamicPlaceholder={"Pays"} changeCountry={changeCountry} />
                     </div>

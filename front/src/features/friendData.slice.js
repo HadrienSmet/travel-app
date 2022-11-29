@@ -8,9 +8,16 @@ export const friendDataSlice = createSlice({
     reducers: {
         setFriendData: (state, { payload }) => {
             state.friendData = payload;
+        },
+        pushFollowerInFriendData : (state, { payload }) => {
+            state.friendData.followers.push(payload);
+        },
+        pullFollowerInFriendData: (state, { payload }) => {
+            const rightIndex = state.friendData.followers.findIndex((user) => user === payload);
+            state.friendData.followers.splice(rightIndex, 1);
         }
     },
 });
 
-export const { setFriendData } = friendDataSlice.actions;
+export const { setFriendData, pushFollowerInFriendData, pullFollowerInFriendData } = friendDataSlice.actions;
 export default friendDataSlice.reducer;

@@ -204,7 +204,7 @@ const Post = ({ post }) => {
 
     const goToProfilePage = () => {
         axios({
-            url: `${process.env.REACT_APP_API_URL}api/auth/userProfile/${post.userId}`,
+            url: `${process.env.REACT_APP_API_URL}api/auth/userProfile/${post.pseudo}`,
             method: "get",
             headers: {
                 "Content-Type": "application/json",

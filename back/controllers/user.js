@@ -199,7 +199,7 @@ exports.addNewTrip = (req, res, next) => {
 }
 
 exports.getProfile = (req, res, next) => {
-    UserModel.find({ _id: req.params.userId }, (error, data) => {
+    UserModel.findOne({ pseudo: req.params.pseudo }, (error, data) => {
         if (error) {
             res.status(404).json({ error })
         } else {

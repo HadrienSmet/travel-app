@@ -3,6 +3,12 @@
     justify-content: space-around;
 }
 
+@mixin flexAroundCentered {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 @mixin flexAroundColumnCenter {
     display: flex;
     flex-direction: column;

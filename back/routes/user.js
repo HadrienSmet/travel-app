@@ -14,6 +14,6 @@ router.put('/followUser/:id', auth, userCtrl.followUser);
 router.put('/unfollowUser/:id', auth, userCtrl.unfollowUser);
 router.put('/newFollower/:id', auth, userCtrl.newFollower);
 router.put('/lostFollower/:id', auth, userCtrl.lostFollower);
-router.get('/userProfile/:userId', auth, userCtrl.getProfile);
+router.get('/userProfile/:pseudo', auth, userCtrl.getProfile);
 
 module.exports = router;
