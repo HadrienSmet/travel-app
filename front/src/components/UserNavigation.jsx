@@ -14,6 +14,9 @@ const UserNavigation = () => {
                 <Button id="nav-thrd-child">
                     <Link to ="/">Déconnexion</Link>
                 </Button>
+                <Button id="nav-thrd-child">
+                    <Link to ="/globe">Globe</Link>
+                </Button>
             </ButtonGroup>
         </nav>
     );

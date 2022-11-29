@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import SignupSteps from './pages/SignupSteps';
 import Profile from './pages/Profile';
 import FriendProfile from './pages/FriendProfile';
+import Globe from './pages/Globe';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -29,6 +30,7 @@ root.render(
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/friend-profile" element={<FriendProfile />} />
+            <Route path="/globe" element={<Globe />} />
           </Routes>
           <Footer />
         </Router>
