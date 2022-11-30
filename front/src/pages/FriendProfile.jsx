@@ -25,6 +25,8 @@ const FriendProfile = () => {
     const ref = useRef();
     let { userId, token } = getJwtToken();
 
+    //This useEffect handles the position of the navigation bar of the profile section
+    //His position is defined by the state of the component
     useEffect(() => {  
         switch (friendProfileState) {
             case "actuality":
@@ -53,6 +55,10 @@ const FriendProfile = () => {
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [friendProfileState, userProfile ])
 
+    //This function handles the logic about following a user
+    //Two calls to the API are required to complete his utility
+    //The first call is here to put the pseudo of the friend inside the user's data
+    //The second call is here to put the pseudo of the user inside the friend's data
     const handleNewFriend = () => {
         let data = {
             pseudo: friendProfile.pseudo
@@ -70,7 +76,6 @@ const FriendProfile = () => {
             },
         })
         .then((res) => {
-            
             dispatch(pushFollowingInUserLoggedData(friendProfile.pseudo));
             axios({
                 url: `${process.env.REACT_APP_API_URL}api/auth/newFollower/${friendProfile._id}`,
@@ -90,6 +95,10 @@ const FriendProfile = () => {
         .catch((err) => console.log(err));
     }
 
+    //This function handles the logic about unfollowing a user
+    //Two calls to the API are required to complete his utility
+    //The first call is here to pull the pseudo of the friend from the user's data
+    //The second call is here to pull the pseudo of the user from the friend's data
     const handleRemoveFriend = () => {
         let data = {
             pseudo: friendProfile.pseudo

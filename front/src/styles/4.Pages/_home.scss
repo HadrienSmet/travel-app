@@ -7,13 +7,25 @@
             width: calc(100% - 60px);
             padding: 30px;
             border-radius: 15px;
+            margin-bottom: 15px;
             @include flexBetween;
+            &__intro-and-btn-area {
+                @include flexColumnBetween;
+                button {
+                    width: 100%;
+                    font-size: 22px;
+                    color: $primary-color;
+                    background-color: $clr-1;
+                    &:hover {
+                        // color: $secondary-color;
+                        transform: scale(1.1);
+                        background-color: transparent;
+                    }
+                }
+            }
             &__profile-division {
-                position: relative;
-                left: -20px;
                 height: 100px;
-                display: flex;
-                align-items: center;
+                width: 400px;
                 gap: 15px;
                 @include flexCenterY;
                 &__img-container {

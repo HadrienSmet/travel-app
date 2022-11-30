@@ -78,6 +78,12 @@
     justify-content: flex-start;
 }
 
+@mixin flexEndCenterY {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 @mixin flexFullCenter {
     display: flex;
     justify-content: center;

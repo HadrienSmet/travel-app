@@ -16,6 +16,8 @@ const Profile = () => {
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const ref = useRef();
 
+    //This useEffect handles the position of the navigation bar of the profile section
+    //His position is defined by the state of the component
     useEffect(() => {
         switch (profileState) {
             case "actuality":

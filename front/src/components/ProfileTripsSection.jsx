@@ -1,14 +1,8 @@
 import { Button } from '@mui/material';
-import HomeGlobe3D from './HomeGlobe3D';
+import Globe3D from './Globe3D';
 import ProfileAddTripModal from './ProfileAddTripModal';
 
 const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
-    // const [dates, setDates] = useState(undefined)
-
-    // const changeDates = (dates) => {
-    //     setDates(dates);
-    // }
-
     const handleFutureTrip = () => {
 
     }
@@ -35,7 +29,7 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
                 <div className="profile-trips-section__plan-a-trip">
                     <h2>Plannifier un voyage</h2>
                     <h3>Ou souhaitez vous partir?</h3>
-                    <HomeGlobe3D />
+                    <Globe3D />
                     <Button variant='outlined' onClick={() => handleFutureTrip()}>Faire une recherche</Button>
                 </div>
             }

@@ -1,7 +1,9 @@
+import { Button } from '@mui/material';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import HomeGlobe3D from '../components/HomeGlobe3D';
+import Globe3D from '../components/Globe3D';
+import GradientBorder from '../components/GradientBorder';
 import Post from '../components/Post';
 import PostsForm from '../components/PostsForm';
 import { setPostsData } from '../features/postsData.slice';
@@ -55,13 +57,19 @@ const Home = () => {
             <div className="fake-margin-replacing-header"></div>
             <section className="home__content">
                 <div className="home__content__header">
-                    <div className="home__content__header__profile-division">
-                        <div className="home__content__header__profile-division__img-container">
-                            <img src={userData.profilePicture} alt={"photo de profil de " + userData.pseudo} />
+                    <div className="home__content__header__intro-and-btn-area">
+                        <div className="home__content__header__profile-division">
+                            <div className="home__content__header__profile-division__img-container">
+                                <img src={userData.profilePicture} alt={"photo de profil de " + userData.pseudo} />
+                            </div>
+                            <h1>Bonjour {userData.pseudo}</h1>
                         </div>
-                        <h1>Bonjour {userData.pseudo}</h1>
-                    </div> 
-                    <HomeGlobe3D changeSelectedCountry={changeSelectedCountry} />
+                        <GradientBorder>
+                            <Button className='home__content__header__reset-btn'>Réinitialiser</Button>
+                        </GradientBorder>
+                        
+                    </div>
+                    <Globe3D changeSelectedCountry={changeSelectedCountry} />
                 </div>
                 <div className="home__content__main">
                     <div className="home__content__posts-division">

@@ -1,0 +1,16 @@
+.gradient {
+    // background: rgb(2,218,254);
+    width: object-fit;
+    background: linear-gradient(90deg, $clr-1 0%, $clr-1 100%), linear-gradient(var(--gradient-rotation), darken($tertiary-color, 5%) 0%, lighten($primary-color,5%) 100%);
+    padding: 8px;
+    border-radius: 5px;
+    border: 6px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    @include standardTransi;
+    &:hover {
+        // color: $secondary-color;
+        transform: scaleX(1.1);
+        // background-color: transparent;
+    }
+}
