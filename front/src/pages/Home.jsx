@@ -1,13 +1,12 @@
-import { Button } from '@mui/material';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setPostsData } from '../features/postsData.slice';
+import { getJwtToken } from '../utils/functions/tools';
 import Globe3D from '../components/Globe3D';
 import GradientBorder from '../components/GradientBorder';
 import Post from '../components/Post';
 import PostsForm from '../components/PostsForm';
-import { setPostsData } from '../features/postsData.slice';
-import { getJwtToken } from '../utils/functions/tools';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -16,9 +15,9 @@ const Home = () => {
     let { token } = getJwtToken();
     let dataArrayForSort;
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
-
-    //This useEffect gets all the posts from the data base and it put all of them in the redux store
-    useEffect(() => {
+    
+    //This function gets from the API all the posts and displays it into the redux store
+    const fetchAllposts = () => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts`,
             method: "get",
@@ -31,6 +30,11 @@ const Home = () => {
                 dispatch(setPostsData(res.data));
         })
         .catch(err => console.log(err));
+    }
+
+    //This useEffect calls a funciton in order to get all the posts from the data base and it put all of them in the redux store
+    useEffect(() => {
+        fetchAllposts();
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
 
@@ -65,13 +69,19 @@ const Home = () => {
                             <h1>Bonjour {userData.pseudo}</h1>
                         </div>
                         <GradientBorder>
-                            <Button className='home__content__header__reset-btn'>Réinitialiser</Button>
+                            <a 
+                                href='#home_anchor' 
+                                className='home__content__header__reset-btn'
+                                onClick={() => fetchAllposts()}>Réinitialiser</a>
                         </GradientBorder>
                         
                     </div>
-                    <Globe3D changeSelectedCountry={changeSelectedCountry} />
+                    <div className="home__content__header__globe-area">
+                        <h2>Venez voir ce qu'il se passe ailleurs</h2>
+                        <Globe3D changeSelectedCountry={changeSelectedCountry} />
+                    </div>
                 </div>
-                <div className="home__content__main">
+                <div id="home_anchor" className="home__content__main">
                     <div className="home__content__posts-division">
                         <PostsForm />
                         {dataArrayForSort !== null && dataArrayForSort

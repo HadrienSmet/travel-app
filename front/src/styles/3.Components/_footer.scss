@@ -1,27 +1,44 @@
 .footer {
+    @media screen and (min-width: 1025px) {
+        @include flexBetween;
+        flex-direction: row;
+        padding: 15px 30px 10px 20px;
+        height: 100px;
+    }
     width: calc(100% - 50px);
     position: relative;
     bottom: 0;
     background-color: $clr-3;
-    height: 100px;
     text-transform: uppercase;
     color: $secondary-color;
     font-size: 12px;
-    padding: 15px 30px 10px 20px;
-    @include flexBetween;
+    padding: 25px;
+    @include flexColumnCenter;
     &__logo {
-        display: flex;
+        gap: 5px;
+        @include flexCenterY;
         svg {
-            font-size: 25px;
+            @media screen and (min-width: 768px) {
+                font-size: 25px;
+            }
+            font-size: 35px;
         }
         h2 {
+            @media screen and (min-width: 768px) {
+                font-size: 12px;
+            }
             font-family: "title-fonts";
-            font-size: 12px;
+            font-size: 18px;
         }
     }
     &__link-container {
-        width: 45%;
-        @include flexAround;
+        @media screen and (min-width: 1025px) {
+            width: 45%;
+        }
+        @media screen and (min-width: 768px) {
+            @include flexAround;
+        }
+        width: 80%;
         ul {
             gap: 5px;
             @include flexColumn;

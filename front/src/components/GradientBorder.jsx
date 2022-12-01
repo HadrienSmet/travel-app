@@ -19,7 +19,7 @@ const useGradientBorder = () => {
         const handleMouseMove = (event) => {
             const degree = findDegree(ref.current, event);
 
-            ref.current.style.setProperty("--gradient-rotation", `${degree + 77}deg`)
+            ref.current.style.setProperty("--gradient-rotation", `${degree + 200}deg`)
         }
 
         document.addEventListener('mousemove', handleMouseMove);

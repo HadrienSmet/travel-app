@@ -34,7 +34,6 @@ exports.signup = (req, res, next) => {
                     process.env.ACCESS_TOKEN_SECRET,
                     { expiresIn: '24h' }
                 ),
-                // userProfileData: user.userProfile,
             });
         })
         .catch(error => res.status(400).json({ error }));
@@ -104,7 +103,6 @@ exports.signup = (req, res, next) => {
   //Warning --> bcrypt.compare is async function
   //If passwords match: provides an authorisation token to the user
 exports.login = (req, res, next) => {
-    console.log(req.body);
     UserModel.findOne({ email: req.body.email })
     .then(user => {
         if (!user) {
@@ -115,11 +113,6 @@ exports.login = (req, res, next) => {
             if (!valid) {
                 return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
             }
-            console.log("cntrllrs.user l: 43 signature jwt:" + jwt.sign(
-                { userId: user._id },
-                process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '24h' }
-            ));
             res.status(200).json({
                 email: user.email,
                 profilePicture: user.profilePicture,
@@ -183,7 +176,6 @@ exports.addNewTrip = (req, res, next) => {
             return res.status(401).json({ message: "Requête non-autorisée" });
         } else {
             let trip =  {...req.body} 
-            console.log(trip);
             UserModel.updateOne(
                 { _id: req.auth.userId },
                 { $push: { previousTrips: trip } } 
@@ -209,8 +201,6 @@ exports.getProfile = (req, res, next) => {
 };
 
 exports.followUser = (req, res, next) => {
-    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
-    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
     UserModel.findOne({ _id: req.params.id })
     .then((user) => {
         if (user._id != req.auth.userId) {
@@ -228,8 +218,6 @@ exports.followUser = (req, res, next) => {
 }
 
 exports.unfollowUser = (req, res, next) => {
-    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
-    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
     UserModel.findOne({ _id: req.params.id })
     .then((user) => {
         if (user._id != req.auth.userId) {
@@ -248,8 +236,6 @@ exports.unfollowUser = (req, res, next) => {
 
 
 exports.newFollower = (req, res, next) => {
-    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
-    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
     UserModel.findOne({ _id: req.params.id })
     .then((user) => {
             UserModel.updateOne(
@@ -264,8 +250,6 @@ exports.newFollower = (req, res, next) => {
 
 
 exports.lostFollower = (req, res, next) => {
-    console.log("controllers.users l:217 req.auth.userId: " + req.auth.userId);
-    console.log("controllers.users l:218 req.body: " + JSON.stringify(req.body));
     UserModel.findOne({ _id: req.params.id })
     .then((user) => {
             UserModel.updateOne(

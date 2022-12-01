@@ -10,35 +10,113 @@ header {
                 animation: navAnim 1s ease-in-out forwards;
                 color: $secondary-color !important;
                 border-color: $secondary-color !important;
-                &:hover {
+                @media screen and (min-width: 1024px) {
+                    &:hover {
+                        &::after {
+                            animation: navRodAnim 0.2s 0.1s ease-in-out forwards;
+                        }
+                    }
+                    &:nth-child(1) {
+                        animation-delay: 0.4s;
+                        &::after {
+                            transform-origin: right;
+                            left: 0;
+                        }
+                    }
+                    &:nth-child(2) {
+                        animation-delay: 0.6s;
+                        &::after {
+                            transform-origin: left;
+                            left: 5px; 
+                        }
+                    }
                     &::after {
-                        animation: navRodAnim 0.2s 0.1s ease-in-out forwards;
+                        content: "";
+                        width: calc(100% - 5px);
+                        height: 2px;
+                        background-color: $secondary-color;
+                        position: absolute;
+                        bottom: 8px;
+                        transition: 0.3s ease-in-out;
+                        transform:  scaleX(0);
                     }
                 }
-                &:nth-child(1) {
-                    animation-delay: 0.4s;
-                    &::after {
-                        transform-origin: right;
-                        left: 0;
+            }
+        }
+        .guest-mobile-nav {
+            button {
+                padding: 0;
+                min-width: none;
+            }
+            .toggle-btn {
+                width: 35px;
+                height: 40px;
+                padding: 8px;
+                border-radius: 11px;
+                background-color: $secondary-color;
+                box-shadow: 
+                    0px 3px 1px -2px rgb(0 0 0 / 20%), 
+                    0px 2px 2px 0px rgb(0 0 0 / 14%), 
+                    0px 1px 5px 0px rgb(0 0 0 / 12%);
+                @include flexColumnCenter;
+                justify-content: center;
+                gap: 5px;
+                &:hover {
+                    transform: scale(1.1) translateY(-2px);
+                    span {
+                        background-color: $primary-color;
                     }
+                }
+                span {
+                    height: 5px;
+                    width: 35px;
+                    border-radius: 5px;
+                    background-color: $tertiary-color;
+                    transition: 0.3s ease-in-out;
+                }
+            }
+            .toggle-btn.active span {
+                position: absolute;
+                // background-color: $primary-color !important;
+                &:nth-child(1) {
+                    transform: rotate(45deg);
                 }
                 &:nth-child(2) {
-                    animation-delay: 0.6s;
-                    &::after {
-                        transform-origin: left;
-                        left: 5px; 
-                    }
+                    opacity: 0;
                 }
-                &::after {
-                    content: "";
-                    width: calc(100% - 5px);
-                    height: 2px;
-                    background-color: $secondary-color;
-                    position: absolute;
-                    bottom: 8px;
-                    transition: 0.3s ease-in-out;
-                    transform:  scaleX(0);
+                &:nth-child(3) {
+                    transform: rotate(-45deg);
                 }
+            }
+            .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                background-color: transparent;
+                box-shadow: none;
+            }
+        }
+    }
+}
+.mobile-guest-popover {
+    > div:nth-child(3) {
+        // height: 250px;
+        padding: 25px 10px;
+        width: calc(29% - 20px);
+        min-width: 230px;
+        transform: translateX(15px);
+        background-color: $secondary-color-9;
+        border: 3px solid $primary-color-2;
+        @include flexColumn;
+        button {
+            position: relative;
+            font-size: 24px;
+            color: $tertiary-color !important;
+            &:first-child::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 5%;
+                width: 90%;
+                height: 2px;
+                background-color: $tertiary-color-4;
             }
         }
     }

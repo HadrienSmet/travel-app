@@ -2,7 +2,7 @@
     padding: 0 40px;
     position: relative;
     height: 76vh;
-    width: calc(100% - 80px);
+    width: 100%;
     @include flexEndCenterY;
     &__canvas-area {
         position: absolute;
@@ -22,6 +22,7 @@
             height: 100%;
         }
         li {
+            
             text-align: right;
             cursor: pointer;
             position: relative;
@@ -34,7 +35,10 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             margin-bottom: 3px;
-            transition: 0.2s ease-in-out
+            transition: 0.2s ease-in-out;
+            a {
+               color: $black-strong-op; 
+            }
         }
         &__scroll-bar-track {
             padding: 2px 0;

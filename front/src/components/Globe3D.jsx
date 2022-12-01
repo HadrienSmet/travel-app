@@ -52,7 +52,7 @@ const Globe3D = ({ changeSelectedCountry }) => {
                         key={option.label} 
                         onClick={() => changeSelectedCountry(option.label)}
                     >
-                        {option.label}
+                        <a href="#home_anchor" key={option.label + "-link"}>{option.label}</a>
                     </li>
                 ))}
             </ul>
