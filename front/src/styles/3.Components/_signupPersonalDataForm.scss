@@ -2,38 +2,57 @@
     display: none;
 }
 .personal-data-form {
+    @media screen and (min-width: 1025px) {
+        padding: 30px 0;
+        height: calc(100% - 60px);
+    }   
     position: relative;
-    padding: 30px 0;
-    // top: -10px;
+    padding: 15px 0;
     width: 100%;
-    height: fit-content;
+    height: calc(100% - 30px);
     background-color: $white-op6;
     border-radius: 15px;
     gap: 10px;
     @include flexAroundColumnCenter;
     &__fields-displayer {
+        @media screen and (min-width: 768px) {
+            @include flexBetween;
+            flex-direction: row;
+        }
         width: 90%;
-        height: 60%;
-        @include flexBetween;
+        height: 65%;
+        gap: 15px;
+        @include flexColumnCenter;
     }
     &__left-column {
         @media screen and (min-width: 1025px) {
-            left: 5%;
             width: 30%;
+            top: -10px;
+            height: calc(100% - 23px);
+            // height: 100%;
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            transform: translateY(-12px);
+            width: 40%;
+            height: calc(100% - 19px);
+        }
+        @media screen and (max-width: 767px) {
+            width: calc(100% - 50px);
         }
         position: relative;
     }
     &__picture-area {
-        background-color: rgba(51, 50, 50, 0.522);
+        padding: 10px;
+        background-color: $black-op4;
         border-radius: 4px;
-        width: 100%;
+        width: calc(100% - 20px);
         height: calc(100% - 71px);
         margin-bottom: 15px;
         gap: 25px;
         @include flexColumnCenter;
         button {
-            border: 1px solid rgba(246, 248, 234, 0.7);
-            color: rgba(246, 248, 234, 0.7);
+            border: 1px solid $white-op7;
+            color: $white-op7;
         }
     }
     &__picture-container {
@@ -64,8 +83,15 @@
         }
     }
     &__inputs-container {
-        width: 50%;
-        height: 100%;
+        @media screen and (min-width: 768px) {
+            width: 50%;
+            height: 100%;
+        }
+        @media screen and (max-width: 767px) {
+            margin-bottom: 15px;
+            width: calc(100% - 50px);
+        }
+        gap: 10px;
         @include flexColumnBetween;
     }
     &__input {

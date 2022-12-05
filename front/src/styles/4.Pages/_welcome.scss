@@ -23,11 +23,11 @@
         text-align: center;
         width: calc(90vw - 80px);
         min-height: 60vh;
-        padding: 40px;
+        padding: 70px 40px;
         position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: rgba(246, 248, 234, 0.7);
+        background-color: $white-op7;
         border-radius: 3px;
         gap: 35px;
         @include flexColumnCenter;
@@ -69,11 +69,11 @@
                 
             }
             @media screen and (min-width: 768px) and (max-width: 1024px) {
-                top: 55vh;
+                top: 60vh;
             }
             position: absolute;
             left: 50%;
-            top: 65vh;
+            top: 620px;
         }
     }
 }

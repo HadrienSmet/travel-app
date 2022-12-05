@@ -29,7 +29,7 @@ const GuestNavigation = () => {
 
     return (
         <nav className="guest-navigation">
-        {screenWidth > 1024 ?
+        {screenWidth > 1025 ?
             <ButtonGroup variant="text" aria-label="text button group">
                 <Button onClick={() => dispatch(setWelcomeState("signup"))}>Inscription</Button>
                 <Button onClick={() => dispatch(setWelcomeState("signin"))}>Connexion</Button>

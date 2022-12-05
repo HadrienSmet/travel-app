@@ -1,32 +1,58 @@
 .extra-data-form {
     position: relative;
-    height: 100%;
+    height: calc(100% - 35px);
     width: 90%;
-    left: 5%;
+    margin-top: 15px;
+    margin-bottom: 20px;
     @include flexAroundColumnCenter;
     &__fields-displayer {
-        height: 75%;
-        width: 100%;
-        @include flexRowReverseBetween;
+        @media screen and (min-width: 1025px) {
+            @include flexRowReverseBetween;
+            height: 75%;
+            margin-top: 5px;    
+        }
+        // position: relative;
+        margin-top: 15px;
+        width: calc(100% - 40px);
+        @include flexColumnCenter;
         &__left-column {
+            @media screen and (min-width: 1025px) {
+                width: 45%;
+                height: 100%;
+                justify-content: flex-start;
+            }
+            @media screen and (max-width: 1024px) {
+                margin-bottom: 15px;
+            }
+            width: 90%;
             gap: 10px;
-            width: 45%;
-            @include flexColumn;
+            @include flexColumnCenter;
         }
     }
     &__trips-area {
-        width: 45%;
+        @media screen and (min-width: 1025px) {
+            width: 45%;
+            height: 100%;
+        }
+        @media screen and (max-width: 1024px) {
+            height: 300px;
+            margin-bottom: 15px;
+        }
+        width: 90%;
         gap: 10px;
-        @include flexColumn;
+        @include flexColumnCenter;
+        div {
+            width: 100%;
+        }
         button {
             width: 100%;
-            border: 1px solid $black-very-low-op;
+            border: 1px solid $black-op1;
             color: $secondary-color;
-            background-color: $black-mid-op;
+            background-color: $black-op5;
             &:hover {
-                border: 1px solid $black-very-low-op;
+                border: 1px solid $black-op1;
                 color: $secondary-color;
-                background-color: $black-almost-strong-op;
+                background-color: $black-op8;
             }
             svg {
                 margin-left: 10px;
@@ -34,12 +60,22 @@
         }
     }
     &__trips-displayer {
+        @media screen and (min-width: 1025px) {
+            height: 100%;
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            height: calc(100% - 98px);
+        }
+        @media screen and (max-width: 767px) {
+            height: calc(100% - 85px);
+            width: 100%;
+        }
         position: relative;
-        border: 1px solid $black-mid-op;
+        border: 1px solid $black-op5;
         border-radius: 4px;
-        height: calc(100% - 46.5px);
+
         p {
-            @include translateToCenter
+            @include translateToCenter;
         }
     }
     &__previous-trip-album {
@@ -57,10 +93,11 @@
     }
     &__pseudo-division {
         position: relative;
+        width: 100%;
         div {
             width: 100%;
             fieldset {
-                border-color: $black-mid-op !important;
+                border-color: $black-op5 !important;
             }
         }
         svg {
@@ -78,13 +115,27 @@
         }
     }
     &__text-area {
-        max-height: calc(100% - 187px);
+        @media screen and (min-width: 1025px) {
+            max-height: calc(100% - 187px);
+        }
+        @media screen and (max-width: 1024px) {
+            height: 200px;
+        }
+        position: relative;
+        div {
+            height: 100%;
+        }
         fieldset {
-            border-color: $black-mid-op !important;
+            border-color: $black-op5 !important;
         }  
     }
     &__dream-trips-division {
-        height: calc(100% - 175.5px);
+        @media screen and (min-width: 1025px) {
+            height: 100%;
+        }
+        margin-bottom: 20px;
+        width: 100%;
+        height: 200px;
         position: relative;
         &__icons-container {
             svg {
@@ -93,7 +144,8 @@
         }
     }
     &__input-destination {
-        height: 36.5px;
+        width: 100%;
+        height: 56px;
         position: relative;
         > div {
             width: 100%;
@@ -103,11 +155,13 @@
                 transform: translate(14px, 6px) scale(1);
             }
             > div {
+                width: 100%;
                 height: 100%;
             }
         }
         fieldset {
-            border: 1px solid $black-mid-op;
+            width: calc(100% - 18px);
+            border: 1px solid $black-op5;
         }
     } 
     ul#countries-list {
@@ -122,7 +176,6 @@
             margin-left: 35px;
             opacity: 0;
             animation: liAnim 0.3s 0.3s ease-in-out forwards;
-            // width: calc(100% - 25px);
             &::before {
                 content: "\2715";
                 position: absolute;
@@ -139,16 +192,16 @@
                 top: 0;
                 width: 100%;
                 height: 100%;
-                border: 1px solid $black-mid-op;
+                border: 1px solid $black-op5;
                 border-radius: 20px;
             }
         }
-        p {
-            @include translateToCenter;
-        }
     }
     &__btn-submit {
-        width: 35%;
+        @media screen and (min-width: 1025px) {
+            width: 35%;
+        }
+        width: calc((100% - 40px) * 0.9);
         background-color: transparent;
         color: $primary-color !important;
         border: 2px solid $primary-color !important;
@@ -164,12 +217,16 @@
     position: relative;
     height: calc(100% - 48px);
     overflow: auto;
-    border: 1px solid $black-mid-op;
+    border: 1px solid $black-op5;
     border-radius: 4px;
     &::-webkit-scrollbar {
-        color: $black-almost-strong-op;
+        color: $black-op8;
         width: 100%;
         height: 100%;
+    }
+    div > p {
+        margin-left: 5px;
+        color: $black-op6;
     }
 }
 .text-centralizer {

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import GuestNavigation from "./GuestNavigation";
 import Logo from "./Logo";
 import UserNavigation from "./UserNavigation";
@@ -8,7 +9,9 @@ const Header = () => {
     return (
         <header className="header">
             <div className="header__logo-container">
-                <Logo /> 
+                <Link to="/" >
+                    <Logo /> 
+                </Link>
             </div>
             { isUserLogged === true ? 
                 <UserNavigation />

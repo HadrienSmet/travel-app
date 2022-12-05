@@ -5,7 +5,14 @@
     position: relative;
     &__background-img {
         @media screen and (min-width: 1025px) {
-            height: 100vh;
+            height: calc(100vh + 20px);
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            height: calc(100vh + 20px);
+            min-height: 1450px;
+        }
+        @media screen and (max-width: 767px) {
+            height: 1431px;
         }
         width: 100%;
         min-height: 100vh;
@@ -13,14 +20,19 @@
     &__content {   
         @media screen and (min-width: 1025px) {
             height: 60vh;
+            top: 30vh;
             @include flexSpacedAndAlign;
             flex-direction: row;
         }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            // height: 720px;
+            top: 20vh;
+        }
         position: absolute;
-        top: 30vh;
-        width: calc(100% - 80px);
+        top: 180px;
         padding: 40px;
-        background-color: rgba(246, 248, 234, 0.7);
+        width: calc(100% - 80px);
+        background-color: $white-op7;
         transform: translateY(-50%);
         gap: 20px; 
         @include flexColumn;
@@ -34,6 +46,9 @@
                 @include flexSpacedAndAlign;
                 flex-direction: row;
                 gap: 5px;
+            }
+            @media screen and (max-width: 767px) {
+                gap: 10px;
             }
             @include flexColumn;
         }
@@ -90,8 +105,8 @@
             position: relative;
             height: 100%;
             border-radius: 15px;
-            // padding: 10px 0;
             border: 3px solid $primary-color;
+            @include flexFullCenter;
         }
     }
 }

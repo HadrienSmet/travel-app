@@ -156,8 +156,6 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                     dispatch(setUserLoggedData(res.data));
                     navigate("/home");
                 })
-                // .catch((err) => console.log(err));
-                // console.log(res.data);
             })
         }
     }
@@ -167,6 +165,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             <h3>Remplissez votre profil!</h3>
             <div className="extra-data-form__fields-displayer">
                 <div className="extra-data-form__trips-area">
+                    <h4>Mes précédents voyages</h4>
                     {previousTrips === undefined && <TripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
                     <div className="extra-data-form__trips-displayer">
                         {previousTrips === undefined && <p>Listez vos précédents voyages!</p>}

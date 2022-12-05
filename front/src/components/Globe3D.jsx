@@ -4,19 +4,20 @@ import { PerspectiveCamera } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import imgGlobe from "../assets/images/globe.jpg";
 import countryList from 'react-select-country-list';
+import { useWindowSize } from "../utils/functions/hooks";
 
 
 const Globe = () => {
     const mapBackground = useLoader(TextureLoader, imgGlobe);
     const meshRef = useRef();
-
+    
     useFrame(() => {
         if (!meshRef.current) {
             return;
         }
-        meshRef.current.rotation.y += 0.001;
+        meshRef.current.rotation.y += 0.0001;
     });
-
+    
     return (
         <mesh ref={meshRef}>
             <sphereGeometry args={[5, 50, 50]} />
@@ -27,6 +28,8 @@ const Globe = () => {
 
 const Globe3D = ({ changeSelectedCountry }) => {
     const options = useMemo(() => countryList().getData(), [])
+    const screenWidth = useWindowSize().width;
+    const cameraPosition = screenWidth > 768 ? [0, 0, 10] : [0, 0, 12];
 
     const handleScroll = (e) => {
         const scrollBar = document.getElementById("globe-scroll-bar");
@@ -41,7 +44,7 @@ const Globe3D = ({ changeSelectedCountry }) => {
                     <Suspense fallback={null}>
                         <ambientLight intensity={0.1} />
                         <directionalLight color="red" position={[2, 0, 5]} />
-                        <PerspectiveCamera makeDefault fov={75} position={[0, 0, 10]} />
+                        <PerspectiveCamera makeDefault fov={75} position={cameraPosition} />
                         <Globe />
                     </Suspense>
                 </Canvas>

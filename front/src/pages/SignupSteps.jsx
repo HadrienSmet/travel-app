@@ -5,16 +5,20 @@ import { useEffect } from 'react';
 import ExtraDataForm from '../components/ExtraDataForm';
 import signupBanner from '../assets/images/carousel-bg1.jpeg'
 import { useParallax } from 'react-scroll-parallax';
+import { useWindowSize } from '../utils/functions/hooks';
 
 const SignupSteps = () => {
     const [stepState, setStepState] = useState("just-started");
     const [profilePicture, setProfilePicture] = useState(undefined);
     const [userPersonals, setUserPersonals] = useState(undefined);
+    const screenWidth = useWindowSize().width;
+    const bgSpeed = screenWidth > 1025 ? -10 : -5;
+    const elemSpeed = screenWidth > 1025 ? 30 : 5;
     const parallax = useParallax({
-        speed: -10,
+        speed: bgSpeed,
     })
     const elemParallax = useParallax({
-        speed: 30,
+        speed: elemSpeed,
     })
     
     //This useEffect is here to show to the user on wich step of the signup form he stands

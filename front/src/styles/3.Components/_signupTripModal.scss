@@ -1,8 +1,18 @@
 
 .css-105qr5e {
-    width: 80vw !important;
-    height: 80vh !important;
-    background-color: $secondary-color !important;
+    @media screen and (min-width: 1025px) {
+        width: 70vw !important;
+        height: 70vh !important;   
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        height: 75vh !important;
+    }
+    @media screen and (max-width: 1024px) {
+        overflow-y: scroll;
+    }
+    width: 90vw !important;
+    height: 90vh !important;   
+    background-color: $clr-1 !important;
     border: none !important;
     border-radius: 8px;
     z-index: 10;
@@ -15,6 +25,9 @@
         width: 100%;
         @include flexBetween;
         h2 {
+            @media screen and (max-width: 767px) {
+                font-size: 18px;
+            }
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: left;
@@ -23,7 +36,7 @@
         svg {
             cursor: pointer;
             font-size: 25px;
-            color: $black-mid-op;
+            color: $black-op5;
             @include standardTransi;
             &:hover {
                 color: $tertiary-color;
@@ -31,30 +44,53 @@
         }
     }
     &__content {
-        height: calc(80% - 105.5px);
+        @media screen and (min-width: 1024px) {
+            height: calc(80% - 105.5px);
+            @include flexAround;
+            flex-direction: row;
+        }
+        height: 100%;
         width: 100%;
         color: $clr-2;
-        @include flexAround;
+        @include flexColumnCenter;
         label {
             color: $clr-2 !important;
         }
         fieldset {
-            border-color: $black-strong-op !important; 
+            border-color: $black-op8 !important; 
         }
     }
     &__inputs-area {
-        width: 43%;
+        @media screen and (min-width: 1024px) {
+            width: 43%;
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            height: 70%;
+        }
+        width: 100%;
         @include flexColumnBetween;
         div {
             width: 100%;
         }
     }
     &__description-area {
-        width: 43%;
+        @media screen and (min-width: 1024px) {
+            width: 43%;
+            height: calc(100% - 36px);
+        }
+        width: 100%;
         @include flexColumnBetween;
         > div {
-            margin-top: 15px;
+            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                height: 250px;
+            }
+            @media screen and (max-width: 1024px) {
+                position: relative;
+                width: 100%;
+                margin-left: 8px;
+            }
             height: calc(100% - 50px);
+            margin-top: 15px;
             > div {
                 height: 100%;
             }
@@ -63,12 +99,12 @@
     &__buttons-row {
         width: 80%;
         height: 70px;
-        // @include flexBetween;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flexFullCenter;
         button {
-            width: 45%;
+            @media screen and (min-width: 768px) {
+                width: 45%;
+            }
+            width: 100%;
             border: 2px solid $primary-color !important;
             color: $primary-color;
             font-weight: 600;
@@ -76,7 +112,6 @@
             height: calc(100% - 4px);
             &:hover {
                 background-color: $primary-color;
-                // border-color: ;
                 color: $secondary-color;
             }
         }
@@ -88,7 +123,8 @@
         margin: 5px 0;
         height: unset !important;
         padding: 5px 25px;
-        background-color: $black-perf-mid-op;
+        background-color: $black-op1;
+        border: 2px solid $black-op5;
         border-radius: 10px;
         &__pictures-container {
             margin-left: 15px;
@@ -101,7 +137,7 @@
             width: 50px;
         }
         h4 {
-            color: $secondary-color;
+            color: $black-op8;
             margin-left: 20px;
             position: relative;
             &::before {
@@ -110,23 +146,36 @@
                 top: 50%;
                 left: -20px;
                 transform: translateY(-50%);
-                color: $secondary-color;
+                color: $black-op8;
             }
         }
     }
 
 }
 .child-modal {
+    @media screen and (min-width: 1025px) {
+        width: 50vw !important;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        width: 80vw !important;
+    }
+    @media screen and (min-width: 768px) {
+        justify-content: space-around;
+    }
+    @media screen and (max-width: 767px) {
+        width: 75vw !important;
+        overflow-y: scroll;
+        justify-content: flex-start;
+        gap: 25px;
+    }
     z-index: 2600;
     position: absolute !important;
-    width: 50vw !important;
     height: 85vh;
     border: none !important;
     border-radius: 10px;
     background-color: $clr-4 !important;
     backdrop-filter: blur(10px);
     @include flexColumnCenterX;
-    justify-content: space-around;
     &__header {
         width: 100%;
         color: $secondary-color;
@@ -135,7 +184,7 @@
             cursor: pointer;
             @include standardTransi;
             &:hover {
-                color:$black-perf-mid-op;
+                color:$black-op5;
             }
         }
     }
@@ -153,26 +202,62 @@
         @include flexBetween;
     }
     &__pictures-displayer {
+        @media screen and (min-width: 1025px) {
+            @include flexBetween;
+            height: calc(100% - 200px);
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            gap: 15px;
+            height: 725px;
+            @include flexFullStart;
+        }
+        @media screen and (max-width: 767px) {
+            @include flexColumnCenter;
+            width: 90%;
+            gap: 15px;
+            height: 2220px;
+        }
         position: relative;
         flex-wrap: wrap;
         width: 85%;
-        height: calc(100% - 200px);
-        @include flexBetween;
         &--absolute {
+            @media screen and (min-width: 1025px) {
+                column-gap: calc((85% * 0.08) + 10px);
+                row-gap: 0px !important;
+                width: calc(100% + 3px);
+            }
+            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                gap: 15px;
+                width: 100%;
+            }
+            @media screen and (max-width: 767px) {
+                @include flexColumnCenter;
+                justify-content: flex-start;
+                width: 100%;
+                gap: 15px;
+                height: 2220px;
+            }
             position: absolute;
             top: 0;
             left: 0;
             flex-wrap: wrap;
-            width: calc(100% + 3px);
-            column-gap: calc((85% * 0.08) + 10px);
-            row-gap: 0px !important;
             max-height: 100%;
             z-index: -1;
             @include flexFullStart;
             img {
-                margin-bottom: calc((25% - 120px) / 3 + 1.5px);
-                width: calc(28% - 1px);
-                height: 120px;
+                @media screen and (min-width: 1025px) {                    
+                    margin-bottom: calc((25% - 120px) / 3 + 1.5px);
+                    width: calc(28% - 1px);
+                    height: 120px;
+                }
+                @media screen and (min-width: 768px) and (max-width: 1024px) {
+                    width: calc(33% - 16px);
+                    height: 170px;
+                }
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                    height: 170px;
+                }
                 z-index: 2;
             }
         }
@@ -180,7 +265,7 @@
     &__picture-area {
         width: 100%;
         height: 100%;
-        background-color: $black-low-op;
+        background-color: $black-op2;
         transition: 0.3s ease-in;
         cursor: pointer;
         @include flexFullCenter;
@@ -194,14 +279,24 @@
             }
         }
         &-label {
-            width: 28%;
-            height: 120px;
+            @media screen and (min-width: 1025px) {                
+                width: 28%;
+                height: 120px;
+            }
+            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                width: calc(33% - 16px);
+                height: 170px;
+            }
+            @media screen and (max-width: 767px) {
+                width: 100%;
+                height: 170px;
+            }
             
         }
         svg {
             position: absolute;
             font-size: 60px;
-            color: rgba(246, 248, 234, 0.5);
+            color: $white-op5;
             z-index: -2;
         }
     }
@@ -216,7 +311,7 @@
 
 }
 .css-79ws1d-MuiModal-root {
-    background-color: $black-very-low-op;
+    background-color: $black-op1;
     backdrop-filter: blur(2px);
 }
 #signup-album-creation-btn {

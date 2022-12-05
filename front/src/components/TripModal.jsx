@@ -99,9 +99,9 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
                         <p id="child-modal-description">
                             Partagez-nous des souvenirs de votre voyage!
                         </p>
-                        <Button variant="outlined">
+                        {/* <Button variant="outlined">
                             <label htmlFor="trip-file">Choisir une photo</label>
-                        </Button>
+                        </Button> */}
                     </div>
                     <input type="file" name="file" id="trip-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleAlbumPicture(e)} />
                     <div className='child-modal__pictures-displayer' id="album-container">
