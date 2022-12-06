@@ -56,16 +56,16 @@ const Profile = () => {
                         <h2>{userProfile.pseudo}</h2> 
                     </div>
                     <div className="profile-section__header__buttons-container">
-                        <Button variant='outlined'>Modifier le profil <FaUserEdit /></Button>
-                        <Button variant='outlined'>Modifier les paramètres <FaUserCog /></Button>
+                        <Button variant='outlined'><span>Modifier le profil </span><FaUserEdit /></Button>
+                        <Button variant='outlined'><span>Modifier les paramètres </span><FaUserCog /></Button>
                     </div>
                 </div>
             </div>
             <nav className="profile-section__navigation">
                 <ButtonGroup className="profile-section__navigation__buttons-container" variant="text" aria-label="text button group">
-                    <Button id="actuality" onClick={(e) => setProfileState(e.target.id)}>Actualité</Button>
+                    <Button id="actuality" onClick={(e) => setProfileState(e.target.id)}>Actu</Button>
                     <Button id="albums" onClick={(e) => setProfileState(e.target.id)}>Albums</Button>
-                    <Button id="trips" onClick={(e) => setProfileState(e.target.id)}>Voyages</Button>
+                    <Button id="trips" onClick={(e) => setProfileState(e.target.id)}>Trips</Button>
                     <Button id="friends" onClick={(e) => setProfileState(e.target.id)}>Amis</Button>
                     <Button id="infos" onClick={(e) => setProfileState(e.target.id)}>Infos</Button>
                 </ButtonGroup>

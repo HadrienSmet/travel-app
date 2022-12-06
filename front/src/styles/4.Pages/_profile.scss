@@ -5,39 +5,73 @@
         margin-bottom: 35px;
         @include flexCenterX;
         &-background {
+            @media screen and (min-width: 1025px) {
+                width: 90%;
+            }
+            @media screen and (max-width: 767px) {
+                width: 100%;
+            }
             position: relative;
-            width: 90%;
             height: 50vh;
             overflow: hidden;
             @include flexCenterX;
             img {
+                @media screen and (min-width: 1025px) {
+                    transform: translateY(-30%);
+                }
+                @media screen and (max-width: 767px) {
+                    height: 100%;
+                }
                 position: absolute;
-                transform: translateY(-30%);
                 width: 100%;
             }
         }
         &__user-intro {
+            @media screen and (min-width: 1025px) {
+                width: calc(90% - 50px);
+                height: 140px;
+                bottom: 0;
+            }
+            @media screen and (max-width: 767px) {
+                width: calc(100% - 50px);
+                height: 110px; 
+                bottom: -2px;   
+            }
             position: absolute;
             padding: 0px 25px;
-            width: calc(90% - 50px);
-            height: 140px;
-            background: linear-gradient(0deg, rgba(255,255,255,0.95) 1%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,0.3) 99%);
+            background: linear-gradient(0deg, $white-op9 1%, $white-op6 60%, $white-op3 99%);
             backdrop-filter: blur(2px);
-            bottom: 0;
             gap: 25px;
             @include flexBetweenCentered;
         }
         &__user-data {
-            @include flexCenterY;
+            @media screen and (min-width: 1025px) {
+                @include flexCenterY;
+            }
+            @media screen and (max-width: 767px) {
+                @include flexColumnCenter;
+            }
         }
         &__profilePicture-container {
-            height: 90px;
-            width: 90px;
+            @media screen and (min-width: 1025px) {                
+                height: 90px;
+                width: 90px;
+            }
+            @media screen and (max-width: 767px) {                
+                height: 70px;
+                width: 70px;
+            }
             border-radius: 50%;
             overflow: hidden;
             img {
-                height: 110px;
-                width: 110px;
+                @media screen and (min-width: 1025px) {                
+                    height: 110px;
+                    width: 110px;
+                }
+                @media screen and (max-width: 767px) {                
+                    height: 90px;
+                    width: 90px;
+                }
                 transform: translate(-10px, -10px);
             }
         }        
@@ -45,6 +79,12 @@
             gap: 10px;
             @include flexCenterY;
             .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+                @media screen and (max-width: 767px) {
+                    height: 80px;
+                    width: 80px;
+                    border-radius: 50%;
+                    @include flexFullCenter;
+                }
                 background-color: $primary-color;
                 color: $secondary-color !important;
                 border-color: $primary-color !important;
@@ -56,6 +96,16 @@
                     color: $tertiary-color !important;
                     border-color: $tertiary-color !important;
                 }
+                span {
+                    @media screen and (max-width: 767px) {
+                        display: none;
+                    }
+                }
+                svg {
+                    @media screen and (max-width: 767px) {
+                        font-size: 40px;
+                    }
+                }
             }
         }
         &::after {
@@ -63,7 +113,7 @@
             position: absolute;
             width: 75%;
             height: 1px;
-            background-color: $black-low-op;
+            background-color: $black-op2;
             left: 12.5%;
             bottom: -20px;
         }
@@ -84,18 +134,30 @@
         }
     }
     &__navigation {
-        display: flex;
-        padding: 0 100px;
-        justify-content: flex-end;
+        @media screen and (min-width: 1025px) {
+            padding: 0 100px;
+            @include flexEndCenterY;
+        }
+        @media screen and (max-width: 767px) {
+            width: 100%;
+            @include flexBetweenCentered;
+            flex-wrap: wrap;
+        }
         margin-bottom: 30px;
         position: relative;
         .css-1or64il-MuiButtonGroup-root .MuiButtonGroup-grouped:not(:last-of-type) {
             border-color: $primary-color!important;
         }
         div button {
-            font-size: 16px;
+            @media screen and (min-width: 1025px) {
+                width: 110px;
+                font-size: 16px;
+            }
+            @media screen and (max-width: 767px) {
+                width: 20vw;
+                font-size: 14px;
+            }
             color: $primary-color;
-            width: 110px;
             &:first-child::after {
                 transform-origin: right;
             }

@@ -76,7 +76,12 @@
             @include flexColumnCenterX;
         }
         &__posts-division {
-            width: 45%;
+            @media screen and (min-width: 1025px) {
+                width: 45%;
+            }
+            @media screen and (max-width: 767px) {
+                width: 100%;
+            }
             gap: 15px;
             @include flexColumnCenterX;
         }

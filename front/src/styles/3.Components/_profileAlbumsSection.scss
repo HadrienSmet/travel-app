@@ -1,12 +1,21 @@
 .profile-albums-section {
-    width: 100%;
+    width: 90%;
     @include flexColumnCenter;
+    border-top: 1px solid $black-op2;
+    border-bottom: 1px solid $black-op2;
+    padding: 15px 0;
+    margin-bottom: 15px;
     button {
-        width: 1031px;
+        @media screen and (min-width: 1025px) {
+            width: 1031px;
+            margin-bottom: 15px;
+        }
+        @media screen and (max-width: 767px) {
+            width: 90%;
+        }
         color: $clr-1;
         background-color: $primary-color;
         border: 1px solid $primary-color;
-        margin-bottom: 15px;
         &:hover {
             color: $primary-color;
             background-color: transparent;
@@ -14,49 +23,94 @@
         }
     }
     &__album-container {
+        @media screen and (min-width: 768px) {            
+            padding: 20px 30px;
+            width: 1031px;
+            @include flexColumn;
+            background-color: $black-op1;
+        }
+        @media screen and (max-width: 767px) {
+            background-color: $black-op1;
+            padding: 15px;
+            width: calc(90% - 32px);
+            @include flexColumnCenter;
+        }
         margin: 15px;
         gap: 10px;
-        padding: 20px 30px;
-        width: 1031px;
-        background-color: $black-very-low-op;
         border-radius: 3px;
-        @include flexColumn;
         h3 {
             text-transform: capitalize;
         }
     }
     &__pictures-container {
+        @media screen and (min-width: 768px) {
+            display: flex;
+        }
+        @media screen and (max-width: 767px) {
+            width: 100%;
+            @include flexColumnCenter;
+        }
         overflow: hidden;
         position: relative;
-        display: flex;
         gap: 10px;
         img {
-            width: 250px;
-            height: 250px;
+            @media screen and (min-width: 1025px) {                
+                width: 250px;
+                height: 250px;
+            }
+            @media screen and (max-width: 767px) {
+                width: 90%;
+
+            }
             border-radius: 4px;
         }
     }
 }
-.last-picture:hover {
-    img {
-        filter: blur(1px);
+.last-picture {
+    @media screen and (min-width: 1025px) {
+        &:hover {
+            img {
+                filter: blur(1px);
+            }
+            > div > .more-picture__div {
+                transform: translateX(0%);
+            }
+        }
     }
-    > div > .more-picture__div {
-        transform: translateX(0%);
+    @media screen and (max-width: 767px) {
+        @include flexFullCenter;
+        width: 100%;
+        height: 200px;
     }
 }
 .more-picture__div {
+    @media screen and (min-width:1025px) {
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 150px;
+        transform: translateX(100%);
+        transition: 0.3s ease-in-out;
+        background-color: $black-op5;
+    }
+    @media screen and (max-width: 1024px) {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        top: 10px;
+        right: calc(5% + 10px);
+        background-color: $primary-color-8;
+    }
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 150px;
-    background-color: $black-perf-mid-op;
-    transform: translateX(100%);
-    transition: 0.3s ease-in-out;
     @include flexFullCenter;
     svg {
-        color: $white-op6;
-        font-size: 40px;
+        @media screen and (min-width:1025px) {
+            font-size: 40px;
+            color: $white-op6;
+        }
+        @media screen and (max-width: 1024px) {
+            font-size: 20px;
+            color: $clr-1;
+        }
     }
 }

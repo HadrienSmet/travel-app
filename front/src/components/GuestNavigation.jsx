@@ -31,8 +31,12 @@ const GuestNavigation = () => {
         <nav className="guest-navigation">
         {screenWidth > 1025 ?
             <ButtonGroup variant="text" aria-label="text button group">
-                <Button onClick={() => dispatch(setWelcomeState("signup"))}>Inscription</Button>
-                <Button onClick={() => dispatch(setWelcomeState("signin"))}>Connexion</Button>
+                <Button onClick={() => dispatch(setWelcomeState("signup"))}>
+                    <a href="#signup">Inscription</a>
+                </Button>
+                <Button onClick={() => dispatch(setWelcomeState("signin"))}>
+                    <a href="#signin">Connexion</a>
+                </Button>
             </ButtonGroup>
         :
         <div className="guest-mobile-nav">

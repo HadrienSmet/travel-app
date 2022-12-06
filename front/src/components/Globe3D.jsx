@@ -15,7 +15,7 @@ const Globe = () => {
         if (!meshRef.current) {
             return;
         }
-        meshRef.current.rotation.y += 0.0001;
+        meshRef.current.rotation.y += 0.0004;
     });
     
     return (

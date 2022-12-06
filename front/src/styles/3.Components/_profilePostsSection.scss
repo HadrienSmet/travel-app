@@ -1,6 +1,11 @@
 .profile__posts-section {
+    @media screen and (min-width: 1025px) {
+        width: 45%;
+    }
+    @media screen and (max-width: 767px) {
+        width: 90%;
+    }
     margin-bottom: 30px;
-    width: 45%;
     @include flexFullCenter;
     &__posts-div {
         width: 100%;
