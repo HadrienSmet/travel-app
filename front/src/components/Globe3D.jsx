@@ -26,20 +26,15 @@ const Globe = () => {
     )
 }
 
-const Globe3D = ({ changeSelectedCountry }) => {
-    const options = useMemo(() => countryList().getData(), [])
+const Globe3D = ({ dynamicClassName, changeSelectedCountry, handleScroll }) => {
+    const options = useMemo(() => countryList().getData(), []);
     const screenWidth = useWindowSize().width;
     const cameraPosition = screenWidth > 768 ? [0, 0, 10] : [0, 0, 12];
 
-    const handleScroll = (e) => {
-        const scrollBar = document.getElementById("globe-scroll-bar");
-        
-        scrollBar.style.top = ((e.target.scrollTop / 7719) * 100) + "%";
-    }
 
     return (
-        <div className="globe-container">
-            <div className="globe-container__canvas-area">
+        <div className={"globe-container " + dynamicClassName + "-globe-container"}>
+            <div className={"globe-container__canvas-area " + dynamicClassName + "-globe-container__canvas-area"}>
                 <Canvas>
                     <Suspense fallback={null}>
                         <ambientLight intensity={0.1} />
@@ -49,7 +44,7 @@ const Globe3D = ({ changeSelectedCountry }) => {
                     </Suspense>
                 </Canvas>
             </div>
-            <ul className="globe-container__countries-list" onScroll={(e) => handleScroll(e)}>
+            <ul className={"globe-container__countries-list " + dynamicClassName + "-globe-container__countries-list"} onScroll={(e) => handleScroll(e)}>
                 {options.map((option) => (
                     <li 
                         key={option.label} 
@@ -59,8 +54,10 @@ const Globe3D = ({ changeSelectedCountry }) => {
                     </li>
                 ))}
             </ul>
-            <div className="globe-container__countries-list__scroll-bar-track">
-                <span id="globe-scroll-bar" className="globe-container__countries-list__scroll-bar"></span>
+            <div className={"globe-container__countries-list__scroll-bar-track " + dynamicClassName + "-globe-container__countries-list__scroll-bar-track"}>
+                <span 
+                    id="globe-scroll-bar" 
+                    className={"globe-container__countries-list__scroll-bar " + dynamicClassName + "-globe-container__countries-list__scroll-bar"}></span>
             </div>
         </div>
     );

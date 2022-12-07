@@ -1,5 +1,5 @@
 import { TextField, Button } from '@mui/material'
-import ClassicLoader from './ClassicLoader';
+import MUIClassicLoader from './MUIClassicLoader';
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -81,7 +81,7 @@ const SigninForm = () => {
                 </div>
                 <span id="signin-msg"></span>
                 {isLoading === false && <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>}
-                {isLoading !== false && <ClassicLoader dynamicId="signin-loader" />}
+                {isLoading !== false && <MUIClassicLoader dynamicId="signin-loader" />}
             </form>
         </div>
     );

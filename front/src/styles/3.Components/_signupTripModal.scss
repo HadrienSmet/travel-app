@@ -10,14 +10,16 @@
     @media screen and (max-width: 1024px) {
         overflow-y: scroll;
     }
-    width: 90vw !important;
-    height: 90vh !important;   
+
+    width: calc(90vw - 64px) !important;
+    max-height: 90vh !important;   
     background-color: $clr-1 !important;
     border: none !important;
     border-radius: 8px;
     z-index: 10;
     backdrop-filter: blur(4px);
     @include flexColumnCenterX;
+    gap: 25px;
     justify-content: space-between;   
 }
 .trip-modal {

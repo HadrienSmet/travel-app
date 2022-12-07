@@ -1,4 +1,12 @@
 .gradient {
+    @media screen and (min-width: 1025px) {
+        &:hover {
+            transform: scaleX(1.1) translateY(-4px);
+            a {
+                color: $tertiary-color;
+            }
+        }
+    }
     height: 65px;
     position: relative;
     width: object-fit;
@@ -9,12 +17,6 @@
     background-origin: border-box;
     @include flexFullCenter;
     @include standardTransi;
-    &:hover {
-        transform: scaleX(1.1) translateY(-4px);
-        a {
-            color: $tertiary-color;
-        }
-    }
     a {
         color: $primary-color;
         text-align: center;

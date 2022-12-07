@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const InputSelect = ({ dynamicClass, dynamicPlaceholder, choices, changeChoice }) => {
+const MUIInputSelect = ({ dynamicClass, dynamicPlaceholder, choices, changeChoice }) => {
   const [choice, setChoice] = useState('');
 
   //This function change the state of this component and the state of his parent
@@ -33,4 +33,4 @@ const InputSelect = ({ dynamicClass, dynamicPlaceholder, choices, changeChoice }
   );
 }
 
-export default InputSelect;
+export default MUIInputSelect;

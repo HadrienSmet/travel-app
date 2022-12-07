@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import PersonalDataForm from '../components/PersonalDataForm';
+import SignupPersonalDataForm from '../components/SignupPersonalDataForm';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useEffect } from 'react';
-import ExtraDataForm from '../components/ExtraDataForm';
+import SignupExtraDataForm from '../components/SignupExtraDataForm';
 import signupBanner from '../assets/images/carousel-bg1.jpeg'
 import { useParallax } from 'react-scroll-parallax';
 import { useWindowSize } from '../utils/functions/hooks';
@@ -86,14 +86,14 @@ const SignupSteps = () => {
                 </section>
                 <section className="signup-steps__content__form-container">
                     {stepState === "just-started" && 
-                        <PersonalDataForm 
+                        <SignupPersonalDataForm 
                             changeStepState={changeStepState} 
                             changeProfilePicture={changeProfilePicture} 
                             changeUserPersonals={changeUserPersonals} 
                         />
                     }
                     {stepState === "almost-done" && 
-                        <ExtraDataForm 
+                        <SignupExtraDataForm 
                             profilePicture={profilePicture}
                             userPersonals={userPersonals}
                         /> 

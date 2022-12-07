@@ -51,6 +51,14 @@
             @media screen and (max-width: 767px) {
                 @include flexColumnCenter;
             }
+            h2 {
+                @media screen and (max-width: 767px) {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 90px;
+                    font-size: 15px;
+                }
+            }
         }
         &__profilePicture-container {
             @media screen and (min-width: 1025px) {                
@@ -118,18 +126,39 @@
             bottom: -20px;
         }
         &__fake-btn {
+            @media screen and (min-width: 1025px) {                
+                border-radius: 4px;
+                padding: 8px 20px 7.5px;
+                @include flexCenterY;
+                @include standardTransi;
+                &:hover {
+                    color: $secondary-color;
+                    background-color: $primary-color;
+                    border-color: $primary-color;
+                }
+            }
+            @media screen and (max-width: 767px) {
+                height: 76px;
+                width: 76px;
+                border-radius: 50%;
+                @include flexFullCenter;
+            }
+            border: 2px solid $tertiary-color;
             color: $tertiary-color;
             gap: 5px;
             margin-right: 15px;
-            border: 1px solid $tertiary-color;
-            border-radius: 4px;
-            padding: 8px 20px 7.5px;
-            @include flexCenterY;
-            @include standardTransi;
-            &:hover {
-                color: $secondary-color;
-                background-color: $primary-color;
-                border-color: $primary-color;
+            span {
+                @media screen and (min-width: 768px) {
+                    display: inline-block;
+                }
+                @media screen and (max-width: 767px) {
+                    display: none;
+                }
+            }
+            svg {
+                @media screen and (max-width: 767px) {
+                    font-size: 40px;
+                }
             }
         }
     }
@@ -183,12 +212,19 @@
             }
         }
         &-bar {
-            width: 110px;
+            @media screen and (min-width: 1025px) {
+                width: 110px;
+                left: calc(100% - 650px);
+                top: 32px;
+            }
+            @media screen and (max-width: 1024px) {
+                width: 20vw;
+                left: 0px;
+                top: 29px;
+            }
             height: 5px;
             background-color: $primary-color;
             position: absolute;
-            top: 32px;
-            left: calc(100% - 650px);
             transition: 0.2s ease-in-out;
         }
     }

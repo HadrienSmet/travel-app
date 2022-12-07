@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import countryList from 'react-select-country-list';
 
-const CountrySelector = ({ dynamicClass, dynamicPlaceholder, changeCountry }) => {
+const MUIInputCountry = ({ dynamicClass, dynamicPlaceholder, changeCountry }) => {
   const [value, setValue] = useState('')
   const options = useMemo(() => countryList().getData(), [])
 
@@ -35,6 +35,6 @@ const CountrySelector = ({ dynamicClass, dynamicPlaceholder, changeCountry }) =>
   )
 }
 
-export default CountrySelector
+export default MUIInputCountry;
 
 

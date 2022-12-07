@@ -1,4 +1,4 @@
-.globe-container {
+.home-globe-container {
     @media screen and (min-width: 1025px) {
         height: 76vh;
         padding: 0 40px;
@@ -6,6 +6,82 @@
     @media screen and (max-width: 767px) {
         height: calc(100vh - 390px);
     }
+    &__countries-list {
+        @media screen and (min-width: 1025px) {
+            height: 580px;
+        }
+        @media screen and (max-width: 767px) {
+            height: calc(100vh - 448px);
+        }
+        position: relative;
+        li {
+            @media screen and (min-width: 1025px) {
+                font-size: 23px;
+            }
+            @media screen and (max-width: 767px) {
+                font-size: 18px;
+            }
+        }
+        &__scroll-bar-track {
+            @media screen and (min-width: 1025px) {
+                height: 580px;
+                transform: translateX(-30px);
+                top: 8px;
+            }
+            @media screen and (max-width: 767px) {
+                height: calc(100vh - 472px);
+                transform: translateX(-15px);
+            }
+        }
+        &__scroll-bar {
+            height: 25px;
+            width: 14px;
+        }
+    }
+}
+.profile-globe-container {
+    @media screen and (min-width: 1025px) {
+        height: 40vh;
+        padding: 0;
+    }
+    @media screen and (max-width: 767px) {
+        height: 40vh;
+    }
+    &__countries-list {
+        @media screen and (min-width: 1025px) {
+            height: 300px;
+        }
+        @media screen and (max-width: 767px) {
+            height: 40vh;
+        }
+        position: relative;
+        li {
+            @media screen and (min-width: 1025px) {
+                font-size: 15px;
+            }
+            @media screen and (max-width: 767px) {
+                font-size: 12px;
+            }
+        }
+        &__scroll-bar-track {
+            @media screen and (min-width: 1025px) {
+                height: 275px;
+                transform: translateX(-30px);
+                top: -7.5px;
+            }
+            @media screen and (max-width: 767px) {
+                height: 40vh;
+                transform: translateX(-5px);
+            }
+        }
+        &__scroll-bar {
+            height: 25px;
+            width: 8px;
+        }
+    }
+}
+
+.globe-container {
     position: relative;
     width: 100%;
     @include flexEndCenterY;
@@ -16,29 +92,21 @@
     }
     &__countries-list {
         @media screen and (min-width: 1025px) {
-            height: 580px;
             transform: translateX(-30px);
             background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 24%, rgba(255,255,255,1) 40%);
         }
         @media screen and (max-width: 767px) {
-            height: calc(100vh - 448px);
             background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,1) 100%);
         }
         overflow-y: scroll;
         position: relative;
         background: rgb(255,255,255);
         &::-webkit-scrollbar {
-            color: $black-almost-strong-op;
+            color: $black-op8;
             width: 100%;
             height: 100%;
         }
         li {
-            @media screen and (min-width: 1025px) {
-                font-size: 23px;
-            }
-            @media screen and (max-width: 767px) {
-                font-size: 18px;
-            }
             text-align: right;
             cursor: pointer;
             position: relative;
@@ -52,19 +120,10 @@
             margin-bottom: 3px;
             transition: 0.2s ease-in-out;
             a {
-               color: $black-strong-op; 
+               color: $black-op9; 
             }
         }
         &__scroll-bar-track {
-            @media screen and (min-width: 1025px) {
-                height: 580px;
-                transform: translateX(-30px);
-                top: 8px;
-            }
-            @media screen and (max-width: 767px) {
-                height: calc(100vh - 472px);
-                transform: translateX(-15px);
-            }
             padding: 2px 0;
             width: 14px;
             position: relative;
@@ -72,8 +131,6 @@
         }
         &__scroll-bar {
             position: absolute;
-            height: 25px;
-            width: 14px;
             background-color: rgba(0, 0, 0, 0.38);
             border-radius: 4px;
         }

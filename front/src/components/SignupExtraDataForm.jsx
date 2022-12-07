@@ -4,15 +4,15 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios'
 import { TextField, Button } from '@mui/material';
 import { FaCheck, FaTimes } from "react-icons/fa";
-import TripModal from './TripModal';
-import InputCountry from './InputCountry';
-import ExtraDataFormAccordion from './ExtraDataFormAccordion';
+import MUITripModal from './MUITripModal';
+import MUIInputCountry from './MUIInputCountry';
 import { setUserLoggedData } from '../features/userLoggedData.slice';
 import { setJwtToken } from "../utils/functions/tools";
 import { setLoggedState } from '../features/loggedState.slice';
-import ClassicLoader from './ClassicLoader';
+import MUIClassicLoader from './MUIClassicLoader';
+import MUIPreviousTripsAccordion from './MUIPreviousTripsAccordion';
 
-const ExtraDataForm = ({ profilePicture, userPersonals }) => {
+const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
     const [pseudo, setPseudo] = useState("");
     const [isPseudoOk, setIsPseudoOk] = useState(false);
     const [description, setDescription] = useState("");
@@ -166,10 +166,16 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
             <div className="extra-data-form__fields-displayer">
                 <div className="extra-data-form__trips-area">
                     <h4>Mes précédents voyages</h4>
-                    {previousTrips === undefined && <TripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
+                    {previousTrips === undefined && <MUITripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
                     <div className="extra-data-form__trips-displayer">
                         {previousTrips === undefined && <p>Listez vos précédents voyages!</p>}
-                        {previousTrips !== undefined && <ExtraDataFormAccordion previousTrips={previousTrips} />}
+                        {previousTrips !== undefined && 
+                            <MUIPreviousTripsAccordion 
+                                previousTrips={previousTrips} 
+                                dynamicClass="extra-form"
+                                signingUp={true} 
+                            />
+                        }
                     </div>
                 </div>
                 <div className="extra-data-form__fields-displayer__left-column">
@@ -208,7 +214,7 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                         <div className="extra-data-form__dream-trips-division__icons-container">
                             {dreamTrip !== undefined && <FaCheck className='extra-data-form__dream-trips-division__check-icon last-step-icon check' />}
                         </div>
-                        <InputCountry dynamicClass={"extra-data-form__input-destination"} dynamicPlaceholder={"Destination"} changeCountry={changeCountry} />
+                        <MUIInputCountry dynamicClass={"extra-data-form__input-destination"} dynamicPlaceholder={"Destination"} changeCountry={changeCountry} />
                         <div className="countries-list__division">
                             <ul id='countries-list'>
                                 {dreamTrip !== undefined && dreamTrip.map((country) => (<li id={"li-" + country} key={country}>{country}</li>))}
@@ -224,9 +230,9 @@ const ExtraDataForm = ({ profilePicture, userPersonals }) => {
                 </div>  
             </div>
             {isLoading === false && <Button className='extra-data-form__btn-submit' variant='outlined' onClick={() => handleSubmission()}>Confirmer</Button>}
-            {isLoading === true && <ClassicLoader dynamicId="extra-data-loader" />}
+            {isLoading === true && <MUIClassicLoader dynamicId="extra-data-loader" />}
         </form>
     );
 };
 
-export default ExtraDataForm;
+export default SignupExtraDataForm;

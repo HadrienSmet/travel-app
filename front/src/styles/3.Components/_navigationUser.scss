@@ -1,6 +1,6 @@
 .user-navigation {
     > div > button > a {
-        color: $secondary-color;
+        color: $clr-1;
     }
     .user-mobile-nav {
         button {
@@ -12,7 +12,7 @@
             height: 40px;
             padding: 8px;
             border-radius: 11px;
-            background-color: $secondary-color;
+            background-color: $clr-1;
             box-shadow: 
                 0px 3px 1px -2px rgb(0 0 0 / 20%), 
                 0px 2px 2px 0px rgb(0 0 0 / 14%), 
@@ -36,7 +36,6 @@
         }
         .toggle-btn.active span {
             position: absolute;
-            // background-color: $primary-color !important;
             &:nth-child(1) {
                 transform: rotate(45deg);
             }
@@ -56,14 +55,13 @@
 .mobile-user-popover {
     > div:nth-child(3) {
         @media screen and (max-width: 767px) {
-            // transform: translateX(-35px) !important;
             transform: none !important;
         }
         padding: 25px 10px;
         width: calc(29% - 20px);
         min-width: 230px;
         transform: translateX(15px);
-        background-color: $secondary-color-9;
+        background-color: $white-op9;
         border: 3px solid $primary-color-2;
         @include flexColumn;
         button {
@@ -101,7 +99,7 @@
     left: 2px;
     }
     a {
-        color: $secondary-color !important;
+        color: $clr-1 !important;
     } 
 }
 #nav-thrd-child {
@@ -110,6 +108,6 @@
         
     }
     a {
-        color: $secondary-color;
+        color: $clr-1;
     }
 }

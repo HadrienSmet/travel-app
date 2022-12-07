@@ -7,7 +7,7 @@ import FriendProfilePostsSection from '../components/FriendProfilePostsSection';
 import ProfileAlbumsSection from '../components/ProfileAlbumsSection';
 import ProfileTripsSection from '../components/ProfileTripsSection';
 import ProfileFriendsSection from '../components/ProfileFriendsSection';
-import FriendProfileInfosSection from '../components/FriendProfileInfosSection';
+import ProfileInfosSection from '../components/ProfileInfosSection';
 import { useEffect } from 'react';
 import { FaRegEnvelope, FaUserCheck, FaUserPlus } from 'react-icons/fa';
 import axios from 'axios';
@@ -152,11 +152,14 @@ const FriendProfile = () => {
                     </div>
                     <div className="profile-section__header__buttons-container">
                         {isFriend === false ? 
-                            <Button variant='outlined' onClick={() => handleNewFriend()}>S'abonner<FaUserPlus /></Button>
+                            <Button variant='outlined' onClick={() => handleNewFriend()}><span>S'abonner</span><FaUserPlus /></Button>
                         :
-                            <div className="profile-section__header__fake-btn" onClick={() => handleRemoveFriend()}>Abonné<FaUserCheck /></div>
+                            <div className="profile-section__header__fake-btn" onClick={() => handleRemoveFriend()}><span>Abonné</span><FaUserCheck /></div>
                         }
-                        <Button variant='outlined'>Messages<FaRegEnvelope /></Button>    
+                        
+                        
+                        
+                        <Button variant='outlined'><span>Messages</span><FaRegEnvelope /></Button>    
                     </div>
                 </div>
             </div>
@@ -175,7 +178,7 @@ const FriendProfile = () => {
                 {friendProfileState === "albums" && <ProfileAlbumsSection isAuthor={false} dataFrom={friendProfile} />}
                 {friendProfileState === "trips" && <ProfileTripsSection isAuthor={false} dataFrom={friendProfile} />}
                 {friendProfileState === "friends" && <ProfileFriendsSection isAuthor={false} dataFrom={friendProfile} />}
-                {friendProfileState === "infos" && <FriendProfileInfosSection isAuthor={false} dataFrom={friendProfile} />}
+                {friendProfileState === "infos" && <ProfileInfosSection isAuthor={false} dataFrom={friendProfile} />}
             </div>
         </main>
     );

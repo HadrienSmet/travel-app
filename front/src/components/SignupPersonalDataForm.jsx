@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, TextField } from '@mui/material'
 import { FaUser, FaTimes, FaCheck } from "react-icons/fa";
-import InputCountry from "./InputCountry";
-import InputNumbers from "./InputNumbers";
-import InputSelect from "./InputSelect";
+import MUIInputCountry from "./MUIInputCountry";
+import MUIInputNumbers from "./MUIInputNumbers";
+import MUIInputSelect from "./MUIInputSelect";
 
-const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPersonals }) => {
+const SignupPersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPersonals }) => {
     const [profilePictureUrl, setProfilePictureUrl] = useState("");
     const [firstName, setFirstName] = useState("");
     const [isFirstNameOk, setIsFirstNameOk] = useState(false);
@@ -144,7 +144,7 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                         <div className="personal-data-form__icons-container">
                             {age !== "" && <FaCheck className="personal-data-form__age-division__check-icon signup-perso-icon check"  />}
                         </div>
-                        <InputNumbers 
+                        <MUIInputNumbers 
                             minNumber={16}
                             maxNumber={100}
                             dynamicClass="personal-data-form__input"
@@ -188,7 +188,7 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                         <div className="personal-data-form__icons-container">
                             {gender !== "" && <FaCheck className="personal-data-form__gender-division__check-icon signup-perso-icon check"  />}
                         </div>
-                        <InputSelect 
+                        <MUIInputSelect 
                             dynamicClass="personal-data-form__input"
                             dynamicPlaceholder="Genre"
                             choices={genders}
@@ -199,7 +199,7 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
                         <div className="personal-data-form__icons-container">
                             {country !== "" && <FaCheck className="personal-data-form__country-division__check-icon signup-perso-icon check"  />}
                         </div>
-                        <InputCountry dynamicClass={"personal-data-form__input"} dynamicPlaceholder={"Pays"} changeCountry={changeCountry} />
+                        <MUIInputCountry dynamicClass={"personal-data-form__input"} dynamicPlaceholder={"Pays"} changeCountry={changeCountry} />
                     </div>
                 </div>
             </div>
@@ -208,4 +208,4 @@ const PersonalDataForm = ({ changeStepState, changeProfilePicture, changeUserPer
     );
 };
 
-export default PersonalDataForm;
+export default SignupPersonalDataForm;

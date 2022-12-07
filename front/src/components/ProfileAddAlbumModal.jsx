@@ -3,10 +3,8 @@ import { Button, Modal, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { FaPlus, FaCamera } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
-import InputCountry from './InputCountry';
-import InputNumbers from './InputNumbers';
-// import { setAlbumArrayStore } from '../features/albumArray.slice';
-// import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
+import MUIInputCountry from './MUIInputCountry';
+import MUIInputNumbers from './MUIInputNumbers';
 import axios from 'axios';
 import { getJwtToken } from '../utils/functions/tools';
 import { pushAlbumInUserLoggedData } from '../features/userLoggedData.slice';
@@ -127,7 +125,7 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
                         <div className="add-album-modal__same-row">
                             <div className="add-album-modal__country-field">    
                                 <p>Dans quel pays êtiez-vous parti?</p>
-                                <InputCountry 
+                                <MUIInputCountry 
                                     dynamicClass="add-album-modal__input-country"
                                     dynamicPlaceholder="Pays"
                                     changeCountry={changeCountry}
@@ -135,7 +133,7 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
                             </div>
                             <div className="add-album-modal__input-year">
                                 <p>En quelle année?</p>
-                                <InputNumbers 
+                                <MUIInputNumbers 
                                     changeNumber={changeNumber}
                                     minNumber={1980}
                                     maxNumber={2023}

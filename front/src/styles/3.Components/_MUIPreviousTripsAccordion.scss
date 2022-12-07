@@ -1,4 +1,5 @@
-.extra-form {
+.extra-form, 
+.profile-trips-section {
     &__accordion-details-displayer {
         margin-bottom: 5px;
         @include flexColumn;

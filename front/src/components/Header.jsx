@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import GuestNavigation from "./GuestNavigation";
+import NavigationGuest from "./NavigationGuest";
 import Logo from "./Logo";
-import UserNavigation from "./UserNavigation";
+import NavigationUser from "./NavigationUser";
 
 const Header = () => {
     const isUserLogged = useSelector((state) => state.currentLoggedState.loggedState);
@@ -14,9 +14,9 @@ const Header = () => {
                 </Link>
             </div>
             { isUserLogged === true ? 
-                <UserNavigation />
+                <NavigationUser />
             :
-                <GuestNavigation />
+                <NavigationGuest />
             }
         </header>
     );

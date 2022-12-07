@@ -6,7 +6,7 @@ import { useWindowSize } from "../utils/functions/hooks";
 import { useState } from "react";
 import { useRef } from "react";
 
-const GuestNavigation = () => {
+const NavigationGuest = () => {
     const screenWidth = useWindowSize().width;
     const [anchorEl, setAnchorEl] = useState(null);
     const dispatch = useDispatch();
@@ -77,4 +77,4 @@ const GuestNavigation = () => {
     );
 };
 
-export default GuestNavigation;
+export default NavigationGuest;

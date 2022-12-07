@@ -37,7 +37,7 @@ const useGradientBorder = () => {
     return ref;
 }
 
-const GradientBorder = ({ children }) => {
+const MUIGradientBorder = ({ children }) => {
     const ref = useGradientBorder();
     
 
@@ -50,4 +50,4 @@ const GradientBorder = ({ children }) => {
     );
 };
 
-export default GradientBorder;
+export default MUIGradientBorder;

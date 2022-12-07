@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPostsData } from '../features/postsData.slice';
 import { getJwtToken } from '../utils/functions/tools';
 import Globe3D from '../components/Globe3D';
-import GradientBorder from '../components/GradientBorder';
+import MUIGradientBorder from '../components/MUIGradientBorder';
 import Post from '../components/Post';
 import PostsForm from '../components/PostsForm';
+import { useWindowSize } from '../utils/functions/hooks';
 
 const Home = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const postsData = useSelector((state) => state.postsDataStore.postsData);
+    const screenWidth = useWindowSize().width;
     let { token } = getJwtToken();
     let dataArrayForSort;
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
@@ -32,12 +34,14 @@ const Home = () => {
         .catch(err => console.log(err));
     }
 
-    //This useEffect calls a funciton in order to get all the posts from the data base and it put all of them in the redux store
-    useEffect(() => {
-        fetchAllposts();
-        /* eslint-disable react-hooks/exhaustive-deps */
-    }, [])
+    const handleScroll = (e) => {
+        const scrollBar = document.getElementById("globe-scroll-bar");
+        const listHeight = screenWidth > 1025 ? 7719 : 6220;
+        
+        scrollBar.style.top = ((e.target.scrollTop / listHeight) * 100) + "%";
+    }
 
+    
     //This function is called when the user click on a country
     //@Params { Type: String } => The country selected by the user
     //It gets from the data base all the posts made by the users from the country selected
@@ -55,6 +59,12 @@ const Home = () => {
         })
         .catch(err => console.log(err));
     }
+    
+    //This useEffect calls a funciton in order to get all the posts from the data base and it put all of them in the redux store
+    useEffect(() => {
+        fetchAllposts();
+        /* eslint-disable react-hooks/exhaustive-deps */
+    }, [])
 
     return (
         <main>
@@ -68,17 +78,21 @@ const Home = () => {
                             </div>
                             <h1>Bonjour {userData.pseudo}</h1>
                         </div>
-                        <GradientBorder>
+                        <MUIGradientBorder>
                             <a 
                                 href='#home_anchor' 
                                 className='home__content__header__reset-btn'
                                 onClick={() => fetchAllposts()}>Réinitialiser</a>
-                        </GradientBorder>
+                        </MUIGradientBorder>
                         
                     </div>
                     <div className="home__content__header__globe-area">
                         <h2>Venez voir ce qu'il se passe ailleurs</h2>
-                        <Globe3D changeSelectedCountry={changeSelectedCountry} />
+                        <Globe3D 
+                            dynamicClassName="home" 
+                            changeSelectedCountry={changeSelectedCountry} 
+                            handleScroll={handleScroll}
+                        />
                     </div>
                 </div>
                 <div id="home_anchor" className="home__content__main">

@@ -1,51 +1,102 @@
 .add-album-modal {
+    @media screen and (min-width: 1025px) {
+        width: 50vw !important;
+        height: 85vh !important;
+        @include flexAroundColumnCenter;
+    }
+    @media screen and (max-width: 1024px) {
+        width: calc(90vw - 64px) !important;
+        height: calc(95vh - 64px) !important;
+        overflow-y: auto;
+        @include flexFullStart;
+        flex-direction: column;
+        gap: 25px;
+    }
     z-index: 2600;
-    position: absolute !important;
-    width: 50vw !important;
-    height: 85vh;
     border: none !important;
     border-radius: 10px;
     background-color: $clr-1 !important;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    @include flexAroundColumnCenter;
     &__header {
         width: 100%;
         @include flexBetweenCentered;
     }
     form {
-        width: 85%;
+        @media screen and (min-width: 1025px) {
+            width: 85%;
+        }
+        @media screen and (max-width: 1024px) {
+            // min-height: 1600px;
+            width: 100%;
+        }
     }
     &__same-row {
+        @media screen and (min-width: 1025px) {
+            @include flexBetween;
+        }
+        @media screen and (max-width: 1024px) {
+            @include flexColumnCenterX;
+        }
         width: 100%;
-        @include flexBetween;
         > div {
-            width: 40%;
+            @media screen and (min-width: 1025px) {
+                width: 40%;
+            }
+            @media screen and (max-width: 1024px) {
+                width: 100%;
+            }
             div {
+                @media screen and (min-width: 1025px) {
+                    margin: 8px;
+                }
+                @media screen and (max-width: 1024px) {
+                    margin: 5px 0px;
+                }
                 width: 100%;
             }
         }
     }
     &__pictures-displayer {
+        @media screen and (min-width: 768px) {            
+            height: calc(100% - 200px);
+            @include flexBetween;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        @media screen and (max-width: 767px) {
+            @include flexFullStart;
+            gap: 15px;
+            flex-wrap: wrap;
+            width: calc(100% + 15px);
+        }
         position: relative;
-        flex-wrap: wrap;
-        width: 100%;
-        height: calc(100% - 200px);
-        @include flexBetween;
         &--absolute {
+            @media screen and (min-width: 768px) {
+                width: calc(100% + 3px);
+                column-gap: calc((85% * 0.08) + 10px);
+                row-gap: 0px !important;
+                max-height: 100%;
+            }
+            @media screen and (max-width: 767px) {
+                gap: 15px;
+                width: 100%;
+            }
             position: absolute;
             top: 0;
             left: 0;
             flex-wrap: wrap;
-            width: calc(100% + 3px);
-            column-gap: calc((85% * 0.08) + 10px);
-            row-gap: 0px !important;
-            max-height: 100%;
             z-index: -1;
             @include flexFullStart;
             img {
-                width: calc(28% - 1px);
-                height: 120px;
+                @media screen and (min-width: 1025px) {
+                    width: calc(28% - 1px);
+                    height: 120px;
+                }
+                @media screen and (max-width: 1024px) {
+                    width: (calc(50% - 15px));
+                    height: 110px;
+                }
                 z-index: 2;
             }
         }
@@ -53,7 +104,7 @@
     &__picture-area {
         width: 100%;
         height: 100%;
-        background-color: $black-low-op;
+        background-color: $black-op2;
         transition: 0.3s ease-in;
         cursor: pointer;
         @include flexFullCenter;
@@ -67,18 +118,24 @@
             }
         }
         &-label {
-            width: 28%;
-            height: 120px;  
+            @media screen and (min-width: 1025px) {                
+                width: 28%;
+                height: 120px;  
+            }
+            @media screen and (max-width: 1024px) {
+                width: (calc(50% - 15px));
+                height: 110px;
+            }
         }
         svg {
             position: absolute;
             font-size: 60px;
-            color: $black-mid-op;
+            color: $black-op4;
             z-index: -2;
         }
     }
     &__plus-icon {
-        color: $black-mid-op !important;
+        color: $black-op4 !important;
         opacity: 0;
         transition: 0.3s ease-in-out;
     }

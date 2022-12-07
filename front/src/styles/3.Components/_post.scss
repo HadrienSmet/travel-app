@@ -29,6 +29,18 @@
         &__data-side {
             color: $black-perf-mid-op;
             text-align: right;
+            &__desktop-date {
+                @media screen and (min-width: 768px) {
+                    display: inline-block;
+                }
+                display: none;
+            }
+            &__mobile-date {
+                @media screen and (max-width: 767px) {
+                    display: inline-block;
+                }
+                display: none;
+            }
         }
     }
     &-content {
@@ -106,7 +118,9 @@
         }
         &__crud-side {
             @media screen and (max-width: 767px) {
-                min-width: none;
+                button {
+                    min-width: unset;
+                }
                 > button > svg {
                     font-size: 18px;
                 }

@@ -10,10 +10,12 @@ import ProfileFriendsSection from '../components/ProfileFriendsSection';
 import ProfileInfosSection from '../components/ProfileInfosSection';
 import { FaUserCog, FaUserEdit } from 'react-icons/fa';
 import { useRef } from 'react';
+import { useWindowSize } from '../utils/functions/hooks';
 
 const Profile = () => {
     const [profileState, setProfileState] = useState("actuality");
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
+    const screenWidth = useWindowSize().width;
     const ref = useRef();
 
     //This useEffect handles the position of the navigation bar of the profile section
@@ -21,19 +23,19 @@ const Profile = () => {
     useEffect(() => {
         switch (profileState) {
             case "actuality":
-                ref.current.style.transform = 'translateX(0)';
+                ref.current.style.transform =  'translateX(0)';
                 break;
             case "albums":
-                ref.current.style.transform = 'translateX(110px)';
+                ref.current.style.transform = screenWidth > 768 ?  'translateX(110px)' : 'translateX(100%)';
                 break;
             case "trips":
-                ref.current.style.transform = 'translateX(220px)';
+                ref.current.style.transform = screenWidth > 768 ? 'translateX(220px)' : 'translateX(200%)';
                 break;
             case "friends":
-                ref.current.style.transform = 'translateX(330px)';
+                ref.current.style.transform = screenWidth > 768 ? 'translateX(330px)' : 'translateX(300%)';
                 break;
             case "infos":
-                ref.current.style.transform = 'translateX(440px)';
+                ref.current.style.transform = screenWidth > 768 ? 'translateX(440px)' : 'translateX(400%)';
                 break;
             default:
                 console.log("Bravo t'as réussi à faire bugger mon app fdp")

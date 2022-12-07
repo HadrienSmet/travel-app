@@ -1,14 +1,12 @@
-import { useState, Fragment } from 'react';
-import { Button, Modal, Box, TextField } from '@mui/material';
+import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
+import { Button, Modal, Box, TextField } from '@mui/material';
 import { FaPlus, FaCamera } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
-import InputCountry from './InputCountry';
-import InputNumbers from './InputNumbers';
-// import { setAlbumArrayStore } from '../features/albumArray.slice';
-import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
-import InputSelect from './InputSelect';
-import { useEffect } from 'react';
+import MUIInputCountry from './MUIInputCountry';
+import MUIInputNumbers from './MUIInputNumbers';
+import MUIInputSelect from './MUIInputSelect';
 
 const style = {
     position: 'absolute',
@@ -124,7 +122,7 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
     );
 }
 
-export default function NestedModal({ changeAlbumsArray, changeTrips }) {
+export default function MUITripModal({ changeAlbumsArray, changeTrips }) {
     const [open, setOpen] = useState(false);
     const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState("");
@@ -246,26 +244,26 @@ export default function NestedModal({ changeAlbumsArray, changeTrips }) {
                     <div className="trip-modal__content">
                         <div className="trip-modal__inputs-area">
                             <span>Quelle était la destination?</span>
-                            <InputCountry 
+                            <MUIInputCountry 
                                 dynamicClass={"trip-modal__input-destination"} dynamicPlaceholder={"Destination"} 
                                 changeCountry={changeCountry} 
                             />
                             <span>Pendant combien de temps?</span>
-                            <InputSelect
+                            <MUIInputSelect
                                 dynamicClass="trip-modal__input-duration"
                                 dynamicPlaceholder="Durée"
                                 choices={durations}
                                 changeChoice={changeDuration}
                             />
                             <span>En quelle année?</span>
-                            <InputNumbers 
+                            <MUIInputNumbers 
                                 changeNumber={changeNumber}
                                 minNumber={1980}
                                 maxNumber={2023}
                                 dynamicClass="trip-modal__input-year"
                                 dynamicPlaceholder="Année" />
                             <span>Avec qui?</span>
-                            <InputSelect 
+                            <MUIInputSelect 
                                 dynamicClass="trip-modal__input-accompanied"
                                 dynamicPlaceholder="Accompagné(e)"
                                 choices={withFriendsChoices}

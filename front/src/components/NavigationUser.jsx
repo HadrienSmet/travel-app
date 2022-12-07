@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useWindowSize } from "../utils/functions/hooks";
 
-const UserNavigation = () => {
+const NavigationUser = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const screenWidth = useWindowSize().width;
     const ref = useRef();
@@ -35,9 +35,6 @@ const UserNavigation = () => {
                     </Button>
                     <Button id="nav-thrd-child">
                         <Link to ="/">Déconnexion</Link>
-                    </Button>
-                    <Button id="nav-thrd-child">
-                        <Link to ="/globe">Globe</Link>
                     </Button>
                 </ButtonGroup>
             :
@@ -71,8 +68,8 @@ const UserNavigation = () => {
                             <Link to="/profile">Profil</Link>
                         </Button>
                         <Button onClick={() => handleClose()}>
-                            <Link to ="/globe">Globe</Link>
-                        </Button>
+                        <Link to ="/">Déconnexion</Link>
+                    </Button>
                     </Popover>
                 </div>
             }
@@ -80,4 +77,4 @@ const UserNavigation = () => {
     );
 };
 
-export default UserNavigation;
+export default NavigationUser;

@@ -3,12 +3,13 @@ import { Button, Modal, Box, TextField } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
-import InputCountry from './InputCountry';
-import InputNumbers from './InputNumbers';
-import InputSelect from './InputSelect';
+import MUIInputCountry from './MUIInputCountry';
+import MUIInputNumbers from './MUIInputNumbers';
+import MUIInputSelect from './MUIInputSelect';
 import axios from 'axios';
 import { getJwtToken } from '../utils/functions/tools';
 import { pushTripInUserLoggedData } from '../features/userLoggedData.slice';
+import MUIGradientBorder from './MUIGradientBorder';
 
 const style = {
     position: 'absolute',
@@ -132,11 +133,11 @@ const ProfileAddTripModal = () => {
     }
 
     return (
-        <div>
-            <Button variant='outlined' onClick={handleOpen}>
-                <span>Ajouter un voyage</span>
-                <FaPlus />
-            </Button>
+        <div className='profile-add-trip'>
+            <MUIGradientBorder onClick={handleOpen}>
+                <span onClick={handleOpen}>Ajouter un voyage</span>
+                <FaPlus onClick={handleOpen} />
+            </MUIGradientBorder>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -151,26 +152,26 @@ const ProfileAddTripModal = () => {
                     <div className="trip-modal__content">
                         <div className="trip-modal__inputs-area">
                             <span>Quelle était la destination?</span>
-                            <InputCountry 
+                            <MUIInputCountry 
                                 dynamicClass={"trip-modal__input-destination"} dynamicPlaceholder={"Destination"} 
                                 changeCountry={changeCountry} 
                             />
                             <span>Pendant combien de temps?</span>
-                            <InputSelect
+                            <MUIInputSelect
                                 dynamicClass="trip-modal__input-duration"
                                 dynamicPlaceholder="Durée"
                                 choices={durations}
                                 changeChoice={changeDuration}
                             />
                             <span>En quelle année?</span>
-                            <InputNumbers 
+                            <MUIInputNumbers 
                                 changeNumber={changeNumber}
                                 minNumber={1980}
                                 maxNumber={2023}
                                 dynamicClass="trip-modal__input-year"
                                 dynamicPlaceholder="Année" />
                             <span>Avec qui?</span>
-                            <InputSelect 
+                            <MUIInputSelect 
                                 dynamicClass="trip-modal__input-accompanied"
                                 dynamicPlaceholder="Accompagné(e)"
                                 choices={withFriendsChoices}

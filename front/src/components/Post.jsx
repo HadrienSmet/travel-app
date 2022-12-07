@@ -1,8 +1,8 @@
 // import { useSelector } from "react-redux";
-import { FaThumbsDown, FaThumbsUp, FaPaperPlane, FaEdit, FaTimes, FaFileImage } from 'react-icons/fa';
+import { FaThumbsDown, FaThumbsUp, FaRegThumbsDown, FaRegThumbsUp, FaPaperPlane, FaEdit, FaTimes, FaFileImage } from 'react-icons/fa';
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { getJwtToken, dateParser } from "../utils/functions/tools";
+import { getJwtToken, dateParser, mobileDateParser } from "../utils/functions/tools";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,8 @@ const Post = ({ post }) => {
     const { token, userId } = getJwtToken();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const postsData = useSelector((state) => state.postsDataStore.postsData)
+
+    const postsData = useSelector((state) => state.postsDataStore.postsData);
     useEffect(() => {
         setImageUrl(post.imageUrl)
         /* eslint-disable react-hooks/exhaustive-deps */
@@ -234,7 +235,8 @@ const Post = ({ post }) => {
                             
                         </div>
                         <div key={"post-header-data-div-" + post._id} className="post-header__data-side">
-                            <p key={"post-date-" + post._id}>{dateParser(post.date)}</p>
+                            <p className='post-header__data-side__desktop-date' key={"post-desktop-date-" + post._id}>{dateParser(post.date)}</p>
+                            <p className='post-header__data-side__mobile-date' key={"post-mobile-date-" + post._id}>{mobileDateParser(post.date)}</p>
                             <p key={"post-country-" + post._id}>{post.country}</p>
                         </div>
                     </div>
@@ -263,17 +265,32 @@ const Post = ({ post }) => {
                         <div key={"post-buttons-row-opinions" + post._id} className="post__buttons-row__opinion-side">
                             <div key={"post-buttons-row-likes-div" + post._id} className="post__buttons-row__likes">
                                 <p key={"post-buttons-row-likes" + post._id}>{likes}</p>
-                                <FaThumbsUp 
-                                    key={"post-buttons-row-likes-icon" + post._id} 
-                                    onClick={() => likesHandler()}
-                                />
+                                {liked === true ?
+                                    <FaThumbsUp 
+                                        key={"post-buttons-row-likes-icon" + post._id} 
+                                        onClick={() => likesHandler()}
+                                    />
+                                :
+                                    <FaRegThumbsUp 
+                                        key={"post-buttons-row-likes-reg-icon" + post._id} 
+                                        onClick={() => likesHandler()}
+                                    />
+                                }
+                                
                             </div>
                             <div key={"post-buttons-row-dislikes-div" + post._id} className="post__buttons-row__dislikes">
                                 <p key={"post-buttons-row-dislikes" + post._id}>{dislikes}</p>
-                                <FaThumbsDown 
-                                    key={"post-buttons-row-dislikes-icon" + post._id} 
-                                    onClick={() => dislikesHandler()}
-                                />
+                                {disliked === true ?
+                                    <FaThumbsDown 
+                                        key={"post-buttons-row-dislikes-icon" + post._id} 
+                                        onClick={() => dislikesHandler()}
+                                    />
+                                :
+                                    <FaRegThumbsDown 
+                                        key={"post-buttons-row-dislikes-reg-icon" + post._id} 
+                                        onClick={() => dislikesHandler()}
+                                    />
+                                }
                             </div>
                         </div>
                         <div 

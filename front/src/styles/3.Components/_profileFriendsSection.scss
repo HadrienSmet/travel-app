@@ -1,10 +1,17 @@
 .profile-contact-section {
-    width: 80%;
-    min-height: calc(50vh - 275px);
+    @media screen and (min-width: 1025px) {
+        width: 80%;
+        min-height: calc(50vh - 275px);
+        @include flexAroundCentered;
+    }
+    @media screen and (max-width: 767px) {
+        width: 90%;
+        @include flexColumn;
+        gap: 25px;
+    }
     position: relative;
     padding: 35px 0;
     gap: 40px;
-    @include flexAroundCentered;
     &__border-wrapper {
         cursor: pointer;
         position: relative;
@@ -55,7 +62,12 @@
         margin-top: 45px;
     }
     ul {
-        padding: 10px 80px;
+        @media screen and (min-width: 1025px) {
+            padding: 10px 80px;
+        }
+        @media screen and (max-width: 767px) {
+            padding: 15px;
+        }
         gap: 10px;
         @include flexColumn;
         li {

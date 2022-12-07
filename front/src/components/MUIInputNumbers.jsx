@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 
-const InputNumbers = ({ minNumber, maxNumber, dynamicClass, dynamicPlaceholder, changeNumber }) => {
+const MUIInputNumbers = ({ minNumber, maxNumber, dynamicClass, dynamicPlaceholder, changeNumber }) => {
   const [number, setNumber] = useState('');
   const numbers = [];
   for (let i = minNumber; i < maxNumber; i++) {
@@ -34,4 +34,4 @@ const InputNumbers = ({ minNumber, maxNumber, dynamicClass, dynamicPlaceholder, 
   );
 }
 
-export default InputNumbers;
+export default MUIInputNumbers;
