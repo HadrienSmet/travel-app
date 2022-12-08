@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa"
+import MUIPicturesCarousel from './MUIPicturesCarousel';
 
 const style = {
   position: 'absolute',
@@ -55,11 +56,12 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
                 </Typography>
                 <FaTimes key={"more-picture__modal-header-icon-" + index} onClick={() => setOpen(false)} />
             </div>
-            <div key={"more-picture__modal-pictures-displayer-" + index} className="album-modal__pictures-displayer">
+            {/* <div key={"more-picture__modal-pictures-displayer-" + index} className="album-modal__pictures-displayer">
                 {album.pictures.map((picture, i) => (
                     <img src={picture} alt={"image venant de l'" + album.name} key={"more-picture__modal-" + index + "-picture-" + i} />
                 ))}
-            </div>
+            </div> */}
+            <MUIPicturesCarousel pictures={album.pictures} index={index} />
           </Box>
         </Fade>
       </Modal>

@@ -1,15 +1,16 @@
 .album-modal {
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1025px) {
         width: 70vw !important;
+        height: 80vh;
     }
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1024px) {
         width: calc(90vw - 64px) !important;
         height: calc(95vh - 64px) !important;
-        overflow-y: scroll;
     }
     border: none !important;
-    background-color: $white-op9 !important;
+    background-color: $clr-1 !important;
     gap: 20px;
+    border-radius: 8px;
     @include flexColumnCenterX;
     &__header {
         width: 100%;

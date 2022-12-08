@@ -1,8 +1,8 @@
 .profile-trips-section {
-    @media screen and (min-width: 1024px) {        
+    @media screen and (min-width: 1025px) {        
         @include flexBetween;
     }
-    @media screen {
+    @media screen and (max-width: 1024) {
         @include flexColumn;
         gap: 25px;
     }
@@ -48,6 +48,7 @@
         @media screen and (max-width: 1024px) {
             width: 100%;
         }
+        margin-bottom: 20px;
         @include flexColumn;
         justify-content: space-between;
         gap: 25px;
@@ -56,7 +57,7 @@
                 height: calc(40vh - 30px);
             }
             @media screen and (max-width: 1025px) {
-                min-height: calc(50vh - 365px);
+                min-height: calc(50vh - 370px);
                 max-height: calc(50vh - 288.5px);
             }
             border: 2px solid $black-op3;

@@ -11,20 +11,20 @@
                 padding: 30px;
                 @include flexBetween;
             }
-            @media screen and (max-width: 767px) {
+            @media screen and (max-width: 1024px) {
                 width: 100%;
                 @include flexColumnCenter;
             }
             position: relative;
             gap: 20px;
-            width: calc(100% - 60px);
+            // width: calc(100% - 60px);
             border-radius: 15px;
             margin-bottom: 15px;
             &__intro-and-btn-area {
                 @media screen and (min-width: 1025px) {
                     width: 35%;
                 }
-                @media screen and (max-width: 767px) {
+                @media screen and (max-width: 1024px) {
                     width: 100%;
                     gap: 15px;
                 }
@@ -32,6 +32,11 @@
                 @include flexColumnBetween;
             }
             &__profile-division {
+                @media screen and (min-width: 768px) and (max-width: 1024px) {
+                    height: 150px;
+                    position: relative;
+                    justify-content: center;
+                }
                 height: 100px;
                 width: 100%;
                 gap: 15px;
@@ -44,6 +49,10 @@
                         height: 150px;
                         width: 150px;
                     }
+                    @media screen and (min-width: 768px) and (max-width: 1024px) {
+                        height: 125px;
+                        width: 125px;
+                    }
                     @media screen and (max-width: 767px) {
                         width: 100px;
                         height: 100px;
@@ -55,6 +64,10 @@
                         @media screen and (min-width: 1025px) {
                             height: 185px;
                             width: 185px;
+                        }
+                        @media screen and (min-width: 768px) and (max-width: 1024px) {
+                            height: 155px;
+                            width: 155px;
                         }
                         @media screen and (max-width: 767px) {
                             height: 120px;

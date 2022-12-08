@@ -33,16 +33,16 @@ const FriendProfile = () => {
                 ref.current.style.transform = 'translateX(0)';
                 break;
             case "albums":
-                ref.current.style.transform = 'translateX(110px)';
+                ref.current.style.transform = 'translateX(100%)';
                 break;
             case "trips":
-                ref.current.style.transform = 'translateX(220px)';
+                ref.current.style.transform = 'translateX(200%)';
                 break;
             case "friends":
-                ref.current.style.transform = 'translateX(330px)';
+                ref.current.style.transform = 'translateX(300%)';
                 break;
             case "infos":
-                ref.current.style.transform = 'translateX(440px)';
+                ref.current.style.transform = 'translateX(400%)';
                 break;
             default:
                 console.log("Bravo t'as réussi à faire bugger mon app fdp");

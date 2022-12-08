@@ -36,7 +36,7 @@ const Home = () => {
 
     const handleScroll = (e) => {
         const scrollBar = document.getElementById("globe-scroll-bar");
-        const listHeight = screenWidth > 1025 ? 7719 : 6220;
+        const listHeight = screenWidth > 768 ? 7719 : 6220;
         
         scrollBar.style.top = ((e.target.scrollTop / listHeight) * 100) + "%";
     }

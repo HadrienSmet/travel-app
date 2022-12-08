@@ -15,7 +15,7 @@
     gap: 10px;
     @include flexAroundColumnCenter;
     &__fields-displayer {
-        @media screen and (min-width: 768px) {
+        @media screen and (min-width: 1025px) {
             @include flexBetween;
             flex-direction: row;
         }
@@ -31,12 +31,12 @@
             height: calc(100% - 23px);
             // height: 100%;
         }
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-            transform: translateY(-12px);
-            width: 40%;
-            height: calc(100% - 19px);
-        }
-        @media screen and (max-width: 767px) {
+        // @media screen and (min-width: 768px) and (max-width: 1024px) {
+        //     transform: translateY(-12px);
+        //     width: 40%;
+        //     height: calc(100% - 19px);
+        // }
+        @media screen and (max-width: 1024px) {
             width: calc(100% - 50px);
         }
         position: relative;
@@ -83,11 +83,11 @@
         }
     }
     &__inputs-container {
-        @media screen and (min-width: 768px) {
+        @media screen and (min-width: 1025px) {
             width: 50%;
             height: 100%;
         }
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 1024px) {
             margin-bottom: 15px;
             width: calc(100% - 50px);
         }

@@ -1,0 +1,89 @@
+.carousel {
+    &-root {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            height: calc(95vh - 128px);
+            width: 100%;
+        }
+        @media screen and (max-width: 767px) {
+            height: calc(95vh - 148px);
+            width: calc(90vw - 64px);
+        }
+        position: relative;
+        @include flexColumnCenterX;
+    }
+    &-slider {
+        @media screen and (min-width: 1025px) {
+            height: calc(95vh - 377px);
+            width: 80% !important;
+            overflow: visible !important;
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            height: calc(95vh - 223px);
+            width: 100%;
+        }
+        @media screen and (max-width: 767px) {
+            height: calc(95vh - 247px);
+        }
+        position: relative;
+    }
+    &__picture-container {
+        height: 100%;
+        img {
+            height: 100%;
+        }
+    }
+}
+.slider-wrapper {
+    height: 100%;
+    ul {
+        height: 100%;
+    }
+}
+.thumbs {
+    .animated {
+        li {
+            img {
+                height: 80px;
+                width: 70px;
+            }
+        }
+    }
+    &-wrapper {
+        width: calc(90vw - 64px) !important;
+        margin: 0 !important;
+        margin-top: 15px !important;
+    }
+} 
+.thumbs.animated {
+    li {
+        @media screen and (min-width: 768px) {            
+            width: 110px !important;
+            height: 110px ;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        img {
+            @media screen and (min-width: 768px) {
+                position: absolute;
+                transform: translate(-10px, -10px);
+                height: 130px;
+                width: 130px;
+            }
+            @media screen and (max-width: 767px) {                
+                height: 80px;
+                width: 70px;
+            }
+        }
+    }
+}
+.control-arrow {
+    width: calc((70vw * 0.1) + 32px);
+    transform: translateX(-100%);
+}
+.control-arrow.control-next {
+    transform: translateX(100%);
+}
+.carousel .thumb.selected, .carousel .thumb:hover {
+    border-color: $primary-color !important;
+}

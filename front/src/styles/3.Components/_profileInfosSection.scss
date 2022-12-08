@@ -18,7 +18,7 @@
             padding: 40px;
             @include flexAround;
         }
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 1024px) {
             padding: 20px;
             width: calc(100% - 40px);
             @include flexColumn;
@@ -33,7 +33,7 @@
         @media screen and (min-width: 1025px) {
             width: 45%;
         }
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 1024px) {
             width: 100%;
         }
         gap: 15px;
@@ -43,7 +43,7 @@
         @media screen and (min-width: 1025px) {
             width: 45%;
         }
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 1024px) {
             width: 100%;
         }
         gap: 15px;

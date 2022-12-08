@@ -26,16 +26,16 @@ const Profile = () => {
                 ref.current.style.transform =  'translateX(0)';
                 break;
             case "albums":
-                ref.current.style.transform = screenWidth > 768 ?  'translateX(110px)' : 'translateX(100%)';
+                ref.current.style.transform = screenWidth > 1025 ?  'translateX(110px)' : 'translateX(100%)';
                 break;
             case "trips":
-                ref.current.style.transform = screenWidth > 768 ? 'translateX(220px)' : 'translateX(200%)';
+                ref.current.style.transform = screenWidth > 1025 ? 'translateX(220px)' : 'translateX(200%)';
                 break;
             case "friends":
-                ref.current.style.transform = screenWidth > 768 ? 'translateX(330px)' : 'translateX(300%)';
+                ref.current.style.transform = screenWidth > 1025 ? 'translateX(330px)' : 'translateX(300%)';
                 break;
             case "infos":
-                ref.current.style.transform = screenWidth > 768 ? 'translateX(440px)' : 'translateX(400%)';
+                ref.current.style.transform = screenWidth > 1025 ? 'translateX(440px)' : 'translateX(400%)';
                 break;
             default:
                 console.log("Bravo t'as réussi à faire bugger mon app fdp")

@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { useState } from 'react';
 import { useWindowSize } from '../utils/functions/hooks';
 import Globe3D from './Globe3D';

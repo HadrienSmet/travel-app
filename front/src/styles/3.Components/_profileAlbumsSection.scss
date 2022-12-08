@@ -1,10 +1,10 @@
 .profile-albums-section {
     width: 90%;
-    @include flexColumnCenter;
     border-top: 1px solid $black-op2;
     border-bottom: 1px solid $black-op2;
     padding: 15px 0;
     margin-bottom: 15px;
+    @include flexColumnCenter;
     button {
         @media screen and (min-width: 1025px) {
             width: 1031px;
@@ -22,18 +22,30 @@
             border: 1px solid $primary-color;
         }
     }
+    &__albums-container {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            @include flexFullStart;
+            position: relative;
+        }
+
+    }
     &__album-container {
-        @media screen and (min-width: 768px) {            
+        @media screen and (min-width: 1025px) {            
             padding: 20px 30px;
             width: 1031px;
             @include flexColumn;
+            border: 2px solid $black-op8;
             background-color: $black-op1;
         }
-        @media screen and (max-width: 767px) {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            width: 40% !important;
+        }
+        @media screen and (max-width: 1024px) {
+            border: 2px solid $black-op8;
             background-color: $black-op1;
             padding: 15px;
             width: calc(90% - 32px);
-            @include flexColumnCenter;
+            @include flexColumnCenter; 
         }
         margin: 15px;
         gap: 10px;
@@ -54,7 +66,7 @@
         position: relative;
         gap: 10px;
         img {
-            @media screen and (min-width: 1025px) {                
+            @media screen and (min-width: 768px) {                
                 width: 250px;
                 height: 250px;
             }

@@ -4,7 +4,7 @@
         min-height: calc(50vh - 275px);
         @include flexAroundCentered;
     }
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1024px) {
         width: 90%;
         @include flexColumn;
         gap: 25px;

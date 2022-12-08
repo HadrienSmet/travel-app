@@ -18,6 +18,14 @@
     background-color: $clr-1 !important;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+    .gradient-container {
+        width: 100%;
+        text-transform: uppercase;
+        font-style: 26px;
+        font-weight: 600;
+        color: $tertiary-color;
+        letter-spacing: 2px;
+    }
     &__header {
         width: 100%;
         @include flexBetweenCentered;
@@ -58,13 +66,13 @@
         }
     }
     &__pictures-displayer {
-        @media screen and (min-width: 768px) {            
+        @media screen and (min-width: 1025px) {            
             height: calc(100% - 200px);
             @include flexBetween;
             flex-wrap: wrap;
             width: 100%;
         }
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 1024px) {
             @include flexFullStart;
             gap: 15px;
             flex-wrap: wrap;
@@ -72,13 +80,13 @@
         }
         position: relative;
         &--absolute {
-            @media screen and (min-width: 768px) {
+            @media screen and (min-width: 1025px) {
                 width: calc(100% + 3px);
                 column-gap: calc((85% * 0.08) + 10px);
                 row-gap: 0px !important;
                 max-height: 100%;
             }
-            @media screen and (max-width: 767px) {
+            @media screen and (max-width: 1024px) {
                 gap: 15px;
                 width: 100%;
             }
@@ -96,6 +104,9 @@
                 @media screen and (max-width: 1024px) {
                     width: (calc(50% - 15px));
                     height: 110px;
+                }
+                @media screen and (min-width: 768px) and (max-width: 1024px) {
+                    height: 200px;
                 }
                 z-index: 2;
             }
@@ -125,6 +136,9 @@
             @media screen and (max-width: 1024px) {
                 width: (calc(50% - 15px));
                 height: 110px;
+            }
+            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                height: 200px;
             }
         }
         svg {

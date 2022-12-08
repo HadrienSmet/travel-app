@@ -5,6 +5,7 @@ import { FaPlus, FaCamera } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from './MUIInputCountry';
 import MUIInputNumbers from './MUIInputNumbers';
+import MUIGradientBorder from './MUIGradientBorder';
 import axios from 'axios';
 import { getJwtToken } from '../utils/functions/tools';
 import { pushAlbumInUserLoggedData } from '../features/userLoggedData.slice';
@@ -48,9 +49,7 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
     const data = new FormData();
     data.append("name", `album ${destination} ${year}`);
     albumPicture.forEach((picture) => {
-        // for (let i = 0; i < albumPicture.length; i++) {
-            data.append("file", picture); 
-        // }
+        data.append("file", picture); 
     }) 
         
     axios({
@@ -157,7 +156,7 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
                             </div>
                         </div>
                     </form>
-                    <Button variant="outlined" onClick={handleClose}>Madaaaame! J'ai fini mon album!</Button>
+                    <MUIGradientBorder onClick={handleClose}>Confirmer</MUIGradientBorder>
                 </Box>
             </Modal>
         </Fragment>
