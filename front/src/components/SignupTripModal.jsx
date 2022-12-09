@@ -7,6 +7,7 @@ import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from './MUIInputCountry';
 import MUIInputNumbers from './MUIInputNumbers';
 import MUIInputSelect from './MUIInputSelect';
+import MUIGradientBorder from "./MUIGradientBorder"
 
 const style = {
     position: 'absolute',
@@ -97,9 +98,6 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
                         <p id="child-modal-description">
                             Partagez-nous des souvenirs de votre voyage!
                         </p>
-                        {/* <Button variant="outlined">
-                            <label htmlFor="trip-file">Choisir une photo</label>
-                        </Button> */}
                     </div>
                     <input type="file" name="file" id="trip-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleAlbumPicture(e)} />
                     <div className='child-modal__pictures-displayer' id="album-container">
@@ -115,14 +113,14 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
                             {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
                         </div>
                     </div>
-                    <Button variant="outlined" onClick={handleClose}>Madaaaame! J'ai fini mon album!</Button>
+                    <MUIGradientBorder onClick={handleClose}>confirmer</MUIGradientBorder>
                 </Box>
             </Modal>
         </Fragment>
     );
 }
 
-export default function MUITripModal({ changeAlbumsArray, changeTrips }) {
+export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
     const [open, setOpen] = useState(false);
     const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState("");

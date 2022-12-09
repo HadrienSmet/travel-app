@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setSignupData } from '../features/signupData.slice';
 import { FaCheck, FaTimes } from "react-icons/fa";
+import axios from 'axios';
 
 const SignupForm = () => {
     const [email, setEmail] = useState("");
@@ -25,10 +26,29 @@ const SignupForm = () => {
             timesIcon.style.opacity = "1";
             checkIcon.style.opacity = "0";
         } else {
-            setIsEmailOk(true);
-            mailMsg.textContent = "";
-            timesIcon.style.opacity = "0";
-            checkIcon.style.opacity = "1";
+            axios.get(`${process.env.REACT_APP_API_URL}api/auth/checkMail/${email}`, {
+                "Content-Type": "application/json"
+            })
+            .then((res) => {
+                console.log(res)
+                if (res.data === null) {
+                    setIsEmailOk(true);
+                    mailMsg.textContent = "";
+                    timesIcon.style.opacity = "0";
+                    checkIcon.style.opacity = "1";
+                } else {
+
+                    mailMsg.textContent = "Le mail existe déjà dans notre base de donnée";
+                    timesIcon.style.opacity = "1";
+                    checkIcon.style.opacity = "0";
+                }
+            })
+            .catch((err) => {
+                setIsEmailOk(true);
+                mailMsg.textContent = "";
+                timesIcon.style.opacity = "0";
+                checkIcon.style.opacity = "1";
+            });
         }
     }
 

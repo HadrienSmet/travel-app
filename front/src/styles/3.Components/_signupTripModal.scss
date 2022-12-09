@@ -175,12 +175,12 @@
     height: 85vh;
     border: none !important;
     border-radius: 10px;
-    background-color: $clr-4 !important;
+    background-color: $clr-1 !important;
     backdrop-filter: blur(10px);
     @include flexColumnCenterX;
     &__header {
         width: 100%;
-        color: $secondary-color;
+        color: $primary-color;
         @include flexBetween;
         svg {
             cursor: pointer;
@@ -194,10 +194,7 @@
     p,
     button {
         text-transform: uppercase;
-        color: $secondary-color;
-    }
-    button {
-        border-color: $secondary-color;
+        color: $primary-color;
     }
     &__same-row {
         width: 85%;
@@ -267,7 +264,7 @@
     &__picture-area {
         width: 100%;
         height: 100%;
-        background-color: $black-op2;
+        background-color: $black-op1;
         transition: 0.3s ease-in;
         cursor: pointer;
         @include flexFullCenter;
@@ -298,19 +295,31 @@
         svg {
             position: absolute;
             font-size: 60px;
-            color: $white-op5;
+            color: $black-op3;
             z-index: -2;
         }
     }
     &__plus-icon {
-        color: $secondary-color !important;
+        color: $black-op8 !important;
         opacity: 0;
         transition: 0.3s ease-in-out;
     }
     &__camera-icon {
         @include standardTransi;
     }
-
+    .gradient-container {
+        @media screen and (min-width: 1025px) {
+            width: 85%;
+        }
+        @media screen and (max-width: 1024px) {
+            width: 100%;
+        }
+        text-transform: uppercase;
+        color: $primary-color;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
 }
 .css-79ws1d-MuiModal-root {
     background-color: $black-op1;

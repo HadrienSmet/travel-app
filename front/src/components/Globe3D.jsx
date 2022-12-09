@@ -26,7 +26,7 @@ const Globe = () => {
     )
 }
 
-const Globe3D = ({ dynamicClassName, changeSelectedCountry, handleScroll }) => {
+const Globe3D = ({ dynamicClassName, changeSelectedCountry }) => {
     const options = useMemo(() => countryList().getData(), []);
     const screenWidth = useWindowSize().width;
     const cameraPosition = screenWidth > 768 ? [0, 0, 10] : [0, 0, 12];
@@ -44,7 +44,7 @@ const Globe3D = ({ dynamicClassName, changeSelectedCountry, handleScroll }) => {
                     </Suspense>
                 </Canvas>
             </div>
-            <ul className={"globe-container__countries-list " + dynamicClassName + "-globe-container__countries-list"} onScroll={(e) => handleScroll(e)}>
+            <ul className={"globe-container__countries-list " + dynamicClassName + "-globe-container__countries-list"}>
                 {options.map((option) => (
                     <li 
                         key={option.label} 
@@ -54,11 +54,6 @@ const Globe3D = ({ dynamicClassName, changeSelectedCountry, handleScroll }) => {
                     </li>
                 ))}
             </ul>
-            <div className={"globe-container__countries-list__scroll-bar-track " + dynamicClassName + "-globe-container__countries-list__scroll-bar-track"}>
-                <span 
-                    id="globe-scroll-bar" 
-                    className={"globe-container__countries-list__scroll-bar " + dynamicClassName + "-globe-container__countries-list__scroll-bar"}></span>
-            </div>
         </div>
     );
 };

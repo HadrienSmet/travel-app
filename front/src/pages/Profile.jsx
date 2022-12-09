@@ -8,15 +8,26 @@ import ProfileAlbumsSection from '../components/ProfileAlbumsSection';
 import ProfileTripsSection from '../components/ProfileTripsSection';
 import ProfileFriendsSection from '../components/ProfileFriendsSection';
 import ProfileInfosSection from '../components/ProfileInfosSection';
-import { FaUserCog, FaUserEdit } from 'react-icons/fa';
+import { FaUserCog, FaUserEdit, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import { useRef } from 'react';
 import { useWindowSize } from '../utils/functions/hooks';
 
 const Profile = () => {
     const [profileState, setProfileState] = useState("actuality");
+    const [coverPicture, setCoverPicture] = useState("");
+    const [coverPictureUrl, setCoverPictureUrl] = useState("");
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const screenWidth = useWindowSize().width;
     const ref = useRef();
+
+    const toggleButtonsDisplay = () => {
+
+    }
+
+    const startEditCoverPicture = (e) => {
+        setCoverPicture(e.target.files[0]);
+        setCoverPictureUrl(URL.createObjectURL(e.target.files[0]))
+    }
 
     //This useEffect handles the position of the navigation bar of the profile section
     //His position is defined by the state of the component
@@ -49,6 +60,14 @@ const Profile = () => {
             <div className="profile-section__header">
                 <div className="profile-section__header-background">
                     <img src={profileDefaultBg} alt="img" />
+                    <div className="profile-section__header-background__buttons-area">
+                        <label htmlFor='cover-picture' onClick={() => toggleButtonsDisplay()}><FaEdit /></label>
+                        <input type="file" name="cover-picture" id="cover-picture" onChange={(e) => startEditCoverPicture(e)} />
+                        <span><FaCheck /></span>
+                        <span><FaTimes /></span>
+                        
+                        
+                    </div>
                 </div>
                 <div className="profile-section__header__user-intro">
                     <div className="profile-section__header__user-data">

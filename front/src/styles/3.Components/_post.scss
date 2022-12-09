@@ -2,7 +2,7 @@
     &-container {
         position: relative;
         width: calc(100% - 50px);
-        border: 1px solid $black-low-op;
+        border: 1px solid $black-op2;
         border-radius: 5px;
         padding: 15px 25px;
         gap: 15px;
@@ -27,7 +27,7 @@
             }
         }
         &__data-side {
-            color: $black-perf-mid-op;
+            color: $black-op5;
             text-align: right;
             &__desktop-date {
                 @media screen and (min-width: 768px) {
@@ -85,7 +85,7 @@
         textarea {
             width: 90%;
             resize: none;
-            border-color: $black-perf-mid-op;
+            border-color: $black-op5;
             border-radius: 5px;
         }
     }

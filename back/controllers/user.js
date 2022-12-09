@@ -262,6 +262,18 @@ exports.lostFollower = (req, res, next) => {
     .catch((err) => res.status(404).json({ message: "Nous ne retrouvons pas cet utilisateur dans notre base de données" }));
 }
 
+exports.checkMail = (req, res, next) => {
+    console.log("la fonction est bien appelée")
+    UserModel.findOne({ email: req.params.email })
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(400).json({ message: "Cette adresse email n'est pas encore présente dans la base donnée" }));
+}
+
+exports.checkPseudo = (req, res, next) => {
+    UserModel.findOne({ pseudo: req.params.pseudo })
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(400).json({ message: "Ce pseudo n'est pas encore présent dans la base donnée" }));
+}
 
 
  

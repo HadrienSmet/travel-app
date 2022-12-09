@@ -49,12 +49,19 @@
         }
     }
     &-wrapper {
-        width: calc(90vw - 64px) !important;
+        width: 100%;
         margin: 0 !important;
         margin-top: 15px !important;
+        @include flexCenterX;
     }
 } 
 .thumbs.animated {
+    @media screen and (min-width: 1025px) {
+        width: calc((70vw - 64px) * 0.8) !important;
+    }
+    @media screen and (max-width: 1024px) {
+        width: calc(90vw - 64px) !important;
+    }
     li {
         @media screen and (min-width: 768px) {            
             width: 110px !important;

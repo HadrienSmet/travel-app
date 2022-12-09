@@ -7,13 +7,11 @@ import Globe3D from '../components/Globe3D';
 import MUIGradientBorder from '../components/MUIGradientBorder';
 import Post from '../components/Post';
 import PostsForm from '../components/PostsForm';
-import { useWindowSize } from '../utils/functions/hooks';
 
 const Home = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const postsData = useSelector((state) => state.postsDataStore.postsData);
-    const screenWidth = useWindowSize().width;
     let { token } = getJwtToken();
     let dataArrayForSort;
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
@@ -33,14 +31,6 @@ const Home = () => {
         })
         .catch(err => console.log(err));
     }
-
-    const handleScroll = (e) => {
-        const scrollBar = document.getElementById("globe-scroll-bar");
-        const listHeight = screenWidth > 768 ? 7719 : 6220;
-        
-        scrollBar.style.top = ((e.target.scrollTop / listHeight) * 100) + "%";
-    }
-
     
     //This function is called when the user click on a country
     //@Params { Type: String } => The country selected by the user
@@ -90,8 +80,7 @@ const Home = () => {
                         <h2>Venez voir ce qu'il se passe ailleurs</h2>
                         <Globe3D 
                             dynamicClassName="home" 
-                            changeSelectedCountry={changeSelectedCountry} 
-                            handleScroll={handleScroll}
+                            changeSelectedCountry={changeSelectedCountry}
                         />
                     </div>
                 </div>

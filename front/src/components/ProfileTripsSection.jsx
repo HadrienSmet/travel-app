@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useWindowSize } from '../utils/functions/hooks';
 import Globe3D from './Globe3D';
 import MUIGradientBorder from './MUIGradientBorder';
 import MUIPreviousTripsAccordion from './MUIPreviousTripsAccordion';
@@ -7,17 +6,9 @@ import ProfileAddTripModal from './ProfileAddTripModal';
 
 const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
     const [selectedCountry, setSelectedCountry] = useState("");
-    const screenWidth = useWindowSize().width;
 
     const changeSelectedCountry = (country) => {
         setSelectedCountry(country)
-    }
-
-    const handleScroll = (e) => {
-        const scrollBar = document.getElementById("globe-scroll-bar");
-        const listHeight = screenWidth > 768 ? 5478 : 4482;
-        
-        scrollBar.style.top = ((e.target.scrollTop / listHeight) * 100) + "%";
     }
 
     const handleFutureTrip = () => {
@@ -47,8 +38,7 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
                     <h3>Ou souhaitez vous partir?</h3>
                     <Globe3D 
                         dynamicClassName="profile" 
-                        changeSelectedCountry={changeSelectedCountry} 
-                        handleScroll={handleScroll}
+                        changeSelectedCountry={changeSelectedCountry}
                     />
                     <MUIGradientBorder onClick={() => handleFutureTrip()}>
                         <span>Faire une recherche</span>

@@ -28,26 +28,6 @@
                 font-size: 18px;
             }
         }
-        &__scroll-bar-track {
-            @media screen and (min-width: 1025px) {
-                transform: translateX(-30px);
-            }
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                transform: translateX(-15px);
-            }
-            @media screen and (min-width: 768px) {
-                height: 580px;
-                top: 8px;
-            }
-            @media screen and (max-width: 767px) {
-                height: calc(100vh - 472px);
-                transform: translateX(-15px);
-            }
-        }
-        &__scroll-bar {
-            height: 25px;
-            width: 14px;
-        }
     }
 }
 .profile-globe-container {
@@ -74,21 +54,6 @@
                 font-size: 12px;
             }
         }
-        &__scroll-bar-track {
-            @media screen and (min-width: 1025px) {
-                height: 275px;
-                transform: translateX(-30px);
-                top: -7.5px;
-            }
-            @media screen and (max-width: 1024px) {
-                height: 40vh;
-                transform: translateX(-5px);
-            }
-        }
-        &__scroll-bar {
-            height: 25px;
-            width: 8px;
-        }
     }
 }
 
@@ -113,9 +78,25 @@
         position: relative;
         background: rgb(255,255,255);
         &::-webkit-scrollbar {
-            color: $black-op8;
-            width: 100%;
-            height: 100%;
+            width: 16px;
+            background-color: transparent;
+        }
+        &:not([no-y-overflow])::-webkit-scrollbar-thumb {
+            height: 56px;
+            border-radius: 8px;
+            border: 4px solid transparent;
+            background-clip: content-box;
+            background-color: $black-op7;
+        }
+        &::-webkit-scrollbar-thumb {
+            height: 56px;
+            border-radius: 8px;
+            border: 4px solid transparent;
+            background-clip: content-box;
+            background-color: hsl(0,0%,67%);
+            &:hover {
+                background-color: lighten(hsl(0,0%,67%), 5);
+            }
         }
         li {
             text-align: right;
@@ -133,17 +114,6 @@
             a {
                color: $black-op9; 
             }
-        }
-        &__scroll-bar-track {
-            padding: 2px 0;
-            width: 14px;
-            position: relative;
-            background-color: transparent;
-        }
-        &__scroll-bar {
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.38);
-            border-radius: 4px;
         }
     }
 }

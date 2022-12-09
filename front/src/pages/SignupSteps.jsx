@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SignupPersonalDataForm from '../components/SignupPersonalDataForm';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useEffect } from 'react';

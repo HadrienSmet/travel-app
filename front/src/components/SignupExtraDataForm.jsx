@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios'
 import { TextField, Button } from '@mui/material';
 import { FaCheck, FaTimes } from "react-icons/fa";
-import MUITripModal from './MUITripModal';
+import SignupTripModal from './SignupTripModal';
 import MUIInputCountry from './MUIInputCountry';
 import { setUserLoggedData } from '../features/userLoggedData.slice';
 import { setJwtToken } from "../utils/functions/tools";
@@ -61,10 +61,29 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             timesIcon.style.opacity = "1";
             checkIcon.style.opacity = "0";
         } else {
-            setIsPseudoOk(true);
-            pseudoMsg.textContent = "";
-            timesIcon.style.opacity = "0";
-            checkIcon.style.opacity = "1";
+            axios.get(`${process.env.REACT_APP_API_URL}api/auth/checkPseudo/${pseudo}`, {
+                "Content-Type": "application/json"
+            })
+            .then((res) => {
+                console.log(res)
+                if (res.data === null) {
+                    setIsPseudoOk(true);
+                    pseudoMsg.textContent = "";
+                    timesIcon.style.opacity = "0";
+                    checkIcon.style.opacity = "1";
+                } else {
+
+                    pseudoMsg.textContent = "Le pseudo existe déjà dans notre base de donnée";
+                    timesIcon.style.opacity = "1";
+                    checkIcon.style.opacity = "0";
+                }
+            })
+            .catch((err) => {
+                setIsPseudoOk(true);
+                pseudoMsg.textContent = "";
+                timesIcon.style.opacity = "0";
+                checkIcon.style.opacity = "1";
+            });
         }
     }
 
@@ -166,7 +185,7 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             <div className="extra-data-form__fields-displayer">
                 <div className="extra-data-form__trips-area">
                     <h4>Mes précédents voyages</h4>
-                    {previousTrips === undefined && <MUITripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
+                    {previousTrips === undefined && <SignupTripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
                     <div className="extra-data-form__trips-displayer">
                         {previousTrips === undefined && <p>Listez vos précédents voyages!</p>}
                         {previousTrips !== undefined && 
