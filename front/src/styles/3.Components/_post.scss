@@ -92,6 +92,7 @@
     &__buttons-row {
         @include flexBetweenCentered;
         svg {
+            color: $tertiary-color;
             @include standardTransi;
         }
         &__opinion-side {
@@ -100,18 +101,24 @@
         }
         &__likes {
             cursor: pointer;
-            color: $primary-color;
             gap: 2px;
             @include flexCenterY;
+            p,
+            svg {
+                color: $primary-color !important;
+            }
             svg:hover {
                 transform: scale(1.1) translateY(-3px);
             }
         }
         &__dislikes {
             cursor: pointer;
-            color: $tertiary-color;
             gap: 2px;
             @include flexCenterY;
+            p,
+            svg {
+                color: $tertiary-color !important;
+            }
             svg:hover {
                 transform: scale(0.9) translateY(3px);
             }

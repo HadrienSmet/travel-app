@@ -19,9 +19,13 @@ const Profile = () => {
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const screenWidth = useWindowSize().width;
     const ref = useRef();
-
-    const toggleButtonsDisplay = () => {
-
+    
+    const toggleButtonsDisplay = (e) => {
+        const checkBtn = document.getElementById("cover-picture-validation");
+        const timesBtn = document.getElementById("cover-picture-cancel");
+        checkBtn.classList.add('active');
+        timesBtn.classList.add('active');
+        e.target.style.opacity = "1";
     }
 
     const startEditCoverPicture = (e) => {
@@ -61,10 +65,10 @@ const Profile = () => {
                 <div className="profile-section__header-background">
                     <img src={profileDefaultBg} alt="img" />
                     <div className="profile-section__header-background__buttons-area">
-                        <label htmlFor='cover-picture' onClick={() => toggleButtonsDisplay()}><FaEdit /></label>
+                        <label htmlFor='cover-picture' onClick={(e) => toggleButtonsDisplay(e)}><FaEdit /></label>
                         <input type="file" name="cover-picture" id="cover-picture" onChange={(e) => startEditCoverPicture(e)} />
-                        <span><FaCheck /></span>
-                        <span><FaTimes /></span>
+                        <span id='cover-picture-validation'><FaCheck /></span>
+                        <span id='cover-picture-cancel'><FaTimes /></span>
                         
                         
                     </div>

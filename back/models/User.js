@@ -27,6 +27,7 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true},
     profilePicture: { type: String, required: false },
+    coverPicture: { type: String, required: false },
     description: { type: String, required: true },
     dreamTrips: { type: [String], default: undefined, required: true },
     previousTrips: [previousTripSchema],

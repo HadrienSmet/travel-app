@@ -17,5 +17,6 @@ router.put('/lostFollower/:id', auth, userCtrl.lostFollower);
 router.get('/userProfile/:pseudo', auth, userCtrl.getProfile);
 router.get('/checkMail/:email', userCtrl.checkMail);
 router.get('/checkPseudo/:pseudo', userCtrl.checkPseudo);
+router.put('/setCoverPicture/:id', auth, multer, userCtrl.setCoverPicture);
 
 module.exports = router;

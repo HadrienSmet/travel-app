@@ -263,7 +263,6 @@ exports.lostFollower = (req, res, next) => {
 }
 
 exports.checkMail = (req, res, next) => {
-    console.log("la fonction est bien appelée")
     UserModel.findOne({ email: req.params.email })
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).json({ message: "Cette adresse email n'est pas encore présente dans la base donnée" }));
@@ -273,6 +272,27 @@ exports.checkPseudo = (req, res, next) => {
     UserModel.findOne({ pseudo: req.params.pseudo })
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).json({ message: "Ce pseudo n'est pas encore présent dans la base donnée" }));
+}
+
+exports.setCoverPicture = (req, res, next) => {
+    UserModel.findOne({ _id: req.params.id })
+    .then((user) => {
+        if (user._id != req.auth.userId) {
+            return res.status(401).json({ message: "Requête non-autorisée" });
+        } else {
+            let urlCoverPicture = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
+            UserModel.updateOne(
+                { _id: req.params.id },
+                { $set: { coverPicture: urlCoverPicture } }
+            )
+            .then((userModified) => res.status(401).json({ 
+                message: "Photo de couverture mise à jour!",
+                coverPicture: urlCoverPicture
+            }))
+            .catch((err) => res.status(400).json({ message: "Mauvaise requete l'update a mal tourné" }))
+        }
+    })
+    .catch((err) => res.status(404).json({ message: "Notre serveur ne trouve aucun utilisateur possédant cet id" }));
 }
 
 
