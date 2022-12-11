@@ -11,14 +11,19 @@ import ProfileInfosSection from '../components/ProfileInfosSection';
 import { FaUserCog, FaUserEdit, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import { useRef } from 'react';
 import { useWindowSize } from '../utils/functions/hooks';
+import axios from 'axios';
+import { getJwtToken } from '../utils/functions/tools';
 
 const Profile = () => {
     const [profileState, setProfileState] = useState("actuality");
     const [coverPicture, setCoverPicture] = useState("");
     const [coverPictureUrl, setCoverPictureUrl] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+    const [defaultPicture, setDefaultPicture] = useState(true);
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const screenWidth = useWindowSize().width;
     const ref = useRef();
+    let { token } = getJwtToken();
     
     const toggleButtonsDisplay = (e) => {
         const checkBtn = document.getElementById("cover-picture-validation");
@@ -30,7 +35,28 @@ const Profile = () => {
 
     const startEditCoverPicture = (e) => {
         setCoverPicture(e.target.files[0]);
-        setCoverPictureUrl(URL.createObjectURL(e.target.files[0]))
+        setCoverPictureUrl(URL.createObjectURL(e.target.files[0]));
+        setIsEditing(true);
+    }
+
+    const handleEditCoverPicture = () => {
+        const data = new FormData();
+        data.append('file', coverPicture);
+        axios({
+            url: `${process.env.REACT_APP_API_URL}api/auth/setCoverPicture/${userProfile.userId}`,
+            method: "put",
+            data: data,
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "authorization": `bearer ${token}`
+            }
+        })
+        .then((res) => console.log(res.data.coverPicture))
+        .catch((err) => console.log(err));
+    }
+
+    const handleCancelCoverPicture = () => {
+
     }
 
     //This useEffect handles the position of the navigation bar of the profile section
@@ -55,22 +81,33 @@ const Profile = () => {
             default:
                 console.log("Bravo t'as réussi à faire bugger mon app fdp")
         }
+        if (userProfile.coverPicture !== undefined) {
+            setDefaultPicture(false);
+        }
         /* eslint-disable react-hooks/exhaustive-deps */
-    }, [profileState])
+    }, [profileState, userProfile])
 
     return (
         <main className='profile-section'>
             <div className="fake-margin-replacing-header"></div>
             <div className="profile-section__header">
                 <div className="profile-section__header-background">
-                    <img src={profileDefaultBg} alt="img" />
+                    {isEditing === true && <img src={coverPictureUrl} alt="img" />}
+                    {isEditing === false && defaultPicture === true && <img src={profileDefaultBg} alt="img" />}
+                    {isEditing === false && defaultPicture === false && <img src={userProfile.coverPicture} alt="img" />}
                     <div className="profile-section__header-background__buttons-area">
-                        <label htmlFor='cover-picture' onClick={(e) => toggleButtonsDisplay(e)}><FaEdit /></label>
-                        <input type="file" name="cover-picture" id="cover-picture" onChange={(e) => startEditCoverPicture(e)} />
-                        <span id='cover-picture-validation'><FaCheck /></span>
-                        <span id='cover-picture-cancel'><FaTimes /></span>
-                        
-                        
+                        <form action='' encType='multipart/form-data'>
+                            <label htmlFor='cover-picture' onClick={(e) => toggleButtonsDisplay(e)}><FaEdit /></label>
+                            <input type="file" name="cover-picture" id="cover-picture" onChange={(e) => startEditCoverPicture(e)} />
+                            <span 
+                                id='cover-picture-validation'
+                                onClick={() => handleEditCoverPicture()}    
+                            ><FaCheck /></span>
+                            <span 
+                                id='cover-picture-cancel'
+                                onClick={() => handleCancelCoverPicture()}    
+                            ><FaTimes /></span>
+                        </form>
                     </div>
                 </div>
                 <div className="profile-section__header__user-intro">
