@@ -56,23 +56,31 @@
             border-radius: 15px;
         }
         &__file-edit {
+            @media screen and (min-width: 1025px) {
+                right: 8.5%;
+            }
+            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                right: 10%;
+            }
+            @media screen and (max-width: 767px) {
+                right: 15%;
+            }
             display: flex;
             gap: 10px;
             position: absolute;
             transform: translateY(5px);
-            right: 8.5%;
             span, label {
                 width: 25px;
                 height: 25px;
                 border-radius: 50%;
-                background-color: $secondary-color;
+                background-color: $clr-1;
                 @include standardTransi;
                 @include flexFullCenter;
                 &:hover {
                     transform: translateY(5px) scale(1.1);
                     background-color: $primary-color;
                     > svg {
-                        color: $secondary-color;
+                        color: $clr-1;
                     }
                 }
             }

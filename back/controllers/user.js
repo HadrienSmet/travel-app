@@ -116,6 +116,7 @@ exports.login = (req, res, next) => {
             res.status(200).json({
                 email: user.email,
                 profilePicture: user.profilePicture,
+                coverPicture: user.coverPicture,
                 pseudo: user.pseudo,
                 country: user.userData.country,
                 firstName: user.userData.firstName,
@@ -280,16 +281,36 @@ exports.setCoverPicture = (req, res, next) => {
         if (user._id != req.auth.userId) {
             return res.status(401).json({ message: "Requête non-autorisée" });
         } else {
-            let urlCoverPicture = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
-            UserModel.updateOne(
-                { _id: req.params.id },
-                { $set: { coverPicture: urlCoverPicture } }
-            )
-            .then((userModified) => res.status(401).json({ 
-                message: "Photo de couverture mise à jour!",
-                coverPicture: urlCoverPicture
-            }))
-            .catch((err) => res.status(400).json({ message: "Mauvaise requete l'update a mal tourné" }))
+            console.log("cntlrs.user l:284 : La requete est authentifiée!")
+            if (user.coverPicture === undefined || user.coverPicture === null) {
+                console.log("cntlrs.user l:286 : L'utilisateur n'avait pas de photo de couverture")
+                let urlCoverPicture = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
+                UserModel.updateOne(
+                    { _id: req.params.id },
+                    { $set: { coverPicture: urlCoverPicture } }
+                )
+                .then((userModified) => res.status(201).json({ 
+                    message: "Photo de couverture mise à jour!",
+                    coverPicture: urlCoverPicture
+                }))
+                .catch((err) => res.status(400).json({ message: "Mauvaise requete l'update a mal tourné" }));
+            } else {
+                console.log("cntlrs.user l:286 : L'utilisateur avait une photo de couverture")
+                const filename = user.coverPicture.split('/images/')[1];
+                console.log("ctrl.user l:300 filename : " + filename)
+                fs.unlink(`images/${filename}`, () => {
+                    let urlCoverPicture = `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`;
+                    UserModel.updateOne(
+                        { _id: req.params.id },
+                        { $set: { coverPicture: urlCoverPicture } }
+                    )
+                    .then(() => res.status(201).json({ 
+                        message: "Photo de couverture mise à jour!",
+                        coverPicture: urlCoverPicture
+                    }))
+                    .catch((err) => res.status(400).json({ message: "Mauvaise requete l'update a mal tourné" }));
+                });
+            }
         }
     })
     .catch((err) => res.status(404).json({ message: "Notre serveur ne trouve aucun utilisateur possédant cet id" }));

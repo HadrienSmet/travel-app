@@ -15,7 +15,6 @@ const PostsForm = () => {
     const handlePostFile = (e) => {
         setPostFileUrl(URL.createObjectURL(e.target.files[0]));
         setPostFile(e.target.files[0]);
-        console.log(postFile);
     }
 
     const handlePostSubmission = () => {
@@ -45,7 +44,6 @@ const PostsForm = () => {
             setPostFile("");
             setPostFileUrl("");
             setPostText("");
-            console.log(res);
             axios({
                 url: `${process.env.REACT_APP_API_URL}api/posts`,
                 method: "get",
@@ -55,7 +53,6 @@ const PostsForm = () => {
                 }
             })
             .then(res => {
-                    console.log(res.data);
                     dispatch(setPostsData(res.data));
             })
             .catch(err => console.log(err));

@@ -118,7 +118,7 @@ const SignupPersonalDataForm = ({ changeStepState, changeProfilePicture, changeU
 
     return (
         <form action="" className="personal-data-form">
-            <h3>Informations personnelles</h3>
+            <h1>Informations personnelles</h1>
             <div className="personal-data-form__fields-displayer">
                 <div className="personal-data-form__left-column">
                     <div className="personal-data-form__picture-area">

@@ -32,10 +32,11 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
 
     return (
         <section className="profile-contact-section">
+            <h1>Contacts</h1>
                 <div className="profile-contact-section__followers-division">
                     {isAuthor === true ?
                         <div className="profile-contact-section__jsx-container">
-                            <h3>Vos abonnés</h3>
+                            <h2>Vos abonnés</h2>
                             {followers[0] === undefined ?
                                 <p>Y aura bientot tous les utilisateurs te suivant ici!</p>
                             :
@@ -66,7 +67,7 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
                         </div>
                     :
                         <div className="profile-contact-section__jsx-container">
-                            <h3>Ses abonnés</h3>
+                            <h2>Ses abonnés</h2>
                             {followers[0] === undefined ?
                                 <p>Y aura bientot tous les utilisateurs suivant ce profil ici!</p>
                             :
@@ -100,7 +101,7 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
                 <div className="profile-contact-section__following-division">
                     {isAuthor === true ?
                         <div className="profile-contact-section__jsx-container">
-                            <h3>Vos abonnements</h3>
+                            <h2>Vos abonnements</h2>
                             {following[0] === undefined ?
                                 <p>Y aura bientot tous les utilisateurs que tu suis ici!</p>
                             :
@@ -131,7 +132,7 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
                         </div>
                     :
                         <div className="profile-contact-section__jsx-container">
-                            <h3>Ses abonnements</h3>
+                            <h2>Ses abonnements</h2>
                             {following[0] === undefined ?
                                 <p>Y aura bientot tous les utilisateurs que ce profil suit ici!</p>
                             :

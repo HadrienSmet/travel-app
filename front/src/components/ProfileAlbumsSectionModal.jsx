@@ -31,7 +31,7 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
             <Button className="btn-toggle-full-album-modal" key={"btn-toggle-modal-" + index} onClick={handleOpen}><FaPlus /></Button>
         </div> 
       <Modal
-      key={"more-picture__modal-" + index} 
+        key={"more-picture__modal-" + index} 
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -52,7 +52,7 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
                     component="h2"
                     className="album-modal__title"
                 >
-                {album.name}
+                  {album.name}
                 </Typography>
                 <FaTimes key={"more-picture__modal-header-icon-" + index} onClick={() => setOpen(false)} />
             </div>

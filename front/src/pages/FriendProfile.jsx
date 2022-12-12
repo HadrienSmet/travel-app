@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup } from "@mui/material";
-import profileDefaultBg from '../assets/images/signup-carousel-bg4.jpeg';
+import profileDefaultBg from '../assets/images/profile-default-bg.webp';
 import { useState } from 'react';
 import FriendProfilePostsSection from '../components/FriendProfilePostsSection';
 import ProfileAlbumsSection from '../components/ProfileAlbumsSection';

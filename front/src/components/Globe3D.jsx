@@ -2,7 +2,7 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { Suspense, useMemo, useRef } from "react";
 import { PerspectiveCamera } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import imgGlobe from "../assets/images/globe.jpg";
+import imgGlobe from "../assets/images/globe.webp";
 import countryList from 'react-select-country-list';
 import { useWindowSize } from "../utils/functions/hooks";
 

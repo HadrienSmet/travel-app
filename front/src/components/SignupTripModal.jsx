@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
 import { Button, Modal, Box, TextField } from '@mui/material';
@@ -7,7 +7,7 @@ import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from './MUIInputCountry';
 import MUIInputNumbers from './MUIInputNumbers';
 import MUIInputSelect from './MUIInputSelect';
-import MUIGradientBorder from "./MUIGradientBorder"
+import MUIGradientBorder from './MUIGradientBorder';
 
 const style = {
     position: 'absolute',
@@ -49,7 +49,6 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
             urls: albumPictureUrl
         }
         setOpen(false);
-        console.log(albumPicture, albumPictureUrl);
         changeAlbumsArray(albumPicture);
         dispatch(setAlbumObjectArrayStore(album));
     };
@@ -74,9 +73,6 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
         }
         setAlbumPictureUrl(albumArrayUrl);
         setAlbumPicture(albumArray);
-        
-        console.log(albumArray);
-        console.log(albumArrayUrl);
     }
 
     return (
@@ -91,7 +87,7 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
             >
                 <Box sx={{ ...style, width: 200 }} className="child-modal">
                     <div className="child-modal__header">
-                        <h3 id="child-modal-title">Album {destination} {year}</h3>
+                        <h4 id="child-modal-title">Album {destination} {year}</h4>
                         <BsXLg onClick={() => setOpen(false)} />
                     </div>
                     <div className="child-modal__same-row">    
@@ -113,7 +109,8 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
                             {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
                         </div>
                     </div>
-                    <MUIGradientBorder onClick={handleClose}>confirmer</MUIGradientBorder>
+                    <MUIGradientBorder><span onClick={() => handleClose()}>confirmer</span></MUIGradientBorder>
+
                 </Box>
             </Modal>
         </Fragment>
@@ -153,12 +150,6 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
         'Aves des ami(e)s',
         'En famille',
       ];
-
-    useEffect(() => {
-        console.log(albumData);
-        console.log(albumData[0]);
-        /* eslint-disable react-hooks/exhaustive-deps */
-    }, [])
 
     //This function changes the state of the component in order to open the parent modal
     const handleOpen = () => {
@@ -204,7 +195,6 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
     //This functions handle the submission of the data provided by the two modals
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
-        console.log(destination, duration, year, details);
         if (destination.match(/\$<>=\+\*/i)) {
             alert("Les caractères suivants ne sont pas tolérés. $ > < = + *")
         } else {
@@ -236,7 +226,7 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
             >
                 <Box sx={{ ...style, width: 400 }}>
                     <div className="trip-modal__header">
-                        <h2>Ajouter un voyage</h2>
+                        <h3>Ajouter un voyage</h3>
                         <BsXLg onClick={() => setOpen(false)}  />
                     </div>
                     <div className="trip-modal__content">

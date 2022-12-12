@@ -28,7 +28,6 @@ const SigninForm = () => {
             "Content-Type": "application/json"
         })
         .then((res) => {
-            console.log(res);
             if (res.status === 401) {
                 span.textContent = "Paire d'email et de mot de passe incorrect";
             } else {
@@ -38,7 +37,6 @@ const SigninForm = () => {
                 navigate("/home");
                 setIsLoading(false)
             }
-            
         })
         .catch((err) => {
             console.log(err)
@@ -52,7 +50,7 @@ const SigninForm = () => {
                 className='signin-form'
                 onSubmit={(e) => handleSubmission(e)}
             >
-                <h3>Connectez-vous!</h3>
+                <h2>Connectez-vous!</h2>
                 <div className="signin-container__email-division">
                     <div className="signin-container__icons-container">
                         {mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}

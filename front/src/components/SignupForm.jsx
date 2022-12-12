@@ -30,7 +30,6 @@ const SignupForm = () => {
                 "Content-Type": "application/json"
             })
             .then((res) => {
-                console.log(res)
                 if (res.data === null) {
                     setIsEmailOk(true);
                     mailMsg.textContent = "";
@@ -98,7 +97,6 @@ const SignupForm = () => {
             navigate("/signup-steps");
             dispatch(setSignupData(userData));
         }
-        console.log(email + "--" + password)
     }
     return (
         <div id='signup' className='signup-container start-form'>
@@ -106,7 +104,7 @@ const SignupForm = () => {
                 action=""
                 className='signup-form'
                 onSubmit={(e) => handleSubmission(e)}>
-                    <h3>Inscrivez-vous!</h3>
+                    <h2>Inscrivez-vous!</h2>
                     <div className="signup-form__email-division">
                         <div className="signup-form__email-division__icons-container">
                             <FaCheck className='signup-form__email-division__check-icon signup-icon' />

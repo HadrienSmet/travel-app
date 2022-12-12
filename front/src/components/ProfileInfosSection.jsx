@@ -2,9 +2,10 @@ const ProfileInfosSection = ({ dataFrom, isAuthor }) => {
 
     return (
         <div className='profile-infos-section'>
+
             {isAuthor === true ? 
                 <div className="profile-infos-section-user">
-                    <h3>Mes informations personnelles :</h3>
+                    <h1>Mes informations personnelles :</h1>
                     <div className="profile-infos-section__content">
                         <div className="profile-infos-section__left-column">
                             <span><strong>Prénom: </strong>{dataFrom.firstName}</span>
@@ -19,7 +20,7 @@ const ProfileInfosSection = ({ dataFrom, isAuthor }) => {
                             <div className="profile-infos-section__dream-trips-div">
                                 <strong>Mes destinations des rêve: </strong>
                                 <ul>
-                                    {dataFrom.dreamTrips.map((destination) => (<li>{destination}</li>))}
+                                    {dataFrom.dreamTrips.map((destination) => (<li key={destination}>{destination}</li>))}
                                 </ul>
                             </div>
                             
@@ -28,7 +29,7 @@ const ProfileInfosSection = ({ dataFrom, isAuthor }) => {
                 </div>
             :
                 <div className="profile-infos-section-friend">
-                    <h3>Ses informations personnelles :</h3>
+                    <h1>Ses informations personnelles :</h1>
                     <div className="profile-infos-section__content">
                         <div className="profile-infos-section__left-column">
                             <span><strong>Prénom: </strong>{dataFrom.userData.firstName}</span>
@@ -43,7 +44,7 @@ const ProfileInfosSection = ({ dataFrom, isAuthor }) => {
                             <div className="profile-infos-section__dream-trips-div">
                                 <strong>Mes destinations des rêve: </strong>
                                 <ul>
-                                    {dataFrom.dreamTrips.map((destination) => (<li>{destination}</li>))}
+                                    {dataFrom.dreamTrips.map((destination) => (<li key={destination}>{destination}</li>))}
                                 </ul>
                             </div>
                         </div>  

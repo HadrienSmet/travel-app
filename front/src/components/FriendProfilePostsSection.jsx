@@ -26,6 +26,7 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
     }, [])
     return (
         <section className="profile__posts-section">
+            <h1>Posté dernièrement</h1>
             <div className="profile__posts-section__posts-div">
                 {userPosts !== undefined && 
                     postsArray

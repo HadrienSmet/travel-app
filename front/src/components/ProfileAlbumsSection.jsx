@@ -23,14 +23,14 @@ const ProfileAlbumsSection = ({ isAuthor, dataFrom }) => {
     return (
         <div className='profile-albums-section'>
             {isAuthor === true ?
-                <h2>Mes albums :</h2>
+                <h1>Mes albums :</h1>
             :
-                <h2>Ses albums :</h2>
+                <h1>Ses albums :</h1>
             }
             {dataFrom.albums.length === 1 
             ?
                 <div className="profile-albums-section__album-container">
-                    <h3>{dataFrom.albums[0].name}</h3>
+                    <h2>{dataFrom.albums[0].name}</h2>
                     <div className="profile-albums-section__pictures-container">
                         {screenWidth > 1025 ? 
                             dataFrom.albums[0].pictures.map((picture, index) => {

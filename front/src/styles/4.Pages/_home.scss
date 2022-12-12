@@ -17,7 +17,6 @@
             }
             position: relative;
             gap: 20px;
-            // width: calc(100% - 60px);
             border-radius: 15px;
             margin-bottom: 15px;
             &__intro-and-btn-area {
@@ -42,7 +41,11 @@
                 gap: 15px;
                 @include flexCenterY;
                 h1 {
-                    font-size: 32px;
+                    @media screen and (max-width: 767px) {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: calc(100% - 115px);
+                    }
                 }
                 &__img-container {
                     @media screen and (min-width: 1025px) {
@@ -92,7 +95,7 @@
             @media screen and (min-width: 1025px) {
                 width: 45%;
             }
-            @media screen and (max-width: 767px) {
+            @media screen and (max-width: 1024px) {
                 width: 100%;
             }
             gap: 15px;

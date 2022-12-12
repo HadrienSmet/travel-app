@@ -3,7 +3,7 @@ import SignupPersonalDataForm from '../components/SignupPersonalDataForm';
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useEffect } from 'react';
 import SignupExtraDataForm from '../components/SignupExtraDataForm';
-import signupBanner from '../assets/images/carousel-bg1.jpeg'
+import signupBanner from '../assets/images/signup-steps-bg.webp'
 import { useParallax } from 'react-scroll-parallax';
 import { useWindowSize } from '../utils/functions/hooks';
 

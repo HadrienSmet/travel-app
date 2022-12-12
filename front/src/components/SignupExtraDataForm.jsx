@@ -34,7 +34,6 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             albumsContainer = [...albumsArray, array]
         }
         setAlbumsArray(albumsContainer);
-        console.log(albumsArray);
     }
 
     //This function his here to allow the trip-modal wich is the child of this component to change the state of this component
@@ -65,7 +64,6 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
                 "Content-Type": "application/json"
             })
             .then((res) => {
-                console.log(res)
                 if (res.data === null) {
                     setIsPseudoOk(true);
                     pseudoMsg.textContent = "";
@@ -119,7 +117,6 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
     }
 
     const handleSubmission = () => {
-        console.log(userPersonals);
         const { userAuth, userData } = userPersonals;
         const { email, password } = userAuth;
         const { firstName, lastName, age, gender, country } = userData;
@@ -162,7 +159,6 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             })
             .then((res) => {
                 setJwtToken(res.data);
-                console.log(res.data);
                 axios.patch(`${process.env.REACT_APP_API_URL}api/auth/userProfile/${res.data.userId}`, fileData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -170,7 +166,6 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
                     }
                 })
                 .then((res) => {
-                    console.log(res);
                     dispatch(setLoggedState(true));
                     dispatch(setUserLoggedData(res.data));
                     navigate("/home");
@@ -181,10 +176,10 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
  
     return (
         <form action="" className='extra-data-form' encType='multipart/form-data'>
-            <h3>Remplissez votre profil!</h3>
+            <h1>Remplissez votre profil!</h1>
             <div className="extra-data-form__fields-displayer">
                 <div className="extra-data-form__trips-area">
-                    <h4>Mes précédents voyages</h4>
+                    <h2>Mes précédents voyages</h2>
                     {previousTrips === undefined && <SignupTripModal changeAlbumsArray={changeAlbumsArray} changeTrips={changeTrips} />}
                     <div className="extra-data-form__trips-displayer">
                         {previousTrips === undefined && <p>Listez vos précédents voyages!</p>}
@@ -228,7 +223,7 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
                         />
                         <span id="extra-description-msg"></span>
                     </div>
-                    <h4>Mes destinations de rêve</h4>
+                    <h2>Mes destinations de rêve</h2>
                     <div className="extra-data-form__dream-trips-division">
                         <div className="extra-data-form__dream-trips-division__icons-container">
                             {dreamTrip !== undefined && <FaCheck className='extra-data-form__dream-trips-division__check-icon last-step-icon check' />}

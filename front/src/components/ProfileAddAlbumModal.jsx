@@ -116,10 +116,10 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
             >
                 <Box sx={{ ...style, width: 200 }} className="add-album-modal">
                     <div className="add-album-modal__header">
-                        <h3 className="add-album-modal-title">Album {destination} {year}</h3>
+                        <h2 className="add-album-modal-title">Album {destination} {year}</h2>
                         <BsXLg onClick={() => setOpen(false)} />
                     </div>
-                    <h4 id="add-album-modal-description">Partagez-nous des souvenirs de votre voyage!</h4>
+                    <h3 id="add-album-modal-description">Partagez-nous des souvenirs de votre voyage!</h3>
                     <form action="" encType='multipart/form-data'>
                         <div className="add-album-modal__same-row">
                             <div className="add-album-modal__country-field">    

@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup } from "@mui/material";
-import profileDefaultBg from '../assets/images/signup-carousel-bg4.jpeg';
+import profileDefaultBg from '../assets/images/profile-default-bg.webp';
 import { useState, useEffect } from 'react';
 import ProfilePostsSection from '../components/ProfilePostsSection';
 import ProfileAlbumsSection from '../components/ProfileAlbumsSection';
@@ -13,6 +13,7 @@ import { useRef } from 'react';
 import { useWindowSize } from '../utils/functions/hooks';
 import axios from 'axios';
 import { getJwtToken } from '../utils/functions/tools';
+import { setCoverPictureInUserLoggedData } from '../features/userLoggedData.slice';
 
 const Profile = () => {
     const [profileState, setProfileState] = useState("actuality");
@@ -20,10 +21,12 @@ const Profile = () => {
     const [coverPictureUrl, setCoverPictureUrl] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [defaultPicture, setDefaultPicture] = useState(true);
+
     const userProfile = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const screenWidth = useWindowSize().width;
+    const dispatch = useDispatch();
     const ref = useRef();
-    let { token } = getJwtToken();
+    let { token, userId } = getJwtToken();
     
     const toggleButtonsDisplay = (e) => {
         const checkBtn = document.getElementById("cover-picture-validation");
@@ -43,7 +46,7 @@ const Profile = () => {
         const data = new FormData();
         data.append('file', coverPicture);
         axios({
-            url: `${process.env.REACT_APP_API_URL}api/auth/setCoverPicture/${userProfile.userId}`,
+            url: `${process.env.REACT_APP_API_URL}api/auth/setCoverPicture/${userId}`,
             method: "put",
             data: data,
             headers: {
@@ -51,7 +54,15 @@ const Profile = () => {
                 "authorization": `bearer ${token}`
             }
         })
-        .then((res) => console.log(res.data.coverPicture))
+        .then((res) => {
+            console.log(res.data.coverPicture)
+            dispatch(setCoverPictureInUserLoggedData(res.data.coverPicture))
+            setIsEditing(false);
+            const checkBtn = document.getElementById("cover-picture-validation");
+            const timesBtn = document.getElementById("cover-picture-cancel");
+            checkBtn.classList.remove('active');
+            timesBtn.classList.remove('active');
+        })
         .catch((err) => console.log(err));
     }
 

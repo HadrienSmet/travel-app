@@ -26,6 +26,7 @@ const ProfilePostsSection = () => {
     }, [])
     return (
         <section className="profile__posts-section">
+            <h1>Posté dernièrement</h1>
             <div className="profile__posts-section__posts-div">
                 {userPosts !== undefined && 
                     postsArray
@@ -34,7 +35,7 @@ const ProfilePostsSection = () => {
                         <Post key={index} post={post} />
                     ))
                 }
-                {userPosts === undefined && <h4>Venez poster vos expériences sur la plateforme!</h4>}
+                {userPosts === undefined && <h2>Venez poster vos expériences sur la plateforme!</h2>}
             </div>
             
         </section>

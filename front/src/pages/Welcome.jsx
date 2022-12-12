@@ -8,8 +8,8 @@ import { resetAlbumObjectArray } from '../features/albumObjectArray.slice';
 import { setWelcomeState } from '../features/welcomeState.slice';
 import SignupForm from '../components/SignupForm';
 import SigninForm from '../components/SigninForm';
-import imageDesktop from '../assets/images/carousel-bg4.jpeg';
-import imageMobile from "../assets/images/signup-carousel-bg6.jpeg"
+import imageDesktop from '../assets/images/home-desktop-bg.webp';
+import imageMobile from "../assets/images/home-mobile-bg.webp"
 
 const Welcome = () => {
     const dispatch = useDispatch();

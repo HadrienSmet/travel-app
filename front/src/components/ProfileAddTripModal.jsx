@@ -106,7 +106,6 @@ const ProfileAddTripModal = () => {
     //This functions handle the submission of the data provided by the two modals
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
-        console.log(destination, duration, year, details);
         let trip = {
             destination,
             year,
@@ -114,7 +113,6 @@ const ProfileAddTripModal = () => {
             withWho: choice,
             details
         }
-        console.log(trip);
         axios({
             url: `${process.env.REACT_APP_API_URL}api/auth/setTrip/${userId}`,
             method: "put",
@@ -126,7 +124,6 @@ const ProfileAddTripModal = () => {
         })
         .then((res) => {
             setOpen(false);
-            console.log(res);
             dispatch(pushTripInUserLoggedData(res.data.newTrip));
         })
         .catch((err) => console.log(err));

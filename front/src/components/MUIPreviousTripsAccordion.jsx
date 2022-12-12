@@ -1,14 +1,9 @@
-import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const MUIPreviousTripsAccordion = ({ previousTrips, dynamicClass, signingUp }) => {
-  React.useEffect(() => {
-    console.log(previousTrips);
-    /* eslint-disable react-hooks/exhaustive-deps */
-  }, [])
 
   return (
     <div className={dynamicClass + '__accordion'}>
