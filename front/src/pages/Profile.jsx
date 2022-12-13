@@ -69,7 +69,6 @@ const Profile = () => {
             setIsEditing(false);
             const checkBtn = document.getElementById("cover-picture-validation");
             const timesBtn = document.getElementById("cover-picture-cancel");
-            // e.target.style.opacity = "1";
             checkBtn.classList.remove('active');
             timesBtn.classList.remove('active');
         })
@@ -77,7 +76,13 @@ const Profile = () => {
     }
 
     const handleCancelCoverPicture = () => {
-
+        setCoverPicture("");
+        setCoverPictureUrl("");
+        setIsEditing(false)
+        const checkBtn = document.getElementById("cover-picture-validation");
+        const timesBtn = document.getElementById("cover-picture-cancel");    
+        checkBtn.classList.remove('active');
+        timesBtn.classList.remove('active');
     }
 
     //This useEffect handles the position of the navigation bar of the profile section

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPostsData } from '../features/postsData.slice';
 import { getJwtToken } from '../utils/functions/tools';
@@ -9,6 +9,8 @@ import Post from '../components/Post';
 import PostsForm from '../components/PostsForm';
 
 const Home = () => {
+    const [loadPost, setLoadPost] = useState(true);
+    const [count, setCount] = useState(10);
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
     const postsData = useSelector((state) => state.postsDataStore.postsData);
@@ -17,7 +19,8 @@ const Home = () => {
     postsData !== null ? dataArrayForSort = [...postsData] : dataArrayForSort = [];
     
     //This function gets from the API all the posts and displays it into the redux store
-    const fetchAllposts = () => {
+    //@Params { type: Number } => referring the number of posts that will be displayed
+    const fetchAllposts = (num) => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts`,
             method: "get",
@@ -27,7 +30,8 @@ const Home = () => {
             }
         })
         .then(res => {
-                dispatch(setPostsData(res.data));
+            const array = res.data.slice(0, num);
+            dispatch(setPostsData(array));
         })
         .catch(err => console.log(err));
     }
@@ -49,16 +53,35 @@ const Home = () => {
         })
         .catch(err => console.log(err));
     }
+
+    //This function is here to activate the useEffect whenever the user starts to see the footer
+    const loadMore = () => {
+        if (window.innerHeight + document.documentElement.scrollTop + 126 > document.scrollingElement.scrollHeight) {
+            setLoadPost(true);
+        }
+    }
     
-    //This useEffect calls a funciton in order to get all the posts from the data base and it put all of them in the redux store
+    //This useEffect is here to get the posts made by a specified user and then displays all the data in the redux store
+    //If the app indicates by his local state that posts have to be loaded:
+    //A function to make the call API is called, then when indicate to the app that it doesn't need anymore to load posts and then increase the amount of posts that will be called next time
+    //This useEffect is also listening an event on the window in order to check how far the user scrolled the page
     useEffect(() => {
-        fetchAllposts();
+        if (loadPost) {
+            fetchAllposts(count);
+            setLoadPost(false);
+            setCount(count + 10);
+        }
+
+        window.addEventListener('scroll', loadMore);
+
+        return () => window.removeEventListener('scroll', loadMore);
+
         /* eslint-disable react-hooks/exhaustive-deps */
-    }, [])
+    }, [loadPost])
 
     return (
         <main>
-            <div className="fake-margin-replacing-header"></div>
+            <div id="go-on-top" className="fake-margin-replacing-header"></div>
             <section className="home__content">
                 <div className="home__content__header">
                     <div className="home__content__header__intro-and-btn-area">

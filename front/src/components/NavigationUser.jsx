@@ -34,7 +34,7 @@ const NavigationUser = () => {
             {screenWidth > 1025 ?
                 <ButtonGroup variant="text" aria-label="text button group">
                     <Button>
-                        <Link to="/home">Accueil</Link>
+                        {window.location.href.split("3001/")[1] === "home" ? <a href="#go-on-top">Accueil</a> : <Link to="/home">Accueil</Link>}
                     </Button>
                     <Button id="nav-scd-child">
                         <Link to="/profile">Profil</Link>

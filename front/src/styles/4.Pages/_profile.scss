@@ -40,57 +40,83 @@
                 top: 0px;
                 height: calc(100% - 40px);
                 padding: 20px;
-                @include flexColumn;
-                align-items: center;
-                span {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    @include flexFullCenter;
-                    background-color: $primary-color;
-                    position: absolute;
-                    opacity: 0;
-                    transform: translateY(0);
-                    transition: 0.3s ease-in-out;
-                    &:first-of-type.active {
-                        transform: translateY(110px);
-                        opacity: 1;
-                    }
-                    &:last-child.active {
-                        transform: translateY(180px);
-                        opacity: 1;
-                    }
-                    svg {
-                        color: $clr-1;
-                    }
-                } 
-                label {
-                    @media screen and (min-width: 1025px) {
-                        width: 80px;
-                        height: 80px;
-                    }
-                    @media screen and (min-width: 768px) and (max-width: 1024px) {
-                        height: 65px;
-                        width: 65px;
-                    }
-                    @media screen and (max-width: 767px) {
-                        height: 50px;
-                        width: 50px;
-                    }
-                    z-index: 2;
-                    opacity: 0.3;
-                    border-radius: 80px 10px 80px 80px;
-                    border:  2px solid $tertiary-color;
-                    background-color: $tertiary-color;
-                    @include flexFullCenter;
-                    &:hover {
-                        opacity: 1;
-                    }
-                    svg {
-                        z-index: 1;
-                        color: $clr-1;
-                        font-size: 30px;
-                        @include standardTransi;
+                form {
+                    @include flexColumn;
+                    align-items: center;
+                    span {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        @include flexFullCenter;
+                        background-color: $primary-color;
+                        position: absolute;
+                        opacity: 0;
+                        transform: translateY(0);
+                        transition: 0.3s ease-in-out;
+                        &:first-of-type.active {
+                            @media screen and (min-width: 1025px) {
+                                transform: translateY(110px);
+                            }
+                            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                                transform: translateY(90px);
+                            }
+                            @media screen and (max-width: 767px) {
+                                transform: translateY(70px);
+                            }
+                            opacity: 1;
+                        }
+                        &:last-child.active {
+                            @media screen and (min-width: 1025px) {
+                                transform: translateY(180px);
+                            }
+                            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                                transform: translateY(150px);
+                            }
+                            @media screen and (max-width: 767px) {
+                                transform: translateY(130px);
+                            }
+                            opacity: 1;
+                        }
+                        svg {
+                            color: $clr-1;
+                        }
+                    } 
+                    label {
+                        @media screen and (min-width: 1025px) {
+                            width: 80px;
+                            height: 80px;
+                            opacity: 0.3;
+                            &:hover {
+                                opacity: 1;
+                            }
+                        }
+                        @media screen and (min-width: 768px) and (max-width: 1024px) {
+                            height: 65px;
+                            width: 65px;
+                        }
+                        @media screen and (max-width: 767px) {
+                            height: 50px;
+                            width: 50px;
+                        }
+                        z-index: 2;
+                        border-radius: 80px 10px 80px 80px;
+                        border:  2px solid $tertiary-color;
+                        background-color: $tertiary-color;
+                        @include flexFullCenter;
+                        svg {
+                            @media screen and (min-width: 1025px) {
+                                font-size: 30px;
+                            }
+                            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                                font-size: 25px;
+                            }
+                            @media screen and (max-width: 767px) {
+                                font-size: 20px;
+                            }
+                            z-index: 1;
+                            color: $clr-1;
+                            @include standardTransi;
+                        }
                     }
                 }
             }

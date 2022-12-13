@@ -3,6 +3,7 @@ header {
         div {
             button {
                 position: relative;
+                color: $clr-1 !important;
                 cursor: pointer;
                 transition: 0.2s ease-in;
                 transform: translateY(-100%);
@@ -40,9 +41,6 @@ header {
                         transform:  scaleX(0);
                     }
                 }
-            }
-            a {
-                color: $clr-1;
             }
         }
         .guest-mobile-nav {

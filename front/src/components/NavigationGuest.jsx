@@ -38,10 +38,10 @@ const NavigationGuest = () => {
         {screenWidth > 1025 ?
             <ButtonGroup variant="text" aria-label="text button group">
                 <Button onClick={() => dispatch(setWelcomeState("signup"))}>
-                    <a href="#signup">Inscription</a>
+                    Inscription
                 </Button>
                 <Button onClick={() => dispatch(setWelcomeState("signin"))}>
-                    <a href="#signin">Connexion</a>
+                    Connexion
                 </Button>
             </ButtonGroup>
         :

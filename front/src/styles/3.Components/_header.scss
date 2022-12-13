@@ -1,10 +1,11 @@
 .header {
     z-index: 5;
-    position: absolute;
+    position: fixed;
     padding: 20px;
     width: calc(100% - 40px);
     background-color: $primary-color;
     transform: translateY(-100%);
     animation: headerAnim 0.4s ease-in-out forwards;
+    transition: 0.4s ease-in-out;
     @include flexBetweenCentered;
 }

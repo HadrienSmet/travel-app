@@ -1,6 +1,7 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const UserModel = require('../models/User');
 
 //Handles what happens when the user submits the sign up form
