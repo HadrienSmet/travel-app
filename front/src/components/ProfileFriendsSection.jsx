@@ -11,6 +11,9 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
     let followers = dataFrom.followers;
     let following = dataFrom.following;
 
+    //This function allows the user to go on the profile page of the user who made the post
+    //It makes a call API using the pseudo of the user in orger to get all the necessary data
+    //Then if it succeeded it displays the data inside the redux store before leading the user to the right page
     const goToProfilePage = (e) => {
         console.log(e);
         let pseudo = e.target.id.split("-")[0];

@@ -46,35 +46,37 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
     //And it gives the name of the album and the urls of the blop links by the redux store.
     //And it also changes the state of the component in purpose to close the child modal.
     const handleClose = () => {
-    const data = new FormData();
-    data.append("name", `album ${destination} ${year}`);
-    albumPicture.forEach((picture) => {
-        data.append("file", picture); 
-    }) 
-        
-    axios({
-        url: `${process.env.REACT_APP_API_URL}api/auth/setAlbum/${userId}`,
-        method: "put",
-        data: data,
-        headers: {
-            "Content-Type": "multipart/form",
-            "authorization": `bearer ${token}`,
-        }
-    })
-    .then((res) => {
-        setOpen(false);
-        console.log(res);
-        dispatch(pushAlbumInUserLoggedData(res.data.newAlbum));
-    })
-    .catch((err) => console.log(err));
-        // changeAlbumsArray(albumPicture);
-        // dispatch(setAlbumObjectArrayStore(album));
+        const data = new FormData();
+        data.append("name", `album ${destination} ${year}`);
+        albumPicture.forEach((picture) => {
+            data.append("file", picture); 
+        }) 
+        axios({
+            url: `${process.env.REACT_APP_API_URL}api/auth/setAlbum/${userId}`,
+            method: "put",
+            data: data,
+            headers: {
+                "Content-Type": "multipart/form",
+                "authorization": `bearer ${token}`,
+            }
+        })
+        .then((res) => {
+            setOpen(false);
+            console.log(res);
+            dispatch(pushAlbumInUserLoggedData(res.data.newAlbum));
+        })
+        .catch((err) => console.log(err));
     };
 
+    //This function is here to allow a children component to change the local state of this component.
+    //@Params { type: Number } => the value of the onChange event listening the input of type numbers
+    //The value refers the year where the pictures were made 
     const changeNumber = (year) => {
         setYear(year);
     }
-
+    //This function is here to allow a children component to change the local state of this component.
+    //@Params { type: String } => the value of the onChange event listening the input containing a list of each country
+    //The value refers the country where the pictures were made
     const changeCountry = (country) => {
         setDestination(country);
     }

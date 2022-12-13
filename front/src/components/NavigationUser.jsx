@@ -8,16 +8,22 @@ const NavigationUser = () => {
     const screenWidth = useWindowSize().width;
     const ref = useRef();
 
+    //This function is called when the user clicks on the menu button on the mobile version
+    //@Params { type: Object } => the param from the onClick event
+    //It just opens the menu
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         ref.current.classList.add('active');
-        document.querySelector("body").style.width = "calc(100vw + 17px)";
+        // document.querySelector("body").style.width = "calc(100vw + 17px)";
     };
     
+    //This function is called when the user clicks on the X button on the mobile version
+    //@Params { type: Object } => the param from the onClick event
+    //It just closes the menu
     const handleClose = () => {
         setAnchorEl(null);
         ref.current.classList.remove('active');
-        document.querySelector("body").style.width = "100%";
+        // document.querySelector("body").style.width = "100%";
     };
 
     const open = Boolean(anchorEl);

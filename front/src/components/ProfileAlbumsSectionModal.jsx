@@ -56,11 +56,6 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
                 </Typography>
                 <FaTimes key={"more-picture__modal-header-icon-" + index} onClick={() => setOpen(false)} />
             </div>
-            {/* <div key={"more-picture__modal-pictures-displayer-" + index} className="album-modal__pictures-displayer">
-                {album.pictures.map((picture, i) => (
-                    <img src={picture} alt={"image venant de l'" + album.name} key={"more-picture__modal-" + index + "-picture-" + i} />
-                ))}
-            </div> */}
             <MUIPicturesCarousel pictures={album.pictures} index={index} />
           </Box>
         </Fade>

@@ -12,11 +12,23 @@ const PostsForm = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userLoggedDataStore.userLoggedData);
 
+    //This function handles the file that is meant to be posted 
+    //@Params { type: Object } => the param of the onChange event listening the file input
+    //The first local state is here to create a blop url in order to display the file directly on the DOM
+    //The second local state is here to contain the file that will be send to the data base
     const handlePostFile = (e) => {
         setPostFileUrl(URL.createObjectURL(e.target.files[0]));
         setPostFile(e.target.files[0]);
     }
 
+    //This function handles the submission of a post
+    //It creates an object containing all the data for the call API with the constructor FormData()
+    //It takes several properties but the two lasts are the more important.
+    //The property referring to the text doesn't need to be dynamic because if the user doens't insert a text the property will just takes empty strings as value
+    //The property referring to the file has to be dynamic it is only presents if a file has been provided by the user
+    //Then this function makes two calls API
+    //The first one posts the data to the data base and clears the local states
+    //The second (called by the first) is getting all the posts from the data base and places them in the redux store
     const handlePostSubmission = () => {
         let { userId, token } = getJwtToken();
         let date = new Date();

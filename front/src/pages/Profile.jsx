@@ -28,7 +28,9 @@ const Profile = () => {
     const ref = useRef();
     let { token, userId } = getJwtToken();
     
-    const toggleButtonsDisplay = (e) => {
+    //This function displays the buttons handling the cover picture's editation
+    //@Params { type: Object } => the param of the onClick event, only here to target an element on the DOM
+    const showMeButtons = (e) => {
         const checkBtn = document.getElementById("cover-picture-validation");
         const timesBtn = document.getElementById("cover-picture-cancel");
         checkBtn.classList.add('active');
@@ -36,12 +38,19 @@ const Profile = () => {
         e.target.style.opacity = "1";
     }
 
+    //This function handles the picture provided by the user
+    //@Params { type: Object } => the param of the onChange event listening the input files
+    //The first local state contains the file that will be send to the data base
+    //The second one contains a blob url that will displays the picture directly in the DOM
+    //And the final one is here to indicate to the app wich image it has to display
     const startEditCoverPicture = (e) => {
         setCoverPicture(e.target.files[0]);
         setCoverPictureUrl(URL.createObjectURL(e.target.files[0]));
         setIsEditing(true);
     }
 
+    //This function is here to send the file to the data base
+    //An object is made with the constructor FormData() to handle the file
     const handleEditCoverPicture = () => {
         const data = new FormData();
         data.append('file', coverPicture);
@@ -60,6 +69,7 @@ const Profile = () => {
             setIsEditing(false);
             const checkBtn = document.getElementById("cover-picture-validation");
             const timesBtn = document.getElementById("cover-picture-cancel");
+            // e.target.style.opacity = "1";
             checkBtn.classList.remove('active');
             timesBtn.classList.remove('active');
         })
@@ -108,7 +118,7 @@ const Profile = () => {
                     {isEditing === false && defaultPicture === false && <img src={userProfile.coverPicture} alt="img" />}
                     <div className="profile-section__header-background__buttons-area">
                         <form action='' encType='multipart/form-data'>
-                            <label htmlFor='cover-picture' onClick={(e) => toggleButtonsDisplay(e)}><FaEdit /></label>
+                            <label htmlFor='cover-picture' onClick={(e) => showMeButtons(e)}><FaEdit /></label>
                             <input type="file" name="cover-picture" id="cover-picture" onChange={(e) => startEditCoverPicture(e)} />
                             <span 
                                 id='cover-picture-validation'

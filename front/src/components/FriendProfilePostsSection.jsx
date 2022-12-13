@@ -8,9 +8,10 @@ import Post from './Post';
 const FriendProfilePostsSection = ({ friendProfile }) => {
     const dispatch = useDispatch();
     const userPosts = useSelector((state) => state.postsDataStore.postsData);
-    let postsArray = [...userPosts]
+    let postsArray = [...userPosts];
     let { token } = getJwtToken();
 
+    //This useEffect is here to get all the posts made by a specified user and then displays all the data in the redux store
     useEffect(() => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts/by/${friendProfile._id}`,
@@ -24,6 +25,7 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
         .catch(err => console.log(err));
     /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
+    
     return (
         <section className="profile__posts-section">
             <h1>Posté dernièrement</h1>

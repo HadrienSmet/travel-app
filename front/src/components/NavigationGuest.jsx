@@ -12,16 +12,22 @@ const NavigationGuest = () => {
     const dispatch = useDispatch();
     const ref = useRef();
 
+    //This function is called when the user clicks on the menu button on the mobile version
+    //@Params { type: Object } => the param from the onClick event
+    //It just open the menu
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         ref.current.classList.add('active');
-        document.querySelector("body").style.width = "calc(100vw + 17px)";
+        // document.querySelector("body").style.width = "calc(100vw + 17px)";
     };
     
+    //This function is called when the user clicks on the X button on the mobile version
+    //@Params { type: Object } => the param from the onClick event
+    //It just close the menu
     const handleClose = () => {
         setAnchorEl(null);
         ref.current.classList.remove('active');
-        document.querySelector("body").style.width = "100%";
+        // document.querySelector("body").style.width = "100%";
     };
 
     const open = Boolean(anchorEl);
@@ -39,39 +45,39 @@ const NavigationGuest = () => {
                 </Button>
             </ButtonGroup>
         :
-        <div className="guest-mobile-nav">
-            <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-                <div ref={ref} className="toggle-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </Button>
-            <Popover 
-                className="mobile-guest-popover"
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'center',
-                    horizontal: 'left',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-            >
-                <Button onClick={() => {
-                    dispatch(setWelcomeState("signup"));
-                    handleClose();
-                }}>Inscription</Button>
-                <Button onClick={() => {
-                    dispatch(setWelcomeState("signin"));
-                    handleClose();
-                }}>Connexion</Button>
-            </Popover>
-        </div>
+            <div className="guest-mobile-nav">
+                <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+                    <div ref={ref} className="toggle-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </Button>
+                <Popover 
+                    className="mobile-guest-popover"
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'center',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
+                    <Button onClick={() => {
+                        dispatch(setWelcomeState("signup"));
+                        handleClose();
+                    }}>Inscription</Button>
+                    <Button onClick={() => {
+                        dispatch(setWelcomeState("signin"));
+                        handleClose();
+                    }}>Connexion</Button>
+                </Popover>
+            </div>
         }
         </nav>
     );

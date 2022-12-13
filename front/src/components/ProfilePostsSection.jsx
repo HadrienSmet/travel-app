@@ -11,6 +11,7 @@ const ProfilePostsSection = () => {
     let postsArray = [...userPosts]
     let { userId, token } = getJwtToken();
 
+    //This useEffect makes a call API in order to get all the posts made by a specified user
     useEffect(() => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts/by/${userId}`,
@@ -24,6 +25,7 @@ const ProfilePostsSection = () => {
         .catch(err => console.log(err));
     /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
+    
     return (
         <section className="profile__posts-section">
             <h1>Posté dernièrement</h1>

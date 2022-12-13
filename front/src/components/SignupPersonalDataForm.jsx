@@ -27,6 +27,12 @@ const SignupPersonalDataForm = ({ changeStepState, changeProfilePicture, changeU
         changeProfilePicture(e.target.files[0]);
     }
 
+    //This function helps the user to understand how to fill properly the input handling the firstNames
+    //A control structure indicates three different behavior that are depending of the value provided by the user
+    //The first case is here to get sure that the first character is an uppercase and to allow a list of special characters
+    //The second case is here to analyse the length of the name provided by the user: not too short, not too long
+    //The last case is called when the user correctly filled the input
+    //For each case an icon and a text are displayed to indicates the user how he managed it
     const handleFirstName = () => {
         const msg = document.getElementById('personal-data-form__first-name-msg');
         const checkIcon = document.querySelector(".personal-data-form__first-name-division__check-icon");
@@ -46,6 +52,14 @@ const SignupPersonalDataForm = ({ changeStepState, changeProfilePicture, changeU
             timesIcon.style.opacity = "0";
         }
     }
+
+
+    //This function helps the user to understand how to fill properly the input handling the firstNames
+    //A control structure indicates three different behavior that are depending of the value provided by the user
+    //The first case is here to get sure that the first character is an uppercase and to allow a list of special characters
+    //The second case is here to analyse the length of the name provided by the user: not too short, not too long
+    //The last case is called when the user correctly filled the input
+    //For each case an icon and a text are displayed to indicates the user how he managed it
     const handleLastName = () => {
         const msg = document.getElementById('personal-data-form__last-name-msg');
         const checkIcon = document.querySelector(".personal-data-form__last-name-division__check-icon");

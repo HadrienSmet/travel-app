@@ -25,23 +25,39 @@ const Post = ({ post }) => {
     const { token, userId } = getJwtToken();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const postsData = useSelector((state) => state.postsDataStore.postsData);
+
     useEffect(() => {
         setImageUrl(post.imageUrl)
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [postsData])
 
+    //This function sets the data about the picture on the local state
+    //@Params { type: Object } => the param from the onChange event listening the input[type: files]
+    //The first state is here to create a blob url to be directly shown on the screen
+    //The second one is the file that will be send to the back
     const handleEditFile = (e) => {
         setImageUrl(URL.createObjectURL(e.target.files[0]));
         setNewImage(e.target.files[0]);
     }
 
+    //This function deletes the file on the local State
+    //This function is called when the user press on the button handling the suppression
     const handleDeleteFile = () => {
         setImageUrl("");
         setNewImage("");
     }
 
+    //This function handles the modification of a post
+    //@Params { type: OBject } => the param of the onClick event 
+    //The control structure is only here to be sure we target the right element on the DOM
+    //Then we create a new Object for the call API whith the constructor FormData()
+    //This new Object takes three properties the first one is the id of the user
+    //The second one represents the text. And it takes either the old data or if the user inserted a new text this property will takes the new data as value
+    //The third one represents the file. And it takes either the old data or if the user inserted a new picture this property will takes the new data as value
+    //Then two calls API are made.
+    //The first one is here to modificate the post
+    //The second one is here to get all the posts once again in order to be able to display the new one
     const handleEditPost = (e) => {
         let postId;
         if (e.target.id === "") {
@@ -74,7 +90,6 @@ const Post = ({ post }) => {
                 }
             })
             .then(res => {
-                    console.log(res.data);
                     dispatch(setPostsData(res.data));
             })
             .catch(err => console.log(err));
@@ -83,17 +98,17 @@ const Post = ({ post }) => {
         console.log(newImage, imageUrl, newText, postId);
     }
 
+    //This function is here to handle the suppresion of a post
+    //@Params { type: Object } => the param from the onClick event
+    //The control structure is only here to be sure that the element we target got the right id
+    //Then we make a call API to delete the post and the file in the data base and then on the store redux
     const handleDeletePost = (e) => {
-        console.log(e);
         let postId;
         if (e.target.id === "") {
             postId = e.target.parentElement.id.split("-")[1];
         } else {
             postId = e.target.id.split("-")[1];
         }
-        
-        console.log(postId);
-        dispatch(deletePost(postId));
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts/${postId}`,
             method: "delete",
@@ -102,9 +117,7 @@ const Post = ({ post }) => {
                 "authorization": `bearer ${token}`
             }
         })
-        .then((res) => {
-            console.log(res)
-        })
+        .then((res) => dispatch(deletePost(postId)))
         .catch((err) => console.log(err));
     }
 
@@ -131,8 +144,6 @@ const Post = ({ post }) => {
                 setLiked(false);
                 setUsersLiking(usersLiking.splice(userId, 1));
                 setUsersLiking(usersLiking.filter(id => id !== userId));
-                console.log(likes);
-                console.log(usersLiking);
             })
         } else if (!usersDisliking.includes(userId)) {
             axios({
@@ -150,8 +161,6 @@ const Post = ({ post }) => {
                 setLikes(likes + 1);
                 setLiked(true);
                 setUsersLiking([...usersLiking, userId]);
-                console.log(likes);
-                console.log(usersLiking);
             })
         }
     }
@@ -178,8 +187,6 @@ const Post = ({ post }) => {
                 setDislikes(dislikes - 1);
                 setDisliked(false);
                 setUsersDisliking(usersDisliking.filter(id => id !== userId));
-                console.log(dislikes);
-                console.log(usersDisliking);
             })
         } else if (!usersLiking.includes(userId)) {
             axios({
@@ -197,12 +204,13 @@ const Post = ({ post }) => {
                 setDislikes(dislikes + 1);
                 setDisliked(true);
                 setUsersDisliking([ ...usersDisliking, userId]);
-                console.log(dislikes);
-                console.log(usersDisliking);
             })
         }
     }
 
+    //This function allows the user to go on the profile page of the user who made the post
+    //It makes a call API using the pseudo of the user in orger to get all the necessary data
+    //Then if it succeeded it displays the data inside the redux store before leading the user to the right page
     const goToProfilePage = () => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/auth/userProfile/${post.pseudo}`,
@@ -213,7 +221,6 @@ const Post = ({ post }) => {
             }
         })
         .then((res) => {
-            console.log(res.data);
             dispatch(setFriendData(res.data));
             navigate('/friend-profile');
         })

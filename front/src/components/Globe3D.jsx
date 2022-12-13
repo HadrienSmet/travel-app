@@ -10,7 +10,8 @@ import { useWindowSize } from "../utils/functions/hooks";
 const Globe = () => {
     const mapBackground = useLoader(TextureLoader, imgGlobe);
     const meshRef = useRef();
-    
+ 
+    //This hooks defines the speed rotation of the globe. As much the number is increased it rotates faster
     useFrame(() => {
         if (!meshRef.current) {
             return;

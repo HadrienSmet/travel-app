@@ -1,4 +1,4 @@
-import { TextField, Button } from '@mui/material'
+import { TextField, Button } from '@mui/material';
 import MUIClassicLoader from './MUIClassicLoader';
 import axios from 'axios';
 import { useState } from 'react';
@@ -16,6 +16,15 @@ const SigninForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    //This function is called when the user is trying to get connected to the app
+    //@Params { type: Object } => the param froms the onClick event. Only here to prevent the default behavior
+    //It starts by changing the local state to starts the loading animation
+    //The mail and the password of the user are put into an object then axios make a call with a post method
+    //If everything is ok and if the response doesn't indicates a lack in the request's authentification:
+    //We set the data for the authentification in the local sotrage
+    //We tell to the redux store that the user is connected to display the proper header and we also display the user's data
+    //It ends the loading animation and leads the user to the home page
+    //If an error is caught, a message is injected on the DOM
     const handleSubmission = (e) => {
         const span = document.getElementById('signin-msg');
         e.preventDefault();
@@ -33,16 +42,19 @@ const SigninForm = () => {
             } else {
                 dispatch(setLoggedState(true));
                 dispatch(setUserLoggedData(res.data));
-                setJwtToken(res.data);
+                setJwtToken({
+                    userId: res.data.userId,
+                    token: res.data.token
+                });
                 navigate("/home");
-                setIsLoading(false)
+                setIsLoading(false);
             }
         })
         .catch((err) => {
-            console.log(err)
             span.textContent = "Paire d'email et de mot de passe incorrect";
         });
     }
+    
     return (
         <div id='signin' className='signin-container start-form'>
             <form 
