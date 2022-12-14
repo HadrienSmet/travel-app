@@ -12,6 +12,7 @@ import { setFriendData } from '../features/friendData.slice';
 // import { spacing } from '@mui/system';
 
 const Post = ({ post }) => {
+    const [isAuthor, setIsAuthor] = useState(false);
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
     const [likes, setLikes] = useState(post.likes);
@@ -27,11 +28,7 @@ const Post = ({ post }) => {
     const navigate = useNavigate();
     const postsData = useSelector((state) => state.postsDataStore.postsData);
 
-    useEffect(() => {
-        setImageUrl(post.imageUrl)
-        /* eslint-disable react-hooks/exhaustive-deps */
-    }, [postsData])
-
+    
     //This function sets the data about the picture on the local state
     //@Params { type: Object } => the param from the onChange event listening the input[type: files]
     //The first state is here to create a blob url to be directly shown on the screen
@@ -40,14 +37,14 @@ const Post = ({ post }) => {
         setImageUrl(URL.createObjectURL(e.target.files[0]));
         setNewImage(e.target.files[0]);
     }
-
+    
     //This function deletes the file on the local State
     //This function is called when the user press on the button handling the suppression
     const handleDeleteFile = () => {
         setImageUrl("");
         setNewImage("");
     }
-
+    
     //This function handles the modification of a post
     //@Params { type: OBject } => the param of the onClick event 
     //The control structure is only here to be sure we target the right element on the DOM
@@ -69,7 +66,7 @@ const Post = ({ post }) => {
         data.append("userId", post.userId);
         newText !== "" ? data.append("text", newText) : data.append("text", post.text);
         newImage !== undefined ? data.append("file", newImage) : data.append("file", post.imageUrl);
-
+        
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts/${postId}`,
             method: "put",
@@ -90,14 +87,13 @@ const Post = ({ post }) => {
                 }
             })
             .then(res => {
-                    dispatch(setPostsData(res.data));
+                dispatch(setPostsData(res.data));
             })
             .catch(err => console.log(err));
         })
         .catch((err) => console.log(err));
-        console.log(newImage, imageUrl, newText, postId);
     }
-
+    
     //This function is here to handle the suppresion of a post
     //@Params { type: Object } => the param from the onClick event
     //The control structure is only here to be sure that the element we target got the right id
@@ -120,7 +116,7 @@ const Post = ({ post }) => {
         .then((res) => dispatch(deletePost(postId)))
         .catch((err) => console.log(err));
     }
-
+    
     //Handles the behavior of the app when a user clicks on the like button
     //If the user already liked the post:
     //-->The like is removed from the database and from the localState
@@ -164,7 +160,7 @@ const Post = ({ post }) => {
             })
         }
     }
-
+    
     //Handles the behavior of the app when a user clicks on the dislike button
     //If the user already disliked the post:
     //-->The dislike is removed from the database and from the localState
@@ -207,7 +203,7 @@ const Post = ({ post }) => {
             })
         }
     }
-
+    
     //This function allows the user to go on the profile page of the user who made the post
     //It makes a call API using the pseudo of the user in orger to get all the necessary data
     //Then if it succeeded it displays the data inside the redux store before leading the user to the right page
@@ -226,6 +222,18 @@ const Post = ({ post }) => {
         })
         .catch((err) => console.log(err))
     }
+
+    //This useEffect is called whenever the store redux containing the posts gets a modification
+    //It will take the image given by the data base and put it into the local state.
+    //And it also checks the user's id to see wich action he is allowed to do on the post
+    useEffect(() => {
+        if (userId === post.userId || userId === process.env.REACT_APP_ADMIN_ID) {
+            setIsAuthor(true);
+        }
+
+        setImageUrl(post.imageUrl);
+        /* eslint-disable react-hooks/exhaustive-deps */
+    }, [postsData])
 
     return (
         <div key={"post-div-" + post._id} className="post-container">
@@ -249,7 +257,7 @@ const Post = ({ post }) => {
                     </div>
                     <div key={"post-content-" + post._id} className="post-content">
                         {imageUrl !== "" && <img key={"post-content-img-" + post._id} src={imageUrl} alt="img" />}
-                        {isEditing === true && post.imageUrl !== "" && 
+                        {isEditing && post.imageUrl !== "" && 
                             <div className="post-content__file-edit">
                                 <label htmlFor="edit-post-file">
                                     <FaFileImage />
@@ -260,19 +268,26 @@ const Post = ({ post }) => {
                                 </span>
                             </div> 
                         }
-                        {isEditing === false && post.text !== "" && <p key={"post-content-txt-" + post._id}>{post.text}</p>}
-                        {isEditing === true && post.text !== "" && 
+                        {!isEditing  && post.text !== "" && <p key={"post-content-txt-" + post._id}>{post.text}</p>}
+                        {isEditing  && post.text !== "" && 
                             <textarea 
                                 defaultValue={post.text} 
                                 key={"post-content-txt-" + post._id}
                                 onChange={(e) => setNewText(e.target.value)}
-                            ></textarea>}
+                            ></textarea>
+                        }
+                        {isEditing && post.text === "" &&
+                            <textarea 
+                                key={"post-content-txt-" + post._id}
+                                onChange={(e) => setNewText(e.target.value)}
+                            ></textarea>
+                        }
                     </div>
                     <div key={"post-buttons-row-" + post._id} className="post__buttons-row">
                         <div key={"post-buttons-row-opinions" + post._id} className="post__buttons-row__opinion-side">
                             <div key={"post-buttons-row-likes-div" + post._id} className="post__buttons-row__likes">
                                 <p key={"post-buttons-row-likes" + post._id}>{likes}</p>
-                                {liked === true ?
+                                {liked ?
                                     <FaThumbsUp 
                                         key={"post-buttons-row-likes-icon" + post._id} 
                                         onClick={() => likesHandler()}
@@ -287,7 +302,7 @@ const Post = ({ post }) => {
                             </div>
                             <div key={"post-buttons-row-dislikes-div" + post._id} className="post__buttons-row__dislikes">
                                 <p key={"post-buttons-row-dislikes" + post._id}>{dislikes}</p>
-                                {disliked === true ?
+                                {disliked ?
                                     <FaThumbsDown 
                                         key={"post-buttons-row-dislikes-icon" + post._id} 
                                         onClick={() => dislikesHandler()}
@@ -304,7 +319,7 @@ const Post = ({ post }) => {
                             key={"post-buttons-row-crud" + post._id} 
                             className="post__buttons-row__crud-side"
                         >
-                            {post.userId === userId && 
+                            {isAuthor && 
                                 <Button 
                                     key={"post-buttons-row-edit-btn" + post._id}
                                     onClick={() => setIsEditing(!isEditing)}    
@@ -312,12 +327,12 @@ const Post = ({ post }) => {
                                     <FaEdit key={"post-buttons-row-edit-icon" + post._id} />
                                 </Button>
                             }
-                            {post.userId === userId && 
+                            {isAuthor && 
                                 <Button className='post__delete-div' id={"deletediv-" + post._id} key={"post-buttons-row-delete-btn" + post._id}>
                                     <FaTimes id={"delete-" + post._id} key={"post-buttons-row-delete-icon" + post._id} onClick={(e) => handleDeletePost(e)} />
                                 </Button>
                             }
-                            {isEditing === true && 
+                            {isEditing && 
                                 <Button id={"editpostdiv-" + post._id} key={"post-buttons-row-post-btn" + post._id}>
                                     <FaPaperPlane 
                                         id={"editpost-" + post._id} 

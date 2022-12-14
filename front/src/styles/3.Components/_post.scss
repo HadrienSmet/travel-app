@@ -91,10 +91,12 @@
             }
         }
         textarea {
-            width: 90%;
+            padding: 10px;
+            width: calc(90% - 20px);
             resize: none;
-            border-color: $black-op5;
+            border-color: $primary-color;
             border-radius: 5px;
+            font-family: "main-fonts";
         }
     }
     &__buttons-row {

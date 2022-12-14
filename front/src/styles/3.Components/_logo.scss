@@ -13,8 +13,13 @@
         color: $tertiary-color;
     }
     h2 {
+        @media screen and (min-width: 768px) {
+            font-size:25px;
+        }
+        @media screen and (max-width: 767px) {
+            font-size: 20px;
+        }
         font-family: "title-fonts";
-        font-size:25px;
         color: darken($primary-color, 19);
     }
 }

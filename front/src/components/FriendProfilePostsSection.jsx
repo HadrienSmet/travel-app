@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPostsData } from '../features/postsData.slice';
 import { getJwtToken } from '../utils/functions/tools';
@@ -15,7 +15,7 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
 
     //This function is here to get all the posts made by a specified user and then displays all the data in the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
-    const fetchAllposts = (num) => {
+    const fetchAllposts = useCallback((num) => {
         axios({
             url: `${process.env.REACT_APP_API_URL}api/posts/by/${friendProfile._id}`,
             method: "get",
@@ -25,11 +25,11 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
             }
         })
         .then(res => {
-            const array = res.data.splice(0, num);
+            const array = res.data.sort((a, b) => b.date - a.date).splice(0, num);
             dispatch(setPostsData(array));
         })
         .catch(err => console.log(err));
-    }
+    }, [dispatch, token, friendProfile._id]) 
 
     //This function is here to activate the useEffect whenever the user starts to see the footer
     const loadMore = () => {
@@ -53,8 +53,8 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
 
         return () => window.removeEventListener('scroll', loadMore);
 
-        /* eslint-disable react-hooks/exhaustive-deps */
-    }, [loadPost])
+
+    }, [loadPost, fetchAllposts, count])
     
     return (
         <section className="profile__posts-section">

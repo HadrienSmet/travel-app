@@ -36,25 +36,36 @@ exports.createPost = (req, res, next) => {
  //If there is no file we keep the request's body intact
 exports.modifyPost = (req, res, next) => {
     let postObject;
+    console.log("req.file" + req.file)
+    console.log("req.body.file" + req.body.file)
+    console.log("req.files" + req.files)
     if (req.body.file == "") {
         postObject = {
             ...req.body,
             imageUrl: ""
         };
+    } else if (req.file) {
+        postObject = {
+            ...req.body,
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`
+        };
     } else if (req.files) {
         postObject = {
             ...req.body,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`
+            // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.files[0].filename}`
         };
     } else {
         postObject = { ...req.body };
     }
-
+    console.log("postObject: " + JSON.stringify(postObject));
     delete postObject._userId;
     Post.findOne({ _id: req.params.id })
         .then((post) => {
             if ( post.userId == req.auth.userId || process.env.ADMIN_ACCOUNT_ID == req.auth.userId) {
                 const filename = post.imageUrl.split('/images/')[1];
+                console.log("filename: " + filename)
                 if (req.files) {
                     fs.unlink(`images/${filename}`, () => {
                         Post.updateOne({ _id: req.params.id }, { ...postObject, id: req.params.id })
