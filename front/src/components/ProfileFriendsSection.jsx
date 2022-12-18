@@ -22,150 +22,161 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
             method: "get",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `bearer ${token}`
-            }
+                authorization: `bearer ${token}`,
+            },
         })
-        .then((res) => {
-            console.log(res.data);
-            dispatch(setFriendData(res.data));
-            navigate('/friend-profile');
-        })
-        .catch((err) => console.log(err))
-    }
+            .then((res) => {
+                dispatch(setFriendData(res.data));
+                navigate("/friend-profile");
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <section className="profile-contact-section">
             <h1>Contacts</h1>
-                <div className="profile-contact-section__followers-division">
-                    {isAuthor === true ?
-                        <div className="profile-contact-section__jsx-container">
-                            <h2>Vos abonnés</h2>
-                            {followers[0] === undefined ?
-                                <p>Y aura bientot tous les utilisateurs te suivant ici!</p>
-                            :
-                                <ul className="profile-contact-section__followers-displayer">
-                                    {followers.map((follower) => (
-                                        <li 
-                                            id={follower + "-li"} 
-                                            key={follower + "-li"} 
-                                            className="profile-contact-section__border-wrapper"
-                                            onClick={(e) => goToProfilePage(e)}
-                                        >
-                                            <div 
-                                                id={follower + "-div"} 
-                                                key={follower + "-div"} 
-                                                className="profile-contact-section__border-line"
-                                                onClick={(e) => goToProfilePage(e)}
-                                            ></div>
-                                            <span 
-                                                id={follower + "-span"} 
-                                                className="profile-contact-section__follow" 
-                                                key={follower + "-span"}
-                                                onClick={(e) => goToProfilePage(e)}
-                                            >{follower}</span>
-                                        </li>
-                                    ))}
-                                </ul>  
-                            }
-                        </div>
-                    :
-                        <div className="profile-contact-section__jsx-container">
-                            <h2>Ses abonnés</h2>
-                            {followers[0] === undefined ?
-                                <p>Y aura bientot tous les utilisateurs suivant ce profil ici!</p>
-                            :
-                                <ul className="profile-contact-section__followers-displayer">
-                                    {followers.map((follower) => (
-                                        <li 
-                                            id={follower + "-li"} 
-                                            key={follower + "-li"} 
-                                            className="profile-contact-section__border-wrapper"
-                                            onClick={(e) => goToProfilePage(e)}
-                                        >
-                                            <div 
-                                                id={follower + "-div"} 
-                                                key={follower + "-div"} 
-                                                className="profile-contact-section__border-line"
-                                                onClick={(e) => goToProfilePage(e)}
-                                            ></div>
-                                            <span 
-                                                id={follower + "-span"} 
-                                                className="profile-contact-section__follow" 
-                                                key={follower + "-span"}
-                                                onClick={(e) => goToProfilePage(e)}
-                                            >{follower}</span>
-                                        </li>  
-                                    ))}
-                                </ul>  
-                            }
-                        </div>
-                    }
-                </div>
-                <div className="profile-contact-section__following-division">
-                    {isAuthor === true ?
-                        <div className="profile-contact-section__jsx-container">
-                            <h2>Vos abonnements</h2>
-                            {following[0] === undefined ?
-                                <p>Y aura bientot tous les utilisateurs que tu suis ici!</p>
-                            :
-                                <ul className="profile-contact-section__following-displayer">
-                                    {following.map((follow) => (
-                                    <li 
-                                        id={follow + "-li"} 
-                                        key={follow + "-li"} 
+            <div className="profile-contact-section__followers-division">
+                {isAuthor === true ? (
+                    <div className="profile-contact-section__jsx-container">
+                        <h2>Vos abonnés</h2>
+                        {followers[0] === undefined ? (
+                            <p>
+                                Y aura bientot tous les utilisateurs te suivant
+                                ici!
+                            </p>
+                        ) : (
+                            <ul className="profile-contact-section__followers-displayer">
+                                {followers.map((follower) => (
+                                    <li
+                                        id={follower + "-li"}
+                                        key={follower + "-li"}
                                         className="profile-contact-section__border-wrapper"
                                         onClick={(e) => goToProfilePage(e)}
                                     >
-                                        <div 
-                                            id={follow + "-div"} 
-                                            key={follow + "-div"} 
+                                        <div
+                                            id={follower + "-div"}
                                             className="profile-contact-section__border-line"
                                             onClick={(e) => goToProfilePage(e)}
                                         ></div>
-                                        <span 
-                                            id={follow + "-span"} 
-                                            key={follow + "-span"} 
+                                        <span
+                                            id={follower + "-span"}
                                             className="profile-contact-section__follow"
                                             onClick={(e) => goToProfilePage(e)}
-                                        >{follow}</span>
+                                        >
+                                            {follower}
+                                        </span>
                                     </li>
-                                    ))}
-                                </ul>  
-                            }
-                        </div>
-                    :
-                        <div className="profile-contact-section__jsx-container">
-                            <h2>Ses abonnements</h2>
-                            {following[0] === undefined ?
-                                <p>Y aura bientot tous les utilisateurs que ce profil suit ici!</p>
-                            :
-                                <ul className="profile-contact-section__following-displayer">
-                                    {following.map((follow) => (
-                                        <li 
-                                            id={follow + "-li"} 
-                                            key={follow + "-li"} 
-                                            className="profile-contact-section__border-wrapper"
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                ) : (
+                    <div className="profile-contact-section__jsx-container">
+                        <h2>Ses abonnés</h2>
+                        {followers[0] === undefined ? (
+                            <p>
+                                Y aura bientot tous les utilisateurs suivant ce
+                                profil ici!
+                            </p>
+                        ) : (
+                            <ul className="profile-contact-section__followers-displayer">
+                                {followers.map((follower) => (
+                                    <li
+                                        id={follower + "-li"}
+                                        key={follower + "-li"}
+                                        className="profile-contact-section__border-wrapper"
+                                        onClick={(e) => goToProfilePage(e)}
+                                    >
+                                        <div
+                                            id={follower + "-div"}
+                                            className="profile-contact-section__border-line"
+                                            onClick={(e) => goToProfilePage(e)}
+                                        ></div>
+                                        <span
+                                            id={follower + "-span"}
+                                            className="profile-contact-section__follow"
                                             onClick={(e) => goToProfilePage(e)}
                                         >
-                                            <div 
-                                                id={follow + "-div"} 
-                                                key={follow + "-div"} 
-                                                className="profile-contact-section__border-line"
-                                                onClick={(e) => goToProfilePage(e)}
-                                            ></div>
-                                            <span 
-                                                id={follow + "-span"} 
-                                                key={follow + "-span"} 
-                                                className="profile-contact-section__follow"
-                                                onClick={(e) => goToProfilePage(e)}
-                                            >{follow}</span>
-                                        </li>
-                                    ))}
-                                </ul>  
-                            }
-                        </div>
-                    }
-                </div>
+                                            {follower}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )}
+            </div>
+            <div className="profile-contact-section__following-division">
+                {isAuthor === true ? (
+                    <div className="profile-contact-section__jsx-container">
+                        <h2>Vos abonnements</h2>
+                        {following[0] === undefined ? (
+                            <p>
+                                Y aura bientot tous les utilisateurs que tu suis
+                                ici!
+                            </p>
+                        ) : (
+                            <ul className="profile-contact-section__following-displayer">
+                                {following.map((follow) => (
+                                    <li
+                                        id={follow + "-li"}
+                                        key={follow + "-li"}
+                                        className="profile-contact-section__border-wrapper"
+                                        onClick={(e) => goToProfilePage(e)}
+                                    >
+                                        <div
+                                            id={follow + "-div"}
+                                            className="profile-contact-section__border-line"
+                                            onClick={(e) => goToProfilePage(e)}
+                                        ></div>
+                                        <span
+                                            id={follow + "-span"}
+                                            className="profile-contact-section__follow"
+                                            onClick={(e) => goToProfilePage(e)}
+                                        >
+                                            {follow}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                ) : (
+                    <div className="profile-contact-section__jsx-container">
+                        <h2>Ses abonnements</h2>
+                        {following[0] === undefined ? (
+                            <p>
+                                Y aura bientot tous les utilisateurs que ce
+                                profil suit ici!
+                            </p>
+                        ) : (
+                            <ul className="profile-contact-section__following-displayer">
+                                {following.map((follow) => (
+                                    <li
+                                        id={follow + "-li"}
+                                        key={follow + "-li"}
+                                        className="profile-contact-section__border-wrapper"
+                                        onClick={(e) => goToProfilePage(e)}
+                                    >
+                                        <div
+                                            id={follow + "-div"}
+                                            className="profile-contact-section__border-line"
+                                            onClick={(e) => goToProfilePage(e)}
+                                        ></div>
+                                        <span
+                                            id={follow + "-span"}
+                                            className="profile-contact-section__follow"
+                                            onClick={(e) => goToProfilePage(e)}
+                                        >
+                                            {follow}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )}
+            </div>
         </section>
     );
 };

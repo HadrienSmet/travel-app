@@ -1,13 +1,13 @@
-import { TextField, Button } from '@mui/material';
-import MUIClassicLoader from './MUIClassicLoader';
-import axios from 'axios';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { FaCheck } from 'react-icons/fa';
-import { setUserLoggedData } from '../features/userLoggedData.slice';
-import { setLoggedState } from '../features/loggedState.slice';
-import { setJwtToken } from '../utils/functions/tools';
+import { TextField, Button } from "@mui/material";
+import MUIClassicLoader from "./MUIClassicLoader";
+import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
+import { setUserLoggedData } from "../features/userLoggedData.slice";
+import { setLoggedState } from "../features/loggedState.slice";
+import { setJwtToken } from "../utils/functions/tools";
 
 const SigninForm = () => {
     const [mail, setMail] = useState("");
@@ -26,50 +26,54 @@ const SigninForm = () => {
     //It ends the loading animation and leads the user to the home page
     //If an error is caught, a message is injected on the DOM
     const handleSubmission = (e) => {
-        const span = document.getElementById('signin-msg');
+        const span = document.getElementById("signin-msg");
         e.preventDefault();
         setIsLoading(true);
         let data = {
             email: mail,
-            password
-        }
-        axios.post(`${process.env.REACT_APP_API_URL}api/auth/login`, data, {
-            "Content-Type": "application/json"
-        })
-        .then((res) => {
-            if (res.status === 401) {
+            password,
+        };
+        axios
+            .post(`${process.env.REACT_APP_API_URL}api/auth/login`, data, {
+                "Content-Type": "application/json",
+            })
+            .then((res) => {
+                if (res.status === 401) {
+                    span.textContent =
+                        "Paire d'email et de mot de passe incorrect";
+                } else {
+                    dispatch(setLoggedState(true));
+                    dispatch(setUserLoggedData(res.data));
+                    setJwtToken({
+                        userId: res.data.userId,
+                        token: res.data.token,
+                    });
+                    navigate("/home");
+                    setIsLoading(false);
+                }
+            })
+            .catch((err) => {
                 span.textContent = "Paire d'email et de mot de passe incorrect";
-            } else {
-                dispatch(setLoggedState(true));
-                dispatch(setUserLoggedData(res.data));
-                setJwtToken({
-                    userId: res.data.userId,
-                    token: res.data.token
-                });
-                navigate("/home");
-                setIsLoading(false);
-            }
-        })
-        .catch((err) => {
-            span.textContent = "Paire d'email et de mot de passe incorrect";
-        });
-    }
-    
+            });
+    };
+
     return (
-        <div id='signin' className='signin-container start-form'>
-            <form 
+        <div id="signin" className="signin-container start-form">
+            <form
                 action=""
-                className='signin-form'
+                className="signin-form"
                 onSubmit={(e) => handleSubmission(e)}
             >
                 <h2>Connectez-vous!</h2>
                 <div className="signin-container__email-division">
                     <div className="signin-container__icons-container">
-                        {mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && <FaCheck className='signin-icon check' />}
+                        {mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && (
+                            <FaCheck className="signin-icon check" />
+                        )}
                     </div>
-                    <TextField 
-                        id="outlined-mail" 
-                        label="Email" 
+                    <TextField
+                        id="outlined-mail"
+                        label="Email"
                         variant="outlined"
                         type="email"
                         required={true}
@@ -78,11 +82,13 @@ const SigninForm = () => {
                 </div>
                 <div className="signin-container__password-division">
                     <div className="signin-container__icons-container">
-                        {password !== "" && <FaCheck className='signin-icon check' />}
+                        {password !== "" && (
+                            <FaCheck className="signin-icon check" />
+                        )}
                     </div>
-                    <TextField 
-                        id="outlined-password" 
-                        label="Mot de passe" 
+                    <TextField
+                        id="outlined-password"
+                        label="Mot de passe"
                         variant="outlined"
                         type="password"
                         required={true}
@@ -90,8 +96,17 @@ const SigninForm = () => {
                     />
                 </div>
                 <span id="signin-msg"></span>
-                {isLoading === false && <Button variant="outlined" onClick={(e) => handleSubmission(e)}>Connexion</Button>}
-                {isLoading !== false && <MUIClassicLoader dynamicId="signin-loader" />}
+                {isLoading === false && (
+                    <Button
+                        variant="outlined"
+                        onClick={(e) => handleSubmission(e)}
+                    >
+                        Connexion
+                    </Button>
+                )}
+                {isLoading !== false && (
+                    <MUIClassicLoader dynamicId="signin-loader" />
+                )}
             </form>
         </div>
     );

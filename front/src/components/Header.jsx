@@ -7,7 +7,9 @@ import { useState } from "react";
 
 const Header = () => {
     const [scrollY, setScrollY] = useState(0);
-    const isUserLogged = useSelector((state) => state.currentLoggedState.loggedState);
+    const isUserLogged = useSelector(
+        (state) => state.currentLoggedState.loggedState
+    );
 
     //Handles the header's behavior when the user is scrolling
     const handleScroll = () => {
@@ -17,23 +19,19 @@ const Header = () => {
         } else {
             header.style.top = "-104px";
         }
-        setScrollY(window.scrollY);  
-    }
+        setScrollY(window.scrollY);
+    };
 
     window.addEventListener("scroll", handleScroll);
 
     return (
         <header className="header">
             <div className="header__logo-container">
-                <Link to="/" >
-                    <Logo /> 
+                <Link to="/">
+                    <Logo />
                 </Link>
             </div>
-            { isUserLogged === true ? 
-                <NavigationUser />
-            :
-                <NavigationGuest />
-            }
+            {isUserLogged === true ? <NavigationUser /> : <NavigationGuest />}
         </header>
     );
 };

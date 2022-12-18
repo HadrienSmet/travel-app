@@ -115,6 +115,9 @@
     }
     position: absolute;
     @include flexFullCenter;
+    button {
+        position: absolute;
+    }
     svg {
         @media screen and (min-width:1025px) {
             font-size: 40px;
@@ -124,5 +127,6 @@
             font-size: 20px;
             color: $clr-1;
         }
+        // position: absolute;
     }
 }

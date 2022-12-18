@@ -1,22 +1,22 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAlbumObjectArrayStore } from '../features/albumObjectArray.slice';
-import { Button, Modal, Box, TextField } from '@mui/material';
+import { setAlbumObjectArrayStore } from "../features/albumObjectArray.slice";
+import { Button, Modal, Box, TextField } from "@mui/material";
 import { FaPlus, FaCamera } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
-import MUIInputCountry from './MUIInputCountry';
-import MUIInputNumbers from './MUIInputNumbers';
-import MUIInputSelect from './MUIInputSelect';
-import MUIGradientBorder from './MUIGradientBorder';
+import MUIInputCountry from "./MUIInputCountry";
+import MUIInputNumbers from "./MUIInputNumbers";
+import MUIInputSelect from "./MUIInputSelect";
+import MUIGradientBorder from "./MUIGradientBorder";
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -46,8 +46,8 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
     const handleClose = () => {
         let album = {
             name: `album ${destination} ${year}`,
-            urls: albumPictureUrl
-        }
+            urls: albumPictureUrl,
+        };
         setOpen(false);
         changeAlbumsArray(albumPicture);
         dispatch(setAlbumObjectArrayStore(album));
@@ -64,20 +64,30 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
         if (albumPictureUrl === undefined) {
             albumArrayUrl = [URL.createObjectURL(e.target.files[0])];
         } else {
-            albumArrayUrl = [...albumPictureUrl, URL.createObjectURL(e.target.files[0])]
+            albumArrayUrl = [
+                ...albumPictureUrl,
+                URL.createObjectURL(e.target.files[0]),
+            ];
         }
         if (albumPicture === undefined) {
             albumArray = [e.target.files[0]];
         } else {
-            albumArray = [...albumPicture, e.target.files[0]]
+            albumArray = [...albumPicture, e.target.files[0]];
         }
         setAlbumPictureUrl(albumArrayUrl);
         setAlbumPicture(albumArray);
-    }
+    };
 
     return (
         <Fragment>
-            <Button id='signup-album-creation-btn' variant='outlined' onClick={handleOpen}><span>Créer un album</span><FaPlus /></Button>
+            <Button
+                id="signup-album-creation-btn"
+                variant="outlined"
+                onClick={handleOpen}
+            >
+                <span>Créer un album</span>
+                <FaPlus />
+            </Button>
             <Modal
                 hideBackdrop
                 open={open}
@@ -87,30 +97,49 @@ function ChildModal({ destination, year, changeAlbumsArray }) {
             >
                 <Box sx={{ ...style, width: 200 }} className="child-modal">
                     <div className="child-modal__header">
-                        <h4 id="child-modal-title">Album {destination} {year}</h4>
+                        <h4 id="child-modal-title">
+                            Album {destination} {year}
+                        </h4>
                         <BsXLg onClick={() => setOpen(false)} />
                     </div>
-                    <div className="child-modal__same-row">    
+                    <div className="child-modal__same-row">
                         <p id="child-modal-description">
                             Partagez-nous des souvenirs de votre voyage!
                         </p>
                     </div>
-                    <input type="file" name="file" id="trip-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleAlbumPicture(e)} />
-                    <div className='child-modal__pictures-displayer' id="album-container">
+                    <input
+                        type="file"
+                        name="file"
+                        id="trip-file"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e) => handleAlbumPicture(e)}
+                    />
+                    <div
+                        className="child-modal__pictures-displayer"
+                        id="album-container"
+                    >
                         {pictureAreas.map((area, index) => (
-                            <label key={"picture-area-label-" + index} htmlFor="trip-file" className='child-modal__picture-area-label'>
-                                <div className='child-modal__picture-area' key={"picture-area" + index}>
-                                    <FaCamera className='child-modal__camera-icon' key={"picture-area-camera-" + index} />
-                                    <FaPlus className='child-modal__plus-icon' key={"picture-area-plus-" + index} />
+                            <label
+                                key={"picture-area-label-" + index}
+                                htmlFor="trip-file"
+                                className="child-modal__picture-area-label"
+                            >
+                                <div className="child-modal__picture-area">
+                                    <FaCamera className="child-modal__camera-icon" />
+                                    <FaPlus className="child-modal__plus-icon" />
                                 </div>
                             </label>
                         ))}
                         <div className="child-modal__pictures-displayer--absolute">
-                            {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
+                            {albumPictureUrl !== undefined &&
+                                albumPictureUrl.map((url) => (
+                                    <img key={url} src={url} alt={"Photo pour l'ablum " + destination + " " + year} />
+                                ))}
                         </div>
                     </div>
-                    <MUIGradientBorder><span onClick={() => handleClose()}>confirmer</span></MUIGradientBorder>
-
+                    <MUIGradientBorder>
+                        <span onClick={() => handleClose()}>confirmer</span>
+                    </MUIGradientBorder>
                 </Box>
             </Modal>
         </Fragment>
@@ -124,32 +153,34 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
     const [year, setYear] = useState("");
     const [choice, setChoice] = useState("");
     const [details, setDetails] = useState("");
-    const albumData = useSelector((state) => state.albumObjectArrayStore.albumObjectArray)  
-    
-    const durations = [
-        '1 Mois',
-        '2 Mois',
-        '3 Mois',
-        '4 Mois',
-        '5 Mois',
-        '6 Mois',
-        '7 Mois',
-        '8 Mois',
-        '9 Mois',
-        '10 Mois',
-        '11 Mois',
-        '1 Ans',
-        '2 Ans',
-        '3 Ans',
-        'Je me suis perdu'
-      ];
+    const albumData = useSelector(
+        (state) => state.albumObjectArrayStore.albumObjectArray
+    );
 
-      const withFriendsChoices = [
-        'Seul(e)',
-        'En couple',
-        'Aves des ami(e)s',
-        'En famille',
-      ];
+    const durations = [
+        "1 Mois",
+        "2 Mois",
+        "3 Mois",
+        "4 Mois",
+        "5 Mois",
+        "6 Mois",
+        "7 Mois",
+        "8 Mois",
+        "9 Mois",
+        "10 Mois",
+        "11 Mois",
+        "1 Ans",
+        "2 Ans",
+        "3 Ans",
+        "Je me suis perdu",
+    ];
+
+    const withFriendsChoices = [
+        "Seul(e)",
+        "En couple",
+        "Aves des ami(e)s",
+        "En famille",
+    ];
 
     //This function changes the state of the component in order to open the parent modal
     const handleOpen = () => {
@@ -166,37 +197,37 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
     //@Params { Type: String } --> The value of the input
     const changeCountry = (country) => {
         setDestination(country);
-    }
+    };
 
     //This function is only here to allow the child component InputSelect thats represents the duration of the trip to change the state of this component
     //@Params { Type: String } --> The value of the input
     const changeDuration = (duration) => {
-        setDuration(duration)
-    }
+        setDuration(duration);
+    };
 
     //This function is only here to allow the child component InputNumbers thats represents the year of the trip to change the state of this component
     //@Params { Type: Number } --> The value of the input
     const changeNumber = (year) => {
-        setYear(year)
-    }
+        setYear(year);
+    };
 
     //This function is only here to allow the child component InputSelect thats tells if the user were accompanied during the trip to change the state of this component
     //@Params { Type: String } --> The value of the input
     const changeChoice = (choice) => {
-        setChoice(choice)
-    }
+        setChoice(choice);
+    };
 
     //This function change the state of the components in order to let the user provides details about his trip
     //@Params { Type: String } --> The param of the onChange event
     const handleDetails = (e) => {
         setDetails(e.target.value);
-    }
+    };
 
     //This functions handle the submission of the data provided by the two modals
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
         if (destination.match(/\$<>=\+\*/i)) {
-            alert("Les caractères suivants ne sont pas tolérés. $ > < = + *")
+            alert("Les caractères suivants ne sont pas tolérés. $ > < = + *");
         } else {
             if (albumData !== []) {
                 let trip = {
@@ -205,16 +236,16 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
                     duration,
                     withWho: choice,
                     details,
-                    album: { ...albumData }
-                }
+                    album: { ...albumData },
+                };
                 changeTrips(trip);
             }
         }
-    }
+    };
 
     return (
         <div>
-            <Button variant='outlined' onClick={handleOpen}>
+            <Button variant="outlined" onClick={handleOpen}>
                 <span>Ajouter un voyage</span>
                 <FaPlus />
             </Button>
@@ -227,14 +258,15 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
                 <Box sx={{ ...style, width: 400 }}>
                     <div className="trip-modal__header">
                         <h3>Ajouter un voyage</h3>
-                        <BsXLg onClick={() => setOpen(false)}  />
+                        <BsXLg onClick={() => setOpen(false)} />
                     </div>
                     <div className="trip-modal__content">
                         <div className="trip-modal__inputs-area">
                             <span>Quelle était la destination?</span>
-                            <MUIInputCountry 
-                                dynamicClass={"trip-modal__input-destination"} dynamicPlaceholder={"Destination"} 
-                                changeCountry={changeCountry} 
+                            <MUIInputCountry
+                                dynamicClass={"trip-modal__input-destination"}
+                                dynamicPlaceholder={"Destination"}
+                                changeCountry={changeCountry}
                             />
                             <span>Pendant combien de temps?</span>
                             <MUIInputSelect
@@ -244,18 +276,19 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
                                 changeChoice={changeDuration}
                             />
                             <span>En quelle année?</span>
-                            <MUIInputNumbers 
+                            <MUIInputNumbers
                                 changeNumber={changeNumber}
                                 minNumber={1980}
                                 maxNumber={2023}
                                 dynamicClass="trip-modal__input-year"
-                                dynamicPlaceholder="Année" />
+                                dynamicPlaceholder="Année"
+                            />
                             <span>Avec qui?</span>
-                            <MUIInputSelect 
+                            <MUIInputSelect
                                 dynamicClass="trip-modal__input-accompanied"
                                 dynamicPlaceholder="Accompagné(e)"
                                 choices={withFriendsChoices}
-                                changeChoice={changeChoice} 
+                                changeChoice={changeChoice}
                             />
                         </div>
                         <div className="trip-modal__description-area">
@@ -268,26 +301,49 @@ export default function SignupTripModal({ changeAlbumsArray, changeTrips }) {
                                 onChange={(e) => handleDetails(e)}
                             />
                             <div className="trip-modal__album-container">
-                            {albumData !== [] && albumData.map((album, index) => (
-                                <div key={"divsion-" + index} className="trip-modal-album">
-                                    <h4 key={"title-" + index}>{album.name}</h4>
-                                    <div key={"child-divsion-" + index} className="trip-modal-album__pictures-container">
-                                        {album.urls.map((url, index) => (<img key={"url" + index} src={url} alt="img" />))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                                {albumData !== [] &&
+                                    albumData.map((album, index) => (
+                                        <div
+                                            key={"divsion-" + index}
+                                            className="trip-modal-album"
+                                        >
+                                            <h4 key={"title-" + index}>
+                                                {album.name}
+                                            </h4>
+                                            <div
+                                                key={"child-divsion-" + index}
+                                                className="trip-modal-album__pictures-container"
+                                            >
+                                                {album.urls.map(
+                                                    (url, index) => (
+                                                        <img
+                                                            key={"url" + index}
+                                                            src={url}
+                                                            alt={index + 1 + "e photo provenant de l'" + album.name}
+                                                        />
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
                     <div className="trip-modal__buttons-row">
                         {/* {albumData === [] && } */}
-                        {albumData[0] !== undefined ? 
-                            <Button variant="outlined" onClick={handleClose}>Confirmer</Button>
-                        :
-                            <ChildModal key="extra-child-modal" destination={destination} year={year} changeAlbumsArray={changeAlbumsArray} />
-                        }
+                        {albumData[0] !== undefined ? (
+                            <Button variant="outlined" onClick={handleClose}>
+                                Confirmer
+                            </Button>
+                        ) : (
+                            <ChildModal
+                                key="extra-child-modal"
+                                destination={destination}
+                                year={year}
+                                changeAlbumsArray={changeAlbumsArray}
+                            />
+                        )}
                     </div>
-                    
                 </Box>
             </Modal>
         </div>

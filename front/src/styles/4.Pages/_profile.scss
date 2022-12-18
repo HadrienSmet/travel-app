@@ -12,7 +12,7 @@
                 width: 100%;
             }
             position: relative;
-            height: 50vh;
+            height: calc(50vh + 96px);
             overflow: hidden;
             @include flexCenterX;
             img {
@@ -38,8 +38,9 @@
                 position: absolute;
                 right: 0px;
                 top: 0px;
-                height: calc(100% - 40px);
+                height: calc(100% - 136px);
                 padding: 20px;
+                padding-top: 116px;
                 form {
                     @include flexColumn;
                     align-items: center;

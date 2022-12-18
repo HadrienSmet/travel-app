@@ -1,25 +1,25 @@
-import { useState, Fragment } from 'react';
-import { Button, Modal, Box } from '@mui/material';
+import { useState, Fragment } from "react";
+import { Button, Modal, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { FaPlus, FaCamera } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
-import MUIInputCountry from './MUIInputCountry';
-import MUIInputNumbers from './MUIInputNumbers';
-import MUIGradientBorder from './MUIGradientBorder';
-import axios from 'axios';
-import { getJwtToken } from '../utils/functions/tools';
-import { pushAlbumInUserLoggedData } from '../features/userLoggedData.slice';
+import MUIInputCountry from "./MUIInputCountry";
+import MUIInputNumbers from "./MUIInputNumbers";
+import MUIGradientBorder from "./MUIGradientBorder";
+import axios from "axios";
+import { getJwtToken } from "../utils/functions/tools";
+import { pushAlbumInUserLoggedData } from "../features/userLoggedData.slice";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
 };
 
 const ProfileAlbumModal = ({ changeAlbumsArray }) => {
@@ -49,37 +49,37 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
         const data = new FormData();
         data.append("name", `album ${destination} ${year}`);
         albumPicture.forEach((picture) => {
-            data.append("file", picture); 
-        }) 
+            data.append("file", picture);
+        });
         axios({
             url: `${process.env.REACT_APP_API_URL}api/auth/setAlbum/${userId}`,
             method: "put",
             data: data,
             headers: {
                 "Content-Type": "multipart/form",
-                "authorization": `bearer ${token}`,
-            }
+                authorization: `bearer ${token}`,
+            },
         })
-        .then((res) => {
-            setOpen(false);
-            console.log(res);
-            dispatch(pushAlbumInUserLoggedData(res.data.newAlbum));
-        })
-        .catch((err) => console.log(err));
+            .then((res) => {
+                setOpen(false);
+                console.log(res);
+                dispatch(pushAlbumInUserLoggedData(res.data.newAlbum));
+            })
+            .catch((err) => console.log(err));
     };
 
     //This function is here to allow a children component to change the local state of this component.
     //@Params { type: Number } => the value of the onChange event listening the input of type numbers
-    //The value refers the year where the pictures were made 
+    //The value refers the year where the pictures were made
     const changeNumber = (year) => {
         setYear(year);
-    }
+    };
     //This function is here to allow a children component to change the local state of this component.
     //@Params { type: String } => the value of the onChange event listening the input containing a list of each country
     //The value refers the country where the pictures were made
     const changeCountry = (country) => {
         setDestination(country);
-    }
+    };
 
     //This function fills two differents array when the input files suffer a change
     //@Params {Type: Object} --> the param of the onChange event
@@ -92,23 +92,33 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
         if (albumPictureUrl === undefined) {
             albumArrayUrl = [URL.createObjectURL(e.target.files[0])];
         } else {
-            albumArrayUrl = [...albumPictureUrl, URL.createObjectURL(e.target.files[0])]
+            albumArrayUrl = [
+                ...albumPictureUrl,
+                URL.createObjectURL(e.target.files[0]),
+            ];
         }
         if (albumPicture === undefined) {
             albumArray = [e.target.files[0]];
         } else {
-            albumArray = [...albumPicture, e.target.files[0]]
+            albumArray = [...albumPicture, e.target.files[0]];
         }
         setAlbumPictureUrl(albumArrayUrl);
         setAlbumPicture(albumArray);
-        
+
         console.log(albumArray);
         console.log(albumArrayUrl);
-    }
+    };
 
     return (
         <Fragment>
-            <Button id='add-album-modal__toggle-btn' variant='outlined' onClick={handleOpen}>Créer un nouvel album<FaPlus /></Button>
+            <Button
+                id="add-album-modal__toggle-btn"
+                variant="outlined"
+                onClick={handleOpen}
+            >
+                Créer un nouvel album
+                <FaPlus />
+            </Button>
             <Modal
                 hideBackdrop
                 open={open}
@@ -118,15 +128,19 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
             >
                 <Box sx={{ ...style, width: 200 }} className="add-album-modal">
                     <div className="add-album-modal__header">
-                        <h2 className="add-album-modal-title">Album {destination} {year}</h2>
+                        <h2 className="add-album-modal-title">
+                            Album {destination} {year}
+                        </h2>
                         <BsXLg onClick={() => setOpen(false)} />
                     </div>
-                    <h3 id="add-album-modal-description">Partagez-nous des souvenirs de votre voyage!</h3>
-                    <form action="" encType='multipart/form-data'>
+                    <h3 id="add-album-modal-description">
+                        Partagez-nous des souvenirs de votre voyage!
+                    </h3>
+                    <form action="" encType="multipart/form-data">
                         <div className="add-album-modal__same-row">
-                            <div className="add-album-modal__country-field">    
+                            <div className="add-album-modal__country-field">
                                 <p>Dans quel pays êtiez-vous parti?</p>
-                                <MUIInputCountry 
+                                <MUIInputCountry
                                     dynamicClass="add-album-modal__input-country"
                                     dynamicPlaceholder="Pays"
                                     changeCountry={changeCountry}
@@ -134,35 +148,54 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
                             </div>
                             <div className="add-album-modal__input-year">
                                 <p>En quelle année?</p>
-                                <MUIInputNumbers 
+                                <MUIInputNumbers
                                     changeNumber={changeNumber}
                                     minNumber={1980}
                                     maxNumber={2023}
                                     dynamicClass="add-album-modal__input-year"
-                                    dynamicPlaceholder="Année" 
+                                    dynamicPlaceholder="Année"
                                 />
                             </div>
                         </div>
-                        <input type="file" name="file" id="trip-file" accept=".jpg, .jpeg, .png" onChange={(e) => handleAlbumPicture(e)} />
-                        <div className='add-album-modal__pictures-displayer' id="album-container">
+                        <input
+                            type="file"
+                            name="file"
+                            id="trip-file"
+                            accept=".jpg, .jpeg, .png"
+                            onChange={(e) => handleAlbumPicture(e)}
+                        />
+                        <div
+                            className="add-album-modal__pictures-displayer"
+                            id="album-container"
+                        >
                             {pictureAreas.map((area, index) => (
-                                <label key={"picture-area-label-" + index} htmlFor="trip-file" className='add-album-modal__picture-area-label'>
-                                    <div className='add-album-modal__picture-area' key={"picture-area" + index}>
-                                        <FaCamera className='add-album-modal__camera-icon' key={"picture-area-camera-" + index} />
-                                        <FaPlus className='add-album-modal__plus-icon' key={"picture-area-plus-" + index} />
+                                <label
+                                    key={index}
+                                    htmlFor="trip-file"
+                                    className="add-album-modal__picture-area-label"
+                                >
+                                    <div className="add-album-modal__picture-area">
+                                        <FaCamera className="add-album-modal__camera-icon" />
+                                        <FaPlus className="add-album-modal__plus-icon" />
                                     </div>
                                 </label>
                             ))}
                             <div className="add-album-modal__pictures-displayer--absolute">
-                                {albumPictureUrl !== undefined && albumPictureUrl.map((url) => (<img key={url} src={url} alt="img" />))}
+                                {albumPictureUrl !== undefined &&
+                                    albumPictureUrl.map((url) => (
+                                        <img key={url} src={url} alt={"Photo pour l'album " + destination + " " + year} />
+                                    ))
+                                }
                             </div>
                         </div>
                     </form>
-                    <MUIGradientBorder onClick={handleClose}>Confirmer</MUIGradientBorder>
+                    <MUIGradientBorder onClick={handleClose}>
+                        Confirmer
+                    </MUIGradientBorder>
                 </Box>
             </Modal>
         </Fragment>
     );
-}
+};
 
 export default ProfileAlbumModal;

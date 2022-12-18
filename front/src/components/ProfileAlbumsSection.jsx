@@ -14,80 +14,173 @@ const ProfileAlbumsSection = ({ isAuthor, dataFrom }) => {
         if (albumsArray === undefined) {
             albumsContainer = [array];
         } else {
-            albumsContainer = [...albumsArray, array]
+            albumsContainer = [...albumsArray, array];
         }
         setAlbumsArray(albumsContainer);
         console.log(albumsArray);
-    }
+    };
 
     return (
-        <div className='profile-albums-section'>
-            {isAuthor === true ?
-                <h1>Mes albums :</h1>
-            :
-                <h1>Ses albums :</h1>
-            }
-            {dataFrom.albums.length === 1 
-            ?
+        <div className="profile-albums-section">
+            {isAuthor === true ? <h1>Mes albums :</h1> : <h1>Ses albums :</h1>}
+            {dataFrom.albums.length === 1 ? (
                 <div className="profile-albums-section__album-container">
                     <h2>{dataFrom.albums[0].name}</h2>
                     <div className="profile-albums-section__pictures-container">
-                        {screenWidth > 1025 ? 
-                            dataFrom.albums[0].pictures.map((picture, index) => {
-                                if (index === 3 && dataFrom.albums[0].pictures.length > 4) {
-                                    return <div className="last-picture">
-                                        <img key={dataFrom.albums[0].name + "-picture-" + index} src={picture} alt="img" />
-                                        <ProfileAlbumSectionModal album={dataFrom.albums[0]} index={index} />
-                                    </div>
-                                } else if (index === 3 && dataFrom.albums[0].pictures.length === 4) {
-                                    return <img key={dataFrom.albums[0].name + "-picture-" + index} src={picture} alt="img" />
-                                } else if(index < 3)  {
-                                    return <img key={dataFrom.albums[0].name + "-picture-" + index} src={picture} alt="img" />
-                                }   else {
-                                    return null;
+                        {screenWidth > 1025 ? (
+                            dataFrom.albums[0].pictures.map(
+                                (picture, index) => {
+                                    if (
+                                        index === 3 &&
+                                        dataFrom.albums[0].pictures.length > 4
+                                    ) {
+                                        return (
+                                            <div
+                                                className="last-picture"
+                                                key={
+                                                    dataFrom.albums[0].name +
+                                                    "-picture-" +
+                                                    index
+                                                }
+                                            >
+                                                <img src={picture} alt={"4e photo de l'" + dataFrom.albums[0].name} />
+                                                <ProfileAlbumSectionModal
+                                                    album={dataFrom.albums[0]}
+                                                    index={index}
+                                                />
+                                            </div>
+                                        );
+                                    } else if (
+                                        index === 3 &&
+                                        dataFrom.albums[0].pictures.length === 4
+                                    ) {
+                                        return (
+                                            <img
+                                                key={
+                                                    dataFrom.albums[0].name +
+                                                    "-picture-" +
+                                                    index
+                                                }
+                                                src={picture}
+                                                alt={"Dernière photo de l'" + dataFrom.albums[0].name}
+                                            />
+                                        );
+                                    } else if (index < 3) {
+                                        return (
+                                            <img
+                                                key={
+                                                    dataFrom.albums[0].name +
+                                                    "-picture-" +
+                                                    index
+                                                }
+                                                src={picture}
+                                                alt={index + 1 + "e photo de l'" + dataFrom.albums[0].name}
+                                            />
+                                        );
+                                    } else {
+                                        return null;
+                                    }
                                 }
-                            })
-                        :
+                            )
+                        ) : (
                             <div className="last-picture">
-                                <img key={dataFrom.albums[0].name + "-picture-"} src={dataFrom.albums[0].pictures[0]} alt="img" />
-                                <ProfileAlbumSectionModal album={dataFrom.albums[0]} index={0} />
+                                <img
+                                    key={dataFrom.albums[0].name + "-picture-"}
+                                    src={dataFrom.albums[0].pictures[0]}
+                                    alt={"Première photo provenant de l" + dataFrom.albums[0].name}
+                                />
+                                <ProfileAlbumSectionModal
+                                    album={dataFrom.albums[0]}
+                                    index={0}
+                                />
                             </div>
-                        }
+                        )}
                     </div>
-                </div> 
-            :
+                </div>
+            ) : (
                 <div className="profile-albums-section__albums-container">
                     {dataFrom.albums.map((album, index) => (
-                        <div key={"album-container-" + index} className="profile-albums-section__album-container">
-                            <h3 key={"album-name-" + index} >{album.name}</h3>
-                            <div key={"album-container__pictures-container-" + index} className="profile-albums-section__pictures-container">
-                                {screenWidth > 1025 ? 
+                        <div
+                            key={index}
+                            className="profile-albums-section__album-container"
+                        >
+                            <h3>{album.name}</h3>
+                            <div className="profile-albums-section__pictures-container">
+                                {screenWidth > 1025 ? (
                                     album.pictures.map((picture, index) => {
-                                        if (index === 3 && album.pictures.length > 4) {
-                                            return <div key={"last-picture-container-" + album.name} className="last-picture">
-                                                <img key={album.name + "-picture-" + index} src={picture} alt="img" />
-                                                <ProfileAlbumSectionModal key={"last-picture-btn-modal__album-" + album.name} index={index} album={album} />
-                                            </div>
-                                        } else if (index === 3 && album.pictures.length === 4) {
-                                            return <img key={album.name + "-picture-" + index} src={picture} alt="img" />
-                                        } else if(index < 3)  {
-                                            return <img key={album.name + "-picture-" + index} src={picture} alt="img" />
-                                        }   else {
+                                        if (
+                                            index === 3 &&
+                                            album.pictures.length > 4
+                                        ) {
+                                            return (
+                                                <div
+                                                    key={
+                                                        "last-picture-container-" +
+                                                        album.name
+                                                    }
+                                                    className="last-picture"
+                                                >
+                                                    <img
+                                                        src={picture}
+                                                        alt={"4e photo de l'" + album.name}
+                                                    />
+                                                    <ProfileAlbumSectionModal
+                                                        index={index}
+                                                        album={album}
+                                                    />
+                                                </div>
+                                            );
+                                        } else if (
+                                            index === 3 &&
+                                            album.pictures.length === 4
+                                        ) {
+                                            return (
+                                                <img
+                                                    key={
+                                                        album.name +
+                                                        "-picture-" +
+                                                        index
+                                                    }
+                                                    src={picture}
+                                                    alt={"Dernière photo provenant de l'" + album.name}
+                                                />
+                                            );
+                                        } else if (index < 3) {
+                                            return (
+                                                <img
+                                                    key={
+                                                        album.name +
+                                                        "-picture-" +
+                                                        index
+                                                    }
+                                                    src={picture}
+                                                    alt={index + 1 + "e photo provenant de l'" + album.name}
+                                                />
+                                            );
+                                        } else {
                                             return null;
                                         }
                                     })
-                                :
+                                ) : (
                                     <div className="last-picture">
-                                        <img key={album.name + "modal-shower"} src={album.pictures[0]} alt="img" />
-                                        <ProfileAlbumSectionModal album={album} index={index} />
+                                        <img
+                                            src={album.pictures[0]}
+                                            alt={"Première photo provenant de l'" + album.name}
+                                        />
+                                        <ProfileAlbumSectionModal
+                                            album={album}
+                                            index={index}
+                                        />
                                     </div>
-                                }
+                                )}
                             </div>
                         </div>
-                    ))}   
+                    ))}
                 </div>
-            }
-            {isAuthor === true && <ProfileAddAlbumModal changeAlbumsArray={changeAlbumsArray} />}
+            )}
+            {isAuthor === true && (
+                <ProfileAddAlbumModal changeAlbumsArray={changeAlbumsArray} />
+            )}
         </div>
     );
 };
