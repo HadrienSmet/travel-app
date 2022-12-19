@@ -48,7 +48,7 @@
                 transition: 0.3s ease-in-out;
                 &:hover {
                     transform: translateX(5px);
-                    letter-spacing: 1px;
+                    // letter-spacing: 1px;
                     &::before {
                         transform: scaleY(1);
                     }
@@ -63,6 +63,9 @@
                     background-color: $secondary-color;
                     transform: scaleY(0);
                     transition: 0.2s 0.1s ease-in-out;
+                }
+                a {
+                    color: $secondary-color;
                 }
             }
         }

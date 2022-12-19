@@ -6,14 +6,14 @@ const Footer = () => {
             <LogoFooter />
             <div className="footer__link-container">
                 <ul className="info">
-                    <li>Blog</li>
-                    <li>A propos</li>
-                    <li>Contact</li>
+                    <li><a href="/error404">Blog</a></li>
+                    <li><a href="/error404">A propos</a></li>
+                    <li><a href="/error404">Contact</a></li>
                 </ul>
                 <ul className="settings">
-                    <li>Securité</li>
-                    <li>Confidentialité</li>
-                    <li>Conditions d'utilisations</li>
+                    <li><a href="/error404">Securité</a></li>
+                    <li><a href="/error404">Confidentialité</a></li>
+                    <li><a href="/error404">Conditions d'utilisations</a></li>
                 </ul>
             </div>
         </footer>

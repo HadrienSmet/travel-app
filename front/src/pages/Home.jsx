@@ -127,6 +127,7 @@ const Home = () => {
                         <Globe3D
                             dynamicClassName="home"
                             changeSelectedCountry={changeSelectedCountry}
+                            forHome={true}
                         />
                     </div>
                 </div>

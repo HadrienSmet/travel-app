@@ -1,0 +1,51 @@
+.error-page {
+    @media screen and (min-width: 1025px) {
+        padding: 180px 80px 80px;
+        height: calc(100vh - 260px);
+    }
+    @media screen and (max-width: 1024px) {
+        padding: 130px 10px 30px;
+        height: calc(100vh - 160px);
+    }
+    &__content {
+        @media screen and (min-width: 1025px) {
+            @include flexBetweenCentered;
+        }
+        @media screen and (max-width: 1024px) {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            @include flexColumnCenterX;
+            justify-content: space-evenly;
+        }
+        h1 {
+            @media screen and (min-width: 1025px) {
+                width: 30%;
+                font-size: 45px;
+            }
+            @media screen and (min-width: 768px) and (max-width: 1024px) {
+                font-size: 30px;
+            }
+            @media screen and (max-width: 1024px) {
+                width: 75%;
+            }
+            @media screen and (max-width: 767px) {
+                font-size: 18px;
+            }
+            text-align: center;
+            font-family: "error-fonts";
+            font-style: italic;
+            letter-spacing: 5px;
+            color: $tertiary-color;
+            text-transform: uppercase;
+        }
+        img {
+            @media screen and (min-width: 1025px) {
+                width: 60%;
+            }
+            @media screen and (max-width: 1024px) {
+                width: 90%;
+            }
+        }
+    }
+}

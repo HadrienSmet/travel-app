@@ -26,7 +26,7 @@ const Globe = () => {
     );
 };
 
-const Globe3D = ({ dynamicClassName, changeSelectedCountry }) => {
+const Globe3D = ({ dynamicClassName, changeSelectedCountry, forHome }) => {
     const options = useMemo(() => countryList().getData(), []);
     const screenWidth = useWindowSize().width;
     const cameraPosition = screenWidth > 768 ? [0, 0, 10] : [0, 0, 12];
@@ -64,13 +64,21 @@ const Globe3D = ({ dynamicClassName, changeSelectedCountry }) => {
                     "-globe-container__countries-list"
                 }
             >
-                {options.map((option) => (
+                {forHome === true && options.map((option) => (
                     <li
                         key={option.label}
                         onClick={() => changeSelectedCountry(option.label)}
                     >
                         <a href="#home_anchor">{option.label}</a>
                     </li>
+                ))}
+                {forHome !== true && options.map((option) => (
+                    <li
+                        key={option.label}
+                        onClick={() => changeSelectedCountry(option.label)}
+                    >
+                        {option.label}
+                    </li>    
                 ))}
             </ul>
         </div>
