@@ -148,6 +148,10 @@ const FriendProfile = () => {
             .catch((err) => console.log(err));
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <main className="profile-section">
             {/* <div className="fake-margin-replacing-header"></div> */}

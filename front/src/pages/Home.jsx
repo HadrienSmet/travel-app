@@ -10,9 +10,13 @@ import PostsForm from "../components/PostsForm";
 import { useCallback } from "react";
 
 const Home = () => {
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [allPosts, setAllPosts] = useState(true);
     const [loadPost, setLoadPost] = useState(true);
+    const [specifiedLoadPost, setSpecifiedLoadPost] = useState(false);
     const [noResult, setNoResult] = useState(false);
     const [count, setCount] = useState(10);
+    const [specifiedCount, setSpecifiedCount] = useState(10);
     const dispatch = useDispatch();
     const userData = useSelector(
         (state) => state.userLoggedDataStore.userLoggedData
@@ -24,28 +28,49 @@ const Home = () => {
         ? (dataArrayForSort = [...postsData])
         : (dataArrayForSort = []);
 
+    const changeSelectedCountry = (country) => {
+        setSelectedCountry(country);
+        setSpecifiedLoadPost(true);
+    }
+    
     //This function is called when the user click on a country
     //@Params { Type: String } => The country selected by the user
     //It gets from the data base all the posts made by the users from the country selected
-    const changeSelectedCountry = (country) => {
-        axios({
-            url: `${process.env.REACT_APP_API_URL}api/posts/from/${country}`,
-            method: "get",
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `bearer ${token}`,
-            },
-        })
-            .then((res) => {
-                if (res.data.length > 0) {
-                    dispatch(setPostsData(res.data));
-                    setNoResult(false);
-                } else {
-                    setNoResult(true);
-                }
+    const fetchSpecifiedPosts = useCallback(
+        (num) => {
+            setAllPosts(false)
+            axios({
+                url: `${process.env.REACT_APP_API_URL}api/posts/from/${selectedCountry}`,
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `bearer ${token}`,
+                },
             })
-            .catch((err) => console.log(err));
-    };
+                .then((res) => {
+                    if (res.data.length > 0) {
+                        const array = res.data
+                            .sort((a, b) => b.date - a.date)
+                            .slice(0, num);
+                        dispatch(setPostsData(array));
+                        setNoResult(false);
+                    } else {
+                        setNoResult(true);
+                    }
+                })
+                .catch((err) => console.log(err));
+        },
+        [dispatch, token, selectedCountry]
+    );
+
+    const loadSpecified = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 126 >
+            document.scrollingElement.scrollHeight
+        ) {
+            setSpecifiedLoadPost(true);
+        }
+    }
 
     //This function is here to activate the useEffect whenever the user starts to see the footer
     const loadMore = () => {
@@ -90,10 +115,22 @@ const Home = () => {
             setCount(() => count + 5);
         }
 
-        window.addEventListener("scroll", loadMore);
+        if (specifiedLoadPost) {
+            fetchSpecifiedPosts(specifiedCount);
+            setSpecifiedLoadPost(() => false);
+            setSpecifiedCount(() => specifiedCount + 5);
+            // console.log(count)
+        }
 
-        return () => window.removeEventListener("scroll", loadMore);
-    }, [loadPost, count, fetchAllposts]);
+        allPosts ? window.addEventListener("scroll", loadMore) : window.addEventListener("scroll", loadSpecified);
+
+        return () => allPosts ? window.removeEventListener("scroll", loadMore) : window.removeEventListener("scroll", loadSpecified);
+    }, [loadPost, count, fetchAllposts, allPosts, fetchSpecifiedPosts, specifiedCount, specifiedLoadPost]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+    
 
     return (
         <main>

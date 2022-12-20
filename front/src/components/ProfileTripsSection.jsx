@@ -18,7 +18,8 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
     //This function doesn't do anything right now
     //It will just log the country selected by the user
     const handleFutureTrip = () => {
-        navigate(`/${selectedCountry}/error-404`);
+        console.log(selectedCountry);
+        navigate(`/error-404`);
     };
 
     return (
@@ -48,7 +49,7 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
                         forHome={false}
                     />
                     <MUIGradientBorder onClick={() => handleFutureTrip()}>
-                        <span>Faire une recherche</span>
+                        <span onClick={() => handleFutureTrip()}>Faire une recherche</span>
                     </MUIGradientBorder>
                 </div>
             )}

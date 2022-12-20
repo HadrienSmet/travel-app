@@ -129,6 +129,19 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
         setDreamTrip(countries);
     };
 
+    const removeDreamDestination = (e) => {
+        console.log(e)
+        let selectedDestination;
+        if (e.target.id === "") {
+            selectedDestination = e.target.parentElement.id.split("_")[0];
+        } else {
+            selectedDestination = e.target.id.split("_")[0];
+        }
+        let countries = [...dreamTrip];
+        let newArr = countries.filter((country) => country !== selectedDestination);
+        setDreamTrip(newArr);
+    }
+
     const handleSubmission = () => {
         const { userAuth, userData } = userPersonals;
         const { email, password } = userAuth;
@@ -271,7 +284,8 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
                                 {dreamTrip !== undefined &&
                                     dreamTrip.map((country) => (
                                         <li id={"li-" + country} key={country}>
-                                            {country}
+                                            <span>{country}</span>
+                                            <FaTimes onClick={(e) => removeDreamDestination(e)} id={country + "_delete-btn"} />
                                         </li>
                                     ))}
                             </ul>

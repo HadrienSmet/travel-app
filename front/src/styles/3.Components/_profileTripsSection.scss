@@ -75,6 +75,11 @@
         }
         @include flexColumn;
         gap: 20px;
+        .gradient {
+            span {
+                cursor: pointer;
+            }
+        }
     }
     &__accordion {
         h4 {
