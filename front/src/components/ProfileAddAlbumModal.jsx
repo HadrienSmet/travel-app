@@ -6,9 +6,9 @@ import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from "./MUIInputCountry";
 import MUIInputNumbers from "./MUIInputNumbers";
 import MUIGradientBorder from "./MUIGradientBorder";
-import axios from "axios";
 import { getJwtToken } from "../utils/functions/tools";
 import { pushAlbumInUserLoggedData } from "../features/userLoggedData.slice";
+import { axiosCreateAlbum } from "../utils/functions/axiosCreateAlbum";
 
 const style = {
     position: "absolute",
@@ -22,7 +22,7 @@ const style = {
     p: 4,
 };
 
-const ProfileAlbumModal = ({ changeAlbumsArray }) => {
+const useProfileAlbumModal = () => {
     const [open, setOpen] = useState(false);
     const [albumPicture, setAlbumPicture] = useState(undefined);
     const [albumPictureUrl, setAlbumPictureUrl] = useState(undefined);
@@ -31,10 +31,15 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
     const dispatch = useDispatch();
     let { userId, token } = getJwtToken();
 
-    const pictureAreas = [];
-    for (let i = 0; i < 12; i++) {
-        pictureAreas.push(i);
-    }
+    const handleAlbumFormData = () => {
+        const data = new FormData();
+        data.append("name", `album ${destination} ${year}`);
+        albumPicture.forEach((picture) => {
+            data.append("file", picture);
+        });
+
+        return data;
+    };
 
     //This function change the state of the component in purpose to open the child modal.
     const handleOpen = () => {
@@ -46,28 +51,14 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
     //And it gives the name of the album and the urls of the blop links by the redux store.
     //And it also changes the state of the component in purpose to close the child modal.
     const handleClose = () => {
-        const data = new FormData();
-        data.append("name", `album ${destination} ${year}`);
-        albumPicture.forEach((picture) => {
-            data.append("file", picture);
-        });
-        axios({
-            url: `${process.env.REACT_APP_API_URL}api/auth/setAlbum/${userId}`,
-            method: "put",
-            data: data,
-            headers: {
-                "Content-Type": "multipart/form",
-                authorization: `bearer ${token}`,
-            },
-        })
+        const data = handleAlbumFormData();
+        axiosCreateAlbum(userId, data, token)
             .then((res) => {
                 setOpen(false);
-                console.log(res);
                 dispatch(pushAlbumInUserLoggedData(res.data.newAlbum));
             })
             .catch((err) => console.log(err));
     };
-
     //This function is here to allow a children component to change the local state of this component.
     //@Params { type: Number } => the value of the onChange event listening the input of type numbers
     //The value refers the year where the pictures were made
@@ -104,10 +95,39 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
         }
         setAlbumPictureUrl(albumArrayUrl);
         setAlbumPicture(albumArray);
-
-        console.log(albumArray);
-        console.log(albumArrayUrl);
     };
+
+    return {
+        open,
+        destination,
+        year,
+        albumPictureUrl,
+        setOpen,
+        changeCountry,
+        changeNumber,
+        handleOpen,
+        handleClose,
+        handleAlbumPicture,
+    };
+};
+
+const ProfileAlbumModal = ({ changeAlbumsArray }) => {
+    const {
+        open,
+        destination,
+        year,
+        albumPictureUrl,
+        setOpen,
+        changeCountry,
+        changeNumber,
+        handleOpen,
+        handleClose,
+        handleAlbumPicture,
+    } = useProfileAlbumModal();
+    const pictureAreas = [];
+    for (let i = 0; i < 12; i++) {
+        pictureAreas.push(i);
+    }
 
     return (
         <Fragment>
@@ -183,14 +203,22 @@ const ProfileAlbumModal = ({ changeAlbumsArray }) => {
                             <div className="add-album-modal__pictures-displayer--absolute">
                                 {albumPictureUrl !== undefined &&
                                     albumPictureUrl.map((url) => (
-                                        <img key={url} src={url} alt={"Photo pour l'album " + destination + " " + year} />
-                                    ))
-                                }
+                                        <img
+                                            key={url}
+                                            src={url}
+                                            alt={
+                                                "Photo pour l'album " +
+                                                destination +
+                                                " " +
+                                                year
+                                            }
+                                        />
+                                    ))}
                             </div>
                         </div>
                     </form>
                     <MUIGradientBorder onClick={handleClose}>
-                        Confirmer
+                        <span onClick={handleClose}>Confirmer</span>
                     </MUIGradientBorder>
                 </Box>
             </Modal>

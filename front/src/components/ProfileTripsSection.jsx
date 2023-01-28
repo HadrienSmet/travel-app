@@ -5,7 +5,7 @@ import MUIGradientBorder from "./MUIGradientBorder";
 import MUIPreviousTripsAccordion from "./MUIPreviousTripsAccordion";
 import ProfileAddTripModal from "./ProfileAddTripModal";
 
-const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
+const useProfileTripsSection = () => {
     const [selectedCountry, setSelectedCountry] = useState("");
     const navigate = useNavigate();
 
@@ -21,6 +21,16 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
         console.log(selectedCountry);
         navigate(`/error-404`);
     };
+
+    return {
+        changeSelectedCountry,
+        handleFutureTrip,
+    };
+};
+
+const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
+    const { changeSelectedCountry, handleFutureTrip } =
+        useProfileTripsSection();
 
     return (
         <section className="profile-trips-section">
@@ -49,7 +59,9 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
                         forHome={false}
                     />
                     <MUIGradientBorder onClick={() => handleFutureTrip()}>
-                        <span onClick={() => handleFutureTrip()}>Faire une recherche</span>
+                        <span onClick={() => handleFutureTrip()}>
+                            Faire une recherche
+                        </span>
                     </MUIGradientBorder>
                 </div>
             )}

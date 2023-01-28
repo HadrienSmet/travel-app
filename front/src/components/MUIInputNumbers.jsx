@@ -1,18 +1,8 @@
 import { useState } from "react";
 import { Select, FormControl, MenuItem, InputLabel } from "@mui/material";
 
-const MUIInputNumbers = ({
-    minNumber,
-    maxNumber,
-    dynamicClass,
-    dynamicPlaceholder,
-    changeNumber,
-}) => {
+const useMuiInputNumbers = ({ changeNumber }) => {
     const [number, setNumber] = useState("");
-    const numbers = [];
-    for (let i = minNumber; i < maxNumber; i++) {
-        numbers.push(i);
-    }
 
     //This function change the state of this component and the state of his parent
     //@Params { Type: Object } --> The param of the onChange event
@@ -20,6 +10,25 @@ const MUIInputNumbers = ({
         setNumber(e.target.value);
         changeNumber(e.target.value);
     };
+
+    return {
+        number,
+        handleChange,
+    };
+};
+
+const MUIInputNumbers = ({
+    minNumber,
+    maxNumber,
+    dynamicClass,
+    dynamicPlaceholder,
+    changeNumber,
+}) => {
+    const { number, handleChange } = useMuiInputNumbers({ changeNumber });
+    const numbers = [];
+    for (let i = minNumber; i < maxNumber; i++) {
+        numbers.push(i);
+    }
 
     return (
         <div className={dynamicClass}>

@@ -1,7 +1,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-const MUIPicturesCarousel = ({ pictures, index }) => {
+const MUIPicturesCarousel = ({ pictures }) => {
     return (
         <Carousel autoPlay={false} swipeable={true} interval={15000}>
             {pictures.map((picture, i) => (

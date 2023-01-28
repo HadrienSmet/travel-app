@@ -6,10 +6,10 @@ import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from "./MUIInputCountry";
 import MUIInputNumbers from "./MUIInputNumbers";
 import MUIInputSelect from "./MUIInputSelect";
-import axios from "axios";
 import { getJwtToken } from "../utils/functions/tools";
 import { pushTripInUserLoggedData } from "../features/userLoggedData.slice";
 import MUIGradientBorder from "./MUIGradientBorder";
+import { axiosCreateTrip } from "../utils/functions/axiosCreateTrip";
 
 const style = {
     position: "absolute",
@@ -25,7 +25,7 @@ const style = {
     pb: 3,
 };
 
-const ProfileAddTripModal = () => {
+const useProfileAddTripModal = () => {
     const [open, setOpen] = useState(false);
     const [destination, setDestination] = useState("");
     const [duration, setDuration] = useState("");
@@ -34,31 +34,6 @@ const ProfileAddTripModal = () => {
     const [details, setDetails] = useState("");
     const dispatch = useDispatch();
     let { userId, token } = getJwtToken();
-
-    const durations = [
-        "1 Mois",
-        "2 Mois",
-        "3 Mois",
-        "4 Mois",
-        "5 Mois",
-        "6 Mois",
-        "7 Mois",
-        "8 Mois",
-        "9 Mois",
-        "10 Mois",
-        "11 Mois",
-        "1 Ans",
-        "2 Ans",
-        "3 Ans",
-        "Je me suis perdu",
-    ];
-
-    const withFriendsChoices = [
-        "Seul(e)",
-        "En couple",
-        "Aves des ami(e)s",
-        "En famille",
-    ];
 
     //This function changes the state of the component in order to open the parent modal
     const handleOpen = () => {
@@ -97,7 +72,7 @@ const ProfileAddTripModal = () => {
 
     //This function change the state of the components in order to let the user provides details about his trip
     //@Params { Type: String } --> The param of the onChange event
-    const handleDetails = (e) => {
+    const changeDetails = (e) => {
         setDetails(e.target.value);
     };
 
@@ -111,21 +86,64 @@ const ProfileAddTripModal = () => {
             withWho: choice,
             details,
         };
-        axios({
-            url: `${process.env.REACT_APP_API_URL}api/auth/setTrip/${userId}`,
-            method: "put",
-            data: trip,
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `bearer ${token}`,
-            },
-        })
+        axiosCreateTrip(userId, trip, token)
             .then((res) => {
                 setOpen(false);
                 dispatch(pushTripInUserLoggedData(res.data.newTrip));
             })
             .catch((err) => console.log(err));
     };
+
+    return {
+        open,
+        setOpen,
+        handleOpen,
+        handleClose,
+        changeCountry,
+        changeDuration,
+        changeNumber,
+        changeChoice,
+        changeDetails,
+    };
+};
+
+const ProfileAddTripModal = () => {
+    const {
+        open,
+        setOpen,
+        handleOpen,
+        handleClose,
+        changeCountry,
+        changeDuration,
+        changeNumber,
+        changeChoice,
+        changeDetails,
+    } = useProfileAddTripModal();
+
+    const durations = [
+        "1 Mois",
+        "2 Mois",
+        "3 Mois",
+        "4 Mois",
+        "5 Mois",
+        "6 Mois",
+        "7 Mois",
+        "8 Mois",
+        "9 Mois",
+        "10 Mois",
+        "11 Mois",
+        "1 Ans",
+        "2 Ans",
+        "3 Ans",
+        "Je me suis perdu",
+    ];
+
+    const withFriendsChoices = [
+        "Seul(e)",
+        "En couple",
+        "Aves des ami(e)s",
+        "En famille",
+    ];
 
     return (
         <div className="profile-add-trip">
@@ -182,7 +200,7 @@ const ProfileAddTripModal = () => {
                                 label="Lieux, expériences, ..."
                                 placeholder="Placeholder"
                                 multiline
-                                onChange={(e) => handleDetails(e)}
+                                onChange={(e) => changeDetails(e)}
                             />
                         </div>
                     </div>

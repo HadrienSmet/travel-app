@@ -6,7 +6,7 @@ import imgGlobe from "../assets/images/globe.webp";
 import countryList from "react-select-country-list";
 import { useWindowSize } from "../utils/functions/hooks";
 
-const Globe = () => {
+const useGlobe = () => {
     const mapBackground = useLoader(TextureLoader, imgGlobe);
     const meshRef = useRef();
 
@@ -17,6 +17,15 @@ const Globe = () => {
         }
         meshRef.current.rotation.y += 0.0004;
     });
+
+    return {
+        mapBackground,
+        meshRef,
+    };
+};
+
+const Globe = () => {
+    const { mapBackground, meshRef } = useGlobe();
 
     return (
         <mesh ref={meshRef}>
@@ -64,22 +73,24 @@ const Globe3D = ({ dynamicClassName, changeSelectedCountry, forHome }) => {
                     "-globe-container__countries-list"
                 }
             >
-                {forHome === true && options.map((option) => (
-                    <li
-                        key={option.label}
-                        onClick={() => changeSelectedCountry(option.label)}
-                    >
-                        <a href="#home_anchor">{option.label}</a>
-                    </li>
-                ))}
-                {forHome !== true && options.map((option) => (
-                    <li
-                        key={option.label}
-                        onClick={() => changeSelectedCountry(option.label)}
-                    >
-                        {option.label}
-                    </li>    
-                ))}
+                {forHome === true &&
+                    options.map((option) => (
+                        <li
+                            key={option.label}
+                            onClick={() => changeSelectedCountry(option.label)}
+                        >
+                            <a href="#home_anchor">{option.label}</a>
+                        </li>
+                    ))}
+                {forHome !== true &&
+                    options.map((option) => (
+                        <li
+                            key={option.label}
+                            onClick={() => changeSelectedCountry(option.label)}
+                        >
+                            {option.label}
+                        </li>
+                    ))}
             </ul>
         </div>
     );

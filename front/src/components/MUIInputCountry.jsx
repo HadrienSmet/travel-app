@@ -5,13 +5,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import countryList from "react-select-country-list";
 
-const MUIInputCountry = ({
-    dynamicClass,
-    dynamicPlaceholder,
-    changeCountry,
-}) => {
+const useMUIInputCountry = ({ changeCountry }) => {
     const [value, setValue] = useState("");
-    const options = useMemo(() => countryList().getData(), []);
 
     //This function change the state of this component and the state of his parent
     //@Params { Type: Object } --> The param of the onChange event
@@ -19,6 +14,20 @@ const MUIInputCountry = ({
         setValue(e.target.value);
         changeCountry(e.target.value);
     };
+
+    return {
+        value,
+        changeHandler,
+    };
+};
+
+const MUIInputCountry = ({
+    dynamicClass,
+    dynamicPlaceholder,
+    changeCountry,
+}) => {
+    const { value, changeHandler } = useMUIInputCountry({ changeCountry });
+    const options = useMemo(() => countryList().getData(), []);
 
     return (
         <div className={dynamicClass}>

@@ -1,4 +1,3 @@
-// import logo from "../assets/images/logo-globe.png"
 import { MdOutlineLanguage } from "react-icons/md";
 
 const Logo = () => {

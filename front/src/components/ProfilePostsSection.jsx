@@ -1,30 +1,21 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../features/postsData.slice";
+import { axiosGetUserPosts } from "../utils/functions/axiosGetUserPosts";
 import { getJwtToken } from "../utils/functions/tools";
 import Post from "./Post";
 
-const ProfilePostsSection = () => {
+const useProfilePostsSection = () => {
     const [loadPost, setLoadPost] = useState(true);
     const [count, setCount] = useState(5);
     const dispatch = useDispatch();
-    const userPosts = useSelector((state) => state.postsDataStore.postsData);
-    let postsArray = [...userPosts];
     let { userId, token } = getJwtToken();
 
     //This function gets from the API all the posts and displays it into the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
     const fetchAllposts = useCallback(
         (num) => {
-            axios({
-                url: `${process.env.REACT_APP_API_URL}api/posts/by/${userId}`,
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `bearer ${token}`,
-                },
-            })
+            axiosGetUserPosts(userId, token)
                 .then((res) => {
                     const array = res.data
                         .sort((a, b) => b.date - a.date)
@@ -61,6 +52,12 @@ const ProfilePostsSection = () => {
 
         return () => window.removeEventListener("scroll", loadMore);
     }, [loadPost, count, fetchAllposts]);
+};
+
+const ProfilePostsSection = () => {
+    useProfilePostsSection();
+    const userPosts = useSelector((state) => state.postsDataStore.postsData);
+    let postsArray = [...userPosts];
 
     return (
         <section className="profile__posts-section">

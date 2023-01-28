@@ -3,9 +3,8 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useWindowSize } from "../utils/functions/hooks";
 
-const NavigationUser = () => {
+const useNavigationUser = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const screenWidth = useWindowSize().width;
     const ref = useRef();
 
     //This function is called when the user clicks on the menu button on the mobile version
@@ -14,7 +13,6 @@ const NavigationUser = () => {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         ref.current.classList.add("active");
-        // document.querySelector("body").style.width = "calc(100vw + 17px)";
     };
 
     //This function is called when the user clicks on the X button on the mobile version
@@ -23,8 +21,19 @@ const NavigationUser = () => {
     const handleClose = () => {
         setAnchorEl(null);
         ref.current.classList.remove("active");
-        // document.querySelector("body").style.width = "100%";
     };
+
+    return {
+        anchorEl,
+        ref,
+        handleClick,
+        handleClose,
+    };
+};
+
+const NavigationUser = () => {
+    const { anchorEl, ref, handleClick, handleClose } = useNavigationUser();
+    const screenWidth = useWindowSize().width;
 
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;

@@ -1,17 +1,25 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../features/postsData.slice";
 import { getJwtToken } from "../utils/functions/tools";
 import Post from "./Post";
 
-const FriendProfilePostsSection = ({ friendProfile }) => {
+const useFriendProfilePostsSection = ({ friendProfile }) => {
     const [loadPost, setLoadPost] = useState(true);
     const [count, setCount] = useState(5);
     const dispatch = useDispatch();
-    const userPosts = useSelector((state) => state.postsDataStore.postsData);
-    let postsArray = [...userPosts];
     let { token } = getJwtToken();
+
+    //This function is here to activate the useEffect whenever the user starts to see the footer
+    const loadMore = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 126 >
+            document.scrollingElement.scrollHeight
+        ) {
+            setLoadPost(true);
+        }
+    };
 
     //This function is here to get all the posts made by a specified user and then displays all the data in the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
@@ -36,16 +44,6 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
         [dispatch, token, friendProfile._id]
     );
 
-    //This function is here to activate the useEffect whenever the user starts to see the footer
-    const loadMore = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop + 126 >
-            document.scrollingElement.scrollHeight
-        ) {
-            setLoadPost(true);
-        }
-    };
-
     //This useEffect is here to get the posts made by a specified user and then displays all the data in the redux store
     //If the app indicates by his local state that posts have to be loaded:
     //A function to make the call API is called, then when indicate to the app that it doesn't need anymore to load posts and then increase the amount of posts that will be called next time
@@ -61,6 +59,12 @@ const FriendProfilePostsSection = ({ friendProfile }) => {
 
         return () => window.removeEventListener("scroll", loadMore);
     }, [loadPost, fetchAllposts, count]);
+};
+
+const FriendProfilePostsSection = ({ friendProfile }) => {
+    useFriendProfilePostsSection({ friendProfile });
+    const userPosts = useSelector((state) => state.postsDataStore.postsData);
+    let postsArray = [...userPosts];
 
     return (
         <section className="profile__posts-section">

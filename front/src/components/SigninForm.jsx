@@ -1,6 +1,5 @@
 import { TextField, Button } from "@mui/material";
 import MUIClassicLoader from "./MUIClassicLoader";
-import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +7,18 @@ import { FaCheck } from "react-icons/fa";
 import { setUserLoggedData } from "../features/userLoggedData.slice";
 import { setLoggedState } from "../features/loggedState.slice";
 import { setJwtToken } from "../utils/functions/tools";
+import { axiosSignIn } from "../utils/functions/axiosSignIn";
+import { useRef } from "react";
 
-const SigninForm = () => {
+export const signIn = () => {};
+
+const useSigninForm = () => {
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const spanRef = useRef(null);
 
     //This function is called when the user is trying to get connected to the app
     //@Params { type: Object } => the param froms the onClick event. Only here to prevent the default behavior
@@ -26,20 +30,16 @@ const SigninForm = () => {
     //It ends the loading animation and leads the user to the home page
     //If an error is caught, a message is injected on the DOM
     const handleSubmission = (e) => {
-        const span = document.getElementById("signin-msg");
         e.preventDefault();
         setIsLoading(true);
         let data = {
             email: mail,
             password,
         };
-        axios
-            .post(`${process.env.REACT_APP_API_URL}api/auth/login`, data, {
-                "Content-Type": "application/json",
-            })
+        axiosSignIn(data)
             .then((res) => {
                 if (res.status === 401) {
-                    span.textContent =
+                    spanRef.current.textContent =
                         "Paire d'email et de mot de passe incorrect";
                 } else {
                     dispatch(setLoggedState(true));
@@ -53,10 +53,32 @@ const SigninForm = () => {
                 }
             })
             .catch((err) => {
-                span.textContent = "Paire d'email et de mot de passe incorrect";
+                spanRef.current.textContent =
+                    "Paire d'email et de mot de passe incorrect";
             });
     };
 
+    return {
+        spanRef,
+        isLoading,
+        mail,
+        password,
+        setMail,
+        setPassword,
+        handleSubmission,
+    };
+};
+
+const SigninForm = () => {
+    const {
+        spanRef,
+        isLoading,
+        mail,
+        password,
+        setMail,
+        setPassword,
+        handleSubmission,
+    } = useSigninForm();
     return (
         <div id="signin" className="signin-container start-form">
             <form
@@ -95,7 +117,7 @@ const SigninForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <span id="signin-msg"></span>
+                <span id="signin-msg" ref={spanRef}></span>
                 {isLoading === false && (
                     <Button
                         variant="outlined"
