@@ -6,8 +6,8 @@ import { setLoggedState } from "../features/loggedState.slice";
 import { setUserLoggedData } from "../features/userLoggedData.slice";
 import { resetAlbumObjectArray } from "../features/albumObjectArray.slice";
 import { setWelcomeState } from "../features/welcomeState.slice";
-import SignupForm from "../components/SignupForm";
-import SigninForm from "../components/SigninForm";
+import SignupForm from "../components/pageSignup/authentificationDataForm/SignupForm";
+import SigninForm from "../components/pageSignin/SigninForm";
 import imageDesktop from "../assets/images/home-desktop-bg.webp";
 import imageMobile from "../assets/images/home-mobile-bg.webp";
 
@@ -21,7 +21,10 @@ const Welcome = () => {
     const parallaxElementSpeed = screenWidth > 1025 ? 40 : 5;
     const scaleElement = screenWidth > 1025 ? [1, 0.4] : [1, 0.9];
     const backgroundImg = screenWidth > 678 ? imageDesktop : imageMobile;
-    const backgroundImgAlt = screenWidth > 678 ? "Cascades dans un paysage polaire" : "Chemin au milieu des montagnes";
+    const backgroundImgAlt =
+        screenWidth > 678
+            ? "Cascades dans un paysage polaire"
+            : "Chemin au milieu des montagnes";
 
     const bannerParallax = useParallax({
         speed: parallaxBannerSpeed,

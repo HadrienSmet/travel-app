@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SignupPersonalDataForm from "../components/SignupPersonalDataForm";
+import SignupPersonalDataForm from "../components/pageSignup/personalDataForm/SignupPersonalDataForm";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useEffect } from "react";
-import SignupExtraDataForm from "../components/SignupExtraDataForm";
+import SignupExtraDataForm from "../components/pageSignup/extraDataForm/SignupExtraDataForm";
 import signupBanner from "../assets/images/signup-steps-bg.webp";
 import { useParallax } from "react-scroll-parallax";
 import { useWindowSize } from "../utils/functions/hooks";

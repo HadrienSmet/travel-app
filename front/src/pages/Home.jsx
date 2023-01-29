@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../features/postsData.slice";
 import { getJwtToken } from "../utils/functions/tools";
 import Globe3D from "../components/Globe3D";
-import MUIGradientBorder from "../components/MUIGradientBorder";
-import Post from "../components/Post";
-import PostsForm from "../components/PostsForm";
+import MUIGradientBorder from "../components/mui/MUIGradientBorder";
+import Post from "../components/post/Post";
+import PostsForm from "../components/pageHome/PostsForm";
 import { useCallback } from "react";
 
 const Home = () => {
@@ -31,14 +31,14 @@ const Home = () => {
     const changeSelectedCountry = (country) => {
         setSelectedCountry(country);
         setSpecifiedLoadPost(true);
-    }
-    
+    };
+
     //This function is called when the user click on a country
     //@Params { Type: String } => The country selected by the user
     //It gets from the data base all the posts made by the users from the country selected
     const fetchSpecifiedPosts = useCallback(
         (num) => {
-            setAllPosts(false)
+            setAllPosts(false);
             axios({
                 url: `${process.env.REACT_APP_API_URL}api/posts/from/${selectedCountry}`,
                 method: "get",
@@ -70,7 +70,7 @@ const Home = () => {
         ) {
             setSpecifiedLoadPost(true);
         }
-    }
+    };
 
     //This function is here to activate the useEffect whenever the user starts to see the footer
     const loadMore = () => {
@@ -122,15 +122,27 @@ const Home = () => {
             // console.log(count)
         }
 
-        allPosts ? window.addEventListener("scroll", loadMore) : window.addEventListener("scroll", loadSpecified);
+        allPosts
+            ? window.addEventListener("scroll", loadMore)
+            : window.addEventListener("scroll", loadSpecified);
 
-        return () => allPosts ? window.removeEventListener("scroll", loadMore) : window.removeEventListener("scroll", loadSpecified);
-    }, [loadPost, count, fetchAllposts, allPosts, fetchSpecifiedPosts, specifiedCount, specifiedLoadPost]);
+        return () =>
+            allPosts
+                ? window.removeEventListener("scroll", loadMore)
+                : window.removeEventListener("scroll", loadSpecified);
+    }, [
+        loadPost,
+        count,
+        fetchAllposts,
+        allPosts,
+        fetchSpecifiedPosts,
+        specifiedCount,
+        specifiedLoadPost,
+    ]);
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-    
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <main>
@@ -171,8 +183,13 @@ const Home = () => {
                 <div id="home_anchor" className="home__content__main">
                     <div className="home__content__posts-division">
                         <PostsForm />
-                        {noResult && <h3>Aucuns posts n'a encore été créé dans ce pays</h3>}
-                        {!noResult && dataArrayForSort !== null &&
+                        {noResult && (
+                            <h3>
+                                Aucuns posts n'a encore été créé dans ce pays
+                            </h3>
+                        )}
+                        {!noResult &&
+                            dataArrayForSort !== null &&
                             dataArrayForSort
                                 .sort((a, b) => b.date - a.date)
                                 .map((post, index) => (

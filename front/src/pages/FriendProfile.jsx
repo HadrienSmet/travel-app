@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup } from "@mui/material";
 import profileDefaultBg from "../assets/images/profile-default-bg.webp";
 import { useState } from "react";
-import FriendProfilePostsSection from "../components/FriendProfilePostsSection";
-import ProfileAlbumsSection from "../components/ProfileAlbumsSection";
-import ProfileTripsSection from "../components/ProfileTripsSection";
-import ProfileFriendsSection from "../components/ProfileFriendsSection";
-import ProfileInfosSection from "../components/ProfileInfosSection";
+import FriendProfilePostsSection from "../components/pageFriendProfile/FriendProfilePostsSection";
+import ProfileAlbumsSection from "../components/pageProfile/sectionAlbum/ProfileAlbumsSection";
+import ProfileTripsSection from "../components/pageProfile/sectionTrip/ProfileTripsSection";
+import ProfileFriendsSection from "../components/pageProfile/sectionFriends/ProfileFriendsSection";
+import ProfileInfosSection from "../components/pageProfile/sectionInfo/ProfileInfosSection";
 import { useEffect } from "react";
 import { FaRegEnvelope, FaUserCheck, FaUserPlus } from "react-icons/fa";
 import axios from "axios";
@@ -149,8 +149,8 @@ const FriendProfile = () => {
     };
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <main className="profile-section">

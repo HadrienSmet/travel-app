@@ -9,8 +9,8 @@ import "./styles/index.scss";
 import store from "./app/store";
 import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 import SignupSteps from "./pages/SignupSteps";
 import Profile from "./pages/Profile";
 import FriendProfile from "./pages/FriendProfile";
@@ -29,7 +29,10 @@ root.render(
                         <Route path="/signup-steps" element={<SignupSteps />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="/profile" element={<Profile />} />
-                        <Route path="/friend-profile" element={<FriendProfile />} />
+                        <Route
+                            path="/friend-profile"
+                            element={<FriendProfile />}
+                        />
                         <Route path="*" element={<Error />} />
                     </Routes>
                     <Footer />
