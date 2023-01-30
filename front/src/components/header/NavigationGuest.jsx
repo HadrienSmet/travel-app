@@ -2,7 +2,7 @@
 import { useDispatch } from "react-redux";
 import { setWelcomeState } from "../../features/welcomeState.slice";
 import { Button, ButtonGroup, Popover } from "@mui/material";
-import { useWindowSize } from "../../utils/functions/hooks";
+import { useWindowSize } from "../../utils/hooks/hooks";
 import { useState } from "react";
 import { useRef } from "react";
 

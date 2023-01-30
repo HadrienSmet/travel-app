@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Popover } from "@mui/material";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useWindowSize } from "../../utils/functions/hooks";
+import { useWindowSize } from "../../utils/hooks/hooks";
 
 const useNavigationUser = () => {
     const [anchorEl, setAnchorEl] = useState(null);

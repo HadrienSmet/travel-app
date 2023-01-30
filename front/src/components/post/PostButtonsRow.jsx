@@ -13,13 +13,13 @@ import {
 import { useDispatch } from "react-redux";
 import { deletePost, setPostsData } from "../../features/postsData.slice";
 
-import { getJwtToken } from "../../utils/functions/tools";
-import { axiosPostDislikes } from "../../utils/functions/axiosPostDislikes";
+import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
+import { axiosPostDislikes } from "../../utils/functions/posts/axiosPostDislikes";
 
-import { axiosPostLikes } from "../../utils/functions/axiosPostLikes";
-import { axiosDeletePost } from "../../utils/functions/axiosDeletePost";
-import { axiosEditPost } from "../../utils/functions/axiosEditPost";
-import { axiosGetPosts } from "../../utils/functions/axiosGetPosts";
+import { axiosPostLikes } from "../../utils/functions/posts/axiosPostLikes";
+import { axiosDeletePost } from "../../utils/functions/posts/axiosDeletePost";
+import { axiosEditPost } from "../../utils/functions/posts/axiosEditPost";
+import { axiosGetPosts } from "../../utils/functions/posts/axiosGetPosts";
 
 const useLikesButtons = ({ post, token, userId }) => {
     const [liked, setLiked] = useState(false);

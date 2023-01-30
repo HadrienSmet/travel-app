@@ -1,12 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFriendData } from "../../features/friendData.slice";
-import { axiosGetUser } from "../../utils/functions/axiosGetUser";
-import {
-    getJwtToken,
-    dateParser,
-    mobileDateParser,
-} from "../../utils/functions/tools";
+import { axiosGetUser } from "../../utils/functions/user/axiosGetUser";
+import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
+import { dateParser, mobileDateParser } from "../../utils/functions/tools";
 
 const PostHeader = ({ post }) => {
     const { token } = getJwtToken();

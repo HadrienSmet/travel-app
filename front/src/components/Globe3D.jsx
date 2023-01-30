@@ -4,7 +4,7 @@ import { PerspectiveCamera } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import imgGlobe from "../assets/images/globe.webp";
 import countryList from "react-select-country-list";
-import { useWindowSize } from "../utils/functions/hooks";
+import { useWindowSize } from "../utils/hooks/hooks";
 
 const useGlobe = () => {
     const mapBackground = useLoader(TextureLoader, imgGlobe);

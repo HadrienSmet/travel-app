@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
 import MUIGradientBorder from "../../../mui/MUIGradientBorder";
-import { getJwtToken } from "../../../../utils/functions/tools";
+import { getJwtToken } from "../../../../utils/functions/tools/getJwtToken";
 import { pushAlbumInUserLoggedData } from "../../../../features/userLoggedData.slice";
-import { axiosCreateAlbum } from "../../../../utils/functions/axiosCreateAlbum";
+import { axiosCreateAlbum } from "../../../../utils/functions/user/axiosCreateAlbum";
 import AlbumForm from "./AlbumForm";
 
 const style = {

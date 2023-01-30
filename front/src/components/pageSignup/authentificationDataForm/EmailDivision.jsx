@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { useRef } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { axiosCheckMail } from "../../../utils/functions/axiosCheckMail";
+import { axiosCheckMail } from "../../../utils/functions/user/axiosCheckMail";
 
 const useEmailDivision = ({ email, changeIsEmailOk }) => {
     const mailMsgRef = useRef(null);

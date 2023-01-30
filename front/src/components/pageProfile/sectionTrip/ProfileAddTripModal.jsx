@@ -6,10 +6,10 @@ import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from "../../mui/MUIInputCountry";
 import MUIInputNumbers from "../../mui/MUIInputNumbers";
 import MUIInputSelect from "../../mui/MUIInputSelect";
-import { getJwtToken } from "../../../utils/functions/tools";
+import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
 import { pushTripInUserLoggedData } from "../../../features/userLoggedData.slice";
 import MUIGradientBorder from "../../mui/MUIGradientBorder";
-import { axiosCreateTrip } from "../../../utils/functions/axiosCreateTrip";
+import { axiosCreateTrip } from "../../../utils/functions/user/axiosCreateTrip";
 
 const style = {
     position: "absolute",

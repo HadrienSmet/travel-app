@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Parallax, useParallax } from "react-scroll-parallax";
-import { useWindowSize } from "../utils/functions/hooks";
+import { useWindowSize } from "../utils/hooks/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedState } from "../features/loggedState.slice";
 import { setUserLoggedData } from "../features/userLoggedData.slice";
@@ -11,24 +11,8 @@ import SigninForm from "../components/pageSignin/SigninForm";
 import imageDesktop from "../assets/images/home-desktop-bg.webp";
 import imageMobile from "../assets/images/home-mobile-bg.webp";
 
-const Welcome = () => {
+const useWelcome = () => {
     const dispatch = useDispatch();
-    const welcomeState = useSelector(
-        (state) => state.currentWelcomeState.welcomeState
-    );
-    const screenWidth = useWindowSize().width;
-    const parallaxBannerSpeed = screenWidth > 1025 ? -10 : -5;
-    const parallaxElementSpeed = screenWidth > 1025 ? 40 : 5;
-    const scaleElement = screenWidth > 1025 ? [1, 0.4] : [1, 0.9];
-    const backgroundImg = screenWidth > 678 ? imageDesktop : imageMobile;
-    const backgroundImgAlt =
-        screenWidth > 678
-            ? "Cascades dans un paysage polaire"
-            : "Chemin au milieu des montagnes";
-
-    const bannerParallax = useParallax({
-        speed: parallaxBannerSpeed,
-    });
 
     //This useEffect is here to clean the store redux and the localStorage when the user arrive on the page
     useEffect(() => {
@@ -39,6 +23,46 @@ const Welcome = () => {
         localStorage.clear();
         /* eslint-disable react-hooks/exhaustive-deps */
     }, []);
+};
+
+const useWelcomeParallax = ({ screenWidth }) => {
+    const parallaxBannerSpeed = screenWidth > 1025 ? -10 : -5;
+    const parallaxElementSpeed = screenWidth > 1025 ? 40 : 5;
+    const scaleElement = screenWidth > 1025 ? [1, 0.4] : [1, 0.9];
+
+    const bannerParallax = useParallax({
+        speed: parallaxBannerSpeed,
+    });
+
+    return {
+        bannerParallax,
+        parallaxElementSpeed,
+        scaleElement,
+    };
+};
+
+const useWelcomeBackground = ({ screenWidth }) => {
+    const backgroundImg = screenWidth > 678 ? imageDesktop : imageMobile;
+    const backgroundImgAlt =
+        screenWidth > 678
+            ? "Cascades dans un paysage polaire"
+            : "Chemin au milieu des montagnes";
+
+    return { backgroundImg, backgroundImgAlt };
+};
+
+const Welcome = () => {
+    const screenWidth = useWindowSize().width;
+    const welcomeState = useSelector(
+        (state) => state.currentWelcomeState.welcomeState
+    );
+    const { bannerParallax, parallaxElementSpeed, scaleElement } =
+        useWelcomeParallax({ screenWidth });
+    const { backgroundImg, backgroundImgAlt } = useWelcomeBackground({
+        screenWidth,
+    });
+    useWelcome();
+
     return (
         <main className="welcome">
             <img

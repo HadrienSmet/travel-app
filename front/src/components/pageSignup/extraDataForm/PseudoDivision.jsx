@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { useRef } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { axiosCheckPseudo } from "../../../utils/functions/axiosCheckPseudo";
+import { axiosCheckPseudo } from "../../../utils/functions/user/axiosCheckPseudo";
 
 const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
     const pseudoMsgRef = useRef(null);

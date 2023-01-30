@@ -1,76 +1,22 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../features/postsData.slice";
-import { getJwtToken } from "../utils/functions/tools";
+import { getJwtToken } from "../utils/functions/tools/getJwtToken";
 import Globe3D from "../components/Globe3D";
 import MUIGradientBorder from "../components/mui/MUIGradientBorder";
-import Post from "../components/post/Post";
-import PostsForm from "../components/pageHome/PostsForm";
 import { useCallback } from "react";
+import HomeContent from "../components/pageHome/HomeContent";
+import { axiosGetPostsFromCountry } from "../utils/functions/posts/axiosGetPostsFromCountry";
+import { axiosGetPosts } from "../utils/functions/posts/axiosGetPosts";
 
-const Home = () => {
-    const [selectedCountry, setSelectedCountry] = useState("");
+const useHome = () => {
     const [allPosts, setAllPosts] = useState(true);
     const [loadPost, setLoadPost] = useState(true);
-    const [specifiedLoadPost, setSpecifiedLoadPost] = useState(false);
     const [noResult, setNoResult] = useState(false);
-    const [count, setCount] = useState(10);
-    const [specifiedCount, setSpecifiedCount] = useState(10);
-    const dispatch = useDispatch();
-    const userData = useSelector(
-        (state) => state.userLoggedDataStore.userLoggedData
-    );
-    const postsData = useSelector((state) => state.postsDataStore.postsData);
-    let { token } = getJwtToken();
-    let dataArrayForSort;
-    postsData !== null
-        ? (dataArrayForSort = [...postsData])
-        : (dataArrayForSort = []);
 
-    const changeSelectedCountry = (country) => {
-        setSelectedCountry(country);
-        setSpecifiedLoadPost(true);
-    };
-
-    //This function is called when the user click on a country
-    //@Params { Type: String } => The country selected by the user
-    //It gets from the data base all the posts made by the users from the country selected
-    const fetchSpecifiedPosts = useCallback(
-        (num) => {
-            setAllPosts(false);
-            axios({
-                url: `${process.env.REACT_APP_API_URL}api/posts/from/${selectedCountry}`,
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `bearer ${token}`,
-                },
-            })
-                .then((res) => {
-                    if (res.data.length > 0) {
-                        const array = res.data
-                            .sort((a, b) => b.date - a.date)
-                            .slice(0, num);
-                        dispatch(setPostsData(array));
-                        setNoResult(false);
-                    } else {
-                        setNoResult(true);
-                    }
-                })
-                .catch((err) => console.log(err));
-        },
-        [dispatch, token, selectedCountry]
-    );
-
-    const loadSpecified = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop + 126 >
-            document.scrollingElement.scrollHeight
-        ) {
-            setSpecifiedLoadPost(true);
-        }
-    };
+    const handleAllPosts = (boolean) => setAllPosts(boolean);
+    const handleLoadPost = (boolean) => setLoadPost(boolean);
+    const handleNoResult = (boolean) => setNoResult(boolean);
 
     //This function is here to activate the useEffect whenever the user starts to see the footer
     const loadMore = () => {
@@ -78,29 +24,39 @@ const Home = () => {
             window.innerHeight + document.documentElement.scrollTop + 126 >
             document.scrollingElement.scrollHeight
         ) {
-            setLoadPost(true);
+            handleLoadPost(true);
         }
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    return {
+        allPosts,
+        loadPost,
+        noResult,
+        handleAllPosts,
+        handleLoadPost,
+        handleNoResult,
+        loadMore,
+    };
+};
+
+const useDefaultHome = ({ token, dispatch }) => {
+    const [count, setCount] = useState(10);
+    const { allPosts, loadPost, handleLoadPost, loadMore } = useHome();
 
     //This function gets from the API all the posts and displays it into the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
     const fetchAllposts = useCallback(
         (num) => {
-            axios({
-                url: `${process.env.REACT_APP_API_URL}api/posts`,
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `bearer ${token}`,
-                },
-            })
-                .then((res) => {
-                    const array = res.data
-                        .sort((a, b) => b.date - a.date)
-                        .slice(0, num);
-                    dispatch(setPostsData(array));
-                })
-                .catch((err) => console.log(err));
+            axiosGetPosts(token).then((res) => {
+                const array = res.data
+                    .sort((a, b) => b.date - a.date)
+                    .slice(0, num);
+                dispatch(setPostsData(array));
+            });
         },
         [dispatch, token]
     );
@@ -111,38 +67,98 @@ const Home = () => {
     useEffect(() => {
         if (loadPost) {
             fetchAllposts(count);
-            setLoadPost(() => false);
+            handleLoadPost(() => false);
             setCount(() => count + 5);
         }
 
+        allPosts && window.addEventListener("scroll", loadMore);
+
+        return () => allPosts && window.removeEventListener("scroll", loadMore);
+    }, [loadPost, count, allPosts, fetchAllposts, handleLoadPost, loadMore]);
+
+    return {
+        fetchAllposts,
+    };
+};
+
+const useSpecifiedHome = ({ token, dispatch }) => {
+    const [specifiedLoadPost, setSpecifiedLoadPost] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [specifiedCount, setSpecifiedCount] = useState(10);
+    const { allPosts, handleAllPosts, handleNoResult } = useHome();
+
+    const handleSpecifiedLoadPost = (boolean) => setSpecifiedLoadPost(boolean);
+    const handleSelectedCountry = (country) => setSelectedCountry(country);
+    const handleSpecifiedCount = (count) => setSpecifiedCount(count);
+
+    const changeSelectedCountry = (country) => {
+        handleSelectedCountry(country);
+        handleSpecifiedLoadPost(true);
+    };
+
+    const fetchSpecifiedPosts = useCallback(
+        (num) => {
+            handleAllPosts(false);
+            axiosGetPostsFromCountry(selectedCountry, token).then((res) => {
+                if (res.data.length > 0) {
+                    const array = res.data
+                        .sort((a, b) => b.date - a.date)
+                        .slice(0, num);
+                    dispatch(setPostsData(array));
+                    handleNoResult(false);
+                } else {
+                    handleNoResult(true);
+                }
+            });
+        },
+        [handleAllPosts, selectedCountry, token, dispatch, handleNoResult]
+    );
+
+    //This useEffect is here to get the posts made by a specified user and then displays all the data in the redux store
+    //If the app indicates by his local state that posts have to be loaded:
+    //A function to make the call API is called, then when indicate to the app that it doesn't need anymore to load posts and then increase the amount of posts that will be called next time
+    //This useEffect is also listening an event on the window in order to check how far the user scrolled the page
+    useEffect(() => {
+        const loadSpecified = () => {
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 126 >
+                document.scrollingElement.scrollHeight
+            ) {
+                handleSpecifiedLoadPost(true);
+            }
+        };
         if (specifiedLoadPost) {
             fetchSpecifiedPosts(specifiedCount);
-            setSpecifiedLoadPost(() => false);
-            setSpecifiedCount(() => specifiedCount + 5);
-            // console.log(count)
+            handleSpecifiedLoadPost(() => false);
+            handleSpecifiedCount(() => specifiedCount + 5);
         }
 
-        allPosts
-            ? window.addEventListener("scroll", loadMore)
-            : window.addEventListener("scroll", loadSpecified);
+        !allPosts && window.addEventListener("scroll", loadSpecified);
 
         return () =>
-            allPosts
-                ? window.removeEventListener("scroll", loadMore)
-                : window.removeEventListener("scroll", loadSpecified);
-    }, [
-        loadPost,
-        count,
-        fetchAllposts,
-        allPosts,
-        fetchSpecifiedPosts,
-        specifiedCount,
-        specifiedLoadPost,
-    ]);
+            !allPosts && window.removeEventListener("scroll", loadSpecified);
+    }, [allPosts, fetchSpecifiedPosts, specifiedCount, specifiedLoadPost]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    return {
+        changeSelectedCountry,
+    };
+};
+
+const Home = () => {
+    const dispatch = useDispatch();
+    let { token } = getJwtToken();
+    const { noResult } = useHome();
+    const { fetchAllposts } = useDefaultHome({ token, dispatch });
+    const { changeSelectedCountry } = useSpecifiedHome({ token, dispatch });
+
+    const userData = useSelector(
+        (state) => state.userLoggedDataStore.userLoggedData
+    );
+    const postsData = useSelector((state) => state.postsDataStore.postsData);
+    let dataArrayForSort;
+    postsData !== null
+        ? (dataArrayForSort = [...postsData])
+        : (dataArrayForSort = []);
 
     return (
         <main>
@@ -180,23 +196,10 @@ const Home = () => {
                         />
                     </div>
                 </div>
-                <div id="home_anchor" className="home__content__main">
-                    <div className="home__content__posts-division">
-                        <PostsForm />
-                        {noResult && (
-                            <h3>
-                                Aucuns posts n'a encore été créé dans ce pays
-                            </h3>
-                        )}
-                        {!noResult &&
-                            dataArrayForSort !== null &&
-                            dataArrayForSort
-                                .sort((a, b) => b.date - a.date)
-                                .map((post, index) => (
-                                    <Post key={index} post={post} />
-                                ))}
-                    </div>
-                </div>
+                <HomeContent
+                    noResult={noResult}
+                    dataArrayForSort={dataArrayForSort}
+                />
             </section>
         </main>
     );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getJwtToken } from "../../utils/functions/tools";
+import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import PostHeader from "./PostHeader";

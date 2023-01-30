@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../../features/postsData.slice";
-import { axiosGetFriendPosts } from "../../utils/functions/axiosGetFriendPosts";
-import { getJwtToken } from "../../utils/functions/tools";
+import { axiosGetUserPosts } from "../../utils/functions/posts/axiosGetUserPosts";
+import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
 import Post from "../post/Post";
 const useFriendProfilePostsSection = ({ friendProfile }) => {
     const [loadPost, setLoadPost] = useState(true);
@@ -24,7 +24,7 @@ const useFriendProfilePostsSection = ({ friendProfile }) => {
     //@Params { type: Number } => referring the number of posts that will be displayed
     const fetchAllposts = useCallback(
         (num) => {
-            axiosGetFriendPosts(friendProfile._id, token)
+            axiosGetUserPosts(friendProfile._id, token)
                 .then((res) => {
                     const array = res.data
                         .sort((a, b) => b.date - a.date)

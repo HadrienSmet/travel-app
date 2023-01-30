@@ -1,6 +1,6 @@
 import ProfileAddAlbumModal from "./addAlbumModal/ProfileAddAlbumModal";
 import { useState } from "react";
-import { useWindowSize } from "../../../utils/functions/hooks";
+import { useWindowSize } from "../../../utils/hooks/hooks";
 import AlbumContainer from "./albumContainer/AlbumContainer";
 import AlbumsContainer from "./albumsContainer/AlbumsContainer";
 

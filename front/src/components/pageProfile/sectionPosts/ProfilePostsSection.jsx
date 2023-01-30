@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../../../features/postsData.slice";
-import { axiosGetUserPosts } from "../../../utils/functions/axiosGetUserPosts";
-import { getJwtToken } from "../../../utils/functions/tools";
+import { axiosGetUserPosts } from "../../../utils/functions/posts/axiosGetUserPosts";
+import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
 import Post from "../../post/Post";
 
 const useProfilePostsSection = () => {

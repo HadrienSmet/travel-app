@@ -1,10 +1,10 @@
 import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getJwtToken } from "../../utils/functions/tools";
+import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
 import { setPostsData } from "../../features/postsData.slice";
-import { axiosCreatePost } from "../../utils/functions/axiosCreatePost";
-import { axiosGetPosts } from "../../utils/functions/axiosGetPosts";
+import { axiosCreatePost } from "../../utils/functions/posts/axiosCreatePost";
+import { axiosGetPosts } from "../../utils/functions/posts/axiosGetPosts";
 
 const usePostForm = () => {
     const [postText, setPostText] = useState("");
