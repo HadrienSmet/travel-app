@@ -19,12 +19,18 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     .gradient-container {
-        width: 100%;
+        width: 80%;
         text-transform: uppercase;
         font-style: 26px;
         font-weight: 600;
         color: $tertiary-color;
         letter-spacing: 2px;
+        > div > span {
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            @include flexFullCenter;
+        }
     }
     &__header {
         width: 100%;
@@ -66,7 +72,7 @@
         }
     }
     &__pictures-displayer {
-        @media screen and (min-width: 1025px) {            
+        @media screen and (min-width: 1025px) {
             height: calc(100% - 200px);
             @include flexBetween;
             flex-wrap: wrap;
@@ -129,9 +135,9 @@
             }
         }
         &-label {
-            @media screen and (min-width: 1025px) {                
+            @media screen and (min-width: 1025px) {
                 width: 28%;
-                height: 120px;  
+                height: 120px;
             }
             @media screen and (max-width: 1024px) {
                 width: (calc(50% - 15px));

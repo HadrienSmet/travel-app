@@ -1,13 +1,17 @@
-import { TextField, Button } from "@mui/material";
-import MUIClassicLoader from "../mui/MUIClassicLoader";
 import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaCheck } from "react-icons/fa";
+
+import { useDispatch } from "react-redux";
 import { setUserLoggedData } from "../../features/userLoggedData.slice";
 import { setLoggedState } from "../../features/loggedState.slice";
-import { setJwtToken } from "../../utils/functions/tools";
+
+import { Button } from "@mui/material";
+import MUIClassicLoader from "../mui/MUIClassicLoader";
+
+import { setJwtToken } from "../../utils/functions/tools/setJwtToken";
 import { axiosSignIn } from "../../utils/functions/user/axiosSignIn";
+import EmailDivision from "./EmailDivision";
+import PasswordDivision from "./PasswordDivision";
 
 const useSigninForm = () => {
     const [mail, setMail] = useState("");
@@ -16,6 +20,14 @@ const useSigninForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const spanRef = useRef(null);
+
+    const handleMail = (mail) => setMail(mail);
+    const handlePassword = (password) => setPassword(password);
+
+    const handleError = () => {
+        spanRef.current.textContent =
+            "Paire d'email et de mot de passe incorrect";
+    };
 
     //This function is called when the user is trying to get connected to the app
     //@Params { type: Object } => the param froms the onClick event. Only here to prevent the default behavior
@@ -36,8 +48,7 @@ const useSigninForm = () => {
         axiosSignIn(data)
             .then((res) => {
                 if (res.status === 401) {
-                    spanRef.current.textContent =
-                        "Paire d'email et de mot de passe incorrect";
+                    handleError();
                 } else {
                     dispatch(setLoggedState(true));
                     dispatch(setUserLoggedData(res.data));
@@ -49,9 +60,8 @@ const useSigninForm = () => {
                     setIsLoading(false);
                 }
             })
-            .catch((err) => {
-                spanRef.current.textContent =
-                    "Paire d'email et de mot de passe incorrect";
+            .catch(() => {
+                handleError();
             });
     };
 
@@ -60,8 +70,8 @@ const useSigninForm = () => {
         isLoading,
         mail,
         password,
-        setMail,
-        setPassword,
+        handleMail,
+        handlePassword,
         handleSubmission,
     };
 };
@@ -72,8 +82,8 @@ const SigninForm = () => {
         isLoading,
         mail,
         password,
-        setMail,
-        setPassword,
+        handleMail,
+        handlePassword,
         handleSubmission,
     } = useSigninForm();
     return (
@@ -84,36 +94,11 @@ const SigninForm = () => {
                 onSubmit={(e) => handleSubmission(e)}
             >
                 <h2>Connectez-vous!</h2>
-                <div className="signin-container__email-division">
-                    <div className="signin-container__icons-container">
-                        {mail.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) && (
-                            <FaCheck className="signin-icon check" />
-                        )}
-                    </div>
-                    <TextField
-                        id="outlined-mail"
-                        label="Email"
-                        variant="outlined"
-                        type="email"
-                        required={true}
-                        onChange={(e) => setMail(e.target.value)}
-                    />
-                </div>
-                <div className="signin-container__password-division">
-                    <div className="signin-container__icons-container">
-                        {password !== "" && (
-                            <FaCheck className="signin-icon check" />
-                        )}
-                    </div>
-                    <TextField
-                        id="outlined-password"
-                        label="Mot de passe"
-                        variant="outlined"
-                        type="password"
-                        required={true}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+                <EmailDivision mail={mail} handleMail={handleMail} />
+                <PasswordDivision
+                    password={password}
+                    handlePassword={handlePassword}
+                />
                 <span id="signin-msg" ref={spanRef}></span>
                 {isLoading === false && (
                     <Button

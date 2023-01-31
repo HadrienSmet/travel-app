@@ -7,7 +7,6 @@ import ProfileAlbumsSection from "../components/pageProfile/sectionAlbum/Profile
 import ProfileTripsSection from "../components/pageProfile/sectionTrip/ProfileTripsSection";
 import ProfileFriendsSection from "../components/pageProfile/sectionFriends/ProfileFriendsSection";
 import ProfileInfosSection from "../components/pageProfile/sectionInfo/ProfileInfosSection";
-
 import FriendProfileHeader from "../components/pageFriendProfile/FriendProfileHeader";
 import FriendProfileNavigation from "../components/pageFriendProfile/FriendProfileNavigation";
 
@@ -30,16 +29,16 @@ const FriendProfile = () => {
     const friendProfile = useSelector(
         (state) => state.friendDataStore.friendData
     );
-    const userProfile = useSelector(
-        (state) => state.userLoggedDataStore.userLoggedData
-    );
+    // const userProfile = useSelector(
+    //     (state) => state.userLoggedDataStore.userLoggedData
+    // );
     const { friendProfileState, changeFriendProfileState } = useFriendProfile();
 
     return (
         <main className="profile-section">
             <FriendProfileHeader
-                friendProfile={friendProfile}
-                userProfile={userProfile}
+            // friendProfile={friendProfile}
+            // userProfile={userProfile}
             />
             <FriendProfileNavigation
                 friendProfileState={friendProfileState}

@@ -35,45 +35,16 @@ const useProfileAddTripModal = () => {
     const dispatch = useDispatch();
     let { userId, token } = getJwtToken();
 
-    //This function changes the state of the component in order to open the parent modal
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    //This function changes the state of the component in order to close the parent modal
-    //Then it calls a function that will handles the submission of the datas
+    const changeCountry = (country) => setDestination(country);
+    const changeDuration = (duration) => setDuration(duration);
+    const changeNumber = (year) => setYear(year);
+    const changeChoice = (choice) => setChoice(choice);
+    const changeDetails = (e) => setDetails(e.target.value);
+    const handleOpen = (boolean) => setOpen(boolean);
+
     const handleClose = () => {
-        setOpen(false);
+        handleOpen(false);
         handlePreviousTripSubmission();
-    };
-
-    //This function is only here to allow the child component InputCountry to change the state of this component
-    //@Params { Type: String } --> The value of the input
-    const changeCountry = (country) => {
-        setDestination(country);
-    };
-
-    //This function is only here to allow the child component InputSelect thats represents the duration of the trip to change the state of this component
-    //@Params { Type: String } --> The value of the input
-    const changeDuration = (duration) => {
-        setDuration(duration);
-    };
-
-    //This function is only here to allow the child component InputNumbers thats represents the year of the trip to change the state of this component
-    //@Params { Type: Number } --> The value of the input
-    const changeNumber = (year) => {
-        setYear(year);
-    };
-
-    //This function is only here to allow the child component InputSelect thats tells if the user were accompanied during the trip to change the state of this component
-    //@Params { Type: String } --> The value of the input
-    const changeChoice = (choice) => {
-        setChoice(choice);
-    };
-
-    //This function change the state of the components in order to let the user provides details about his trip
-    //@Params { Type: String } --> The param of the onChange event
-    const changeDetails = (e) => {
-        setDetails(e.target.value);
     };
 
     //This functions handle the submission of the data provided by the two modals
@@ -96,7 +67,6 @@ const useProfileAddTripModal = () => {
 
     return {
         open,
-        setOpen,
         handleOpen,
         handleClose,
         changeCountry,
@@ -110,7 +80,6 @@ const useProfileAddTripModal = () => {
 const ProfileAddTripModal = () => {
     const {
         open,
-        setOpen,
         handleOpen,
         handleClose,
         changeCountry,
@@ -147,9 +116,9 @@ const ProfileAddTripModal = () => {
 
     return (
         <div className="profile-add-trip">
-            <MUIGradientBorder onClick={handleOpen}>
-                <span onClick={handleOpen}>Ajouter un voyage</span>
-                <FaPlus onClick={handleOpen} />
+            <MUIGradientBorder onClick={() => handleOpen(true)}>
+                <span onClick={() => handleOpen(true)}>Ajouter un voyage</span>
+                <FaPlus onClick={() => handleOpen(true)} />
             </MUIGradientBorder>
             <Modal
                 open={open}
@@ -160,7 +129,7 @@ const ProfileAddTripModal = () => {
                 <Box sx={{ ...style, width: 400 }}>
                     <div className="trip-modal__header">
                         <h2>Ajouter un voyage</h2>
-                        <BsXLg onClick={() => setOpen(false)} />
+                        <BsXLg onClick={() => handleOpen(false)} />
                     </div>
                     <div className="trip-modal__content">
                         <div className="trip-modal__inputs-area">

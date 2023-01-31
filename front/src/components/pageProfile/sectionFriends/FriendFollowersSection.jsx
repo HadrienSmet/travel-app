@@ -1,5 +1,3 @@
-import React from "react";
-
 const FriendFollowersSection = ({ followers, goToProfilePage }) => {
     return (
         <div className="profile-contact-section__jsx-container">

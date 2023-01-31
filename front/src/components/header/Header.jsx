@@ -1,19 +1,16 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import NavigationGuest from "./NavigationGuest";
-import Logo from "./Logo";
-import NavigationUser from "./NavigationUser";
 import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import NavigationGuest from "./navigationGuest/NavigationGuest";
+import Logo from "./Logo";
+import NavigationUser from "./navigationUser/NavigationUser";
 
 const useHeader = () => {
     const [scrollY, setScrollY] = useState(0);
     const headerRef = useRef(null);
-    const isUserLogged = useSelector(
-        (state) => state.currentLoggedState.loggedState
-    );
 
     useEffect(() => {
-        //Handles the header's behavior when the user is scrolling
         const handleScroll = () => {
             if (window.scrollY < scrollY) {
                 headerRef.current.style.top = 0;
@@ -31,12 +28,14 @@ const useHeader = () => {
 
     return {
         headerRef,
-        isUserLogged,
     };
 };
 
 const Header = () => {
-    const { headerRef, isUserLogged } = useHeader();
+    const { headerRef } = useHeader();
+    const isUserLogged = useSelector(
+        (state) => state.currentLoggedState.loggedState
+    );
 
     return (
         <header className="header" ref={headerRef}>

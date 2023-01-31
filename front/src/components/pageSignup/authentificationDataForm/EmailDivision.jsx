@@ -1,6 +1,8 @@
-import { TextField } from "@mui/material";
 import { useRef } from "react";
+
+import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
+
 import { axiosCheckMail } from "../../../utils/functions/user/axiosCheckMail";
 
 const useEmailDivision = ({ email, changeIsEmailOk }) => {
@@ -11,21 +13,26 @@ const useEmailDivision = ({ email, changeIsEmailOk }) => {
     const handleFineMail = () => {
         changeIsEmailOk(true);
         mailMsgRef.current.textContent = "";
-        mailTimesRef.current.style.opacity = "0";
-        mailCheckRef.current.style.opacity = "1";
+        mailTimesRef.current.classList.remove("visible");
+        mailCheckRef.current.classList.remove("invisible");
+        mailTimesRef.current.classList.add("invisible");
+        mailCheckRef.current.classList.add("visible");
     };
 
     const handleWrongMail = (message) => {
         changeIsEmailOk(false);
         mailMsgRef.current.textContent = message;
-        mailTimesRef.current.style.opacity = "1";
-        mailCheckRef.current.style.opacity = "0";
+        mailTimesRef.current.classList.remove("invisible");
+        mailCheckRef.current.classList.remove("visible");
+        mailTimesRef.current.classList.add("visible");
+        mailCheckRef.current.classList.add("invisible");
     };
 
     //This function handles the behavior of the input mail and his data
     //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
     //And it also show or hide icons that indicates the user if he did well
     const handleMail = () => {
+        console.log(email);
         if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
             handleWrongMail("Le mail inséré n'est pas valide");
         } else {
@@ -59,14 +66,12 @@ const EmailDivision = ({ email, changeEmail, changeIsEmailOk }) => {
     return (
         <div className="signup-form__email-division">
             <div className="signup-form__email-division__icons-container">
-                <FaCheck
-                    ref={mailCheckRef}
-                    className="signup-form__email-division__check-icon signup-icon"
-                />
-                <FaTimes
-                    ref={mailTimesRef}
-                    className="signup-form__email-division__times-icon signup-icon"
-                />
+                <div className="ref-div" ref={mailCheckRef}>
+                    <FaCheck className="signup-form__email-division__check-icon signup-icon" />
+                </div>
+                <div className="ref-div" ref={mailTimesRef}>
+                    <FaTimes className="signup-form__email-division__times-icon signup-icon" />
+                </div>
             </div>
             <TextField
                 id="outlined-mail"

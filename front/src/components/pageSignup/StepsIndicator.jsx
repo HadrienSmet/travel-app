@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const useStepsIndicator = ({ stepState }) => {
@@ -8,10 +7,12 @@ const useStepsIndicator = ({ stepState }) => {
 
     //This useEffect is here to show to the user on wich step of the signup form he stands
     useEffect(() => {
+        // firstStepCheckRef.current.classList.add("invisible");
+        // scdStepCheckRef.current.classList.add("invisible");
         if (stepState === "just-started") {
-            firstStepCheckRef.current.style.opacity = "1";
+            firstStepCheckRef.current.classList.add("visible");
         } else if (stepState === "almost-done") {
-            scdStepCheckRef.current.style.opacity = "1";
+            scdStepCheckRef.current.classList.add("visible");
         }
     }, [stepState]);
 
@@ -29,11 +30,12 @@ const StepsIndicator = ({ stepState }) => {
         <section className="signup-steps__content__steps-indicator">
             <div className="signup-steps__content__step">
                 <div className="signup-steps__content__step__icons-container">
-                    <FaCheck
-                        ref={firstStepCheckRef}
-                        id="step-auth-check"
-                        className="signup-steps__content__step__check-icon"
-                    />
+                    <div className="ref-div" ref={firstStepCheckRef}>
+                        <FaCheck
+                            id="step-auth-check"
+                            className="signup-steps__content__step__check-icon"
+                        />
+                    </div>
                     <FaTimes
                         id="step-auth-times"
                         className="signup-steps__content__step__times-icon"
@@ -47,11 +49,12 @@ const StepsIndicator = ({ stepState }) => {
             </div>
             <div className="signup-steps__content__step">
                 <div className="signup-steps__content__step__icons-container">
-                    <FaCheck
-                        ref={scdStepCheckRef}
-                        id="step-perso-check"
-                        className="signup-steps__content__step__check-icon"
-                    />
+                    <div className="ref-div" ref={scdStepCheckRef}>
+                        <FaCheck
+                            id="step-perso-check"
+                            className="signup-steps__content__step__check-icon"
+                        />
+                    </div>
                     <FaTimes
                         id="step-perso-times"
                         className="signup-steps__content__step__times-icon"

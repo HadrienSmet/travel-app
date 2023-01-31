@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { setFriendData } from "../../../features/friendData.slice";
+
 import { axiosGetUser } from "../../../utils/functions/user/axiosGetUser";
 import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
+
 import FriendFollowersSection from "./FriendFollowersSection";
 import FriendFollowingSection from "./FriendFollowingSection";
 import UserFollowersSection from "./UserFollowersSection";

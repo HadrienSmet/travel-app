@@ -1,8 +1,11 @@
-import { TextField, Button } from "@mui/material";
 import { useState } from "react";
+
+import { TextField, Button } from "@mui/material";
+
 import { useDispatch, useSelector } from "react-redux";
-import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
 import { setPostsData } from "../../features/postsData.slice";
+
+import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
 import { axiosCreatePost } from "../../utils/functions/posts/axiosCreatePost";
 import { axiosGetPosts } from "../../utils/functions/posts/axiosGetPosts";
 

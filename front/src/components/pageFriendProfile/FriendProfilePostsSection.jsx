@@ -24,14 +24,12 @@ const useFriendProfilePostsSection = ({ friendProfile }) => {
     //@Params { type: Number } => referring the number of posts that will be displayed
     const fetchAllposts = useCallback(
         (num) => {
-            axiosGetUserPosts(friendProfile._id, token)
-                .then((res) => {
-                    const array = res.data
-                        .sort((a, b) => b.date - a.date)
-                        .splice(0, num);
-                    dispatch(setPostsData(array));
-                })
-                .catch((err) => console.log(err));
+            axiosGetUserPosts(friendProfile._id, token).then((res) => {
+                const array = res.data
+                    .sort((a, b) => b.date - a.date)
+                    .splice(0, num);
+                dispatch(setPostsData(array));
+            });
         },
         [dispatch, token, friendProfile._id]
     );

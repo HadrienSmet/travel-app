@@ -1,5 +1,5 @@
 .profile-trips-section {
-    @media screen and (min-width: 1025px) {        
+    @media screen and (min-width: 1025px) {
         @include flexBetween;
     }
     @media screen and (max-width: 1024) {
@@ -12,8 +12,16 @@
         height: 55px;
         color: $primary-color;
         span {
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            @include flexFullCenter;
             text-transform: uppercase;
             margin-right: 15px;
+        }
+        svg {
+            position: absolute;
+            transform: translateX(105px);
         }
     }
     &__trip-division {
@@ -26,7 +34,8 @@
         h3 {
             margin-bottom: 5px;
         }
-        p, span {
+        p,
+        span {
             position: relative;
             &::before {
                 content: "";

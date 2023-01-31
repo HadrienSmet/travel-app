@@ -1,5 +1,6 @@
-import { TextField } from "@mui/material";
 import { useRef } from "react";
+
+import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const useDescriptionDivision = ({ description }) => {
@@ -13,12 +14,16 @@ const useDescriptionDivision = ({ description }) => {
         if (description.match(/\$<>=\+\*/i)) {
             descriptionMsgRef.current.textContent =
                 "Les caractères suivants ne sont pas tolérés. $ > < = + *";
-            descriptionTimesRef.current.style.opacity = "1";
-            descriptionCheckRef.current.style.opacity = "0";
+            descriptionTimesRef.current.classList.remove("invisible");
+            descriptionTimesRef.current.classList.add("visible");
+            descriptionCheckRef.current.classList.remove("visible");
+            descriptionCheckRef.current.classList.add("invisible");
         } else {
             descriptionMsgRef.current.textContent = "";
-            descriptionTimesRef.current.style.opacity = "0";
-            descriptionCheckRef.current.style.opacity = "1";
+            descriptionTimesRef.current.classList.remove("visible");
+            descriptionTimesRef.current.classList.add("invisible");
+            descriptionCheckRef.current.classList.remove("invisible");
+            descriptionCheckRef.current.classList.add("visible");
         }
     };
 
@@ -41,14 +46,12 @@ const DescriptionDivision = ({ description, changeDescription }) => {
     return (
         <div className="extra-data-form__description-division">
             <div className="extra-data-form__description-division__icons-container">
-                <FaCheck
-                    ref={descriptionCheckRef}
-                    className="extra-data-form__description-division__check-icon last-step-icon check"
-                />
-                <FaTimes
-                    ref={descriptionTimesRef}
-                    className="extra-data-form__description-division__times-icon last-step-icon times"
-                />
+                <div className="ref-div" ref={descriptionCheckRef}>
+                    <FaCheck className="extra-data-form__description-division__check-icon last-step-icon check" />
+                </div>
+                <div className="ref-div" ref={descriptionTimesRef}>
+                    <FaTimes className="extra-data-form__description-division__times-icon last-step-icon times" />
+                </div>
             </div>
             <TextField
                 id="outlined-textarea"

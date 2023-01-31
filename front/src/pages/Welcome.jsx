@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { Parallax, useParallax } from "react-scroll-parallax";
 import { useWindowSize } from "../utils/hooks/hooks";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedState } from "../features/loggedState.slice";
 import { setUserLoggedData } from "../features/userLoggedData.slice";
 import { resetAlbumObjectArray } from "../features/albumObjectArray.slice";
 import { setWelcomeState } from "../features/welcomeState.slice";
+
 import SignupForm from "../components/pageSignup/authentificationDataForm/SignupForm";
 import SigninForm from "../components/pageSignin/SigninForm";
 import imageDesktop from "../assets/images/home-desktop-bg.webp";

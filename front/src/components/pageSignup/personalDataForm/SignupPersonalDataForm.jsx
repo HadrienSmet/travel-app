@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
 import { Button } from "@mui/material";
 import PictureDivision from "./PictureDivision";
 import AgeDivision from "./AgeDivision";

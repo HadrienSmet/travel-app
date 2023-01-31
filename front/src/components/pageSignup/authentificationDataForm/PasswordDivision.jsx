@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
 import { useRef } from "react";
+import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const usePasswordDivision = ({ password, changeIsPasswordOk }) => {
@@ -13,8 +13,10 @@ const usePasswordDivision = ({ password, changeIsPasswordOk }) => {
         passwordMsgRef.current.textContent =
             "Minimum de 8 caractères, une majuscule, un chiffre et un caractère spécial";
         progressBarRef.current.classList.add("progressRed");
-        passwordTimesRef.current.style.opacity = "1";
-        passwordCheckRef.current.style.opacity = "0";
+        passwordTimesRef.current.classList.remove("invisible");
+        passwordCheckRef.current.classList.remove("visible");
+        passwordTimesRef.current.classList.add("visible");
+        passwordCheckRef.current.classList.add("invisible");
     };
 
     const handleFinePassword = () => {
@@ -22,16 +24,20 @@ const usePasswordDivision = ({ password, changeIsPasswordOk }) => {
         progressBarRef.current.classList.add("progressBlue");
         passwordMsgRef.current.textContent =
             "Mot de passe assez fiable. Rajoutez des caractères si vous souhaitez plus de sécurité";
-        passwordTimesRef.current.style.opacity = "0";
-        passwordCheckRef.current.style.opacity = "1";
+        passwordTimesRef.current.classList.remove("visible");
+        passwordCheckRef.current.classList.remove("invisible");
+        passwordTimesRef.current.classList.add("invisible");
+        passwordCheckRef.current.classList.add("visible");
     };
 
     const handleGreatPassword = () => {
         changeIsPasswordOk(true);
         progressBarRef.current.classList.add("progressGreen");
         passwordMsgRef.current.textContent = "Mot de passe fiable";
-        passwordTimesRef.current.style.opacity = "0";
-        passwordCheckRef.current.style.opacity = "1";
+        passwordTimesRef.current.classList.remove("visible");
+        passwordCheckRef.current.classList.remove("invisible");
+        passwordTimesRef.current.classList.add("invisible");
+        passwordCheckRef.current.classList.add("visible");
     };
     //This function handles the behavior of the input password and his data
     //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
@@ -73,14 +79,12 @@ const PasswordDivision = ({ password, changePassword, changeIsPasswordOk }) => {
     return (
         <div className="signup-form__password-division">
             <div className="signup-form__password-division__icons-container">
-                <FaCheck
-                    ref={passwordCheckRef}
-                    className="signup-form__password-division__check-icon signup-icon"
-                />
-                <FaTimes
-                    ref={passwordTimesRef}
-                    className="signup-form__password-division__times-icon signup-icon"
-                />
+                <div className="ref-div" ref={passwordCheckRef}>
+                    <FaCheck className="signup-form__password-division__check-icon signup-icon" />
+                </div>
+                <div className="ref-div" ref={passwordTimesRef}>
+                    <FaTimes className="signup-form__password-division__times-icon signup-icon" />
+                </div>
             </div>
             <TextField
                 id="outlined-password"

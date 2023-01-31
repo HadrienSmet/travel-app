@@ -97,7 +97,14 @@ const useCrudButtons = ({ post, token, newImage, newText, setIsEditing }) => {
             postId = e.target.id.split("-")[1];
         }
         axiosDeletePost(postId, token)
-            .then(() => dispatch(deletePost(postId)))
+            .then(() => {
+                dispatch(deletePost(postId));
+                axiosGetPosts(token)
+                    .then((res) => {
+                        dispatch(setPostsData(res.data));
+                    })
+                    .catch((err) => console.log(err));
+            })
             .catch((err) => console.log(err));
     };
 

@@ -1,5 +1,6 @@
-import { TextField } from "@mui/material";
 import { useRef } from "react";
+
+import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
 const useFirstnameDivision = ({ firstName, changeIsFirstNameOk }) => {
@@ -10,15 +11,19 @@ const useFirstnameDivision = ({ firstName, changeIsFirstNameOk }) => {
     const handleWrongFirstname = (message) => {
         changeIsFirstNameOk(false);
         firstnameMsgRef.current.textContent = message;
-        firstnameCheckRef.current.style.opacity = "0";
-        firstnameTimesRef.current.style.opacity = "1";
+        firstnameCheckRef.current.classList.remove("visible");
+        firstnameCheckRef.current.classList.add("invisible");
+        firstnameTimesRef.current.classList.remove("invisible");
+        firstnameTimesRef.current.classList.add("visible");
     };
 
     const handleFineFirstname = () => {
         changeIsFirstNameOk(true);
         firstnameMsgRef.current.textContent = "";
-        firstnameCheckRef.current.style.opacity = "1";
-        firstnameTimesRef.current.style.opacity = "0";
+        firstnameCheckRef.current.classList.remove("invisible");
+        firstnameCheckRef.current.classList.add("visible");
+        firstnameTimesRef.current.classList.remove("visible");
+        firstnameTimesRef.current.classList.add("invisible");
     };
     //This function helps the user to understand how to fill properly the input handling the firstNames
     //A control structure indicates three different behavior that are depending of the value provided by the user
@@ -67,14 +72,12 @@ const FirstnameDivision = ({
     return (
         <div className="personal-data-form__first-name-division">
             <div className="personal-data-form__icons-container">
-                <FaCheck
-                    ref={firstnameCheckRef}
-                    className="personal-data-form__first-name-division__check-icon signup-perso-icon check js-handled"
-                />
-                <FaTimes
-                    ref={firstnameTimesRef}
-                    className="personal-data-form__first-name-division__times-icon signup-perso-icon times js-handled"
-                />
+                <div className="ref-div" ref={firstnameCheckRef}>
+                    <FaCheck className="personal-data-form__first-name-division__check-icon signup-perso-icon check js-handled" />
+                </div>
+                <div className="ref-div" ref={firstnameTimesRef}>
+                    <FaTimes className="personal-data-form__first-name-division__times-icon signup-perso-icon times js-handled" />
+                </div>
             </div>
             <TextField
                 id="outlined-first-name"

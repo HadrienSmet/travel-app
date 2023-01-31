@@ -1,5 +1,5 @@
+import { useEffect, useRef } from "react";
 import { Button, ButtonGroup } from "@mui/material";
-import React, { useEffect, useRef } from "react";
 import { useWindowSize } from "../../../utils/hooks/hooks";
 
 const useProfileNavigation = ({ profileState }) => {
@@ -38,7 +38,7 @@ const useProfileNavigation = ({ profileState }) => {
                         : "translateX(400%)";
                 break;
             default:
-                console.log("Bravo t'as réussi à faire bugger mon app fdp");
+                console.log("Bravo t'as réussi à faire bugger mon app");
         }
     }, [profileState, screenWidth]);
 

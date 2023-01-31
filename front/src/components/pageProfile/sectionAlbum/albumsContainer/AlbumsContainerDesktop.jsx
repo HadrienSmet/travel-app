@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileAlbumSectionModal from "../ProfileAlbumsSectionModal";
 
 const AlbumsContainerDesktop = ({ album }) => {

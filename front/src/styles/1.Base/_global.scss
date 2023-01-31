@@ -27,10 +27,10 @@ body::-webkit-scrollbar-thumb {
     border-radius: 8px;
     border: 4px solid transparent;
     background-clip: content-box;
-    background-color: hsl(0,0%,67%);
+    background-color: hsl(0, 0%, 67%);
     @include standardTransi;
     &:hover {
-        background-color: lighten(hsl(0,0%,67%), 5);
+        background-color: lighten(hsl(0, 0%, 67%), 5);
     }
 }
 a {
@@ -42,7 +42,7 @@ ul {
 img {
     object-fit: cover;
 }
-input[type = "file"] {
+input[type="file"] {
     display: none;
 }
 .check {
@@ -69,4 +69,18 @@ h3 {
 }
 p {
     font-size: 14px;
+}
+.ref-div {
+    padding: 0;
+    margin: 0;
+    &.visible {
+        > svg {
+            opacity: 1;
+        }
+    }
+    &.invisible {
+        > svg {
+            opacity: 0;
+        }
+    }
 }

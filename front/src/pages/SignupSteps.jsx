@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useParallax } from "react-scroll-parallax";
+import { useWindowSize } from "../utils/hooks/hooks";
+
 import SignupPersonalDataForm from "../components/pageSignup/personalDataForm/SignupPersonalDataForm";
 import SignupExtraDataForm from "../components/pageSignup/extraDataForm/SignupExtraDataForm";
 import signupBanner from "../assets/images/signup-steps-bg.webp";
-import { useParallax } from "react-scroll-parallax";
-import { useWindowSize } from "../utils/hooks/hooks";
 import StepsIndicator from "../components/pageSignup/StepsIndicator";
 
 const useSignupSteps = () => {

@@ -1,11 +1,14 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
 import { setFriendData } from "../../features/friendData.slice";
+
 import { axiosGetUser } from "../../utils/functions/user/axiosGetUser";
 import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
-import { dateParser, mobileDateParser } from "../../utils/functions/tools";
+import { dateParser } from "../../utils/functions/tools/datePaser";
+import { mobileDateParser } from "../../utils/functions/tools/mobileDateParser";
 
-const PostHeader = ({ post }) => {
+const usePostHeader = ({ post }) => {
     const { token } = getJwtToken();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -14,13 +17,19 @@ const PostHeader = ({ post }) => {
     //It makes a call API using the pseudo of the user in orger to get all the necessary data
     //Then if it succeeded it displays the data inside the redux store before leading the user to the right page
     const goToProfilePage = () => {
-        axiosGetUser(post.pseudo, token)
-            .then((res) => {
-                dispatch(setFriendData(res.data));
-                navigate("/friend-profile");
-            })
-            .catch((err) => console.log(err));
+        axiosGetUser(post.pseudo, token).then((res) => {
+            dispatch(setFriendData(res.data));
+            navigate("/friend-profile");
+        });
     };
+
+    return {
+        goToProfilePage,
+    };
+};
+
+const PostHeader = ({ post }) => {
+    const { goToProfilePage } = usePostHeader({ post });
 
     return (
         <div className="post-header">

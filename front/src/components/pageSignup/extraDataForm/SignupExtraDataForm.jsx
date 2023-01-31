@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
-import { Button } from "@mui/material";
 import { setUserLoggedData } from "../../../features/userLoggedData.slice";
-import { setJwtToken } from "../../../utils/functions/tools";
 import { setLoggedState } from "../../../features/loggedState.slice";
-import MUIClassicLoader from "../../mui/MUIClassicLoader";
+
+import { setJwtToken } from "../../../utils/functions/tools/setJwtToken";
 import { axiosPostSignupExtra } from "../../../utils/functions/user/axiosPostSignupExtra";
 import { axiosPatchFiles } from "../../../utils/functions/user/axiosPatchFiles";
+
+import { Button } from "@mui/material";
+import MUIClassicLoader from "../../mui/MUIClassicLoader";
 import PseudoDivision from "./PseudoDivision";
 import DescriptionDivision from "./DescriptionDivision";
 import DreamTripDivision from "./DreamTripDivision";
@@ -109,16 +112,28 @@ const usePreviousTrips = () => {
     };
 };
 
-const useSignupExtraDataForm = ({ profilePicture, userPersonals }) => {
+const useSignupExtraDataForm = ({
+    profilePicture,
+    userPersonals,
+    albumsArray,
+    pseudo,
+    description,
+    previousTrips,
+    dreamTrip,
+    isPseudoOk,
+}) => {
     const [isLoading, setIsLoading] = useState(false);
-    const { pseudo, isPseudoOk } = useSignupPseudo();
-    const { description } = useSignupDescription();
-    const { dreamTrip } = useDreamTrips();
-    const { previousTrips, albumsArray } = usePreviousTrips();
+    // const { pseudo, isPseudoOk } = useSignupPseudo();
+    // const { description } = useSignupDescription();
+    // const { dreamTrip } = useDreamTrips();
+    // const { previousTrips, albumsArray } = usePreviousTrips();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmissionFormData = () => {
+        console.log(albumsArray);
+        console.log(pseudo);
+        console.log(description);
         const fileData = new FormData();
         fileData.append("albumName", previousTrips[0].album[0].name);
         fileData.append("file", profilePicture);
@@ -138,6 +153,7 @@ const useSignupExtraDataForm = ({ profilePicture, userPersonals }) => {
         const { userAuth, userData } = userPersonals;
         const { email, password } = userAuth;
         const { firstName, lastName, age, gender, country } = userData;
+        console.log(isPseudoOk);
         if (
             isPseudoOk === true &&
             description !== "" &&
@@ -180,14 +196,21 @@ const useSignupExtraDataForm = ({ profilePicture, userPersonals }) => {
 };
 
 const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
-    const { pseudo, changePseudo, changeIsPseudoOk } = useSignupPseudo();
+    const { pseudo, isPseudoOk, changePseudo, changeIsPseudoOk } =
+        useSignupPseudo();
     const { description, changeDescription } = useSignupDescription();
-    const { previousTrips, changeAlbumsArray, changeTrips } =
+    const { previousTrips, albumsArray, changeAlbumsArray, changeTrips } =
         usePreviousTrips();
     const { dreamTrip, changeCountry, changeDreamTrip } = useDreamTrips();
     const { isLoading, handleSubmission } = useSignupExtraDataForm({
         profilePicture,
         userPersonals,
+        albumsArray,
+        pseudo,
+        description,
+        previousTrips,
+        dreamTrip,
+        isPseudoOk,
     });
 
     return (
@@ -200,23 +223,23 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             <div className="extra-data-form__fields-displayer">
                 <PreviousTripsDivision
                     previousTrips={previousTrips}
-                    changeAlbumsArray={changeAlbumsArray}
-                    changeTrips={changeTrips}
+                    changeAlbumsArray={(value) => changeAlbumsArray(value)}
+                    changeTrips={(value) => changeTrips(value)}
                 />
                 <div className="extra-data-form__fields-displayer__left-column">
                     <PseudoDivision
                         pseudo={pseudo}
-                        changeIsPseudoOk={changeIsPseudoOk}
-                        changePseudo={changePseudo}
+                        changeIsPseudoOk={(value) => changeIsPseudoOk(value)}
+                        changePseudo={(value) => changePseudo(value)}
                     />
                     <DescriptionDivision
                         description={description}
-                        changeDescription={changeDescription}
+                        changeDescription={(value) => changeDescription(value)}
                     />
                     <DreamTripDivision
                         dreamTrip={dreamTrip}
-                        changeCountry={changeCountry}
-                        changeDreamTrip={changeDreamTrip}
+                        changeCountry={(value) => changeCountry(value)}
+                        changeDreamTrip={(value) => changeDreamTrip(value)}
                     />
                 </div>
             </div>

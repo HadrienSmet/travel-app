@@ -1,7 +1,8 @@
-import { TextField } from "@mui/material";
 import { useRef } from "react";
-import { FaCheck, FaTimes } from "react-icons/fa";
 import { axiosCheckPseudo } from "../../../utils/functions/user/axiosCheckPseudo";
+
+import { TextField } from "@mui/material";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
     const pseudoMsgRef = useRef(null);
@@ -11,15 +12,19 @@ const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
     const handleFinePseudo = () => {
         changeIsPseudoOk(true);
         pseudoMsgRef.current.textContent = "";
-        pseudoTimesRef.current.style.opacity = "0";
-        pseudoCheckRef.current.style.opacity = "1";
+        pseudoTimesRef.current.classList.remove("visible");
+        pseudoCheckRef.current.classList.remove("invisible");
+        pseudoTimesRef.current.classList.add("invisible");
+        pseudoCheckRef.current.classList.add("visible");
     };
 
     const handleWrongPseudo = (message) => {
         changeIsPseudoOk(false);
         pseudoMsgRef.current.textContent = message;
-        pseudoTimesRef.current.style.opacity = "1";
-        pseudoCheckRef.current.style.opacity = "0";
+        pseudoTimesRef.current.classList.remove("invisible");
+        pseudoCheckRef.current.classList.remove("visible");
+        pseudoTimesRef.current.classList.add("visible");
+        pseudoCheckRef.current.classList.add("invisible");
     };
 
     //This function handles the behavior of the input text representing the user pseudo and his data
@@ -56,19 +61,20 @@ const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
 };
 
 const PseudoDivision = ({ pseudo, changePseudo, changeIsPseudoOk }) => {
-    const { pseudoMsgRef, pseudoCheckRef, pseudoTimesRef, handlePseudo } =
-        usePseudoDivision({ pseudo, changeIsPseudoOk });
+    const { pseudoMsgRef, handlePseudo, pseudoCheckRef, pseudoTimesRef } =
+        usePseudoDivision({
+            pseudo,
+            changeIsPseudoOk,
+        });
     return (
         <div className="extra-data-form__pseudo-division">
             <div className="extra-data-form__pseudo-division__icons-container">
-                <FaCheck
-                    ref={pseudoCheckRef}
-                    className="extra-data-form__pseudo-division__check-icon last-step-icon check"
-                />
-                <FaTimes
-                    ref={pseudoTimesRef}
-                    className="extra-data-form__pseudo-division__times-icon last-step-icon times"
-                />
+                <div className="ref-div" ref={pseudoCheckRef}>
+                    <FaCheck className="extra-data-form__pseudo-division__check-icon last-step-icon check" />
+                </div>
+                <div className="ref-div" ref={pseudoTimesRef}>
+                    <FaTimes className="extra-data-form__pseudo-division__times-icon last-step-icon times" />
+                </div>
             </div>
             <TextField
                 id="outlined-pseudo"

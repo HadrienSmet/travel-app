@@ -1,9 +1,10 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
 import { Button, Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import MUIInputCountry from "../../../mui/MUIInputCountry";
 import MUIInputNumbers from "../../../mui/MUIInputNumbers";
 import MUIInputSelect from "../../../mui/MUIInputSelect";
@@ -14,10 +15,15 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
+    width: "75vw",
+    height: "80vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    bgcolor: "rgba(255, 255, 255, 0.65)",
+    borderRadius: "15px",
+    boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.3)",
     pt: 2,
     px: 4,
     pb: 3,
@@ -153,7 +159,7 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
             >
-                <Box sx={{ ...style, width: 400 }}>
+                <Box sx={{ ...style }}>
                     <div className="trip-modal__header">
                         <h3>Ajouter un voyage</h3>
                         <BsXLg onClick={() => handleOpen(false)} />

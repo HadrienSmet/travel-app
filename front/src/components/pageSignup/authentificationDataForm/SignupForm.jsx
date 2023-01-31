@@ -1,44 +1,14 @@
-import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { setSignupData } from "../../../features/signupData.slice";
+
+import { Button } from "@mui/material";
 import EmailDivision from "./EmailDivision";
 import PasswordDivision from "./PasswordDivision";
 
-const useSignupEmail = () => {
-    const [email, setEmail] = useState("");
-    const [isEmailOk, setIsEmailOk] = useState(false);
-
-    const changeEmail = (email) => setEmail(email);
-    const changeIsEmailOk = (boolean) => setIsEmailOk(boolean);
-
-    return {
-        email,
-        isEmailOk,
-        changeEmail,
-        changeIsEmailOk,
-    };
-};
-
-const useSignupPassword = () => {
-    const [password, setPassword] = useState("");
-    const [isPasswordOk, setIsPasswordOk] = useState(false);
-
-    const changePassword = (password) => setPassword(password);
-    const changeIsPasswordOk = (boolean) => setIsPasswordOk(boolean);
-
-    return {
-        password,
-        isPasswordOk,
-        changePassword,
-        changeIsPasswordOk,
-    };
-};
-
-const useSignupForm = () => {
-    const { email, isEmailOk } = useSignupEmail();
-    const { password, isPasswordOk } = useSignupPassword();
+const useSignupForm = ({ isEmailOk, isPasswordOk, email, password }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -64,10 +34,16 @@ const useSignupForm = () => {
 };
 
 const SignupForm = () => {
-    const { email, changeEmail, changeIsEmailOk } = useSignupEmail();
-    const { password, changePassword, changeIsPasswordOk } =
-        useSignupPassword();
-    const { handleSubmission } = useSignupForm();
+    const [email, setEmail] = useState("");
+    const [isEmailOk, setIsEmailOk] = useState(false);
+    const [password, setPassword] = useState("");
+    const [isPasswordOk, setIsPasswordOk] = useState(false);
+    const { handleSubmission } = useSignupForm({
+        isEmailOk,
+        isPasswordOk,
+        email,
+        password,
+    });
 
     return (
         <div id="signup" className="signup-container start-form">
@@ -79,13 +55,13 @@ const SignupForm = () => {
                 <h2>Inscrivez-vous!</h2>
                 <EmailDivision
                     email={email}
-                    changeEmail={changeEmail}
-                    changeIsEmailOk={changeIsEmailOk}
+                    changeEmail={(value) => setEmail(value)}
+                    changeIsEmailOk={(value) => setIsEmailOk(value)}
                 />
                 <PasswordDivision
                     password={password}
-                    changePassword={changePassword}
-                    changeIsPasswordOk={changeIsPasswordOk}
+                    changePassword={(value) => setPassword(value)}
+                    changeIsPasswordOk={(value) => setIsPasswordOk(value)}
                 />
                 <Button variant="outlined" onClick={(e) => handleSubmission(e)}>
                     Inscription

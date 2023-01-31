@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useWindowSize } from "../../utils/hooks/hooks";
 
 export const findDegree = (element, event) => {

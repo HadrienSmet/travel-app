@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import React from "react";
 import { FaUserCog, FaUserEdit } from "react-icons/fa";
 
 const UserBanner = ({ userProfile }) => {

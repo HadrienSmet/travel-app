@@ -9,14 +9,8 @@ const useProfileTripsSection = () => {
     const [selectedCountry, setSelectedCountry] = useState("");
     const navigate = useNavigate();
 
-    //This function is here to allow a children component to change the state of this component
-    //@Params { type: String } => the value of the onChange event listening a select input containing a list of each country
-    const changeSelectedCountry = (country) => {
-        setSelectedCountry(country);
-    };
+    const changeSelectedCountry = (country) => setSelectedCountry(country);
 
-    //This function doesn't do anything right now
-    //It will just log the country selected by the user
     const handleFutureTrip = () => {
         console.log(selectedCountry);
         navigate(`/error-404`);

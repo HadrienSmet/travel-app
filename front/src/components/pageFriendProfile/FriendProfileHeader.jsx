@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FaRegEnvelope, FaUserCheck, FaUserPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     pullFollowerInFriendData,
     pushFollowerInFriendData,
@@ -46,8 +46,8 @@ const useFriendProfileHeader = ({ friendProfile, userProfile }) => {
     };
 };
 
-const useFriendHandler = ({ friendProfile, userProfile }) => {
-    const { handleIsFriend } = useFriendProfileHeader();
+const useFriendHandler = ({ friendProfile, userProfile, handleIsFriend }) => {
+    // const { handleIsFriend } = useFriendProfileHeader();
     const dispatch = useDispatch();
     let { userId, token } = getJwtToken();
 
@@ -104,11 +104,21 @@ const useFriendHandler = ({ friendProfile, userProfile }) => {
     };
 };
 
-const FriendProfileHeader = ({ friendProfile, userProfile }) => {
-    const { isFriend, defaultBg } = useFriendProfileHeader();
+const FriendProfileHeader = () => {
+    const friendProfile = useSelector(
+        (state) => state.friendDataStore.friendData
+    );
+    const userProfile = useSelector(
+        (state) => state.userLoggedDataStore.userLoggedData
+    );
+    const { isFriend, defaultBg, handleIsFriend } = useFriendProfileHeader({
+        friendProfile,
+        userProfile,
+    });
     const { handleNewFriend, handleRemoveFriend } = useFriendHandler({
         friendProfile,
         userProfile,
+        handleIsFriend,
     });
     return (
         <div className="profile-section__header">

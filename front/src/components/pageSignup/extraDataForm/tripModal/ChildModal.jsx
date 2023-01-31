@@ -1,9 +1,11 @@
-import { Box, Button, Modal } from "@mui/material";
 import { Fragment, useState } from "react";
-import { BsXLg } from "react-icons/bs";
-import { FaCamera, FaPlus } from "react-icons/fa";
+
 import { useDispatch } from "react-redux";
 import { setAlbumObjectArrayStore } from "../../../../features/albumObjectArray.slice";
+
+import { Box, Button, Modal } from "@mui/material";
+import { BsXLg } from "react-icons/bs";
+import { FaCamera, FaPlus } from "react-icons/fa";
 import MUIGradientBorder from "../../../mui/MUIGradientBorder";
 
 const style = {

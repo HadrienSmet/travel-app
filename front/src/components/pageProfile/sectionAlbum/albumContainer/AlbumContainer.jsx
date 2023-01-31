@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileAlbumSectionModal from "../ProfileAlbumsSectionModal";
 import AlbumContainerDesktop from "./AlbumContainerDesktop";
 

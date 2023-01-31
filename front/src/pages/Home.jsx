@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../features/postsData.slice";
+
 import { getJwtToken } from "../utils/functions/tools/getJwtToken";
-import Globe3D from "../components/Globe3D";
-import MUIGradientBorder from "../components/mui/MUIGradientBorder";
-import { useCallback } from "react";
-import HomeContent from "../components/pageHome/HomeContent";
 import { axiosGetPostsFromCountry } from "../utils/functions/posts/axiosGetPostsFromCountry";
 import { axiosGetPosts } from "../utils/functions/posts/axiosGetPosts";
+
+import Globe3D from "../components/Globe3D";
+import MUIGradientBorder from "../components/mui/MUIGradientBorder";
+import HomeContent from "../components/pageHome/HomeContent";
 
 const useHome = () => {
     const [allPosts, setAllPosts] = useState(true);
     const [loadPost, setLoadPost] = useState(true);
+    const [specifiedLoadPost, setSpecifiedLoadPost] = useState(false);
     const [noResult, setNoResult] = useState(false);
 
+    const handleSpecifiedLoadPost = (boolean) => setSpecifiedLoadPost(boolean);
     const handleAllPosts = (boolean) => setAllPosts(boolean);
     const handleLoadPost = (boolean) => setLoadPost(boolean);
     const handleNoResult = (boolean) => setNoResult(boolean);
-
-    //This function is here to activate the useEffect whenever the user starts to see the footer
-    const loadMore = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop + 126 >
-            document.scrollingElement.scrollHeight
-        ) {
-            handleLoadPost(true);
-        }
-    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -35,22 +29,30 @@ const useHome = () => {
     return {
         allPosts,
         loadPost,
+        specifiedLoadPost,
         noResult,
         handleAllPosts,
         handleLoadPost,
+        handleSpecifiedLoadPost,
         handleNoResult,
-        loadMore,
     };
 };
 
-const useDefaultHome = ({ token, dispatch }) => {
+const useDefaultHome = ({
+    token,
+    dispatch,
+    allPosts,
+    loadPost,
+    handleLoadPost,
+    handleAllPosts,
+}) => {
     const [count, setCount] = useState(10);
-    const { allPosts, loadPost, handleLoadPost, loadMore } = useHome();
 
     //This function gets from the API all the posts and displays it into the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
     const fetchAllposts = useCallback(
         (num) => {
+            handleAllPosts(true);
             axiosGetPosts(token).then((res) => {
                 const array = res.data
                     .sort((a, b) => b.date - a.date)
@@ -58,13 +60,21 @@ const useDefaultHome = ({ token, dispatch }) => {
                 dispatch(setPostsData(array));
             });
         },
-        [dispatch, token]
+        [dispatch, token, handleAllPosts]
     );
     //This useEffect is here to get the posts made by a specified user and then displays all the data in the redux store
     //If the app indicates by his local state that posts have to be loaded:
     //A function to make the call API is called, then when indicate to the app that it doesn't need anymore to load posts and then increase the amount of posts that will be called next time
     //This useEffect is also listening an event on the window in order to check how far the user scrolled the page
     useEffect(() => {
+        const loadMore = () => {
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 126 >
+                document.scrollingElement.scrollHeight
+            ) {
+                handleLoadPost(true);
+            }
+        };
         if (loadPost) {
             fetchAllposts(count);
             handleLoadPost(() => false);
@@ -74,20 +84,25 @@ const useDefaultHome = ({ token, dispatch }) => {
         allPosts && window.addEventListener("scroll", loadMore);
 
         return () => allPosts && window.removeEventListener("scroll", loadMore);
-    }, [loadPost, count, allPosts, fetchAllposts, handleLoadPost, loadMore]);
+    }, [loadPost, count, allPosts, fetchAllposts, handleLoadPost]);
 
     return {
         fetchAllposts,
     };
 };
 
-const useSpecifiedHome = ({ token, dispatch }) => {
-    const [specifiedLoadPost, setSpecifiedLoadPost] = useState(false);
+const useSpecifiedHome = ({
+    token,
+    dispatch,
+    allPosts,
+    handleAllPosts,
+    handleNoResult,
+    handleSpecifiedLoadPost,
+    specifiedLoadPost,
+}) => {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [specifiedCount, setSpecifiedCount] = useState(10);
-    const { allPosts, handleAllPosts, handleNoResult } = useHome();
 
-    const handleSpecifiedLoadPost = (boolean) => setSpecifiedLoadPost(boolean);
     const handleSelectedCountry = (country) => setSelectedCountry(country);
     const handleSpecifiedCount = (count) => setSpecifiedCount(count);
 
@@ -137,7 +152,13 @@ const useSpecifiedHome = ({ token, dispatch }) => {
 
         return () =>
             !allPosts && window.removeEventListener("scroll", loadSpecified);
-    }, [allPosts, fetchSpecifiedPosts, specifiedCount, specifiedLoadPost]);
+    }, [
+        allPosts,
+        fetchSpecifiedPosts,
+        specifiedCount,
+        specifiedLoadPost,
+        handleSpecifiedLoadPost,
+    ]);
 
     return {
         changeSelectedCountry,
@@ -147,9 +168,31 @@ const useSpecifiedHome = ({ token, dispatch }) => {
 const Home = () => {
     const dispatch = useDispatch();
     let { token } = getJwtToken();
-    const { noResult } = useHome();
-    const { fetchAllposts } = useDefaultHome({ token, dispatch });
-    const { changeSelectedCountry } = useSpecifiedHome({ token, dispatch });
+    const {
+        noResult,
+        allPosts,
+        loadPost,
+        handleNoResult,
+        handleLoadPost,
+        handleSpecifiedLoadPost,
+        handleAllPosts,
+    } = useHome();
+    const { fetchAllposts } = useDefaultHome({
+        token,
+        dispatch,
+        allPosts,
+        handleAllPosts,
+        loadPost,
+        handleLoadPost,
+    });
+    const { changeSelectedCountry } = useSpecifiedHome({
+        token,
+        dispatch,
+        allPosts,
+        handleAllPosts,
+        handleNoResult,
+        handleSpecifiedLoadPost,
+    });
 
     const userData = useSelector(
         (state) => state.userLoggedDataStore.userLoggedData
