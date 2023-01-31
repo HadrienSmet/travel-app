@@ -47,7 +47,6 @@ const useFriendProfileHeader = ({ friendProfile, userProfile }) => {
 };
 
 const useFriendHandler = ({ friendProfile, userProfile, handleIsFriend }) => {
-    // const { handleIsFriend } = useFriendProfileHeader();
     const dispatch = useDispatch();
     let { userId, token } = getJwtToken();
 

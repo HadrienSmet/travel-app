@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Button, Modal, Box, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
+import { pushTripInUserLoggedData } from "../../../features/userLoggedData.slice";
+import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
+import { axiosCreateTrip } from "../../../utils/functions/user/axiosCreateTrip";
+
+import { Button, Modal, Box, TextField } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
 import MUIInputCountry from "../../mui/MUIInputCountry";
 import MUIInputNumbers from "../../mui/MUIInputNumbers";
 import MUIInputSelect from "../../mui/MUIInputSelect";
-import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
-import { pushTripInUserLoggedData } from "../../../features/userLoggedData.slice";
 import MUIGradientBorder from "../../mui/MUIGradientBorder";
-import { axiosCreateTrip } from "../../../utils/functions/user/axiosCreateTrip";
 
 const style = {
     position: "absolute",

@@ -23,33 +23,25 @@ const style = {
 };
 
 const useChildModal = () => {
-    const [open, setOpen] = useState(false);
     const [albumPicture, setAlbumPicture] = useState(undefined);
     const [albumPictureUrl, setAlbumPictureUrl] = useState(undefined);
-
-    const handleOpen = (boolean) => {
-        setOpen(boolean);
-    };
 
     const changeAlbumPicture = (fileArray) => setAlbumPicture(fileArray);
     const changeAlbumPictureUrl = (urlArray) => setAlbumPictureUrl(urlArray);
 
     return {
-        open,
         albumPicture,
         albumPictureUrl,
-        handleOpen,
         changeAlbumPicture,
         changeAlbumPictureUrl,
     };
 };
 
 const ChildModal = ({ destination, year, changeAlbumsArray }) => {
+    const [open, setOpen] = useState(false);
     const {
-        open,
         albumPicture,
         albumPictureUrl,
-        handleOpen,
         changeAlbumPicture,
         changeAlbumPictureUrl,
     } = useChildModal();
@@ -69,7 +61,7 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
             name: `album ${destination} ${year}`,
             urls: albumPictureUrl,
         };
-        handleOpen(false);
+        setOpen(false);
         changeAlbumsArray(albumPicture);
         dispatch(setAlbumObjectArrayStore(album));
     };
@@ -104,7 +96,7 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
             <Button
                 id="signup-album-creation-btn"
                 variant="outlined"
-                onClick={handleOpen}
+                onClick={() => setOpen(true)}
             >
                 <span>Créer un album</span>
                 <FaPlus />
@@ -121,7 +113,7 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
                         <h4 id="child-modal-title">
                             Album {destination} {year}
                         </h4>
-                        <BsXLg onClick={() => handleOpen(false)} />
+                        <BsXLg onClick={() => setOpen(false)} />
                     </div>
                     <div className="child-modal__same-row">
                         <p id="child-modal-description">

@@ -4,6 +4,7 @@ import { setPostsData } from "../../features/postsData.slice";
 import { axiosGetUserPosts } from "../../utils/functions/posts/axiosGetUserPosts";
 import { getJwtToken } from "../../utils/functions/tools/getJwtToken";
 import Post from "../post/Post";
+
 const useFriendProfilePostsSection = ({ friendProfile }) => {
     const [loadPost, setLoadPost] = useState(true);
     const [count, setCount] = useState(5);

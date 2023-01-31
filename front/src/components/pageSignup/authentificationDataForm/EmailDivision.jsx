@@ -32,7 +32,6 @@ const useEmailDivision = ({ email, changeIsEmailOk }) => {
     //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
     //And it also show or hide icons that indicates the user if he did well
     const handleMail = () => {
-        console.log(email);
         if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
             handleWrongMail("Le mail inséré n'est pas valide");
         } else {

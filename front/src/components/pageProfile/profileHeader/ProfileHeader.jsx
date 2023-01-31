@@ -79,7 +79,6 @@ const useProfileHeader = ({ userProfile }) => {
 const ProfileHeader = ({ userProfile }) => {
     const {
         isEditing,
-        // coverPicture,
         coverPictureUrl,
         defaultPicture,
         startEditCoverPicture,

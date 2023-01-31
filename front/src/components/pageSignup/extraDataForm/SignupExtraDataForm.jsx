@@ -123,17 +123,10 @@ const useSignupExtraDataForm = ({
     isPseudoOk,
 }) => {
     const [isLoading, setIsLoading] = useState(false);
-    // const { pseudo, isPseudoOk } = useSignupPseudo();
-    // const { description } = useSignupDescription();
-    // const { dreamTrip } = useDreamTrips();
-    // const { previousTrips, albumsArray } = usePreviousTrips();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmissionFormData = () => {
-        console.log(albumsArray);
-        console.log(pseudo);
-        console.log(description);
         const fileData = new FormData();
         fileData.append("albumName", previousTrips[0].album[0].name);
         fileData.append("file", profilePicture);
@@ -153,7 +146,7 @@ const useSignupExtraDataForm = ({
         const { userAuth, userData } = userPersonals;
         const { email, password } = userAuth;
         const { firstName, lastName, age, gender, country } = userData;
-        console.log(isPseudoOk);
+
         if (
             isPseudoOk === true &&
             description !== "" &&

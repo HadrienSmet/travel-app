@@ -7,8 +7,6 @@ const useStepsIndicator = ({ stepState }) => {
 
     //This useEffect is here to show to the user on wich step of the signup form he stands
     useEffect(() => {
-        // firstStepCheckRef.current.classList.add("invisible");
-        // scdStepCheckRef.current.classList.add("invisible");
         if (stepState === "just-started") {
             firstStepCheckRef.current.classList.add("visible");
         } else if (stepState === "almost-done") {

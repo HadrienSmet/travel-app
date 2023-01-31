@@ -96,16 +96,12 @@ const useCrudButtons = ({ post, token, newImage, newText, setIsEditing }) => {
         } else {
             postId = e.target.id.split("-")[1];
         }
-        axiosDeletePost(postId, token)
-            .then(() => {
-                dispatch(deletePost(postId));
-                axiosGetPosts(token)
-                    .then((res) => {
-                        dispatch(setPostsData(res.data));
-                    })
-                    .catch((err) => console.log(err));
-            })
-            .catch((err) => console.log(err));
+        axiosDeletePost(postId, token).then(() => {
+            dispatch(deletePost(postId));
+            axiosGetPosts(token).then((res) => {
+                dispatch(setPostsData(res.data));
+            });
+        });
     };
 
     //This function we create a new Object for the call API whith the constructor FormData()
@@ -140,16 +136,12 @@ const useCrudButtons = ({ post, token, newImage, newText, setIsEditing }) => {
             postId = e.target.id.split("-")[1];
         }
 
-        axiosEditPost(postId, data, token)
-            .then(() => {
-                setIsEditing(false);
-                axiosGetPosts(token)
-                    .then((res) => {
-                        dispatch(setPostsData(res.data));
-                    })
-                    .catch((err) => console.log(err));
-            })
-            .catch((err) => console.log(err));
+        axiosEditPost(postId, data, token).then(() => {
+            setIsEditing(false);
+            axiosGetPosts(token).then((res) => {
+                dispatch(setPostsData(res.data));
+            });
+        });
     };
 
     return {

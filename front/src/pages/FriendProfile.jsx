@@ -29,17 +29,11 @@ const FriendProfile = () => {
     const friendProfile = useSelector(
         (state) => state.friendDataStore.friendData
     );
-    // const userProfile = useSelector(
-    //     (state) => state.userLoggedDataStore.userLoggedData
-    // );
     const { friendProfileState, changeFriendProfileState } = useFriendProfile();
 
     return (
         <main className="profile-section">
-            <FriendProfileHeader
-            // friendProfile={friendProfile}
-            // userProfile={userProfile}
-            />
+            <FriendProfileHeader />
             <FriendProfileNavigation
                 friendProfileState={friendProfileState}
                 changeFriendProfileState={changeFriendProfileState}

@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-// const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
     country: { type: String, required: true },
@@ -12,9 +11,7 @@ const postSchema = mongoose.Schema({
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
     usersLiked: { type: [String], default: [] },
-    usersDisliked: { type: [String], default: [] }
+    usersDisliked: { type: [String], default: [] },
 });
 
-// sauceSchema.plugin(uniqueValidator);
-
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model("Post", postSchema);

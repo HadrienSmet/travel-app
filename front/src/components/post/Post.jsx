@@ -18,6 +18,8 @@ const usePost = ({ post }) => {
             userId === process.env.REACT_APP_ADMIN_ID
         ) {
             setIsAuthor(true);
+        } else {
+            setIsAuthor(false);
         }
 
         setImageUrl(post.imageUrl);
@@ -28,25 +30,9 @@ const usePost = ({ post }) => {
 
 const Post = ({ post }) => {
     const [isEditing, setIsEditing] = useState(false);
-    // const [isUpdated, setIsUpdated] = useState(false);
     const [newText, setNewText] = useState("");
-    // const [imageUrl, setImageUrl] = useState(post.imageUrl);
     const [newImage, setNewImage] = useState(undefined);
     const { isAuthor, imageUrl, setImageUrl } = usePost({ post });
-
-    //This useEffect is called whenever the store redux containing the posts gets a modification
-    //It will take the image given by the data base and put it into the local state.
-    //And it also checks the user's id to see wich action he is allowed to do on the post
-    // useEffect(() => {
-    //     if (
-    //         userId === post.userId ||
-    //         userId === process.env.REACT_APP_ADMIN_ID
-    //     ) {
-    //         setIsAuthor(true);
-    //     }
-
-    //     setImageUrl(post.imageUrl);
-    // }, [postsData, post.imageUrl, userId, post.userId]);
 
     return (
         <div key={post._id} className="post-container">
