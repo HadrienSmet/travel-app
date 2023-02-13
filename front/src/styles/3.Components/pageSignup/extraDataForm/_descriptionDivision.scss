@@ -1,0 +1,35 @@
+@media screen and (min-width: 1025px) {
+    .extra-data-form__text-area {
+        max-height: calc(100% - 187px);
+    }
+}
+@media screen and (max-width: 1024px) {
+    .extra-data-form__text-area {
+        height: 200px;
+    }
+}
+.extra-data-form {
+    &__description-division {
+        width: 100%;
+        position: relative;
+        div {
+            width: 100%;
+        }
+        svg {
+            left: -30px;
+        }
+    }
+    &__text-area {
+        position: relative;
+        div {
+            height: 100%;
+        }
+        fieldset {
+            border-color: $black-op5 !important;
+        }
+    }
+}
+#extra-description-msg {
+    position: relative;
+    top: 62px;
+}

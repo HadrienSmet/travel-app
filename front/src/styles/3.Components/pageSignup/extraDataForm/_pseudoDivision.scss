@@ -1,0 +1,13 @@
+.extra-data-form__pseudo-division {
+    position: relative;
+    width: 100%;
+    div {
+        width: 100%;
+        fieldset {
+            border-color: $black-op5 !important;
+        }
+    }
+    svg {
+        left: -30px;
+    }
+}

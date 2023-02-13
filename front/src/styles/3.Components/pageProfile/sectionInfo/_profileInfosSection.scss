@@ -1,0 +1,67 @@
+@media screen and (min-width: 1025px) {
+    .profile-infos-section {
+        &__content {
+            width: 80%;
+            left: 10%;
+            padding: 40px;
+            @include flexAround;
+        }
+        &__left-column {
+            width: 45%;
+        }
+        &__right-column {
+            width: 45%;
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .profile-infos-section {
+        &__content {
+            padding: 20px;
+            width: calc(100% - 40px);
+            @include flexColumn;
+            gap: 15px;
+        }
+        &__left-column {
+            width: 100%;
+        }
+        &__right-column {
+            width: 100%;
+        }
+    }
+}
+.profile-infos-section {
+    margin-bottom: 25px;
+    width: 90%;
+    gap: 20px;
+    @include flexColumn;
+    &-user {
+        gap: 20px;
+        @include flexColumn;
+    }
+    &-guest {
+        gap: 20px;
+        @include flexColumn;
+    }
+    &__content {
+        position: relative;
+        border: 2px solid $black-op3;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+    &__left-column {
+        gap: 15px;
+        @include flexColumn;
+    }
+    &__right-column {
+        gap: 15px;
+        @include flexColumn;
+    }
+    &__dream-trips-div {
+        display: flex;
+        gap: 20px;
+        ul {
+            position: relative;
+        }
+    }
+}

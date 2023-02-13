@@ -1,0 +1,92 @@
+@media screen and (min-width: 1025px) {
+    .extra-data-form {
+        &__dream-trips-division {
+            height: 100% !important;
+        }
+    }
+}
+.extra-data-form {
+    &__dream-trips-division {
+        margin-bottom: 20px;
+        width: 100%;
+        height: 200px;
+        position: relative;
+        &__icons-container {
+            svg {
+                left: -30px;
+            }
+        }
+    }
+    &__input-destination {
+        width: 100%;
+        height: 56px;
+        position: relative;
+        > div {
+            width: 100%;
+            margin: 0;
+            height: 100%;
+            label {
+                transform: translate(14px, 6px) scale(1);
+            }
+            > div {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        fieldset {
+            width: calc(100% - 18px);
+            border: 1px solid $black-op5;
+        }
+    }
+    ul#countries-list {
+        position: relative;
+        padding-top: 10px;
+        gap: 10px;
+        position: relative;
+        @include flexColumnStart;
+        li {
+            padding: 2px;
+            position: relative;
+            margin-left: 35px;
+            padding-right: 35px;
+            opacity: 0;
+            animation: liAnim 0.3s 0.3s ease-in-out forwards;
+            @include flexBetweenCentered;
+            &::after {
+                content: "";
+                position: absolute;
+                left: -20px;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                border: 1px solid $black-op5;
+                border-radius: 20px;
+            }
+            svg {
+                color: $primary-color;
+                z-index: 5;
+                transition: 0.2s ease-in-out;
+                &:hover {
+                    color: $tertiary-color;
+                }
+            }
+        }
+    }
+}
+.countries-list__division {
+    margin-top: 10px;
+    position: relative;
+    height: calc(100% - 48px);
+    overflow: auto;
+    border: 1px solid $black-op5;
+    border-radius: 4px;
+    &::-webkit-scrollbar {
+        color: $black-op8;
+        width: 100%;
+        height: 100%;
+    }
+    div > p {
+        margin-left: 5px;
+        color: $black-op6;
+    }
+}

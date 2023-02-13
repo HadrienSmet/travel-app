@@ -1,0 +1,43 @@
+@media screen and (min-width: 1025px) {
+    .add-album-modal {
+        width: 50vw !important;
+        height: 85vh !important;
+        @include flexAroundColumnCenter;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .add-album-modal {
+        width: calc(90vw - 64px) !important;
+        height: calc(95vh - 64px) !important;
+        overflow-y: auto;
+        @include flexFullStart;
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+.add-album-modal {
+    z-index: 2600;
+    border: none !important;
+    border-radius: 10px;
+    background-color: $clr-1 !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    .gradient-container {
+        width: 80%;
+        text-transform: uppercase;
+        font-style: 26px;
+        font-weight: 600;
+        color: $tertiary-color;
+        letter-spacing: 2px;
+        > div > span {
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            @include flexFullCenter;
+        }
+    }
+    &__header {
+        width: 100%;
+        @include flexBetweenCentered;
+    }
+}

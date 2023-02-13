@@ -1,0 +1,53 @@
+@media screen and (max-width: 767px) {
+    .post__buttons-row__crud-side {
+        button {
+            min-width: unset;
+        }
+        > button > svg {
+            font-size: 18px;
+        }
+    }
+}
+.post {
+    &__buttons-row {
+        @include flexBetweenCentered;
+        svg {
+            color: $tertiary-color;
+            @include standardTransi;
+        }
+        &__opinion-side {
+            gap: 10px;
+            @include flexCenterY;
+        }
+        &__likes {
+            cursor: pointer;
+            gap: 2px;
+            @include flexCenterY;
+            p,
+            svg {
+                color: $primary-color !important;
+            }
+            svg:hover {
+                transform: scale(1.1) translateY(-3px);
+            }
+        }
+        &__dislikes {
+            cursor: pointer;
+            gap: 2px;
+            @include flexCenterY;
+            p,
+            svg {
+                color: $tertiary-color !important;
+            }
+            svg:hover {
+                transform: scale(0.9) translateY(3px);
+            }
+        }
+    }
+    &__delete-div svg {
+        z-index: 5;
+        path {
+            z-index: 1;
+        }
+    }
+}

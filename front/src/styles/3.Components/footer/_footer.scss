@@ -1,0 +1,64 @@
+@media screen and (min-width: 1025px) {
+    .footer {
+        padding: 35px 30px 10px 20px;
+        height: 100px;
+        flex-direction: row;
+        @include flexBetween;
+        &__link-container {
+            width: 45%;
+            ul li:hover {
+                transform: translateX(5px);
+                &::before {
+                    transform: scaleY(1);
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .footer {
+        padding: 25px;
+        @include flexColumnCenter;
+    }
+}
+@media screen and (min-width: 768px) {
+    .footer__link-container {
+        @include flexAround;
+    }
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 50px);
+    background-color: $clr-3;
+    text-transform: uppercase;
+    color: $secondary-color;
+    font-size: 12px;
+    &__link-container {
+        width: 80%;
+        ul {
+            gap: 5px;
+            @include flexColumn;
+            li {
+                cursor: pointer;
+                position: relative;
+                transition: 0.3s ease-in-out;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: -10px;
+                    height: 100%;
+                    width: 2px;
+                    background-color: $secondary-color;
+                    transform: scaleY(0);
+                    transition: 0.2s 0.1s ease-in-out;
+                }
+                a {
+                    color: $secondary-color;
+                }
+            }
+        }
+    }
+}

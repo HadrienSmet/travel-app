@@ -1,0 +1,112 @@
+@media screen and (max-width: 767px) {
+    .mobile-user-popover > div:nth-child(3) {
+        transform: none !important;
+    }
+}
+
+.user-navigation {
+    > div > button > a {
+        color: $clr-1;
+    }
+    .user-mobile-nav {
+        button {
+            padding: 0;
+            min-width: none;
+        }
+        .toggle-btn {
+            width: 35px;
+            height: 40px;
+            padding: 8px;
+            border-radius: 11px;
+            background-color: $clr-1;
+            box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+                0px 2px 2px 0px rgb(0 0 0 / 14%),
+                0px 1px 5px 0px rgb(0 0 0 / 12%);
+            @include flexColumnCenter;
+            justify-content: center;
+            gap: 5px;
+            &:hover {
+                transform: scale(1.1) translateY(-2px);
+                span {
+                    background-color: $primary-color;
+                }
+            }
+            span {
+                height: 5px;
+                width: 35px;
+                border-radius: 5px;
+                background-color: $tertiary-color;
+                transition: 0.3s ease-in-out;
+            }
+        }
+        .toggle-btn.active span {
+            position: absolute;
+            &:nth-child(1) {
+                transform: rotate(45deg);
+            }
+            &:nth-child(2) {
+                opacity: 0;
+            }
+            &:nth-child(3) {
+                transform: rotate(-45deg);
+            }
+        }
+        .css-sghohy-MuiButtonBase-root-MuiButton-root {
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+}
+.mobile-user-popover > div:nth-child(3) {
+    padding: 25px 10px;
+    width: calc(29% - 20px);
+    min-width: 230px;
+    transform: translateX(15px);
+    background-color: $white-op9;
+    border: 3px solid $primary-color-2;
+    @include flexColumn;
+    button {
+        position: relative;
+        font-size: 24px;
+        color: $tertiary-color !important;
+        &:first-child::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background-color: $tertiary-color-4;
+        }
+        &:nth-child(2)::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background-color: $tertiary-color-4;
+        }
+        a {
+            color: $black-op8;
+        }
+    }
+}
+#nav-scd-child {
+    width: 80px;
+    &::after {
+        transform-origin: center;
+        left: 2px;
+    }
+    a {
+        color: $clr-1 !important;
+    }
+}
+#nav-thrd-child {
+    &::after {
+        transform-origin: left;
+    }
+    a {
+        color: $clr-1;
+    }
+}

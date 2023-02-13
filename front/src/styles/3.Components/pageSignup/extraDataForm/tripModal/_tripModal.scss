@@ -1,0 +1,42 @@
+@media screen and (min-width: 1025px) {
+    .css-105qr5e {
+        width: 70vw !important;
+        height: 70vh !important;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .css-105qr5e {
+        height: 75vh !important;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .css-105qr5e {
+        overflow-y: scroll;
+    }
+}
+.css-105qr5e {
+    width: calc(90vw - 64px) !important;
+    max-height: 90vh !important;
+    background-color: $clr-1 !important;
+    border: none !important;
+    border-radius: 8px;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    @include flexColumnCenterX;
+    gap: 25px;
+    justify-content: space-between;
+}
+.css-79ws1d-MuiModal-root {
+    background-color: $black-op1;
+    backdrop-filter: blur(2px);
+}
+#signup-album-creation-btn {
+    background-color: $primary-color;
+    color: $secondary-color;
+    padding-left: 30px;
+    padding-right: 20px;
+    &:hover {
+        color: $primary-color;
+        background-color: transparent;
+    }
+}

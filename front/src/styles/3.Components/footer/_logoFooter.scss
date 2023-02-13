@@ -1,0 +1,21 @@
+@media screen and (min-width: 768px) {
+    .footer__logo {
+        svg {
+            font-size: 25px !important;
+        }
+        h2 {
+            font-size: 12px !important;
+        }
+    }
+}
+.footer__logo {
+    gap: 5px;
+    @include flexCenterY;
+    svg {
+        font-size: 35px;
+    }
+    h2 {
+        font-family: "title-fonts";
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,190 @@
+@media screen and (min-width: 1025px) {
+    .child-modal {
+        width: 50vw !important;
+        &__pictures-displayer {
+            height: calc(100% - 200px);
+            @include flexBetween;
+            &--absolute {
+                column-gap: calc((85% * 0.08) + 10px);
+                row-gap: 0px !important;
+                width: calc(100% + 3px);
+                img {
+                    margin-bottom: calc((25% - 120px) / 3 + 1.5px);
+                    width: calc(28% - 1px);
+                    height: 120px;
+                }
+            }
+        }
+        &__picture-area-label {
+            width: 28%;
+            height: 120px;
+        }
+        .gradient-container {
+            width: 85%;
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .child-modal .gradient-container {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 768px) {
+        .child-modal {
+            width: 80vw !important;
+            &__pictures-displayer {
+                gap: 15px;
+                height: 725px;
+                @include flexFullStart;
+                &--absolute {
+                    gap: 15px;
+                    width: 100%;
+                    img {
+                        width: calc(33% - 16px);
+                        height: 170px;
+                    }
+                }
+            }
+            &__picture-area-label {
+                width: calc(33% - 16px);
+                height: 170px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .child-modal {
+        justify-content: space-around;
+        button {
+            width: calc(85% - 4px);
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .child-modal {
+        width: 75vw !important;
+        overflow-y: scroll;
+        justify-content: flex-start;
+        gap: 25px;
+        button {
+            width: calc(90% - 4px);
+        }
+        &__pictures-displayer {
+            width: 90%;
+            gap: 15px;
+            height: 2220px;
+            @include flexColumnCenter;
+            &--absolute {
+                @include flexColumnCenter;
+                justify-content: flex-start;
+                width: 100%;
+                gap: 15px;
+                height: 2220px;
+                img {
+                    width: 100%;
+                    height: 170px;
+                }
+            }
+        }
+        &__picture-area-label {
+            width: 100%;
+            height: 170px;
+        }
+    }
+}
+.child-modal {
+    z-index: 2600;
+    position: absolute !important;
+    height: 85vh;
+    border: none !important;
+    border-radius: 10px;
+    background-color: $clr-1 !important;
+    backdrop-filter: blur(10px);
+    @include flexColumnCenterX;
+    &__header {
+        width: 100%;
+        color: $primary-color;
+        @include flexBetween;
+        svg {
+            cursor: pointer;
+            @include standardTransi;
+            &:hover {
+                color: $black-op5;
+            }
+        }
+    }
+    h4,
+    p,
+    button {
+        text-transform: uppercase;
+        color: $primary-color;
+    }
+    button {
+        border: 2px solid $primary-color;
+    }
+    &__same-row {
+        width: 85%;
+        @include flexBetween;
+    }
+    &__pictures-displayer {
+        position: relative;
+        flex-wrap: wrap;
+        width: 85%;
+        &--absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-wrap: wrap;
+            max-height: 100%;
+            z-index: -1;
+            @include flexFullStart;
+            img {
+                z-index: 2;
+            }
+        }
+    }
+    &__picture-area {
+        width: 100%;
+        height: 100%;
+        background-color: $black-op1;
+        transition: 0.3s ease-in;
+        cursor: pointer;
+        @include flexFullCenter;
+        &:hover {
+            background-color: transparent;
+            > .child-modal__camera-icon {
+                opacity: 0;
+            }
+            > .child-modal__plus-icon {
+                opacity: 1;
+            }
+        }
+        svg {
+            position: absolute;
+            font-size: 60px;
+            color: $black-op3;
+            z-index: -2;
+        }
+    }
+    &__plus-icon {
+        color: $black-op8 !important;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &__camera-icon {
+        @include standardTransi;
+    }
+    .gradient-container {
+        text-transform: uppercase;
+        color: $primary-color;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        > div > span {
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            @include flexFullCenter;
+        }
+    }
+}

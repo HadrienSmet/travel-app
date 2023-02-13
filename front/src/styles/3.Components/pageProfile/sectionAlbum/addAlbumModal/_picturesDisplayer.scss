@@ -1,0 +1,104 @@
+@media screen and (min-width: 1025px) {
+    .add-album-modal {
+        &__pictures-displayer {
+            height: calc(100% - 200px);
+            @include flexBetween;
+            flex-wrap: wrap;
+            width: 100%;
+            &--absolute {
+                width: calc(100% + 3px);
+                column-gap: calc((85% * 0.08) + 10px);
+                row-gap: 0px !important;
+                max-height: 100%;
+                img {
+                    width: calc(28% - 1px);
+                    height: 120px;
+                }
+            }
+        }
+        &__picture-area-label {
+            width: 28%;
+            height: 120px;
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .add-album-modal {
+        &__pictures-displayer {
+            @include flexFullStart;
+            gap: 15px;
+            flex-wrap: wrap;
+            width: calc(100% + 15px);
+            &--absolute {
+                gap: 15px;
+                width: 100%;
+                img {
+                    width: (calc(50% - 15px));
+                    height: 110px;
+                }
+            }
+        }
+        &__picture-area-label {
+            width: (calc(50% - 15px));
+            height: 110px;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .add-album-modal {
+            &__pictures-displayer--absolute img {
+                height: 200px;
+            }
+            &__picture-area-label {
+                height: 200px;
+            }
+        }
+    }
+}
+.add-album-modal {
+    &__pictures-displayer {
+        position: relative;
+        &--absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-wrap: wrap;
+            z-index: -1;
+            @include flexFullStart;
+            img {
+                z-index: 2;
+            }
+        }
+    }
+    &__picture-area {
+        width: 100%;
+        height: 100%;
+        background-color: $black-op2;
+        transition: 0.3s ease-in;
+        cursor: pointer;
+        @include flexFullCenter;
+        &:hover {
+            background-color: transparent;
+            > .add-album-modal__camera-icon {
+                opacity: 0;
+            }
+            > .add-album-modal__plus-icon {
+                opacity: 1;
+            }
+        }
+        svg {
+            position: absolute;
+            font-size: 60px;
+            color: $black-op4;
+            z-index: -2;
+        }
+    }
+    &__plus-icon {
+        color: $black-op4 !important;
+        opacity: 0;
+        transition: 0.3s ease-in-out;
+    }
+    &__camera-icon {
+        transition: 0.2s ease-in;
+    }
+}

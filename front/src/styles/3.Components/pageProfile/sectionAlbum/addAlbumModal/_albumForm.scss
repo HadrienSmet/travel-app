@@ -1,0 +1,35 @@
+@media screen and (min-width: 1025px) {
+    form {
+        width: 85%;
+    }
+    .add-album-modal__same-row {
+        @include flexBetween;
+        > div {
+            width: 40%;
+            div {
+                margin: 8px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    form {
+        width: 100%;
+    }
+    .add-album-modal__same-row {
+        @include flexColumnCenterX;
+        > div {
+            width: 100%;
+            div {
+                margin: 5px 0px;
+            }
+        }
+    }
+}
+
+.add-album-modal__same-row {
+    width: 100%;
+    > div div {
+        width: 100%;
+    }
+}

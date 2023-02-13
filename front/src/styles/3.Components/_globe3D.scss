@@ -1,21 +1,58 @@
-.home-globe-container {
-    @media screen and (min-width: 1025px) {
+@media screen and (min-width: 1025px) {
+    .home-globe-container {
         height: 76vh;
         padding: 0 40px;
+        &__countries-list {
+            height: 580px;
+        }
     }
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        height: calc(100vh - 451px);
+    .profile-globe-container {
+        height: 40vh;
+        padding: 0;
+        &__countries-list {
+            height: 300px;
+        }
     }
+    .globe-container__countries-list {
+        transform: translateX(-30px);
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.9) 24%,
+            rgba(255, 255, 255, 1) 40%
+        ) !important;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .profile-globe-container {
+        height: 40vh;
+        &__countries-list {
+            height: 40vh;
+        }
+    }
+    .globe-container__countries-list {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.9) 50%,
+            rgba(255, 255, 255, 1) 100%
+        ) !important;
+    }
+    @media screen and (min-width: 768px) {
+        .home-globe-container {
+            height: calc(100vh - 451px);
+            &__countries-list {
+                height: calc(100vh - 591px);
+            }
+        }
+    }
+}
+
+.home-globe-container {
     @media screen and (max-width: 767px) {
         height: calc(100vh - 365px);
     }
     &__countries-list {
-        @media screen and (min-width: 1025px) {
-            height: 580px;
-        }
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-            height: calc(100vh - 591px);
-        }
         @media screen and (max-width: 767px) {
             height: calc(100vh - 448px);
         }
@@ -31,20 +68,7 @@
     }
 }
 .profile-globe-container {
-    @media screen and (min-width: 1025px) {
-        height: 40vh;
-        padding: 0;
-    }
-    @media screen and (max-width: 1024px) {
-        height: 40vh;
-    }
     &__countries-list {
-        @media screen and (min-width: 1025px) {
-            height: 300px;
-        }
-        @media screen and (max-width: 1024px) {
-            height: 40vh;
-        }
         position: relative;
         li {
             @media screen and (min-width: 768px) {
@@ -67,16 +91,9 @@
         width: 100%;
     }
     &__countries-list {
-        @media screen and (min-width: 1025px) {
-            transform: translateX(-30px);
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 24%, rgba(255,255,255,1) 40%);
-        }
-        @media screen and (max-width: 1024px) {
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,1) 100%);
-        }
         overflow-y: scroll;
         position: relative;
-        background: rgb(255,255,255);
+        background: rgb(255, 255, 255);
         &::-webkit-scrollbar {
             width: 16px;
             background-color: transparent;
@@ -93,9 +110,9 @@
             border-radius: 8px;
             border: 4px solid transparent;
             background-clip: content-box;
-            background-color: hsl(0,0%,67%);
+            background-color: hsl(0, 0%, 67%);
             &:hover {
-                background-color: lighten(hsl(0,0%,67%), 5);
+                background-color: lighten(hsl(0, 0%, 67%), 5);
             }
         }
         li {
@@ -112,7 +129,7 @@
             margin-bottom: 3px;
             transition: 0.2s ease-in-out;
             a {
-               color: $black-op9; 
+                color: $black-op9;
             }
         }
     }

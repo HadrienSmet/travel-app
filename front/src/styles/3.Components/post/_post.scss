@@ -1,0 +1,11 @@
+.post {
+    &-container {
+        position: relative;
+        width: calc(100% - 50px);
+        border: 1px solid $black-op2;
+        border-radius: 5px;
+        padding: 15px 25px;
+        gap: 15px;
+        @include flexColumn;
+    }
+}

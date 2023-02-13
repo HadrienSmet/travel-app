@@ -1,0 +1,144 @@
+@media screen and (min-width: 1025px) {
+    .trip-modal {
+        &__content {
+            height: calc(80% - 105.5px);
+            @include flexAround;
+            flex-direction: row;
+        }
+        &__inputs-area {
+            width: 43%;
+        }
+        &__description-area {
+            width: 43%;
+            height: calc(100% - 36px);
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .trip-modal__description-area > div {
+        position: relative;
+        width: 100%;
+        margin-left: 8px;
+    }
+
+    @media screen and (min-width: 768px) {
+        .trip-modal {
+            &__inputs-area {
+                height: 70%;
+            }
+            &__description-area > div {
+                height: 250px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .trip-modal__buttons-row button {
+        width: 45% !important;
+    }
+}
+.trip-modal {
+    &__header {
+        width: 100%;
+        @include flexBetween;
+        h3 {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+            margin-left: 25px;
+        }
+        svg {
+            cursor: pointer;
+            font-size: 25px;
+            color: $black-op5;
+            @include standardTransi;
+            &:hover {
+                color: $tertiary-color;
+            }
+        }
+    }
+    &__content {
+        height: 100%;
+        width: 100%;
+        color: $clr-2;
+        @include flexColumnCenter;
+        label {
+            color: $clr-2 !important;
+        }
+        fieldset {
+            border-color: $black-op8 !important;
+        }
+    }
+    &__inputs-area {
+        width: 100%;
+        @include flexColumnBetween;
+        div {
+            width: 100%;
+        }
+    }
+    &__description-area {
+        width: 100%;
+        @include flexColumnBetween;
+        > div {
+            height: calc(100% - 50px);
+            margin-top: 15px;
+            > div {
+                height: 100%;
+            }
+        }
+    }
+    &__buttons-row {
+        width: 80%;
+        height: 70px;
+        @include flexFullCenter;
+        button {
+            width: 100%;
+            border: 2px solid $primary-color !important;
+            color: $primary-color;
+            font-weight: 600;
+            letter-spacing: 2px;
+            height: calc(100% - 4px);
+            &:hover {
+                background-color: $primary-color;
+                color: $secondary-color;
+            }
+        }
+    }
+    &__album-container {
+        height: unset !important;
+    }
+    &-album {
+        margin: 5px 0;
+        height: unset !important;
+        padding: 5px 25px;
+        background-color: $black-op1;
+        border: 2px solid $black-op5;
+        border-radius: 10px;
+        position: relative;
+        &__pictures-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-left: 15px;
+            height: unset !important;
+            gap: 8px;
+            @include flexStart;
+        }
+        img {
+            height: 60px;
+            width: 50px;
+        }
+        h4 {
+            color: $black-op8;
+            margin-left: 20px;
+            position: relative;
+            &::before {
+                content: "\2708";
+                position: absolute;
+                top: 50%;
+                left: -20px;
+                transform: translateY(-50%);
+                color: $black-op8;
+            }
+        }
+    }
+}

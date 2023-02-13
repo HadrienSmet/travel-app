@@ -1,0 +1,25 @@
+@media screen and (min-width: 1025px) {
+    .profile__posts-section {
+        width: 45%;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .profile__posts-section {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 767px) {
+    .profile__posts-section {
+        width: 90%;
+    }
+}
+.profile__posts-section {
+    margin-bottom: 30px;
+    @include flexFullCenter;
+    flex-direction: column;
+    &__posts-div {
+        width: 100%;
+        gap: 10px;
+        @include flexColumnCenterX;
+    }
+}

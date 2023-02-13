@@ -1,0 +1,48 @@
+@media screen and (min-width: 768px) {
+    .extra-form,
+    .profile-trips-section {
+        &__previous-trip-album img {
+            height: 100px;
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .extra-form,
+    .profile-trips-section {
+        &__previous-trip-album img {
+            height: 50px;
+        }
+    }
+}
+
+.extra-form,
+.profile-trips-section {
+    &__accordion-details-displayer {
+        margin-bottom: 5px;
+        @include flexColumn;
+        span {
+            position: relative;
+            margin-left: 20px;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: -12px;
+                transform: translateY(-50%);
+                width: 3px;
+                height: 3px;
+                border: 1px solid $black-op4;
+                border-radius: 50%;
+            }
+        }
+    }
+    &__previous-trip-album {
+        width: calc(100% - 32px);
+        @include flexFullStart;
+        gap: 5px;
+        flex-wrap: wrap;
+        img {
+            width: 30%;
+        }
+    }
+}
