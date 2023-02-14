@@ -1,30 +1,73 @@
-.welcome {
-    position: relative;
-    &__background-img {
-        @media screen and (min-width: 768px) {
-            height: calc(100vh + 50px);
-        }
-        @media screen and (max-width: 767px) {
-            height: 1200px;
-        }
-        width: 100%;
-    }
-    &-main-content {
-        @media screen and (min-width: 1025px) {
+@media screen and (min-width: 1025px) {
+    .welcome {
+        &-main-content {
             width: 80vw;
             padding: 20px 40px;
             height: calc(80vh - 50px);
             gap: 150px;
-            @include flexFullCenter; 
-            flex-direction: row;
+            @include flexFullCenter;
+            flex-direction: row !important;
+            &-intro h1 {
+                width: 80%;
+            }
+            &__paralaxed-element {
+                top: calc(50vh + 50px);
+            }
         }
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .welcome {
+        &-main-content {
             width: 80vw;
-            min-height: 70vh;
+            min-height: 70vh !important;
+            &-intro {
+                padding: 0 60px;
+                gap: 45px;
+            }
+            &__paralaxed-element {
+                top: 60vh;
+            }
         }
-        @media screen and (max-width: 767px) {
+    }
+}
+@media screen and (min-width: 768px) {
+    .welcome {
+        &__background-img {
+            height: calc(100vh + 50px);
+        }
+        &-main-content {
+            &-intro {
+                width: 65vw;
+                p {
+                    font-size: 22px !important;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .welcome {
+        &__background-img {
+            height: 1200px;
+        }
+        &-main-content {
             max-height: 1070px;
+            &-intro {
+                width: 55vw;
+            }
+            &__paralaxed-element {
+                top: 650px;
+            }
         }
+    }
+}
+.welcome {
+    position: relative;
+    &__background-img {
+        width: 100%;
+    }
+    &-main-content {
         text-align: center;
         width: calc(90vw - 80px);
         min-height: 60vh;
@@ -37,44 +80,18 @@
         gap: 35px;
         @include flexColumnCenter;
         &-intro {
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                padding: 0 60px;
-                gap: 45px;
-            }
-            @media screen and (min-width: 768px) {
-                width: 65vw;
-            }
-            @media screen and (max-width: 767px) {
-                width: 55vw;
-            }
             height: 80%;
             gap: 30px;
             transition: 0.3s ease-in-out;
             @include flexColumnCenter;
             h1 {
-                @media screen and (min-width: 1025px) {
-                    width: 80%;
-                }
                 text-transform: uppercase;
             }
             p {
-                @media screen and (min-width: 768px) {
-                    font-size: 22px;
-                }
                 font-size: 18px;
             }
         }
         &__paralaxed-element {
-            @media screen and (min-width: 1025px) {
-                top: calc(50vh + 50px);
-                
-            }
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                top: 60vh;
-            }
-            @media screen and (max-width: 767px) {
-                top: 650px;
-            }
             position: absolute;
             left: 50%;
         }

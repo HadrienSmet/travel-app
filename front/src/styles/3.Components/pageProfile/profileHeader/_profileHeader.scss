@@ -1,0 +1,144 @@
+@media screen and (min-width: 1025px) {
+    .profile-section__header__user-intro {
+        width: calc(90% - 50px);
+        height: 140px;
+        bottom: 0;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .profile-section__header__user-intro {
+        width: calc(100% - 50px);
+        height: 110px;
+        bottom: -2px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .profile-section__header {
+        &__user-data {
+            @include flexCenterY;
+        }
+        &__profilePicture-container {
+            height: 90px;
+            width: 90px;
+            img {
+                height: 110px;
+                width: 110px;
+            }
+        }
+        &__fake-btn {
+            border-radius: 4px;
+            padding: 8px 20px 7.5px;
+            @include flexCenterY;
+            @include standardTransi;
+            &:hover {
+                color: $secondary-color;
+                background-color: $primary-color;
+                border-color: $primary-color;
+            }
+            span {
+                display: inline-block;
+            }
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .profile-section__header {
+        &__user-data {
+            @include flexColumnCenter;
+            h2 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 90px;
+                font-size: 15px;
+            }
+        }
+        &__profilePicture-container {
+            height: 70px;
+            width: 70px;
+            img {
+                height: 90px;
+                width: 90px;
+            }
+        }
+        &__buttons-container .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+            height: 65px;
+            width: 65px;
+            border-radius: 50%;
+            span {
+                display: none;
+            }
+            svg {
+                font-size: 40px;
+            }
+        }
+        &__fake-btn {
+            height: 61px;
+            width: 61px;
+            border-radius: 50%;
+            @include flexFullCenter;
+            span {
+                display: none;
+            }
+            svg {
+                font-size: 40px;
+            }
+        }
+    }
+}
+.profile-section__header {
+    position: relative;
+    margin-bottom: 35px;
+    @include flexCenterX;
+    &__user-intro {
+        position: absolute;
+        padding: 0px 25px;
+        background: linear-gradient(
+            0deg,
+            $white-op9 1%,
+            $white-op6 60%,
+            $white-op3 99%
+        );
+        backdrop-filter: blur(2px);
+        gap: 25px;
+        @include flexBetweenCentered;
+    }
+    &__profilePicture-container {
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            transform: translate(-10px, -10px);
+        }
+    }
+    &__buttons-container {
+        gap: 10px;
+        @include flexCenterY;
+        .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+            background-color: $primary-color;
+            color: $secondary-color !important;
+            border-color: $primary-color !important;
+            gap: 5px;
+            @include flexCenterY;
+            @include standardTransi;
+            &:hover {
+                background-color: transparent;
+                color: $tertiary-color !important;
+                border-color: $tertiary-color !important;
+            }
+        }
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        width: 75%;
+        height: 1px;
+        background-color: $black-op2;
+        left: 12.5%;
+        bottom: -20px;
+    }
+    &__fake-btn {
+        border: 2px solid $tertiary-color;
+        color: $tertiary-color;
+        gap: 5px;
+        margin-right: 15px;
+    }
+}

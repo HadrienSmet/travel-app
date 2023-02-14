@@ -1,51 +1,54 @@
-.error-page {
-    @media screen and (min-width: 1025px) {
+@media screen and (min-width: 1025px) {
+    .error-page {
         padding: 180px 80px 80px;
         height: calc(100vh - 260px);
+        &__content {
+            @include flexBetweenCentered;
+            h1 {
+                width: 30%;
+                font-size: 45px;
+            }
+            img {
+                width: 60%;
+            }
+        }
     }
-    @media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 1024px) {
+    .error-page {
         padding: 130px 10px 30px;
         height: calc(100vh - 160px);
-    }
-    &__content {
-        @media screen and (min-width: 1025px) {
-            @include flexBetweenCentered;
-        }
-        @media screen and (max-width: 1024px) {
+        &__content {
             width: 100%;
             height: 100%;
             position: relative;
             @include flexColumnCenterX;
             justify-content: space-evenly;
-        }
-        h1 {
-            @media screen and (min-width: 1025px) {
-                width: 30%;
-                font-size: 45px;
-            }
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                font-size: 30px;
-            }
-            @media screen and (max-width: 1024px) {
+            h1 {
                 width: 75%;
             }
-            @media screen and (max-width: 767px) {
-                font-size: 18px;
-            }
-            text-align: center;
-            font-family: "error-fonts";
-            font-style: italic;
-            letter-spacing: 5px;
-            color: $tertiary-color;
-            text-transform: uppercase;
-        }
-        img {
-            @media screen and (min-width: 1025px) {
-                width: 60%;
-            }
-            @media screen and (max-width: 1024px) {
+            img {
                 width: 90%;
             }
         }
     }
+    @media screen and (min-width: 768px) {
+        .error-page__content h1 {
+            font-size: 30px;
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .error-page__content h1 {
+        font-size: 18px;
+    }
+}
+
+.error-page__content h1 {
+    text-align: center;
+    font-family: "error-fonts";
+    font-style: italic;
+    letter-spacing: 5px;
+    color: $tertiary-color;
+    text-transform: uppercase;
 }

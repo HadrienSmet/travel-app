@@ -1,106 +1,119 @@
-.home {
-    &__content {
-        @media screen and (min-width: 768px) {
-            padding: 50px;
-        }
-        padding: 15px;
-        position: relative;
+@media screen and (min-width: 1025px) {
+    .home__content {
         &__header {
-            @media screen and (min-width: 1025px) {
-                width: calc(100% - 60px);
-                padding: 30px;
-                @include flexBetween;
-            }
-            @media screen and (max-width: 1024px) {
-                width: 100%;
-                @include flexColumnCenter;
-            }
-            position: relative;
-            gap: 20px;
-            border-radius: 15px;
-            margin-bottom: 15px;
+            width: calc(100% - 60px);
+            padding: 30px;
+            @include flexBetween;
             &__intro-and-btn-area {
-                @media screen and (min-width: 1025px) {
-                    width: 35%;
-                }
-                @media screen and (max-width: 1024px) {
-                    width: 100%;
-                    gap: 15px;
-                }
-                position: relative;
-                @include flexColumnBetween;
+                width: 35%;
             }
-            &__profile-division {
-                @media screen and (min-width: 768px) and (max-width: 1024px) {
-                    height: 150px;
-                    position: relative;
-                    justify-content: center;
-                }
-                height: 100px;
-                width: 100%;
-                gap: 15px;
-                @include flexCenterY;
-                h1 {
-                    @media screen and (max-width: 767px) {
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        max-width: calc(100% - 115px);
-                    }
-                }
-                &__img-container {
-                    @media screen and (min-width: 1025px) {
-                        height: 150px;
-                        width: 150px;
-                    }
-                    @media screen and (min-width: 768px) and (max-width: 1024px) {
-                        height: 125px;
-                        width: 125px;
-                    }
-                    @media screen and (max-width: 767px) {
-                        width: 100px;
-                        height: 100px;
-                    }
-                    border-radius: 50%;
-                    overflow: hidden;
-                    @include flexFullCenter;
-                    img {
-                        @media screen and (min-width: 1025px) {
-                            height: 185px;
-                            width: 185px;
-                        }
-                        @media screen and (min-width: 768px) and (max-width: 1024px) {
-                            height: 155px;
-                            width: 155px;
-                        }
-                        @media screen and (max-width: 767px) {
-                            height: 120px;
-                            width: 120px;
-                        }
-                    }
+            &__profile-division__img-container {
+                height: 150px;
+                width: 150px;
+                img {
+                    height: 185px;
+                    width: 185px;
                 }
             }
             &__globe-area {
-                @media screen and (min-width: 1025px) {
-                    width: 65%;
-                }
-                width: 100%;
-                text-align: right;
+                width: 65%;
             }
-        }
-        &__main {
-            width: 100%;
-            @include flexColumnCenterX;
         }
         &__posts-division {
-            @media screen and (min-width: 1025px) {
-                width: 45%;
-            }
-            @media screen and (max-width: 1024px) {
-                width: 100%;
-            }
-            gap: 15px;
-            @include flexColumnCenterX;
+            width: 45%;
         }
     }
-    
+}
+@media screen and (max-width: 1024px) {
+    .home__content {
+        &__header {
+            width: 100%;
+            @include flexColumnCenter;
+            &__intro-and-btn-area {
+                width: 100%;
+                gap: 15px;
+            }
+        }
+        &__posts-division {
+            width: 100%;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        .home__content {
+            &__header {
+                &__profile-division {
+                    height: 150px;
+                    position: relative;
+                    justify-content: center;
+                    &__img-container {
+                        height: 125px;
+                        width: 125px;
+                        img {
+                            height: 155px;
+                            width: 155px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .home__content {
+        padding: 50px !important;
+    }
+}
+@media screen and (max-width: 767px) {
+    .home__content__header__profile-division {
+        h1 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: calc(100% - 115px);
+        }
+        &__img-container {
+            width: 100px;
+            height: 100px;
+            img {
+                height: 120px;
+                width: 120px;
+            }
+        }
+    }
+}
+.home__content {
+    padding: 15px;
+    position: relative;
+    &__header {
+        position: relative;
+        gap: 20px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        &__intro-and-btn-area {
+            position: relative;
+            @include flexColumnBetween;
+        }
+        &__profile-division {
+            height: 100px;
+            width: 100%;
+            gap: 15px;
+            @include flexCenterY;
+            &__img-container {
+                border-radius: 50%;
+                overflow: hidden;
+                @include flexFullCenter;
+            }
+        }
+        &__globe-area {
+            width: 100%;
+            text-align: right;
+        }
+    }
+    &__main {
+        width: 100%;
+        @include flexColumnCenterX;
+    }
+    &__posts-division {
+        gap: 15px;
+        @include flexColumnCenterX;
+    }
 }

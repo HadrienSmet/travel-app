@@ -1,63 +1,81 @@
-.signup-steps {
-    @media screen and (min-width: 1025px) {
+@media screen and (min-width: 1025px) {
+    .signup-steps {
         height: 100vh;
-    }
-    position: relative;
-    &__background-img {
-        @media screen and (min-width: 1025px) {
+        &__background-img {
             height: calc(100vh + 20px);
         }
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-            height: calc(100vh + 20px);
-            min-height: 1450px;
-        }
-        @media screen and (max-width: 767px) {
-            height: 1431px;
-        }
-        width: 100%;
-        min-height: 100vh;
-    }
-    &__content {   
-        @media screen and (min-width: 1025px) {
+        &__content {
             height: 60vh;
             top: 30vh;
             @include flexSpacedAndAlign;
             flex-direction: row;
+            &__steps-indicator {
+                width: 20%;
+                min-width: 320px;
+                gap: 50px;
+            }
+            &__form-container {
+                width: calc(80% - 150px);
+                max-width: 1120px;
+            }
         }
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-            // height: 720px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .signup-steps {
+        &__background-img {
+            height: calc(100vh + 20px);
+            min-height: 1450px;
+        }
+        &__content {
             top: 20vh;
+            &__steps-indicator {
+                @include flexSpacedAndAlign;
+                flex-direction: row;
+                gap: 5px;
+            }
+            &__step {
+                height: 42px;
+                padding: 5px;
+                width: 30%;
+            }
+            &__form-container {
+                width: 100%;
+            }
         }
+    }
+}
+@media screen and (max-width: 767px) {
+    .signup-steps {
+        &__background-img {
+            height: 1431px;
+        }
+        &__content {
+            &__steps-indicator {
+                gap: 10px;
+            }
+        }
+    }
+}
+.signup-steps {
+    position: relative;
+    &__background-img {
+        width: 100%;
+        min-height: 100vh;
+    }
+    &__content {
         position: absolute;
         top: 180px;
         padding: 40px;
         width: calc(100% - 80px);
         background-color: $white-op7;
         transform: translateY(-50%);
-        gap: 20px; 
+        gap: 20px;
         @include flexColumn;
         &__steps-indicator {
-            @media screen and (min-width: 1025px) {
-                width: 20%;
-                min-width: 320px;
-                gap: 50px;
-            }
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                @include flexSpacedAndAlign;
-                flex-direction: row;
-                gap: 5px;
-            }
-            @media screen and (max-width: 767px) {
-                gap: 10px;
-            }
             @include flexColumn;
         }
         &__step {
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                height: 42px;
-                padding: 5px;
-                width: 30%;
-            }
             position: relative;
             border: 2px solid $primary-color;
             border-radius: 3px;
@@ -95,13 +113,6 @@
             }
         }
         &__form-container {
-            @media screen and (min-width: 1025px) {
-                width: calc(80% - 150px);
-                max-width: 1120px;
-            }
-            @media screen and (min-width: 768px) and (max-width: 1024px) {
-                width: 100%;
-            }
             position: relative;
             height: 100%;
             border-radius: 15px;

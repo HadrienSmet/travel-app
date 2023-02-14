@@ -18,6 +18,9 @@
 @import "./3.Components/post/postContent";
 @import "./3.Components/post/postHeader";
 @import "./3.Components/pageHome/postsForm";
+@import "./3.Components/pageProfile/profileHeader/profileHeader";
+@import "./3.Components/pageProfile/profileHeader/profileHeaderBg";
+@import "./3.Components/pageProfile/profileHeader/profileNavigation";
 @import "./3.Components/pageProfile/sectionAlbum/addAlbumModal/albumForm";
 @import "./3.Components/pageProfile/sectionAlbum/addAlbumModal/picturesDisplayer";
 @import "./3.Components/pageProfile/sectionAlbum/addAlbumModal/profileAddAlbumModal";
@@ -43,7 +46,7 @@
 @import "./3.Components/pageSignup/extraDataForm/tripModal/childModal";
 @import "./3.Components/pageSignup/extraDataForm/tripModal/parentModal";
 @import "./3.Components/pageSignup/extraDataForm/tripModal/tripModal";
-@import "./3.Components/signupPersonalDataForm";
+@import "./3.Components/pageSignup/personalDataForm/signupPersonalDataForm";
 @import "./4.Pages/error";
 @import "./4.Pages/home";
 @import "./4.Pages/profile.scss";

@@ -29,7 +29,7 @@
         @include flexColumnAround;
         > div {
             position: relative;
-            transform: translateX(110%);
+            transform: translateX(140%);
             animation: startFormAnim 0.8s ease-in-out forwards;
             .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
                 width: 100%;
@@ -46,14 +46,14 @@
         }
         h2 {
             position: relative;
-            transform: translateX(100%);
+            transform: translateX(140%);
             animation: startFormAnim 0.8s 0.2s ease-in-out forwards;
             text-transform: uppercase;
             color: darken($primary-color, 15);
         }
         button {
             margin-top: 5px;
-            transform: translateX(100%);
+            transform: translateX(140%);
             animation: startFormAnim 0.6s 1s ease-in-out forwards;
         }
         fieldset,

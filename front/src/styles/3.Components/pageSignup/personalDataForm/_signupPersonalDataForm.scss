@@ -1,11 +1,38 @@
+@media screen and (min-width: 1025px) {
+    .personal-data-form {
+        padding: 30px 0;
+        height: calc(100% - 60px);
+        &__fields-displayer {
+            @include flexBetween;
+            flex-direction: row;
+        }
+        &__left-column {
+            width: 30%;
+            top: -10px;
+            height: calc(100% - 23px);
+        }
+        &__inputs-container {
+            width: 50%;
+            height: 100%;
+        }
+    }
+}
+@media screen and (max-width: 1024px) {
+    .personal-data-form {
+        &__left-column {
+            width: calc(100% - 50px);
+        }
+        &__inputs-container {
+            margin-bottom: 15px;
+            width: calc(100% - 50px);
+        }
+    }
+}
+
 #signup-file {
     display: none;
 }
 .personal-data-form {
-    @media screen and (min-width: 1025px) {
-        padding: 30px 0;
-        height: calc(100% - 60px);
-    }   
     position: relative;
     padding: 15px 0;
     width: 100%;
@@ -18,30 +45,12 @@
         font-size: 20px;
     }
     &__fields-displayer {
-        @media screen and (min-width: 1025px) {
-            @include flexBetween;
-            flex-direction: row;
-        }
         width: 90%;
         height: 65%;
         gap: 15px;
         @include flexColumnCenter;
     }
     &__left-column {
-        @media screen and (min-width: 1025px) {
-            width: 30%;
-            top: -10px;
-            height: calc(100% - 23px);
-            // height: 100%;
-        }
-        // @media screen and (min-width: 768px) and (max-width: 1024px) {
-        //     transform: translateY(-12px);
-        //     width: 40%;
-        //     height: calc(100% - 19px);
-        // }
-        @media screen and (max-width: 1024px) {
-            width: calc(100% - 50px);
-        }
         position: relative;
     }
     &__picture-area {
@@ -86,14 +95,6 @@
         }
     }
     &__inputs-container {
-        @media screen and (min-width: 1025px) {
-            width: 50%;
-            height: 100%;
-        }
-        @media screen and (max-width: 1024px) {
-            margin-bottom: 15px;
-            width: calc(100% - 50px);
-        }
         gap: 10px;
         @include flexColumnBetween;
     }
