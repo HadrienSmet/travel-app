@@ -15,22 +15,19 @@
         position: absolute;
         left: -45px;
         z-index: 10;
-        @include flexFullCenter; 
+        @include flexFullCenter;
     }
     button {
         position: relative;
-        left: 45px;
-        width: calc(100% - 45px);
     }
 }
 #signin-loader {
     animation: none;
     transform: none;
     width: 100%;
-    @include flexFullCenter; 
+    @include flexFullCenter;
 }
-.signin-container
-.signin-icon {
+.signin-container .signin-icon {
     position: absolute;
     font-size: 30px;
 }

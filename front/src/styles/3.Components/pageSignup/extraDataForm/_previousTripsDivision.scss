@@ -1,7 +1,7 @@
 @media screen and (min-width: 1025px) {
     .extra-data-form {
         &__trips-area {
-            width: 45% !important;
+            min-width: 45% !important;
             height: 100% !important;
         }
         &__trips-displayer {

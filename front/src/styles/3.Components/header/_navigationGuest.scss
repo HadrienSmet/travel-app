@@ -2,7 +2,7 @@
     header nav div button {
         &:hover {
             &::after {
-                animation: navRodAnim 0.2s 0.1s ease-in-out forwards;
+                animation: navRodAnim 0.1s 0.1s ease-in-out forwards;
             }
         }
         &:nth-child(1) {

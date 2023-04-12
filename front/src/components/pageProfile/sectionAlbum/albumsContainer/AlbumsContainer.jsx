@@ -1,5 +1,5 @@
 import ProfileAlbumSectionModal from "../ProfileAlbumsSectionModal";
-import AlbumsContainerDesktop from "./AlbumsContainerDesktop";
+// import AlbumsContainerDesktop from "./AlbumsContainerDesktop";
 
 const AlbumsContainer = ({ dataFrom, screenWidth }) => {
     return (
@@ -11,23 +11,23 @@ const AlbumsContainer = ({ dataFrom, screenWidth }) => {
                 >
                     <h3>{album.name}</h3>
                     <div className="profile-albums-section__pictures-container">
-                        {screenWidth > 1025 ? (
+                        {/* {screenWidth > 1025 ? (
                             <AlbumsContainerDesktop album={album} />
-                        ) : (
-                            <div className="last-picture">
-                                <img
-                                    src={album.pictures[0]}
-                                    alt={
-                                        "Première photo provenant de l'" +
-                                        album.name
-                                    }
-                                />
-                                <ProfileAlbumSectionModal
-                                    album={album}
-                                    index={index}
-                                />
-                            </div>
-                        )}
+                        ) : ( */}
+                        <div className="last-picture">
+                            <img
+                                src={album.pictures[0]}
+                                alt={
+                                    "Première photo provenant de l'" +
+                                    album.name
+                                }
+                            />
+                            <ProfileAlbumSectionModal
+                                album={album}
+                                index={index}
+                            />
+                        </div>
+                        {/* )} */}
                     </div>
                 </div>
             ))}

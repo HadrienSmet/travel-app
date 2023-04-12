@@ -1,16 +1,18 @@
 @media screen and (min-width: 1025px) {
     .trip-modal {
         &__content {
-            height: calc(80% - 105.5px);
-            @include flexAround;
-            flex-direction: row;
+            height: calc(80% - 105.5px) !important;
+            display: flex;
+            flex-direction: row !important;
+            align-items: center;
+            justify-content: space-around !important;
         }
         &__inputs-area {
-            width: 43%;
+            width: 43% !important;
         }
         &__description-area {
-            width: 43%;
-            height: calc(100% - 36px);
+            width: 43% !important;
+            height: calc(100% - 36px) !important;
         }
     }
 }
@@ -38,14 +40,15 @@
     }
 }
 .trip-modal {
+    background-color: rgb(250, 248, 255) !important;
     &__header {
         width: 100%;
         @include flexBetween;
         h3 {
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-align: left;
-            margin-left: 25px;
+            text-align: center;
+            width: 100%;
         }
         svg {
             cursor: pointer;

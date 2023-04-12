@@ -7,8 +7,15 @@
             gap: 150px;
             @include flexFullCenter;
             flex-direction: row !important;
-            &-intro h1 {
-                width: 80%;
+            &-intro {
+                h1 {
+                    line-height: 38px;
+                    width: 80%;
+                    font-size: clamp(22px, 4vh, 2rem);
+                }
+                p {
+                    line-height: 35px;
+                }
             }
             &__paralaxed-element {
                 top: calc(50vh + 50px);
@@ -83,7 +90,7 @@
             height: 80%;
             gap: 30px;
             transition: 0.3s ease-in-out;
-            @include flexColumnCenter;
+            @include flexAroundColumnCenter;
             h1 {
                 text-transform: uppercase;
             }

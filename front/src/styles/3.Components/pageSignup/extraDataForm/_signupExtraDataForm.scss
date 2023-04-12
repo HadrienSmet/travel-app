@@ -1,9 +1,12 @@
 @media screen and (min-width: 1025px) {
     .extra-data-form {
         &__fields-displayer {
-            @include flexRowReverseBetween;
+            display: flex;
+            justify-content: space-between !important;
+            flex-direction: row-reverse !important;
             height: 75%;
             margin-top: 5px;
+            gap: 35px;
             &__left-column {
                 width: 45%;
                 height: 100%;

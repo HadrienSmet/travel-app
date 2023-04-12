@@ -5,10 +5,10 @@
             height: calc(100vh + 20px);
         }
         &__content {
-            height: 60vh;
-            top: 30vh;
+            height: 70vh !important;
+            top: 25vh !important;
             @include flexSpacedAndAlign;
-            flex-direction: row;
+            flex-direction: row !important;
             &__steps-indicator {
                 width: 20%;
                 min-width: 320px;
@@ -25,13 +25,13 @@
     .signup-steps {
         &__background-img {
             height: calc(100vh + 20px);
-            min-height: 1450px;
+            min-height: 1450px !important;
         }
         &__content {
             top: 20vh;
             &__steps-indicator {
                 @include flexSpacedAndAlign;
-                flex-direction: row;
+                flex-direction: row !important;
                 gap: 5px;
             }
             &__step {

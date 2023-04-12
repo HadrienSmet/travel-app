@@ -159,7 +159,7 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
             >
-                <Box sx={{ ...style }}>
+                <Box className="trip-modal" sx={{ ...style }}>
                     <div className="trip-modal__header">
                         <h3>Ajouter un voyage</h3>
                         <BsXLg onClick={() => handleOpen(false)} />

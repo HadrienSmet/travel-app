@@ -43,7 +43,7 @@
             li {
                 cursor: pointer;
                 position: relative;
-                transition: 0.3s ease-in-out;
+                transition: 0.2s ease-in-out;
                 &::before {
                     content: "";
                     position: absolute;
@@ -53,7 +53,7 @@
                     width: 2px;
                     background-color: $secondary-color;
                     transform: scaleY(0);
-                    transition: 0.2s 0.1s ease-in-out;
+                    transition: 0.1s 0.1s ease-in-out;
                 }
                 a {
                     color: $secondary-color;
