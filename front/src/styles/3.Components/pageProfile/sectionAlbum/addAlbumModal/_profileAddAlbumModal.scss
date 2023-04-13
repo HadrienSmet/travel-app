@@ -10,7 +10,8 @@
         width: calc(90vw - 64px) !important;
         height: calc(95vh - 64px) !important;
         overflow-y: auto;
-        @include flexFullStart;
+        display: flex;
+        align-items: center;
         flex-direction: column;
         gap: 25px;
     }

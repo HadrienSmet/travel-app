@@ -6,20 +6,12 @@
             margin-bottom: 15px;
         }
     }
-    .last-picture:hover {
-        img {
-            filter: blur(1px);
-        }
-        > div > .more-picture__div {
-            transform: translateX(0%);
-        }
-    }
     .more-picture__div {
         top: 0;
         right: 0;
         height: 100%;
-        width: 150px;
-        transform: translateX(100%);
+        width: 100%;
+        transform: translateY(100%);
         transition: 0.3s ease-in-out;
         background-color: $black-op5;
         svg {
@@ -45,9 +37,12 @@
 @media screen and (min-width: 768px) {
     .profile-albums-section__pictures-container {
         display: flex;
+        position: relative;
+        width: calc(100% - 24px);
+        height: 25vh;
         img {
-            width: 250px;
-            height: 250px;
+            min-width: 100%;
+            height: auto;
         }
     }
 }
@@ -64,11 +59,6 @@
             }
         }
     }
-    .last-picture {
-        @include flexFullCenter;
-        width: 100%;
-        height: 200px;
-    }
 }
 .profile-albums-section {
     width: 90%;
@@ -77,6 +67,7 @@
     padding: 15px 0;
     margin-bottom: 15px;
     @include flexColumnCenter;
+    gap: 15px;
     button {
         color: $clr-1;
         background-color: $primary-color;

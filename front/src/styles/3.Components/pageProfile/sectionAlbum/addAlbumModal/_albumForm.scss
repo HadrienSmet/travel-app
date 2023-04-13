@@ -6,8 +6,12 @@
         @include flexBetween;
         > div {
             width: 40%;
-            div {
+            > div {
                 margin: 8px;
+                > div > div {
+                    padding: 8px !important;
+                    padding-left: 22px;
+                }
             }
         }
     }

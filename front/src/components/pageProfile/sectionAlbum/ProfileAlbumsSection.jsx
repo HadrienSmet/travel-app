@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useWindowSize } from "../../../utils/hooks/hooks";
 
 import ProfileAddAlbumModal from "./addAlbumModal/ProfileAddAlbumModal";
-import AlbumContainer from "./albumContainer/AlbumContainer";
-import AlbumsContainer from "./albumsContainer/AlbumsContainer";
+import AlbumContainer from "./AlbumContainer";
+import AlbumsContainer from "./AlbumsContainer";
 
 const useProfileAlbumSection = () => {
     const [albumsArray, setAlbumsArray] = useState(undefined);

@@ -15,11 +15,11 @@ const UserBanner = ({ userProfile }) => {
             </div>
             <div className="profile-section__header__buttons-container">
                 <Button variant="outlined">
-                    <span>Modifier le profil </span>
+                    <span>Edit profil </span>
                     <FaUserEdit />
                 </Button>
                 <Button variant="outlined">
-                    <span>Modifier les paramètres </span>
+                    <span>paramètres </span>
                     <FaUserCog />
                 </Button>
             </div>

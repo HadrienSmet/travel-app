@@ -68,7 +68,7 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
                             >
                                 {album.name}
                             </Typography>
-                            <FaTimes onClick={() => handleClose} />
+                            <FaTimes onClick={handleClose} />
                         </div>
                         <MUIPicturesCarousel
                             pictures={album.pictures}

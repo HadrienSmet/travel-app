@@ -1,23 +1,23 @@
 @media screen and (min-width: 1025px) {
     .add-album-modal {
         &__pictures-displayer {
-            height: calc(100% - 200px);
+            min-height: calc(100% - 200px);
             @include flexBetween;
             flex-wrap: wrap;
             width: 100%;
+            gap: 15px;
             &--absolute {
                 width: calc(100% + 3px);
-                column-gap: calc((85% * 0.08) + 10px);
-                row-gap: 0px !important;
+                gap: 15px;
                 max-height: 100%;
                 img {
-                    width: calc(28% - 1px);
+                    width: calc(33% - 8px);
                     height: 120px;
                 }
             }
         }
         &__picture-area-label {
-            width: 28%;
+            width: calc(33% - 8px);
             height: 120px;
         }
     }
