@@ -22,35 +22,14 @@ const style = {
     pb: 3,
 };
 
-const useChildModal = () => {
+const useChildModal = ({ prevTripsData, changeAlbumsArray }) => {
+    const [open, setOpen] = useState(false);
     const [albumPicture, setAlbumPicture] = useState(undefined);
     const [albumPictureUrl, setAlbumPictureUrl] = useState(undefined);
+    const dispatch = useDispatch();
 
     const changeAlbumPicture = (fileArray) => setAlbumPicture(fileArray);
     const changeAlbumPictureUrl = (urlArray) => setAlbumPictureUrl(urlArray);
-
-    return {
-        albumPicture,
-        albumPictureUrl,
-        changeAlbumPicture,
-        changeAlbumPictureUrl,
-    };
-};
-
-const ChildModal = ({ destination, year, changeAlbumsArray }) => {
-    const [open, setOpen] = useState(false);
-    const {
-        albumPicture,
-        albumPictureUrl,
-        changeAlbumPicture,
-        changeAlbumPictureUrl,
-    } = useChildModal();
-    const dispatch = useDispatch();
-
-    const pictureAreas = [];
-    for (let i = 0; i < 12; i++) {
-        pictureAreas.push(i);
-    }
 
     //This function handles the submission of the child modal (the creation of an album).
     //It gives the files to his parent components using the function herited by his grand-parent to change his state.
@@ -58,7 +37,7 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
     //And it also changes the state of the component in purpose to close the child modal.
     const handleClose = () => {
         let album = {
-            name: `album ${destination} ${year}`,
+            name: `album ${prevTripsData.destination} ${prevTripsData.year}`,
             urls: albumPictureUrl,
         };
         setOpen(false);
@@ -91,6 +70,24 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
         changeAlbumPicture(albumArray);
     };
 
+    return {
+        albumPictureUrl,
+        open,
+        handleClose,
+        handleAlbumPicture,
+        setOpen,
+    };
+};
+
+const ChildModal = ({ prevTripsData, changeAlbumsArray }) => {
+    const { albumPictureUrl, open, handleClose, handleAlbumPicture, setOpen } =
+        useChildModal({ prevTripsData, changeAlbumsArray });
+
+    const pictureAreas = [];
+    for (let i = 0; i < 12; i++) {
+        pictureAreas.push(i);
+    }
+
     return (
         <Fragment>
             <Button
@@ -111,7 +108,8 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
                 <Box sx={{ ...style, width: 200 }} className="child-modal">
                     <div className="child-modal__header">
                         <h4 id="child-modal-title">
-                            Album {destination} {year}
+                            Album {prevTripsData.destination}{" "}
+                            {prevTripsData.year}
                         </h4>
                         <BsXLg onClick={() => setOpen(false)} />
                     </div>
@@ -151,9 +149,9 @@ const ChildModal = ({ destination, year, changeAlbumsArray }) => {
                                         src={url}
                                         alt={
                                             "Photo pour l'ablum " +
-                                            destination +
+                                            prevTripsData.destination +
                                             " " +
-                                            year
+                                            prevTripsData.year
                                         }
                                     />
                                 ))}

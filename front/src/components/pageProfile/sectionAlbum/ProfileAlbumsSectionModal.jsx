@@ -1,10 +1,7 @@
 import { useState } from "react";
-
-import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import MUIPicturesCarousel from "../../mui/MUIPicturesCarousel";
@@ -37,25 +34,15 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
     const { open, handleOpen, handleClose } = useProfileAlbumSectionModal();
 
     return (
-        <div>
-            <div className="more-picture__div">
-                <Button
-                    className="btn-toggle-full-album-modal"
-                    onClick={handleOpen}
-                >
-                    <FaPlus />
-                </Button>
+        <>
+            <div className="more-picture__div" onClick={handleOpen}>
+                <FaPlus />
             </div>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open}
                 onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
             >
                 <Fade in={open}>
                     <Box sx={style} className="album-modal">
@@ -77,7 +64,7 @@ const ProfileAlbumSectionModal = ({ album, index }) => {
                     </Box>
                 </Fade>
             </Modal>
-        </div>
+        </>
     );
 };
 export default ProfileAlbumSectionModal;

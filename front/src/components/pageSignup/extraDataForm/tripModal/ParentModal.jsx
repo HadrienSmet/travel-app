@@ -54,45 +54,46 @@ export const withFriendsChoices = [
     "En famille",
 ];
 
-const useParentModal = () => {
+const useParentModal = ({ prevTripsData, setPrevTripsData }) => {
     const [open, setOpen] = useState(false);
-    const [destination, setDestination] = useState("");
-    const [duration, setDuration] = useState("");
-    const [year, setYear] = useState("");
-    const [choice, setChoice] = useState("");
-    const [details, setDetails] = useState("");
 
     const handleOpen = (boolean) => {
         setOpen(boolean);
     };
 
     const changeCountry = (country) => {
-        setDestination(country);
+        const olData = prevTripsData;
+        olData.destination = country;
+        setPrevTripsData(olData);
     };
 
     const changeDuration = (duration) => {
-        setDuration(duration);
+        const olData = prevTripsData;
+        olData.duration = duration;
+        setPrevTripsData(olData);
     };
 
     const changeNumber = (year) => {
-        setYear(year);
+        const olData = prevTripsData;
+        olData.year = year;
+        setPrevTripsData(olData);
     };
 
     const changeChoice = (choice) => {
-        setChoice(choice);
+        const olData = prevTripsData;
+        olData.choice = choice;
+        setPrevTripsData(olData);
     };
 
     const handleDetails = (e) => {
-        setDetails(e.target.value);
+        const olData = prevTripsData;
+        olData.details = e.target.value;
+        setPrevTripsData(olData);
     };
 
     return {
         open,
-        destination,
-        duration,
-        year,
-        choice,
-        details,
+        prevTripsData,
         handleOpen,
         changeCountry,
         changeDuration,
@@ -103,20 +104,22 @@ const useParentModal = () => {
 };
 
 const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
+    const [prevTripsData, setPrevTripsData] = useState({
+        destination: "",
+        duration: "",
+        year: "",
+        choice: "",
+        details: "",
+    });
     const {
         open,
-        destination,
-        duration,
-        year,
-        choice,
-        details,
         handleOpen,
         changeCountry,
         changeDuration,
         changeNumber,
         changeChoice,
         handleDetails,
-    } = useParentModal();
+    } = useParentModal({ prevTripsData, setPrevTripsData });
     const albumData = useSelector(
         (state) => state.albumObjectArrayStore.albumObjectArray
     );
@@ -124,16 +127,16 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
     //This functions handle the submission of the data provided by the two modals
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
     const handlePreviousTripSubmission = () => {
-        if (destination.match(/\$<>=\+\*/i)) {
+        if (prevTripsData.destination.match(/\$<>=\+\*/i)) {
             alert("Les caractères suivants ne sont pas tolérés. $ > < = + *");
         } else {
             if (albumData !== []) {
                 let trip = {
-                    destination,
-                    year,
-                    duration,
-                    withWho: choice,
-                    details,
+                    destination: prevTripsData.destination,
+                    year: prevTripsData.year,
+                    duration: prevTripsData.duration,
+                    withWho: prevTripsData.choice,
+                    details: prevTripsData.details,
                     album: { ...albumData },
                 };
                 changeTrips(trip);
@@ -246,8 +249,7 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
                         ) : (
                             <ChildModal
                                 key="extra-child-modal"
-                                destination={destination}
-                                year={year}
+                                prevTripsData={prevTripsData}
                                 changeAlbumsArray={changeAlbumsArray}
                             />
                         )}

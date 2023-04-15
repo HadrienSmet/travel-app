@@ -73,8 +73,6 @@ const useSignupLastname = () => {
 const useSignupGender = () => {
     const [gender, setGender] = useState("");
 
-    //This function is just here to allow the child component InputSelect representing the age of the user to change the state of this component
-    //@Params { Type: String } --> The value of the input
     const changeChoice = (gender) => {
         setGender(gender);
     };

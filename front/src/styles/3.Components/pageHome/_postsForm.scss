@@ -3,14 +3,17 @@
     position: relative;
     gap: 10px;
     @include flexColumn;
-    > div {
-        width: 100%;
-    }
     img {
+        position: absolute;
+        left: -100px;
+        top: -90px;
         width: 80px;
         height: 80px;
+        border-radius: 5px;
     }
     button {
+        position: absolute;
+        right: 0;
         color: $secondary-color;
         background-color: $primary-color;
         border: 2px solid $primary-color;
@@ -21,13 +24,16 @@
         }
     }
     &__buttons-row {
-        @include flexBetween;
+        position: relative;
+        width: 100%;
+        height: 95px;
     }
 }
-.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+    .MuiOutlinedInput-notchedOutline {
     border-color: $tertiary-color !important;
     border-width: 2px;
-} 
+}
 .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
     color: $tertiary-color !important;
 }

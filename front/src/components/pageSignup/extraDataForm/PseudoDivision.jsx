@@ -4,7 +4,7 @@ import { axiosCheckPseudo } from "../../../utils/functions/user/axiosCheckPseudo
 import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
+const usePseudoDivision = ({ extraData, changeIsPseudoOk }) => {
     const pseudoMsgRef = useRef(null);
     const pseudoCheckRef = useRef(null);
     const pseudoTimesRef = useRef(null);
@@ -31,12 +31,12 @@ const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
     //Called on a onBlur event it displays a message if the data provided by the user doesn't fit our expectations
     //And it also show or hide icons that indicates the user if he did well
     const handlePseudo = () => {
-        if (!pseudo.match(/^([a-zA-Z0-9]){3,20}$/)) {
+        if (!extraData.pseudo.match(/^([a-zA-Z0-9]){3,20}$/)) {
             handleWrongPseudo(
                 "Doit faire entre 3 et 20 caractères et ne peut contenir des caractères spéciaux"
             );
         } else {
-            axiosCheckPseudo(pseudo)
+            axiosCheckPseudo(extraData.pseudo)
                 .then((res) => {
                     if (res.data === null) {
                         handleFinePseudo();
@@ -60,10 +60,10 @@ const usePseudoDivision = ({ pseudo, changeIsPseudoOk }) => {
     };
 };
 
-const PseudoDivision = ({ pseudo, changePseudo, changeIsPseudoOk }) => {
+const PseudoDivision = ({ extraData, changePseudo, changeIsPseudoOk }) => {
     const { pseudoMsgRef, handlePseudo, pseudoCheckRef, pseudoTimesRef } =
         usePseudoDivision({
-            pseudo,
+            extraData,
             changeIsPseudoOk,
         });
     return (

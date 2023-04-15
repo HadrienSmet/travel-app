@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-const useDescriptionDivision = ({ description }) => {
+const useDescriptionDivision = ({ extraData }) => {
     const descriptionMsgRef = useRef(null);
     const descriptionCheckRef = useRef(null);
     const descriptionTimesRef = useRef(null);
@@ -11,7 +11,7 @@ const useDescriptionDivision = ({ description }) => {
     //This function change the state of this component in order to allow the user to share a description about himself
     //@Params { Type: Object } --> The param of the onChange event listening the textarea
     const handleDescription = (e) => {
-        if (description.match(/\$<>=\+\*/i)) {
+        if (extraData.description.match(/\$<>=\+\*/i)) {
             descriptionMsgRef.current.textContent =
                 "Les caractères suivants ne sont pas tolérés. $ > < = + *";
             descriptionTimesRef.current.classList.remove("invisible");
@@ -35,13 +35,13 @@ const useDescriptionDivision = ({ description }) => {
     };
 };
 
-const DescriptionDivision = ({ description, changeDescription }) => {
+const DescriptionDivision = ({ extraData, changeDescription }) => {
     const {
         descriptionMsgRef,
         descriptionCheckRef,
         descriptionTimesRef,
         handleDescription,
-    } = useDescriptionDivision({ description });
+    } = useDescriptionDivision({ extraData });
 
     return (
         <div className="extra-data-form__description-division">

@@ -1,6 +1,6 @@
 @media screen and (min-width: 1025px) {
     .home-globe-container {
-        height: 76vh;
+        height: calc(100vh - 255px);
         padding: 0 40px;
         &__countries-list {
             height: 580px;

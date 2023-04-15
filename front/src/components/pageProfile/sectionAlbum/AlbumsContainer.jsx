@@ -1,7 +1,6 @@
 import ProfileAlbumSectionModal from "./ProfileAlbumsSectionModal";
-// import AlbumsContainerDesktop from "./AlbumsContainerDesktop";
 
-const AlbumsContainer = ({ dataFrom, screenWidth }) => {
+const AlbumsContainer = ({ dataFrom }) => {
     return (
         <div className="profile-albums-section__albums-container">
             {dataFrom.albums.map((album, index) => (
