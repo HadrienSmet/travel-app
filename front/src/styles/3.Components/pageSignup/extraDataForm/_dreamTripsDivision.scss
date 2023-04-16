@@ -63,6 +63,7 @@
                 border-radius: 20px;
             }
             svg {
+                cursor: pointer;
                 color: $primary-color;
                 z-index: 5;
                 transition: 0.2s ease-in-out;

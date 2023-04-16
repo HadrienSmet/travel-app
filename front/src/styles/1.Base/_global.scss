@@ -45,6 +45,12 @@ img {
 input[type="file"] {
     display: none;
 }
+h1,
+h2,
+h3,
+p {
+    cursor: default;
+}
 .check {
     color: $primary-color;
 }

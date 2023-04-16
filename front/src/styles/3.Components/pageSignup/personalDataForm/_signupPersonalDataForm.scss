@@ -71,6 +71,9 @@
         button {
             border: 1px solid $white-op7;
             color: $white-op7;
+            label {
+                cursor: pointer;
+            }
         }
     }
     &__picture-container {

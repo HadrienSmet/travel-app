@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -16,7 +16,17 @@ import DescriptionDivision from "./DescriptionDivision";
 import DreamTripDivision from "./DreamTripDivision";
 import PreviousTripsDivision from "./PreviousTripsDivision";
 
-const useExtraState = ({ extraData, setExtraData }) => {
+const useExtraState = () => {
+    const [previousTrips, setPreviousTrips] = useState(undefined);
+    const [albumsArray, setAlbumsArray] = useState(undefined);
+    const [dreamTrips, setDreamTrips] = useState(undefined);
+    const [extraData, setExtraData] = useState({
+        pseudo: "",
+        isPseudoOk: false,
+        description: "",
+        // previousTrips: undefined,
+        // albumsArray: undefined,
+    });
     const changeIsPseudoOk = (boolean) => {
         const oldData = extraData;
         oldData.isPseudoOk = boolean;
@@ -34,50 +44,50 @@ const useExtraState = ({ extraData, setExtraData }) => {
         setExtraData(oldData);
     };
 
-    const changeDreamTrip = (countriesArr) => {
-        const oldData = extraData;
-        oldData.dreamTrip = countriesArr;
-        setExtraData(oldData);
-    };
+    const changeDreamTrip = (countriesArr) => setDreamTrips(countriesArr);
     //This function aloow the child component InputCountry to change the state of this component
     //@Params { Type: String } --> The value of the input
     //If the state isn't defined yet it will only contains the data provided by the input
     //Otherwise it will conserve the old data and add the new one
     const changeCountry = (country) => {
-        const oldData = extraData;
-        if (extraData.dreamTrip === undefined) {
-            oldData.dreamTrip = [country];
+        let countries;
+        if (dreamTrips === undefined) {
+            countries = [country];
         } else {
-            oldData.dreamTrip = [...oldData.dreamTrip, country];
+            countries = [...dreamTrips, country];
         }
-        setExtraData(oldData);
+        setDreamTrips(countries);
     };
 
     //This function is here to allow the child modal to change the state of this component
     //@Params { Type: Array } --> Array of objects. Each objects represents an album and has a key for the name and a key for all the pictures url
     const changeAlbumsArray = (array) => {
-        const oldData = extraData;
-        if (oldData.albumsArray === undefined) {
-            oldData.albumsArray = [array];
+        let albumsContainer;
+        if (albumsArray === undefined) {
+            albumsContainer = [array];
         } else {
-            oldData.albumsArray = [...oldData.albumsArray, array];
+            albumsContainer = [...albumsArray, array];
         }
-        setExtraData(oldData);
+        setAlbumsArray(albumsContainer);
     };
 
     //This function his here to allow the trip-modal wich is the child of this component to change the state of this component
     //@Params { Type: Object } --> The data called trip in the modal component
     const changeTrips = (trip) => {
-        const oldData = extraData;
-        if (oldData.previousTrips === undefined) {
-            oldData.previousTrips = [trip];
+        let tripsArr;
+        if (previousTrips === undefined) {
+            tripsArr = [trip];
         } else {
-            oldData.previousTrips = [...oldData.previousTrips, trip];
+            tripsArr = [...previousTrips, trip];
         }
-        setExtraData(oldData);
+        setPreviousTrips(tripsArr);
     };
 
     return {
+        albumsArray,
+        previousTrips,
+        extraData,
+        dreamTrips,
         changePseudo,
         changeIsPseudoOk,
         changeDescription,
@@ -92,6 +102,9 @@ const useSignupExtraDataForm = ({
     profilePicture,
     userPersonals,
     extraData,
+    dreamTrips,
+    albumsArray,
+    previousTrips,
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
@@ -99,9 +112,9 @@ const useSignupExtraDataForm = ({
 
     const handleSubmissionFormData = () => {
         const fileData = new FormData();
-        fileData.append("albumName", extraData.previousTrips[0].album[0].name);
+        fileData.append("albumName", previousTrips[0].album[0].name);
         fileData.append("file", profilePicture);
-        extraData.albumsArray.forEach((album) => {
+        albumsArray.forEach((album) => {
             for (let i = 0; i < album.length; i++) {
                 fileData.append("file", album[i]);
             }
@@ -121,9 +134,9 @@ const useSignupExtraDataForm = ({
         if (
             extraData.isPseudoOk === true &&
             extraData.description !== "" &&
-            extraData.dreamTrip !== undefined &&
-            extraData.previousTrips !== undefined &&
-            extraData.albumsArray !== undefined
+            dreamTrips !== undefined &&
+            previousTrips !== undefined &&
+            albumsArray !== undefined
         ) {
             setIsLoading(true);
             let userPersonalsData = {
@@ -138,8 +151,8 @@ const useSignupExtraDataForm = ({
                 password,
                 pseudo: extraData.pseudo,
                 description: extraData.description,
-                dreamTrips: [...extraData.dreamTrip],
-                previousTrips: [...extraData.previousTrips],
+                dreamTrips,
+                previousTrips,
                 userData: { ...userPersonalsData },
             };
             axiosPostSignupExtra(data).then((res) => {
@@ -160,15 +173,11 @@ const useSignupExtraDataForm = ({
 };
 
 const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
-    const [extraData, setExtraData] = useState({
-        pseudo: "",
-        isPseudoOk: false,
-        description: "",
-        dreamTrip: undefined,
-        previousTrips: undefined,
-        albumsArray: undefined,
-    });
     const {
+        previousTrips,
+        albumsArray,
+        extraData,
+        dreamTrips,
         changePseudo,
         changeIsPseudoOk,
         changeDescription,
@@ -176,11 +185,15 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
         changeDreamTrip,
         changeAlbumsArray,
         changeTrips,
-    } = useExtraState({ extraData, setExtraData });
+    } = useExtraState();
+
     const { isLoading, handleSubmission } = useSignupExtraDataForm({
         profilePicture,
         userPersonals,
         extraData,
+        previousTrips,
+        albumsArray,
+        dreamTrips,
     });
 
     return (
@@ -192,7 +205,7 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             <h1>Remplissez votre profil!</h1>
             <div className="extra-data-form__fields-displayer">
                 <PreviousTripsDivision
-                    extraData={extraData}
+                    previousTrips={previousTrips}
                     changeAlbumsArray={(value) => changeAlbumsArray(value)}
                     changeTrips={(value) => changeTrips(value)}
                 />
@@ -207,7 +220,7 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
                         changeDescription={(value) => changeDescription(value)}
                     />
                     <DreamTripDivision
-                        extraData={extraData}
+                        dreamTrips={dreamTrips}
                         changeCountry={(value) => changeCountry(value)}
                         changeDreamTrip={(value) => changeDreamTrip(value)}
                     />
