@@ -6,6 +6,10 @@ html {
 * {
     padding: 0;
     margin: 0;
+    &::selection {
+        color: $clr-1;
+        background-color: #c4313b;
+    }
 }
 body {
     box-sizing: border-box;
@@ -48,7 +52,11 @@ input[type="file"] {
 h1,
 h2,
 h3,
-p {
+h4,
+p,
+strong,
+span,
+li {
     cursor: default;
 }
 .check {

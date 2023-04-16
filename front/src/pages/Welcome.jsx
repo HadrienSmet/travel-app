@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Parallax, useParallax } from "react-scroll-parallax";
-import { useWindowSize } from "../utils/hooks/hooks";
+import { useScrollTop, useWindowSize } from "../utils/hooks/hooks";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedState } from "../features/loggedState.slice";
@@ -15,6 +15,7 @@ import imageMobile from "../assets/images/home-mobile-bg.webp";
 
 const useWelcome = () => {
     const dispatch = useDispatch();
+    useScrollTop();
 
     //This useEffect is here to clean the store redux and the localStorage when the user arrive on the page
     useEffect(() => {

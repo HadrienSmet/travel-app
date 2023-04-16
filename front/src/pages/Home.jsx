@@ -10,14 +10,12 @@ import { axiosGetPosts } from "../utils/functions/posts/axiosGetPosts";
 import Globe3D from "../components/Globe3D";
 import MUIGradientBorder from "../components/mui/MUIGradientBorder";
 import HomeContent from "../components/pageHome/HomeContent";
+import { useScrollTop } from "../utils/hooks/hooks";
 
 const useHome = () => {
     const [dataArrayForSort, setDataArrayForSort] = useState([]);
     const postsData = useSelector((state) => state.postsDataStore.postsData);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    useScrollTop();
 
     useEffect(() => {
         if (postsData !== null) {

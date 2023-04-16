@@ -33,7 +33,7 @@ const useFirstnameDivision = ({ firstName, changeIsFirstNameOk }) => {
     //For each case an icon and a text are displayed to indicates the user how he managed it
     const handleFirstName = () => {
         if (
-            !firstName.match(
+            !firstName?.match(
                 /^[A-Z][a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
             )
         ) {

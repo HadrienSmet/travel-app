@@ -4,7 +4,7 @@ const Logo = () => {
     return (
         <div className="logo-container">
             <MdOutlineLanguage />
-            <h2>Travel App</h2>
+            <span>Travel App</span>
         </div>
     );
 };

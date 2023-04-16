@@ -101,7 +101,12 @@ const PostsForm = () => {
             />
             <div className="posts-form__buttons-row">
                 {postFileUrl === "" ? (
-                    <Button variant="outlined">
+                    <Button
+                        name="handle-post-img"
+                        aria-label="handle-post-img"
+                        className="posts-form__buttons-row-img"
+                        variant="outlined"
+                    >
                         <label htmlFor="post-file">Ajouter une image</label>
                     </Button>
                 ) : (
@@ -118,6 +123,9 @@ const PostsForm = () => {
                     onChange={(e) => handlePostFile(e)}
                 />
                 <Button
+                    name="post-comment"
+                    aria-label="post-comment"
+                    className="posts-form__buttons-row-post"
                     variant="outlined"
                     onClick={() => handlePostSubmission()}
                 >

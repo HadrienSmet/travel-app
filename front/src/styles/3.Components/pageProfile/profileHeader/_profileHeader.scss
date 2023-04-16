@@ -124,6 +124,9 @@
                 color: $tertiary-color !important;
                 border-color: $tertiary-color !important;
             }
+            > span {
+                cursor: pointer;
+            }
         }
     }
     &::after {

@@ -106,6 +106,7 @@
             @include flexColumn;
             align-items: center;
             span {
+                cursor: pointer;
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
@@ -126,6 +127,7 @@
                 }
             }
             label {
+                cursor: pointer;
                 z-index: 2;
                 border-radius: 80px 10px 80px 80px;
                 border: 2px solid $tertiary-color;

@@ -11,16 +11,6 @@ const useFriendProfilePostsSection = ({ friendProfile }) => {
     const dispatch = useDispatch();
     let { token } = getJwtToken();
 
-    //This function is here to activate the useEffect whenever the user starts to see the footer
-    const loadMore = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop + 126 >
-            document.scrollingElement.scrollHeight
-        ) {
-            setLoadPost(true);
-        }
-    };
-
     //This function is here to get all the posts made by a specified user and then displays all the data in the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
     const fetchAllposts = useCallback(
@@ -34,6 +24,16 @@ const useFriendProfilePostsSection = ({ friendProfile }) => {
         },
         [dispatch, token, friendProfile._id]
     );
+
+    //This function is here to activate the useEffect whenever the user starts to see the footer
+    const loadMore = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 126 >
+            document.scrollingElement.scrollHeight
+        ) {
+            setLoadPost(true);
+        }
+    };
 
     //This useEffect is here to get the posts made by a specified user and then displays all the data in the redux store
     //If the app indicates by his local state that posts have to be loaded:

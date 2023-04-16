@@ -11,7 +11,7 @@ const UserBanner = ({ userProfile }) => {
                         alt={"Photo de profil de " + userProfile.pseudo}
                     />
                 </div>
-                <h2>{userProfile.pseudo}</h2>
+                <h1>{userProfile.pseudo}</h1>
             </div>
             <div className="profile-section__header__buttons-container">
                 <Button variant="outlined">

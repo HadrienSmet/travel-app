@@ -17,7 +17,7 @@ const MUIPreviousTripsAccordion = ({
                         aria-controls={"panel" + index + "a-content"}
                         id={"panel" + index + "a-header"}
                     >
-                        <h4>{trip.destination + " " + trip.year}</h4>
+                        <h3>{trip.destination + " " + trip.year}</h3>
                     </AccordionSummary>
                     <AccordionDetails>
                         <div
@@ -43,7 +43,10 @@ const MUIPreviousTripsAccordion = ({
                                             index
                                         }
                                         src={url}
-                                        alt={"Photo faite pendant le voyage en" + trip.destination}
+                                        alt={
+                                            "Photo faite pendant le voyage en" +
+                                            trip.destination
+                                        }
                                     />
                                 ))}
                             </div>

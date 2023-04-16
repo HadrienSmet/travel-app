@@ -9,7 +9,8 @@ const useStepsIndicator = ({ stepState }) => {
     useEffect(() => {
         if (stepState === "just-started") {
             firstStepCheckRef.current.classList.add("visible");
-        } else if (stepState === "almost-done") {
+        }
+        if (stepState === "almost-done") {
             scdStepCheckRef.current.classList.add("visible");
         }
     }, [stepState]);

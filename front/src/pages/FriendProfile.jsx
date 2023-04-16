@@ -8,16 +8,14 @@ import ProfileTripsSection from "../components/pageProfile/sectionTrip/ProfileTr
 import ProfileFriendsSection from "../components/pageProfile/sectionFriends/ProfileFriendsSection";
 import ProfileInfosSection from "../components/pageProfile/sectionInfo/ProfileInfosSection";
 import FriendProfileHeader from "../components/pageFriendProfile/FriendProfileHeader";
-import FriendProfileNavigation from "../components/pageFriendProfile/FriendProfileNavigation";
+import ProfileNavigation from "../components/pageProfile/profileHeader/ProfileNavigation";
+import { useScrollTop } from "../utils/hooks/hooks";
 
 const useFriendProfile = () => {
     const [friendProfileState, setFriendProfileState] = useState("actuality");
 
     const changeFriendProfileState = (state) => setFriendProfileState(state);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    useScrollTop();
 
     return {
         friendProfileState,
@@ -34,9 +32,9 @@ const FriendProfile = () => {
     return (
         <main className="profile-section">
             <FriendProfileHeader />
-            <FriendProfileNavigation
-                friendProfileState={friendProfileState}
-                changeFriendProfileState={changeFriendProfileState}
+            <ProfileNavigation
+                profileState={friendProfileState}
+                handleProfileState={changeFriendProfileState}
             />
             <div className="profile-section__main-content">
                 {friendProfileState === "actuality" && (

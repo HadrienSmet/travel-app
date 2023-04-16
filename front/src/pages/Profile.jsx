@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import ProfilePostsSection from "../components/pageProfile/sectionPosts/ProfilePostsSection";
@@ -9,15 +9,13 @@ import ProfileInfosSection from "../components/pageProfile/sectionInfo/ProfileIn
 
 import ProfileHeader from "../components/pageProfile/profileHeader/ProfileHeader";
 import ProfileNavigation from "../components/pageProfile/profileHeader/ProfileNavigation";
+import { useScrollTop } from "../utils/hooks/hooks";
 
 const useProfile = () => {
     const [profileState, setProfileState] = useState("actuality");
+    useScrollTop();
 
     const handleProfileState = (state) => setProfileState(state);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     return {
         profileState,
@@ -33,7 +31,6 @@ const Profile = () => {
 
     return (
         <main className="profile-section">
-            {/* <div className="fake-margin-replacing-header"></div> */}
             <ProfileHeader userProfile={userProfile} />
             <ProfileNavigation
                 profileState={profileState}

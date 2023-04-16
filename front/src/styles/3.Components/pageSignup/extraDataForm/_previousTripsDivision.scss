@@ -44,6 +44,9 @@
                 color: $clr-1;
                 background-color: $primary-color;
             }
+            span {
+                cursor: pointer;
+            }
             svg {
                 margin-left: 10px;
             }

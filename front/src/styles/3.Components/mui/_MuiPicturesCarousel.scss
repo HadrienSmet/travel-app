@@ -30,6 +30,7 @@
 @media screen and (min-width: 768px) {
     .thumbs.animated {
         li {
+            cursor: pointer;
             width: 110px !important;
             height: 110px;
             border-radius: 50%;

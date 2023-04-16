@@ -5,10 +5,8 @@ import { setFriendData } from "../../../features/friendData.slice";
 import { axiosGetUser } from "../../../utils/functions/user/axiosGetUser";
 import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
 
-import FriendFollowersSection from "./FriendFollowersSection";
-import FriendFollowingSection from "./FriendFollowingSection";
-import UserFollowersSection from "./UserFollowersSection";
-import UserFollowingSection from "./UserFollowingSection";
+import FollowersSection from "./FollowersSection";
+import FollowingSection from "./FollowingSection";
 
 const useProfileFriendsSection = () => {
     const dispatch = useDispatch();
@@ -42,30 +40,18 @@ const ProfileFriendsSection = ({ isAuthor, dataFrom }) => {
         <section className="profile-contact-section">
             <h1>Contacts</h1>
             <div className="profile-contact-section__followers-division">
-                {isAuthor === true ? (
-                    <UserFollowersSection
-                        followers={followers}
-                        goToProfilePage={goToProfilePage}
-                    />
-                ) : (
-                    <FriendFollowersSection
-                        followers={followers}
-                        goToProfilePage={goToProfilePage}
-                    />
-                )}
+                <FollowersSection
+                    followers={followers}
+                    goToProfilePage={goToProfilePage}
+                    isAuthor={isAuthor}
+                />
             </div>
             <div className="profile-contact-section__following-division">
-                {isAuthor === true ? (
-                    <UserFollowingSection
-                        following={following}
-                        goToProfilePage={goToProfilePage}
-                    />
-                ) : (
-                    <FriendFollowingSection
-                        following={following}
-                        goToProfilePage={goToProfilePage}
-                    />
-                )}
+                <FollowingSection
+                    following={following}
+                    goToProfilePage={goToProfilePage}
+                    isAuthor={isAuthor}
+                />
             </div>
         </section>
     );

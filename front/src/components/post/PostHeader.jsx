@@ -12,6 +12,9 @@ const usePostHeader = ({ post }) => {
     const { token } = getJwtToken();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const parsedDateArr = dateParser(post.date).split(",");
+    const dayData = parsedDateArr[0];
+    const timeData = parsedDateArr[1].split(":").splice(0, 2).join(":");
 
     //This function allows the user to go on the profile page of the user who made the post
     //It makes a call API using the pseudo of the user in orger to get all the necessary data
@@ -24,12 +27,14 @@ const usePostHeader = ({ post }) => {
     };
 
     return {
+        dayData,
+        timeData,
         goToProfilePage,
     };
 };
 
 const PostHeader = ({ post }) => {
-    const { goToProfilePage } = usePostHeader({ post });
+    const { dayData, timeData, goToProfilePage } = usePostHeader({ post });
 
     return (
         <div className="post-header">
@@ -37,7 +42,7 @@ const PostHeader = ({ post }) => {
                 className="post-header__user-side"
                 onClick={() => goToProfilePage()}
             >
-                <h4>{post.pseudo}</h4>
+                <h3>{post.pseudo}</h3>
                 <div className="post-header__user-side__img-container">
                     <img
                         src={post.profilePicture}
@@ -46,9 +51,12 @@ const PostHeader = ({ post }) => {
                 </div>
             </div>
             <div className="post-header__data-side">
-                <p className="post-header__data-side__desktop-date">
-                    {dateParser(post.date)}
-                </p>
+                <div className="post-header__data-side__desktop-date">
+                    <p>{dayData}</p>
+                    <p className="post-header__data-side__desktop-date-time">
+                        {timeData}
+                    </p>
+                </div>
                 <p className="post-header__data-side__mobile-date">
                     {mobileDateParser(post.date)}
                 </p>

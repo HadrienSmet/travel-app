@@ -31,7 +31,7 @@ const ProfileAlbumsSection = ({ isAuthor, dataFrom }) => {
 
     return (
         <div className="profile-albums-section">
-            {isAuthor === true ? <h1>Mes albums :</h1> : <h1>Ses albums :</h1>}
+            {isAuthor === true ? <h2>Mes albums :</h2> : <h2>Ses albums :</h2>}
             <AlbumsContainer dataFrom={dataFrom} screenWidth={screenWidth} />
             {isAuthor === true && (
                 <ProfileAddAlbumModal changeAlbumsArray={changeAlbumsArray} />

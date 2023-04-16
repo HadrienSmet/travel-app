@@ -1,6 +1,10 @@
 @media screen and (min-width: 768px) {
     .post-header__data-side__desktop-date {
         display: inline-block !important;
+        &-time {
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
     }
 }
 @media screen and (max-width: 767px) {
@@ -30,6 +34,12 @@
     &__data-side {
         color: $black-op5;
         text-align: right;
+        display: flex;
+        flex-direction: column-reverse;
+        > p {
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
         &__desktop-date {
             display: none;
         }

@@ -30,9 +30,9 @@ const ProfileTripsSection = ({ isAuthor, dataFrom }) => {
         <section className="profile-trips-section">
             <div className="profile-trips-section__previous-trips">
                 {isAuthor === true ? (
-                    <h1>Mes précédents voyages.</h1>
+                    <h2>Mes précédents voyages.</h2>
                 ) : (
-                    <h1>Ses précédents voyages.</h1>
+                    <h2>Ses précédents voyages.</h2>
                 )}
                 <div className="profile-trips-section__previous-trips-container">
                     <MUIPreviousTripsAccordion

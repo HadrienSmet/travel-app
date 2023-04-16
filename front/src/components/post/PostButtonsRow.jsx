@@ -39,7 +39,6 @@ const useLikesButtons = ({ post, token, userId }) => {
             axiosPostLikes(post._id, 0, token).then(() => {
                 setLikes(likes - 1);
                 setLiked(false);
-                setUsersLiking(usersLiking.splice(userId, 1));
                 setUsersLiking(usersLiking.filter((id) => id !== userId));
             });
         } else if (!usersDisliking.includes(userId)) {
@@ -160,7 +159,11 @@ const PostButtonsRow = ({
 }) => {
     const { token, userId } = getJwtToken();
     const { likes, liked, dislikes, disliked, likesHandler, dislikesHandler } =
-        useLikesButtons({ post, token, userId });
+        useLikesButtons({
+            post,
+            token,
+            userId,
+        });
     const { handleDeletePost, handleEditPost } = useCrudButtons({
         post,
         token,
@@ -190,12 +193,18 @@ const PostButtonsRow = ({
             </div>
             <div className="post__buttons-row__crud-side">
                 {isAuthor && (
-                    <Button onClick={() => setIsEditing(!isEditing)}>
+                    <Button
+                        name="handle-edit-post"
+                        aria-label="handle-edit-post"
+                        onClick={() => setIsEditing(!isEditing)}
+                    >
                         <FaEdit />
                     </Button>
                 )}
                 {isAuthor && (
                     <Button
+                        name="handle-delete-post"
+                        aria-label="handle-delete-post"
                         className="post__delete-div"
                         id={"deletediv-" + post._id}
                     >
@@ -206,7 +215,11 @@ const PostButtonsRow = ({
                     </Button>
                 )}
                 {isEditing && (
-                    <Button id={"editpostdiv-" + post._id}>
+                    <Button
+                        name="post-edited-post"
+                        aria-label="post-edited-post"
+                        id={"editpostdiv-" + post._id}
+                    >
                         <FaPaperPlane
                             id={"editpost-" + post._id}
                             onClick={(e) => handleEditPost(e)}
