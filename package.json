@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "start": "node back/server.js",
+        "install": "npm install && cd back && npm install && cd ../front && npm install",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && cd front && npm install && npm run build"
+    }
+}

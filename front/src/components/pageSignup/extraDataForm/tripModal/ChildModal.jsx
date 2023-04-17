@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { setAlbumObjectArrayStore } from "../../../../features/albumObjectArray.slice";
