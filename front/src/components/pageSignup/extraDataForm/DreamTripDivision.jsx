@@ -1,7 +1,8 @@
 import { FaCheck, FaTimes } from "react-icons/fa";
 import MUIInputCountry from "../../mui/MUIInputCountry";
 
-const DreamTripDivision = ({ dreamTrips, changeDreamTrip, changeCountry }) => {
+const DreamTripDivision = ({ extraData, changeDreamTrip, changeCountry }) => {
+    const { dreamTrips } = extraData;
     const removeDreamDestination = (e) => {
         let selectedDestination;
         if (e.target.id === "") {

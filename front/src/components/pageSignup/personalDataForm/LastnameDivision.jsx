@@ -3,13 +3,13 @@ import { useRef } from "react";
 import { TextField } from "@mui/material";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-const useLastnameDivision = ({ lastName, changeIsLastnameOk }) => {
+const useLastnameDivision = ({ lastName, changeIsLastNameOk }) => {
     const lastnameMsgRef = useRef(null);
     const lastnameCheckRef = useRef(null);
     const lastnameTimesRef = useRef(null);
 
     const handleWrongLastname = (message) => {
-        changeIsLastnameOk(false);
+        changeIsLastNameOk(false);
         lastnameMsgRef.current.textContent = message;
         lastnameCheckRef.current.classList.remove("visible");
         lastnameCheckRef.current.classList.add("invisible");
@@ -18,7 +18,7 @@ const useLastnameDivision = ({ lastName, changeIsLastnameOk }) => {
     };
 
     const handleFineLastname = () => {
-        changeIsLastnameOk(true);
+        changeIsLastNameOk(true);
         lastnameMsgRef.current.textContent = "";
         lastnameCheckRef.current.classList.remove("invisible");
         lastnameCheckRef.current.classList.add("visible");
@@ -58,13 +58,13 @@ const useLastnameDivision = ({ lastName, changeIsLastnameOk }) => {
     };
 };
 
-const LastnameDivision = ({ lastName, changeLastName, changeIsLastnameOk }) => {
+const LastnameDivision = ({ lastName, changeLastName, changeIsLastNameOk }) => {
     const {
         lastnameMsgRef,
         lastnameCheckRef,
         lastnameTimesRef,
         handleLastName,
-    } = useLastnameDivision({ lastName, changeIsLastnameOk });
+    } = useLastnameDivision({ lastName, changeIsLastNameOk });
     return (
         <div className="personal-data-form__last-name-division">
             <div className="personal-data-form__icons-container">

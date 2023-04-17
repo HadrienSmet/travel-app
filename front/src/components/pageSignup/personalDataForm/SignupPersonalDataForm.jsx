@@ -9,10 +9,47 @@ import LastnameDivision from "./LastnameDivision";
 import GenderDivision from "./GenderDivision";
 import CountryDivision from "./CountryDivision";
 
-const useSignupPicture = ({ changeProfilePicture }) => {
-    const [profilePictureUrl, setProfilePictureUrl] = useState("");
-
-    const changeProfilePictureUrl = (url) => setProfilePictureUrl(url);
+const usePersonalData = ({
+    changeProfilePicture,
+    changeStepState,
+    changeUserPersonals,
+}) => {
+    const userData = useSelector((state) => state.newSignupData.signupData);
+    const [personalData, setPersonalData] = useState({
+        age: "",
+        country: "",
+        firstName: "",
+        gender: "",
+        isFirstNameOk: false,
+        isLastNameOk: false,
+        lastName: "",
+        profilePictureUrl: "",
+    });
+    const {
+        age,
+        country,
+        firstName,
+        gender,
+        isFirstNameOk,
+        isLastNameOk,
+        lastName,
+        profilePictureUrl,
+    } = personalData;
+    const changeAge = (age) => setPersonalData({ ...personalData, age });
+    const changeChoice = (gender) =>
+        setPersonalData({ ...personalData, gender });
+    const changeCountry = (country) =>
+        setPersonalData({ ...personalData, country });
+    const changeFirstName = (firstName) =>
+        setPersonalData({ ...personalData, firstName });
+    const changeIsFirstNameOk = (boolean) =>
+        setPersonalData({ ...personalData, isFirstNameOk: boolean });
+    const changeIsLastNameOk = (boolean) =>
+        setPersonalData({ ...personalData, isLastNameOk: boolean });
+    const changeLastname = (lastName) =>
+        setPersonalData({ ...personalData, lastName });
+    const changeProfilePictureUrl = (url) =>
+        setPersonalData({ ...personalData, profilePictureUrl: url });
     // This function change the states of this component
     // @Params { Type: Object } --> The param of the the onChange event listening the input file
     // The first state that got changed represents the blop url of the profile picture provided by the user
@@ -21,96 +58,6 @@ const useSignupPicture = ({ changeProfilePicture }) => {
         changeProfilePictureUrl(URL.createObjectURL(e.target.files[0]));
         changeProfilePicture(e.target.files[0]);
     };
-
-    return {
-        profilePictureUrl,
-        changeProfilePictureUrl,
-        handleProfilePicture,
-    };
-};
-
-const useSignupAge = () => {
-    const [age, setAge] = useState("");
-
-    const changeAge = (age) => setAge(age);
-
-    return {
-        age,
-        changeAge,
-    };
-};
-
-const useSignupFirstname = () => {
-    const [firstName, setFirstName] = useState("");
-    const [isFirstNameOk, setIsFirstNameOk] = useState(false);
-
-    const changeFirstName = (firstname) => setFirstName(firstname);
-    const changeIsFirstNameOk = (boolean) => setIsFirstNameOk(boolean);
-
-    return {
-        firstName,
-        isFirstNameOk,
-        changeFirstName,
-        changeIsFirstNameOk,
-    };
-};
-
-const useSignupLastname = () => {
-    const [isLastNameOk, setIsLastNameOk] = useState(false);
-    const [lastName, setLastName] = useState("");
-
-    const changeLastname = (lastname) => setLastName(lastname);
-    const changeIsLastnameOk = (boolean) => setIsLastNameOk(boolean);
-
-    return {
-        lastName,
-        isLastNameOk,
-        changeLastname,
-        changeIsLastnameOk,
-    };
-};
-
-const useSignupGender = () => {
-    const [gender, setGender] = useState("");
-
-    const changeChoice = (gender) => {
-        setGender(gender);
-    };
-
-    return {
-        gender,
-        changeChoice,
-    };
-};
-
-const useSignupCountry = () => {
-    const [country, setCountry] = useState("");
-
-    const changeCountry = (country) => setCountry(country);
-
-    return {
-        country,
-        changeCountry,
-    };
-};
-
-const SignupPersonalDataForm = ({
-    changeStepState,
-    changeProfilePicture,
-    changeUserPersonals,
-}) => {
-    const { profilePictureUrl, handleProfilePicture } = useSignupPicture({
-        changeProfilePicture,
-    });
-    const { age, changeAge } = useSignupAge();
-    const { firstName, isFirstNameOk, changeFirstName, changeIsFirstNameOk } =
-        useSignupFirstname();
-    const { lastName, isLastNameOk, changeLastname, changeIsLastnameOk } =
-        useSignupLastname();
-    const { gender, changeChoice } = useSignupGender();
-    const { country, changeCountry } = useSignupCountry();
-
-    const userData = useSelector((state) => state.newSignupData.signupData);
 
     //This function handles the submission of second step of the signup form
     //@Params { Type: Object } --> The param of the onSubmit event
@@ -151,6 +98,44 @@ const SignupPersonalDataForm = ({
         }
     };
 
+    return {
+        personalData,
+        changeAge,
+        changeChoice,
+        changeCountry,
+        changeFirstName,
+        changeIsFirstNameOk,
+        changeIsLastNameOk,
+        changeLastname,
+        handleProfilePicture,
+        handleSubmission,
+    };
+};
+
+const SignupPersonalDataForm = ({
+    changeStepState,
+    changeProfilePicture,
+    changeUserPersonals,
+}) => {
+    const {
+        personalData,
+        changeAge,
+        changeChoice,
+        changeCountry,
+        changeFirstName,
+        changeIsFirstNameOk,
+        changeIsLastNameOk,
+        changeLastname,
+        handleProfilePicture,
+        handleSubmission,
+    } = usePersonalData({
+        changeProfilePicture,
+        changeStepState,
+        changeUserPersonals,
+    });
+    const { age, country, firstName, gender, lastName, profilePictureUrl } =
+        personalData;
+
     return (
         <form action="" className="personal-data-form">
             <h1>Informations personnelles</h1>
@@ -158,38 +143,33 @@ const SignupPersonalDataForm = ({
                 <div className="personal-data-form__left-column">
                     <PictureDivision
                         profilePictureUrl={profilePictureUrl}
-                        handleProfilePicture={(e) => handleProfilePicture(e)}
+                        handleProfilePicture={handleProfilePicture}
                     />
-                    <AgeDivision
-                        age={age}
-                        changeAge={(age) => changeAge(age)}
-                    />
+                    <AgeDivision age={age} changeAge={changeAge} />
                 </div>
 
                 <div className="personal-data-form__inputs-container">
                     <FirstnameDivision
                         firstName={firstName}
-                        changeFirstName={(name) => changeFirstName(name)}
-                        changeIsFirstNameOk={(bool) =>
-                            changeIsFirstNameOk(bool)
-                        }
+                        changeFirstName={changeFirstName}
+                        changeIsFirstNameOk={changeIsFirstNameOk}
                     />
                     <LastnameDivision
                         lastName={lastName}
-                        changeLastName={(name) => changeLastname(name)}
-                        changeIsLastnameOk={(bool) => changeIsLastnameOk()}
+                        changeLastName={changeLastname}
+                        changeIsLastNameOk={changeIsLastNameOk}
                     />
                     <GenderDivision
                         gender={gender}
-                        changeChoice={(gen) => changeChoice(gen)}
+                        changeChoice={changeChoice}
                     />
                     <CountryDivision
                         country={country}
-                        changeCountry={(coun) => changeCountry(coun)}
+                        changeCountry={changeCountry}
                     />
                 </div>
             </div>
-            <Button variant="outlined" onClick={(e) => handleSubmission(e)}>
+            <Button variant="outlined" onClick={handleSubmission}>
                 Continuer
             </Button>
         </form>

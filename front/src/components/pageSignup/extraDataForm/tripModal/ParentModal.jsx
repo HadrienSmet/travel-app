@@ -54,56 +54,8 @@ export const withFriendsChoices = [
     "En famille",
 ];
 
-const useParentModal = ({ prevTripsData, setPrevTripsData }) => {
+const useParentModal = ({ changeTrips }) => {
     const [open, setOpen] = useState(false);
-
-    const handleOpen = (boolean) => {
-        setOpen(boolean);
-    };
-
-    const changeCountry = (country) => {
-        const olData = prevTripsData;
-        olData.destination = country;
-        setPrevTripsData(olData);
-    };
-
-    const changeDuration = (duration) => {
-        const olData = prevTripsData;
-        olData.duration = duration;
-        setPrevTripsData(olData);
-    };
-
-    const changeNumber = (year) => {
-        const olData = prevTripsData;
-        olData.year = year;
-        setPrevTripsData(olData);
-    };
-
-    const changeChoice = (choice) => {
-        const olData = prevTripsData;
-        olData.choice = choice;
-        setPrevTripsData(olData);
-    };
-
-    const handleDetails = (e) => {
-        const olData = prevTripsData;
-        olData.details = e.target.value;
-        setPrevTripsData(olData);
-    };
-
-    return {
-        open,
-        prevTripsData,
-        handleOpen,
-        changeCountry,
-        changeDuration,
-        changeNumber,
-        changeChoice,
-        handleDetails,
-    };
-};
-
-const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
     const [prevTripsData, setPrevTripsData] = useState({
         destination: "",
         duration: "",
@@ -111,18 +63,27 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
         choice: "",
         details: "",
     });
-    const {
-        open,
-        handleOpen,
-        changeCountry,
-        changeDuration,
-        changeNumber,
-        changeChoice,
-        handleDetails,
-    } = useParentModal({ prevTripsData, setPrevTripsData });
     const albumData = useSelector(
         (state) => state.albumObjectArrayStore.albumObjectArray
     );
+
+    const handleOpen = (boolean) => setOpen(boolean);
+    const changeCountry = (country) =>
+        setPrevTripsData({ ...prevTripsData, destination: country });
+    const changeDuration = (duration) =>
+        setPrevTripsData({
+            ...prevTripsData,
+            duration: duration,
+        });
+    const changeNumber = (year) =>
+        setPrevTripsData({ ...prevTripsData, year: year });
+    const changeChoice = (choice) =>
+        setPrevTripsData({ ...prevTripsData, choice: choice });
+    const handleDetails = (e) =>
+        setPrevTripsData({
+            ...prevTripsData,
+            details: e.target.value,
+        });
 
     //This functions handle the submission of the data provided by the two modals
     //Creates an object called trip that will contain all the data and gives it to his parent thanks to the function herited by him
@@ -139,6 +100,7 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
                     details: prevTripsData.details,
                     album: { ...albumData },
                 };
+                console.log(trip);
                 changeTrips(trip);
             }
         }
@@ -149,6 +111,34 @@ const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
         handleOpen(false);
         handlePreviousTripSubmission();
     };
+
+    return {
+        albumData,
+        open,
+        prevTripsData,
+        handleOpen,
+        changeCountry,
+        changeDuration,
+        changeNumber,
+        changeChoice,
+        handleDetails,
+        handleClose,
+    };
+};
+
+const ParentModal = ({ changeAlbumsArray, changeTrips }) => {
+    const {
+        albumData,
+        open,
+        prevTripsData,
+        handleOpen,
+        changeCountry,
+        changeDuration,
+        changeNumber,
+        changeChoice,
+        handleDetails,
+        handleClose,
+    } = useParentModal({ changeTrips });
 
     return (
         <div>

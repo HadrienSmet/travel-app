@@ -2,10 +2,11 @@ import MUIPreviousTripsAccordion from "../../mui/MUIPreviousTripsAccordion";
 import ParentModal from "./tripModal/ParentModal";
 
 const PreviousTripsDivision = ({
-    previousTrips,
+    extraData,
     changeAlbumsArray,
     changeTrips,
 }) => {
+    const { previousTrips } = extraData;
     return (
         <div className="extra-data-form__trips-area">
             <h2>Mes précédents voyages</h2>

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { setAlbumObjectArrayStore } from "../../../../features/albumObjectArray.slice";
@@ -87,6 +87,9 @@ const ChildModal = ({ prevTripsData, changeAlbumsArray }) => {
     for (let i = 0; i < 12; i++) {
         pictureAreas.push(i);
     }
+    useEffect(() => {
+        console.log(albumPictureUrl);
+    }, [albumPictureUrl]);
 
     return (
         <Fragment>

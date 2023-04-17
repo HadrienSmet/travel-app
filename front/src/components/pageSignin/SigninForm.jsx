@@ -14,15 +14,21 @@ import EmailDivision from "./EmailDivision";
 import PasswordDivision from "./PasswordDivision";
 
 const useSigninForm = () => {
-    const [mail, setMail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [mail, setMail] = useState("");
+    // const [password, setPassword] = useState("");
+    const [signinData, setSigninData] = useState({
+        mail: "",
+        password: "",
+    });
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const spanRef = useRef(null);
+    const { mail, password } = signinData;
 
-    const handleMail = (mail) => setMail(mail);
-    const handlePassword = (password) => setPassword(password);
+    const handleMail = (mail) => setSigninData({ ...signinData, mail });
+    const handlePassword = (password) =>
+        setSigninData({ ...signinData, password });
 
     const handleError = () => {
         spanRef.current.textContent =

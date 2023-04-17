@@ -17,77 +17,59 @@ import DreamTripDivision from "./DreamTripDivision";
 import PreviousTripsDivision from "./PreviousTripsDivision";
 
 const useExtraState = () => {
-    const [previousTrips, setPreviousTrips] = useState(undefined);
-    const [albumsArray, setAlbumsArray] = useState(undefined);
-    const [dreamTrips, setDreamTrips] = useState(undefined);
     const [extraData, setExtraData] = useState({
         pseudo: "",
         isPseudoOk: false,
         description: "",
-        // previousTrips: undefined,
-        // albumsArray: undefined,
+        dreamTrips: undefined,
+        previousTrips: undefined,
+        albumsArray: undefined,
     });
     const changeIsPseudoOk = (boolean) => {
-        const oldData = extraData;
-        oldData.isPseudoOk = boolean;
-        setExtraData(oldData);
+        setExtraData({ ...extraData, isPseudoOk: boolean });
     };
     const changePseudo = (pseudo) => {
-        const oldData = extraData;
-        oldData.pseudo = pseudo;
-        console.log(extraData.pseudo);
-        setExtraData(oldData);
+        setExtraData({ ...extraData, pseudo });
     };
     const changeDescription = (description) => {
-        const oldData = extraData;
-        oldData.description = description;
-        setExtraData(oldData);
+        setExtraData({ ...extraData, description });
     };
 
-    const changeDreamTrip = (countriesArr) => setDreamTrips(countriesArr);
-    //This function aloow the child component InputCountry to change the state of this component
-    //@Params { Type: String } --> The value of the input
-    //If the state isn't defined yet it will only contains the data provided by the input
-    //Otherwise it will conserve the old data and add the new one
+    const changeDreamTrip = (countriesArr) =>
+        setExtraData({ ...extraData, dreamTrips: countriesArr });
+
     const changeCountry = (country) => {
         let countries;
-        if (dreamTrips === undefined) {
+        if (extraData.dreamTrips === undefined) {
             countries = [country];
         } else {
-            countries = [...dreamTrips, country];
+            countries = [...extraData.dreamTrips, country];
         }
-        setDreamTrips(countries);
+        setExtraData({ ...extraData, dreamTrips: countries });
     };
 
-    //This function is here to allow the child modal to change the state of this component
-    //@Params { Type: Array } --> Array of objects. Each objects represents an album and has a key for the name and a key for all the pictures url
     const changeAlbumsArray = (array) => {
         let albumsContainer;
-        if (albumsArray === undefined) {
+        if (extraData.albumsArray === undefined) {
             albumsContainer = [array];
         } else {
-            albumsContainer = [...albumsArray, array];
+            albumsContainer = [...extraData.albumsArray, array];
         }
-        setAlbumsArray(albumsContainer);
+        setExtraData({ ...extraData, albumsArray: albumsContainer });
     };
 
-    //This function his here to allow the trip-modal wich is the child of this component to change the state of this component
-    //@Params { Type: Object } --> The data called trip in the modal component
     const changeTrips = (trip) => {
         let tripsArr;
-        if (previousTrips === undefined) {
+        if (extraData.previousTrips === undefined) {
             tripsArr = [trip];
         } else {
-            tripsArr = [...previousTrips, trip];
+            tripsArr = [...extraData.previousTrips, trip];
         }
-        setPreviousTrips(tripsArr);
+        setExtraData({ ...extraData, previousTrips: tripsArr });
     };
 
     return {
-        albumsArray,
-        previousTrips,
         extraData,
-        dreamTrips,
         changePseudo,
         changeIsPseudoOk,
         changeDescription,
@@ -102,13 +84,18 @@ const useSignupExtraDataForm = ({
     profilePicture,
     userPersonals,
     extraData,
-    dreamTrips,
-    albumsArray,
-    previousTrips,
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {
+        pseudo,
+        isPseudoOk,
+        description,
+        dreamTrips,
+        previousTrips,
+        albumsArray,
+    } = extraData;
 
     const handleSubmissionFormData = () => {
         const fileData = new FormData();
@@ -132,8 +119,8 @@ const useSignupExtraDataForm = ({
         const { firstName, lastName, age, gender, country } = userData;
 
         if (
-            extraData.isPseudoOk === true &&
-            extraData.description !== "" &&
+            isPseudoOk === true &&
+            description !== "" &&
             dreamTrips !== undefined &&
             previousTrips !== undefined &&
             albumsArray !== undefined
@@ -149,8 +136,8 @@ const useSignupExtraDataForm = ({
             let data = {
                 email,
                 password,
-                pseudo: extraData.pseudo,
-                description: extraData.description,
+                pseudo,
+                description,
                 dreamTrips,
                 previousTrips,
                 userData: { ...userPersonalsData },
@@ -174,10 +161,7 @@ const useSignupExtraDataForm = ({
 
 const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
     const {
-        previousTrips,
-        albumsArray,
         extraData,
-        dreamTrips,
         changePseudo,
         changeIsPseudoOk,
         changeDescription,
@@ -191,9 +175,6 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
         profilePicture,
         userPersonals,
         extraData,
-        previousTrips,
-        albumsArray,
-        dreamTrips,
     });
 
     return (
@@ -205,24 +186,24 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
             <h1>Remplissez votre profil!</h1>
             <div className="extra-data-form__fields-displayer">
                 <PreviousTripsDivision
-                    previousTrips={previousTrips}
-                    changeAlbumsArray={(value) => changeAlbumsArray(value)}
-                    changeTrips={(value) => changeTrips(value)}
+                    extraData={extraData}
+                    changeAlbumsArray={changeAlbumsArray}
+                    changeTrips={changeTrips}
                 />
                 <div className="extra-data-form__fields-displayer__left-column">
                     <PseudoDivision
                         extraData={extraData}
-                        changeIsPseudoOk={(value) => changeIsPseudoOk(value)}
-                        changePseudo={(value) => changePseudo(value)}
+                        changeIsPseudoOk={changeIsPseudoOk}
+                        changePseudo={changePseudo}
                     />
                     <DescriptionDivision
                         extraData={extraData}
-                        changeDescription={(value) => changeDescription(value)}
+                        changeDescription={changeDescription}
                     />
                     <DreamTripDivision
-                        dreamTrips={dreamTrips}
-                        changeCountry={(value) => changeCountry(value)}
-                        changeDreamTrip={(value) => changeDreamTrip(value)}
+                        extraData={extraData}
+                        changeCountry={changeCountry}
+                        changeDreamTrip={changeDreamTrip}
                     />
                 </div>
             </div>
@@ -230,7 +211,7 @@ const SignupExtraDataForm = ({ profilePicture, userPersonals }) => {
                 <Button
                     className="extra-data-form__btn-submit"
                     variant="outlined"
-                    onClick={() => handleSubmission()}
+                    onClick={handleSubmission}
                 >
                     Confirmer
                 </Button>
