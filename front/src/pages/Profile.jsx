@@ -10,6 +10,7 @@ import ProfileInfosSection from "../components/pageProfile/sectionInfo/ProfileIn
 import ProfileHeader from "../components/pageProfile/profileHeader/ProfileHeader";
 import ProfileNavigation from "../components/pageProfile/profileHeader/ProfileNavigation";
 import { useScrollTop } from "../utils/hooks/hooks";
+import { getJwtToken } from "../utils/functions/tools/getJwtToken";
 
 const useProfile = () => {
     const [profileState, setProfileState] = useState("actuality");
@@ -25,6 +26,7 @@ const useProfile = () => {
 
 const Profile = () => {
     const { profileState, handleProfileState } = useProfile();
+    let { userId } = getJwtToken();
     const userProfile = useSelector(
         (state) => state.userLoggedDataStore.userLoggedData
     );
@@ -37,7 +39,9 @@ const Profile = () => {
                 handleProfileState={handleProfileState}
             />
             <div className="profile-section__main-content">
-                {profileState === "actuality" && <ProfilePostsSection />}
+                {profileState === "actuality" && (
+                    <ProfilePostsSection userId={userId} />
+                )}
                 {profileState === "albums" && (
                     <ProfileAlbumsSection
                         isAuthor={true}

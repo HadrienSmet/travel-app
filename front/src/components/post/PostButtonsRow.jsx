@@ -22,12 +22,32 @@ import { axiosEditPost } from "../../utils/functions/posts/axiosEditPost";
 import { axiosGetPosts } from "../../utils/functions/posts/axiosGetPosts";
 
 const useLikesButtons = ({ post, token, userId }) => {
+    const [likesData, setLikesData] = useState({
+        liked: false,
+        disliked: false,
+        likes: post.likes,
+        dislikes: post.dislikes,
+        usersLiking: post.usersLiked,
+        usersDisliking: post.usersDisliked,
+    });
+    const { likes, dislikes, usersLiking, usersDisliking } = likesData;
+    const changeLikes = (bool) => {
+        if (bool) setLikesData({ ...likesData, likes: likesData.likes++ });
+        if (!bool) setLikesData({ ...likesData, likes: likesData.likes-- });
+    };
+    const changeUsersLiking = (newArr) =>
+        setLikesData({ ...likesData, usersLiking: newArr });
+    const changeDislikes = (bool) => {
+        if (bool)
+            setLikesData({ ...likesData, dislikes: likesData.dislikes++ });
+        if (!bool)
+            setLikesData({ ...likesData, dislikes: likesData.dislikes-- });
+    };
+    const changeUsersDisliking = (newArr) =>
+        setLikesData({ ...likesData, usersDisliking: newArr });
+
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
-    const [likes, setLikes] = useState(post.likes);
-    const [dislikes, setDislikes] = useState(post.dislikes);
-    const [usersLiking, setUsersLiking] = useState(post.usersLiked);
-    const [usersDisliking, setUsersDisliking] = useState(post.usersDisliked);
 
     //Handles the behavior of the app when a user clicks on the like button
     //If the user already liked the post:
@@ -37,15 +57,15 @@ const useLikesButtons = ({ post, token, userId }) => {
     const likesHandler = () => {
         if (usersLiking.includes(userId)) {
             axiosPostLikes(post._id, 0, token).then(() => {
-                setLikes(likes - 1);
+                changeLikes(false);
                 setLiked(false);
-                setUsersLiking(usersLiking.filter((id) => id !== userId));
+                changeUsersLiking(usersLiking.filter((id) => id !== userId));
             });
         } else if (!usersDisliking.includes(userId)) {
             axiosPostLikes(post._id, 1, token).then(() => {
-                setLikes(likes + 1);
+                changeLikes(true);
                 setLiked(true);
-                setUsersLiking([...usersLiking, userId]);
+                changeUsersLiking([...usersLiking, userId]);
             });
         }
     };
@@ -58,15 +78,17 @@ const useLikesButtons = ({ post, token, userId }) => {
     const dislikesHandler = () => {
         if (usersDisliking.includes(userId)) {
             axiosPostDislikes(post._id, 0, token).then(() => {
-                setDislikes(dislikes - 1);
+                changeDislikes(false);
                 setDisliked(false);
-                setUsersDisliking(usersDisliking.filter((id) => id !== userId));
+                changeUsersDisliking(
+                    usersDisliking.filter((id) => id !== userId)
+                );
             });
         } else if (!usersLiking.includes(userId)) {
             axiosPostDislikes(post._id, -1, token).then(() => {
-                setDislikes(dislikes + 1);
+                changeDislikes(true);
                 setDisliked(true);
-                setUsersDisliking([...usersDisliking, userId]);
+                changeUsersDisliking([...usersDisliking, userId]);
             });
         }
     };

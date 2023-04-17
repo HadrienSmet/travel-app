@@ -87,9 +87,6 @@ const ChildModal = ({ prevTripsData, changeAlbumsArray }) => {
     for (let i = 0; i < 12; i++) {
         pictureAreas.push(i);
     }
-    useEffect(() => {
-        console.log(albumPictureUrl);
-    }, [albumPictureUrl]);
 
     return (
         <Fragment>

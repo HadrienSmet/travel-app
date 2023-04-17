@@ -1,13 +1,15 @@
-import FriendInfosSection from "./FriendInfosSection";
-import UserInfosSection from "./UserInfosSection";
+import InfosSection from "./InfosSection";
 
 const ProfileInfosSection = ({ dataFrom, isAuthor }) => {
     return (
         <div className="profile-infos-section">
             {isAuthor === true ? (
-                <UserInfosSection dataFrom={dataFrom} />
+                <InfosSection dataFrom={dataFrom} isAuthor={isAuthor} />
             ) : (
-                <FriendInfosSection dataFrom={dataFrom} />
+                <InfosSection
+                    dataFrom={dataFrom.userData}
+                    isAuthor={isAuthor}
+                />
             )}
         </div>
     );

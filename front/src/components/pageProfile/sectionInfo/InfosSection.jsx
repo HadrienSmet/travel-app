@@ -1,24 +1,28 @@
-const FriendInfosSection = ({ dataFrom }) => {
+const InfosSection = ({ dataFrom, isAuthor }) => {
     return (
-        <div className="profile-infos-section-friend">
-            <h1>Ses informations personnelles :</h1>
+        <div className="profile-infos-section-user">
+            {isAuthor ? (
+                <h1>Mes informations personnelles :</h1>
+            ) : (
+                <h1>Ses informations personnelles :</h1>
+            )}
             <div className="profile-infos-section__content">
                 <div className="profile-infos-section__left-column">
                     <span>
                         <strong>Prénom: </strong>
-                        {dataFrom.userData.firstName}
+                        {dataFrom.firstName}
                     </span>
                     <span>
                         <strong>Nom: </strong>
-                        {dataFrom.userData.lastName}
+                        {dataFrom.lastName}
                     </span>
                     <span>
                         <strong>Age: </strong>
-                        {dataFrom.userData.age}
+                        {dataFrom.age}
                     </span>
                     <span>
                         <strong>Genre: </strong>
-                        {dataFrom.userData.gender}
+                        {dataFrom.gender}
                     </span>
                 </div>
                 <div className="profile-infos-section__right-column">
@@ -28,14 +32,18 @@ const FriendInfosSection = ({ dataFrom }) => {
                     </span>
                     <span>
                         <strong>Pays: </strong>
-                        {dataFrom.userData.country}
+                        {dataFrom.country}
                     </span>
                     <span>
                         <strong>Description: </strong>
                         {dataFrom.description}
                     </span>
                     <div className="profile-infos-section__dream-trips-div">
-                        <strong>Mes destinations des rêve: </strong>
+                        {isAuthor ? (
+                            <strong>Mes destinations des rêve: </strong>
+                        ) : (
+                            <strong>Ses destinations des rêve: </strong>
+                        )}
                         <ul>
                             {dataFrom.dreamTrips.map((destination) => (
                                 <li key={destination}>{destination}</li>
@@ -48,4 +56,4 @@ const FriendInfosSection = ({ dataFrom }) => {
     );
 };
 
-export default FriendInfosSection;
+export default InfosSection;

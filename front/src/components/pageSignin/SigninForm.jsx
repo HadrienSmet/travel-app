@@ -14,8 +14,6 @@ import EmailDivision from "./EmailDivision";
 import PasswordDivision from "./PasswordDivision";
 
 const useSigninForm = () => {
-    // const [mail, setMail] = useState("");
-    // const [password, setPassword] = useState("");
     const [signinData, setSigninData] = useState({
         mail: "",
         password: "",

@@ -100,7 +100,6 @@ const useParentModal = ({ changeTrips }) => {
                     details: prevTripsData.details,
                     album: { ...albumData },
                 };
-                console.log(trip);
                 changeTrips(trip);
             }
         }

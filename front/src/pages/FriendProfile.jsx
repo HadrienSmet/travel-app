@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import FriendProfilePostsSection from "../components/pageFriendProfile/FriendProfilePostsSection";
+import ProfilePostsSection from "../components/pageProfile/sectionPosts/ProfilePostsSection";
 import ProfileAlbumsSection from "../components/pageProfile/sectionAlbum/ProfileAlbumsSection";
 import ProfileTripsSection from "../components/pageProfile/sectionTrip/ProfileTripsSection";
 import ProfileFriendsSection from "../components/pageProfile/sectionFriends/ProfileFriendsSection";
@@ -38,7 +38,7 @@ const FriendProfile = () => {
             />
             <div className="profile-section__main-content">
                 {friendProfileState === "actuality" && (
-                    <FriendProfilePostsSection friendProfile={friendProfile} />
+                    <ProfilePostsSection userId={friendProfile._id} />
                 )}
                 {friendProfileState === "albums" && (
                     <ProfileAlbumsSection

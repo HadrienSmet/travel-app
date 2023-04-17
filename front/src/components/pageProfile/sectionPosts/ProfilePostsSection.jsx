@@ -5,11 +5,11 @@ import { axiosGetUserPosts } from "../../../utils/functions/posts/axiosGetUserPo
 import { getJwtToken } from "../../../utils/functions/tools/getJwtToken";
 import Post from "../../post/Post";
 
-const useProfilePostsSection = () => {
+const useProfilePostsSection = ({ userId }) => {
     const [loadPost, setLoadPost] = useState(true);
     const [count, setCount] = useState(5);
     const dispatch = useDispatch();
-    let { userId, token } = getJwtToken();
+    let { token } = getJwtToken();
 
     //This function gets from the API all the posts and displays it into the redux store
     //@Params { type: Number } => referring the number of posts that will be displayed
@@ -54,8 +54,8 @@ const useProfilePostsSection = () => {
     }, [loadPost, count, fetchAllposts]);
 };
 
-const ProfilePostsSection = () => {
-    useProfilePostsSection();
+const ProfilePostsSection = ({ userId }) => {
+    useProfilePostsSection({ userId });
     const userPosts = useSelector((state) => state.postsDataStore.postsData);
     let postsArray = [...userPosts];
 

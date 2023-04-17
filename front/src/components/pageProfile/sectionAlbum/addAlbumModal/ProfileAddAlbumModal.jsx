@@ -110,7 +110,7 @@ const useProfileAlbumModal = () => {
     };
 };
 
-const ProfileAlbumModal = ({ changeAlbumsArray }) => {
+const ProfileAlbumModal = () => {
     const {
         open,
         destination,
